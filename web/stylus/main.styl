@@ -1,0 +1,664 @@
+@import 'nib'
+@import 'normalize' 
+@import 'fuentes'
+@import 'sprites'
+
+box-sizing()
+	-webkit-box-sizing arguments
+	-moz-box-sizing arguments
+	box-sizing arguments
+	
+opacity(n)
+	opacity n
+	if support-for-ie
+		filter unquote('progid:DXImageTransform.Microsoft.Alpha(Opacity=' + round(n * 100) + ')')
+
+color_azul = #2369ab
+color_azul_claro = aqua
+color_rojo = red
+color_gris = gray
+
+a
+	text-decoration none
+	
+body
+	color #282828
+	font-family 'Conv_FRABK'
+	font-size 16px 
+
+footer
+	background black
+	color white
+	overflow hidden
+	& .contenidos
+		height 200px
+	& .contenidos figure
+	& .contenidos .contenido
+	& .contenidos .redes-sociales
+		display inline-block
+		vertical-align middle
+	& .contenidos figure
+		margin 0px 40px 0px 0px 
+		width 103px
+	& .contenidos .contenido
+		width 700px
+	& .contenidos .redes-sociales
+		width 120px
+	& .navegador
+		margin 0px
+		& li > a
+			color white
+		&.secundario
+			margin-top 10px
+			padding 0px 20px 0px
+	& .navegadores
+		background gray
+		margin-bottom 20px
+		
+nav 
+	height 30px
+
+	
+#logo
+	left 0px
+	margin 0
+	position absolute
+	text-align center
+	top 0px
+	width 100%
+	z-index 1
+
+#logo-redes-sociales
+	height 130px
+	position relative
+	width 100%
+	& > .redes-sociales
+		position absolute
+		top 20px
+		right 0px
+		z-index 1000 
+	& > .buscador
+		position absolute
+		top 50px
+		right 0px
+		z-index 1000
+	& > .fecha
+		bottom 0px
+		color #1e1e1e
+		font-family 'Conv_Amplitude-Regular'
+		font-size 14px
+		position absolute
+		right 0px
+		z-index 1000
+
+#minuto-a-minuto
+	border-top 1px solid color_azul
+	margin-bottom 10px
+	margin-top 10px
+	overflow hidden
+	& h2.titulo
+		background color_azul
+		color white
+		font-family 'Conv_FRAMDCN'
+		font-size 20px
+		font-weight normal
+		height 34px 
+		line-height 34px
+		overflow hidden
+		padding-left 20px
+		text-transform uppercase
+	& ul
+		margin 0
+		padding 0
+	& li
+		border-bottom 1px dotted gray
+		font-size 14px
+		height 60px
+		list-style none
+		overflow hidden
+		padding 10px 0px
+		& .tiempo
+		& .contenido
+			display inline-block
+			vertical-align top
+		& .tiempo
+			margin-top 20px
+			width 45px
+			background #d1d1d1
+			color color_azul
+			padding 3px
+			position relative
+			text-align center
+			&:after
+				content ""
+				display block
+				border-left 12px solid #d1d1d1
+				border-top 11px solid transparent
+				border-bottom 11px solid transparent
+				position absolute 
+				right -12px
+				top 0px
+		& .contenido 
+			width 225px
+			margin-left 20px
+			
+.border-gris-lr
+	border-left 1px solid silver
+	border-right 1px solid silver
+
+
+.columna-2
+.columna-1
+.columna-3	
+	//display inline-block
+	//vertical-align top
+	box-sizing border-box
+
+.columna-3 
+	width 1024px
+	float left
+
+.columna-2
+	width 706px
+	float left
+
+.columna-1
+	width 316px
+	padding-left 0px
+	float right
+
+
+.container
+	box-sizing border-box
+	margin 0 auto
+	max-width 1026px
+	overflow hidden
+	& > .header
+		padding 1em 1.35em
+
+.cargar-mas-notas
+	display block
+	height 30px
+	width 30px
+	border-radius 5px
+	content "+"
+	font-size 20px
+	color white
+	display inline-block
+	text-align center
+	line-height 30px
+	&.gris
+		background color_gris
+	&.rojo
+		background color_rojo
+	&.azul
+		background color_azul
+	
+
+.controles-videos
+	height 30px
+	margin 8px 0px 12px
+	position relative
+	& .siguiente
+	& .anterior
+		background-image url('../images/anteriorsiguiente-heraldotv.png')
+		background-repeat no-repeat
+		box-sizing border-box
+		color white
+		cursor pointer
+		display inline-block
+		line-height 25px
+		font-size 16.65px
+		padding 0px 10px
+		height 30px
+		width 107px
+		&:first-letter
+			text-transform uppercase
+
+.categorias-videos
+	background transparent
+	border 1px solid gray
+	border-radius 5px
+	color gray
+	float right
+	font-size 16px
+	margin-right 20px
+	margin-top 10px
+	min-width 300px
+	padding 3px 5px
+	position absolute
+	top -3px
+	right 20px
+	z-index 1000
+	
+
+.control-video
+	position absolute
+	&.siguiente
+		right 0px
+		background-position -3px -30px
+		text-align left
+	&.anterior
+		left 0px
+		background-position 0px 0px
+		text-align right
+
+.form-buscador
+	position relative
+	& .buscar
+		border 1px solid silver
+		color #8d8d8d
+		font-family 'Conv_Amplitude-Regular'
+		font-size 14px
+		padding 5px 30px 5px 5px
+		position absolute
+		right 0px
+		top 0px
+		z-index 1001
+		height 19px
+	& .accion-buscar
+		border none
+		position absolute
+		right 1px
+		top 0px
+		z-index 1002 
+	& .link-archivo
+		color #2369ab
+		color color_azul
+		font-family 'Conv_Amplitude-Regular'
+		font-size 12px
+		position absolute
+		right 0px
+		text-transform capitalize
+		top 33px
+		z-index 1002
+
+.item-noticia
+	display inline-block
+	margin-left 16px
+	vertical-align top
+	width 222px
+	& figure
+		margin 0
+		padding 0 
+	& img
+		width 100%
+	& h3.titulo
+		color #0069a7
+		font-family 'Conv_FRAMDCN'
+		font-size 13.91px
+		font-weight normal
+		margin 7px 0px 5px
+		&:first-letter
+			text-transform uppercase
+	& p
+		color #282828
+		font-family 'Conv_FRABK'
+		font-size 12px
+		margin 0 0 10px
+	&:first-child
+		margin-left 0px
+
+.item-noticia-lg
+	width 302px	
+	&:first-child
+		margin-left 16px
+	& h3.titulo
+		font-size 16.67px
+	& p
+		font-size 14px
+		
+.item-video
+	width 191px
+	&:first-child
+		margin-left 16px		
+		
+
+.list-noticias
+	border-bottom 1px solid silver
+	margin-top 10px
+	padding-bottom 16px
+	& h2.titulo
+		background black
+		border-bottom 10px solid gray
+		color white
+		font-family 'Conv_FRAMDCN'
+		font-size 20.83px
+		height 44px
+		line-height 34px
+		margin 5px 0px
+		min-width 300px
+		padding 0px 10px
+		text-transform uppercase
+		width 314px
+		box-sizing border-box
+		font-weight normal
+		margin-bottom 10px
+		&.azul
+			border-bottom 10px solid color_azul
+		&.rojo
+			border-bottom 10px solid red
+
+
+.lomas
+	width 300px
+	display none
+	overflow hidden
+	& ul
+		padding 0
+		margin 0
+	& li
+		list-style none
+		border-bottom 1px dotted black
+		padding-bottom 8px
+		padding-top 8px
+		font-size 12px
+		float left
+	& .numero
+	& .contenido
+	& figure
+		display inline-block
+		vertical-align top
+	& .numero 
+		width 15px
+		vertical-align middle
+		color color_azul
+		font-weight bold
+	& .contenido
+		width 179px
+	& figure
+		margin 0
+		padding 5px
+		width 90px
+
+.item-lomas
+	height 60px
+	overflow hidden
+	& .numero
+		line-height 60px
+
+
+
+.navegador
+	& ul
+		margin 0
+		padding 0
+		list-style none
+	& li
+		display inline-block
+		vertical-align top
+		& > a
+			color black
+	&.secundario
+		font-family 'Conv_amplitude-medium'
+		font-size 12px
+		height 20px
+		text-align right
+		text-transform uppercase
+		padding-bottom 1em
+		& > ul li
+			margin-left 1em
+	&.principal
+		border-bottom 3px solid color_azul
+		border-top 1px solid color_azul
+		font-size 0px
+		text-align center
+		box-sizing border-box
+		height 39px
+		z-index -1
+		& > ul li
+			position relative
+			display inline-block
+			vertical-align top
+			& a
+				padding 5px 4px
+				background url('../images/separadormenu.png') no-repeat 0px 5px
+				color black
+				display block
+				font-size 1rem
+				height 29px
+				line-height 29px
+				text-transform uppercase
+				text-align center
+				font-family 'Conv_Georgia_0'
+				&:hover
+				&.active
+					color color_azul
+			&:first-child a
+				background none
+			&:last-child a
+				padding-right 0px
+		& ul.submenu
+			top 32px
+			display none
+			margin 0px
+			opacity 0
+			padding-left 0px
+			padding-top 10px
+			position absolute
+			right 0px
+			transition all 1s ease
+			min-width 100px
+			z-index 9999
+			& > li
+				float left
+				background color_azul
+				padding 10px
+				width 100%
+				box-sizing border-box
+				border-bottom 1px solid color_azul_claro
+				& a
+					color white
+					display block
+					text-align left
+					text-transform uppercase
+					background none
+			& > li:last-child
+				border-bottom none
+		& ul.submenu > li:first-child > a:before
+			bottom 100%
+			right 10px
+			border solid transparent
+			content " "
+			height 0
+			width 0
+			position absolute
+			border-bottom-color color_azul
+			border-width 5px
+		& > ul.menu li:hover ul.submenu
+			display block
+			opacity 1
+	&.principal-footer
+		border-top none
+		border-bottom none
+		& > ul li a
+			padding 5px 2px
+			background none
+			color white
+			&:hover
+			&.active
+				color white
+				text-decoration underline
+
+.titulo-tabs
+	background color_azul
+	border-bottom 1px solid color_azul
+	color white
+	font-family 'Conv_FRAMDCN'
+	font-size 20px 
+	line-height 30px
+	overflow hidden
+	padding-left 20px
+	text-transform uppercase
+	vertical-align middle
+	& .tab
+		background white
+		border-bottom 3px solid white
+		border-right 1px solid color_azul
+		border-top 1px solid color_azul
+		box-sizing border-box
+		color color_azul
+		cursor pointer
+		display block
+		float right
+		font-family 'Conv_Georgia_0'
+		font-size 12px
+		height 30px
+		line-height 10px
+		min-width 70px
+		padding 10px 7px
+		text-align center
+		&.active
+			border-bottom 3px solid color_azul
+		
+.control-lomas
+	float right
+	background transparent
+	font-size 14px
+	padding 3px 5px
+	color gray
+	border 1px solid gray
+	border-radius 5px
+	min-width 200px
+		
+			
+.publicidad
+	padding-bottom 1em
+	.item-publicidad
+		display inline-block	 
+		vertical-align top
+		&:last-child
+			margin-left 1em
+
+
+.publicacion
+	border-top 1px solid color_azul
+	border-bottom 1px solid color_azul
+	padding-bottom 1em
+	& .titulo
+		box-sizing border-box
+		color color_azul
+		font-family 'Conv_Georgia_0'
+		font-size 30px
+		font-weight normal
+		margin 5px 0px
+		padding-left 1em
+		width 100%
+		&:first-letter 
+			text-transform uppercase
+	& .contenido
+		color #282828
+		font-size 16px
+		position relative
+	& .ver-nota
+		background color_azul
+		border none
+		color white
+		font-family 'Conv_Georgia_0'
+		font-size 13px 
+		height 40px
+		padding 10px 16px
+		text-transform uppercase
+		width 110px
+
+#ediciones-pdf		
+	& .ediciones-pdf
+		box-sizing border-box
+		color white
+		height 65px
+		margin-top 10px
+		padding 10px 0px
+		text-transform uppercase
+	& h3.titulo
+		height 45px
+		line-height 45px
+		margin 0
+		padding 0px 20px
+	& .contenedor-galeria
+		height 120px
+		margin-top 10px
+		min-width 300px
+		overflow hidden
+		position relative
+	& .contenido
+		& .titulo
+			color color_azul
+			padding none
+	
+.galeria-pdf
+	left 0px
+	margin 0
+	min-width 900px
+	padding 0
+	position absolute
+	top 0px
+	z-index 500
+
+.edicion-pdf
+	float left
+	height 120px
+	list-style none
+	width 300px
+	position relative
+	& figure
+		position absolute
+		top 0px
+		left 0px
+	& .contenido
+		position absolute
+		top 0px
+		right 0px
+		width 190px
+		text-align left
+
+.control
+	display block
+	position absolute
+	top 50%
+	z-index 1000
+	cursor pointer
+	&.izquierdo
+		left 0px
+	&.derecho 
+		right 0px
+
+.redes-sociales span
+	display inline-block
+	vertical-align top
+	margin-left .2em
+
+
+
+// clases OOCSS
+
+.relative
+	position relative
+
+.padding
+	padding 16px	
+	
+.padding-trb
+	padding 16px 16px 16px 0px
+
+.padding-rbl
+	padding 0px 16px 16px
+
+.padding-tl
+	padding 10px 0px 0px 16px
+
+
+.cargador
+	color color_azul
+	font-family 'Conv_FRAMDCN'
+	font-size 14px
+	margin 0px
+	padding-right 16px
+	text-align right
+	&:first-letter
+		text-transform uppercase
+	&.gris
+		color color_gris
+	&.rojo
+		color color_rojo
+	&.azul
+		color color_azul	
