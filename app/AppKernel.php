@@ -26,11 +26,13 @@ class AppKernel extends Kernel
             new Richpolis\PublicacionesBundle\PublicacionesBundle(),
             new Richpolis\PaginasBundle\PaginasBundle(),
             new Richpolis\GaleriasBundle\GaleriasBundle(),
+            new Richpolis\PublicidadBundle\PublicidadBundle(),
+            new Richpolis\ComentariosBundle\ComentariosBundle(),
             
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
-
+            
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

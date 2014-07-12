@@ -23,6 +23,8 @@
       <parameter key="PublicacionesBundle">Richpolis\PublicacionesBundle\PublicacionesBundle</parameter>
       <parameter key="PaginasBundle">Richpolis\PaginasBundle\PaginasBundle</parameter>
       <parameter key="GaleriasBundle">Richpolis\GaleriasBundle\GaleriasBundle</parameter>
+      <parameter key="PublicidadBundle">Richpolis\PublicidadBundle\PublicidadBundle</parameter>
+      <parameter key="ComentariosBundle">Richpolis\ComentariosBundle\ComentariosBundle</parameter>
       <parameter key="KnpPaginatorBundle">Knp\Bundle\PaginatorBundle\KnpPaginatorBundle</parameter>
       <parameter key="AvalancheImagineBundle">Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle</parameter>
       <parameter key="StfalconTinymceBundle">Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle</parameter>
@@ -3400,6 +3402,7 @@
               <argument key="PublicacionesBundle">Richpolis\PublicacionesBundle\Entity</argument>
               <argument key="PaginasBundle">Richpolis\PaginasBundle\Entity</argument>
               <argument key="GaleriasBundle">Richpolis\GaleriasBundle\Entity</argument>
+              <argument key="PublicidadBundle">Richpolis\PublicidadBundle\Entity</argument>
             </argument>
           </call>
           <call method="setMetadataCacheImpl">
@@ -3442,6 +3445,7 @@
                         <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicacionesBundle/Entity</argument>
                         <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PaginasBundle/Entity</argument>
                         <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/GaleriasBundle/Entity</argument>
+                        <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicidadBundle/Entity</argument>
                       </argument>
                     </service>
                   </argument>
@@ -3457,6 +3461,7 @@
                         <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicacionesBundle/Entity</argument>
                         <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PaginasBundle/Entity</argument>
                         <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/GaleriasBundle/Entity</argument>
+                        <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicidadBundle/Entity</argument>
                       </argument>
                     </service>
                   </argument>
@@ -3472,6 +3477,7 @@
                         <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicacionesBundle/Entity</argument>
                         <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PaginasBundle/Entity</argument>
                         <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/GaleriasBundle/Entity</argument>
+                        <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicidadBundle/Entity</argument>
                       </argument>
                     </service>
                   </argument>
@@ -3487,6 +3493,7 @@
                         <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicacionesBundle/Entity</argument>
                         <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PaginasBundle/Entity</argument>
                         <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/GaleriasBundle/Entity</argument>
+                        <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicidadBundle/Entity</argument>
                       </argument>
                     </service>
                   </argument>
@@ -3502,10 +3509,27 @@
                         <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicacionesBundle/Entity</argument>
                         <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PaginasBundle/Entity</argument>
                         <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/GaleriasBundle/Entity</argument>
+                        <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicidadBundle/Entity</argument>
                       </argument>
                     </service>
                   </argument>
                   <argument>Richpolis\GaleriasBundle\Entity</argument>
+                </call>
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
+                      <argument type="service" id="annotation_reader"/>
+                      <argument type="collection">
+                        <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/BackendBundle/Entity</argument>
+                        <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/FrontendBundle/Entity</argument>
+                        <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicacionesBundle/Entity</argument>
+                        <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PaginasBundle/Entity</argument>
+                        <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/GaleriasBundle/Entity</argument>
+                        <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicidadBundle/Entity</argument>
+                      </argument>
+                    </service>
+                  </argument>
+                  <argument>Richpolis\PublicidadBundle\Entity</argument>
                 </call>
               </service>
             </argument>
@@ -4594,6 +4618,14 @@
         <argument>Galerias</argument>
       </call>
       <call method="addPath">
+        <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicidadBundle/Resources/views</argument>
+        <argument>Publicidad</argument>
+      </call>
+      <call method="addPath">
+        <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/ComentariosBundle/Resources/views</argument>
+        <argument>Comentarios</argument>
+      </call>
+      <call method="addPath">
         <argument>/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/vendor/knplabs/knp-paginator-bundle/Knp/Bundle/PaginatorBundle/Resources/views</argument>
         <argument>KnpPaginator</argument>
       </call>
@@ -4714,6 +4746,8 @@
                       <argument key="Richpolis\PublicacionesBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicacionesBundle/Resources/config/serializer</argument>
                       <argument key="Richpolis\PaginasBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PaginasBundle/Resources/config/serializer</argument>
                       <argument key="Richpolis\GaleriasBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/GaleriasBundle/Resources/config/serializer</argument>
+                      <argument key="Richpolis\PublicidadBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicidadBundle/Resources/config/serializer</argument>
+                      <argument key="Richpolis\ComentariosBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/ComentariosBundle/Resources/config/serializer</argument>
                       <argument key="Knp\Bundle\PaginatorBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/vendor/knplabs/knp-paginator-bundle/Knp/Bundle/PaginatorBundle/Resources/config/serializer</argument>
                       <argument key="Avalanche\Bundle\ImagineBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/vendor/avalanche123/imagine-bundle/Avalanche/Bundle/ImagineBundle/Resources/config/serializer</argument>
                       <argument key="Stfalcon\Bundle\TinymceBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/vendor/stfalcon/tinymce-bundle/Stfalcon/Bundle/TinymceBundle/Resources/config/serializer</argument>
@@ -4745,6 +4779,8 @@
                       <argument key="Richpolis\PublicacionesBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicacionesBundle/Resources/config/serializer</argument>
                       <argument key="Richpolis\PaginasBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PaginasBundle/Resources/config/serializer</argument>
                       <argument key="Richpolis\GaleriasBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/GaleriasBundle/Resources/config/serializer</argument>
+                      <argument key="Richpolis\PublicidadBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicidadBundle/Resources/config/serializer</argument>
+                      <argument key="Richpolis\ComentariosBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/ComentariosBundle/Resources/config/serializer</argument>
                       <argument key="Knp\Bundle\PaginatorBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/vendor/knplabs/knp-paginator-bundle/Knp/Bundle/PaginatorBundle/Resources/config/serializer</argument>
                       <argument key="Avalanche\Bundle\ImagineBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/vendor/avalanche123/imagine-bundle/Avalanche/Bundle/ImagineBundle/Resources/config/serializer</argument>
                       <argument key="Stfalcon\Bundle\TinymceBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/vendor/stfalcon/tinymce-bundle/Stfalcon/Bundle/TinymceBundle/Resources/config/serializer</argument>
@@ -4776,6 +4812,8 @@
                       <argument key="Richpolis\PublicacionesBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicacionesBundle/Resources/config/serializer</argument>
                       <argument key="Richpolis\PaginasBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PaginasBundle/Resources/config/serializer</argument>
                       <argument key="Richpolis\GaleriasBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/GaleriasBundle/Resources/config/serializer</argument>
+                      <argument key="Richpolis\PublicidadBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/PublicidadBundle/Resources/config/serializer</argument>
+                      <argument key="Richpolis\ComentariosBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/src/Richpolis/ComentariosBundle/Resources/config/serializer</argument>
                       <argument key="Knp\Bundle\PaginatorBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/vendor/knplabs/knp-paginator-bundle/Knp/Bundle/PaginatorBundle/Resources/config/serializer</argument>
                       <argument key="Avalanche\Bundle\ImagineBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/vendor/avalanche123/imagine-bundle/Avalanche/Bundle/ImagineBundle/Resources/config/serializer</argument>
                       <argument key="Stfalcon\Bundle\TinymceBundle">/home/richpolis/Proyectos/php/sf2/sf2HeraldoToluca/vendor/stfalcon/tinymce-bundle/Stfalcon/Bundle/TinymceBundle/Resources/config/serializer</argument>

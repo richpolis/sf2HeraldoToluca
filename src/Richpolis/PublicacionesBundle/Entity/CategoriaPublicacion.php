@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Richpolis\BackendBundle\Utils\Richsys as RpsStms;
 
-use JMS\Serializer\Annotation as Serializer;
 
 /**
  * CategoriaPublicacion
@@ -14,7 +13,6 @@ use JMS\Serializer\Annotation as Serializer;
  * @ORM\Table(name="categorias_publicaciones")
  * @ORM\Entity(repositoryClass="Richpolis\PublicacionesBundle\Repository\CategoriaPublicacionRepository")
  * @ORM\HasLifecycleCallbacks()
- * @Serializer\ExclusionPolicy("all")
  * 
  */
 class CategoriaPublicacion
@@ -25,41 +23,29 @@ class CategoriaPublicacion
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("integer")
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre_es", type="string", length=150)
+     * @ORM\Column(name="categoria", type="string", length=150)
      * @Assert\NotBlank()
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("string")
      */
-    private $nombreEs;
+    private $categoria;
     
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="nombre_en", type="string", length=150)
+     * @ORM\Column(name="parent", type="integer")
      * @Assert\NotBlank()
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("string")
      */
-    private $nombreEn;
+    private $parent;
     
     /**
      * @var integer
      *
      * @ORM\Column(name="position", type="integer")
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("integer")
      */
     private $position;
 
@@ -67,9 +53,6 @@ class CategoriaPublicacion
      * @var boolean
      *
      * @ORM\Column(name="is_active", type="boolean")
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("boolean")
      */
     private $isActive;
     
@@ -77,9 +60,6 @@ class CategoriaPublicacion
      * @var string
      *
      * @ORM\Column(name="slug", type="string", length=150)
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("string")
      */
     private $slug;
         
@@ -87,7 +67,7 @@ class CategoriaPublicacion
      * @var integer
      *
      * @ORM\OneToMany(targetEntity="Publicacion",mappedBy="categoria")
-	 * @ORM\OrderBy({"position" = "ASC"})
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $publicaciones;
 
@@ -103,7 +83,7 @@ class CategoriaPublicacion
     }
     
     public function __toString(){
-        return $this->getNombreEs();
+        return $this->getCategoria();
     }
 
     /**
@@ -114,58 +94,6 @@ class CategoriaPublicacion
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set nombre
-     *
-     * @param string $nombre
-     * @return Categoria
-     */
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
-
-        return $this;
-    }
-
-    /**
-     * Get nombre
-     *
-     * @return string 
-     */
-    public function getNombre($locale)
-    {
-        if($locale == "es"){
-            $value = $this->nombreEs;
-        }else if($locale == "en"){
-            $value = $this->nombreEn;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Set position
-     *
-     * @param integer $position
-     * @return Categoria
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-
-        return $this;
-    }
-
-    /**
-     * Get position
-     *
-     * @return integer 
-     */
-    public function getPosition()
-    {
-        return $this->position;
     }
 
     /**
@@ -201,52 +129,6 @@ class CategoriaPublicacion
         return $this->publicaciones;
     }
 
-    /**
-     * Set isActive
-     *
-     * @param boolean $isActive
-     * @return Categoria
-     */
-    public function setIsActive($isActive)
-    {
-        $this->isActive = $isActive;
-
-        return $this;
-    }
-
-    /**
-     * Get isActive
-     *
-     * @return boolean 
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
-    }
-    
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Categoria
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-    
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-    
     /*
      * Slugable
      */
@@ -260,49 +142,6 @@ class CategoriaPublicacion
         $this->slug = RpsStms::slugify($this->getNombreEs());
     }
 
-    /**
-     * Set nombreEs
-     *
-     * @param string $nombreEs
-     * @return CategoriaPublicacion
-     */
-    public function setNombreEs($nombreEs)
-    {
-        $this->nombreEs = $nombreEs;
-
-        return $this;
-    }
-
-    /**
-     * Get nombreEs
-     *
-     * @return string
-     */
-    public function getNombreEs()
-    {
-        return $this->nombreEs;
-    }
-
-    /**
-     * Set nombreEn
-     *
-     * @param string $nombreEn
-     * @return CategoriaPublicacion
-     */
-    public function setNombreEn($nombreEn)
-    {
-        $this->nombreEn = $nombreEn;
-
-        return $this;
-    }
-
-    /**
-     * Get nombreEn
-     *
-     * @return string
-     */
-    public function getNombreEn()
-    {
-        return $this->nombreEn;
-    }
+    
+    
 }

@@ -135,6 +135,196 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        if (0 === strpos($pathinfo, '/anuncios')) {
+            // anuncios
+            if (rtrim($pathinfo, '/') === '/anuncios') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_anuncios;
+                }
+
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'anuncios');
+                }
+
+                return array (  '_controller' => 'Richpolis\\PublicidadBundle\\Controller\\AnunciosController::indexAction',  '_route' => 'anuncios',);
+            }
+            not_anuncios:
+
+            // anuncios_create
+            if ($pathinfo === '/anuncios/') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_anuncios_create;
+                }
+
+                return array (  '_controller' => 'Richpolis\\PublicidadBundle\\Controller\\AnunciosController::createAction',  '_route' => 'anuncios_create',);
+            }
+            not_anuncios_create:
+
+            // anuncios_new
+            if ($pathinfo === '/anuncios/new') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_anuncios_new;
+                }
+
+                return array (  '_controller' => 'Richpolis\\PublicidadBundle\\Controller\\AnunciosController::newAction',  '_route' => 'anuncios_new',);
+            }
+            not_anuncios_new:
+
+            // anuncios_show
+            if (preg_match('#^/anuncios/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_anuncios_show;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'anuncios_show')), array (  '_controller' => 'Richpolis\\PublicidadBundle\\Controller\\AnunciosController::showAction',));
+            }
+            not_anuncios_show:
+
+            // anuncios_edit
+            if (preg_match('#^/anuncios/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_anuncios_edit;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'anuncios_edit')), array (  '_controller' => 'Richpolis\\PublicidadBundle\\Controller\\AnunciosController::editAction',));
+            }
+            not_anuncios_edit:
+
+            // anuncios_update
+            if (preg_match('#^/anuncios/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if ($this->context->getMethod() != 'PUT') {
+                    $allow[] = 'PUT';
+                    goto not_anuncios_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'anuncios_update')), array (  '_controller' => 'Richpolis\\PublicidadBundle\\Controller\\AnunciosController::updateAction',));
+            }
+            not_anuncios_update:
+
+            // anuncios_delete
+            if (preg_match('#^/anuncios/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if ($this->context->getMethod() != 'DELETE') {
+                    $allow[] = 'DELETE';
+                    goto not_anuncios_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'anuncios_delete')), array (  '_controller' => 'Richpolis\\PublicidadBundle\\Controller\\AnunciosController::deleteAction',));
+            }
+            not_anuncios_delete:
+
+            // anuncios_ordenar
+            if ($pathinfo === '/anuncios/ordenar/registros') {
+                if ($this->context->getMethod() != 'PATCH') {
+                    $allow[] = 'PATCH';
+                    goto not_anuncios_ordenar;
+                }
+
+                return array (  '_controller' => 'Richpolis\\PublicidadBundle\\Controller\\AnunciosController::ordenarRegistrosAction',  '_route' => 'anuncios_ordenar',);
+            }
+            not_anuncios_ordenar:
+
+        }
+
+        if (0 === strpos($pathinfo, '/publicidad')) {
+            // publicidad
+            if (rtrim($pathinfo, '/') === '/publicidad') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_publicidad;
+                }
+
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'publicidad');
+                }
+
+                return array (  '_controller' => 'Richpolis\\PublicidadBundle\\Controller\\PublicidadController::indexAction',  '_route' => 'publicidad',);
+            }
+            not_publicidad:
+
+            // publicidad_create
+            if ($pathinfo === '/publicidad/') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_publicidad_create;
+                }
+
+                return array (  '_controller' => 'Richpolis\\PublicidadBundle\\Controller\\PublicidadController::createAction',  '_route' => 'publicidad_create',);
+            }
+            not_publicidad_create:
+
+            // publicidad_new
+            if ($pathinfo === '/publicidad/new') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_publicidad_new;
+                }
+
+                return array (  '_controller' => 'Richpolis\\PublicidadBundle\\Controller\\PublicidadController::newAction',  '_route' => 'publicidad_new',);
+            }
+            not_publicidad_new:
+
+            // publicidad_show
+            if (preg_match('#^/publicidad/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_publicidad_show;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'publicidad_show')), array (  '_controller' => 'Richpolis\\PublicidadBundle\\Controller\\PublicidadController::showAction',));
+            }
+            not_publicidad_show:
+
+            // publicidad_edit
+            if (preg_match('#^/publicidad/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_publicidad_edit;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'publicidad_edit')), array (  '_controller' => 'Richpolis\\PublicidadBundle\\Controller\\PublicidadController::editAction',));
+            }
+            not_publicidad_edit:
+
+            // publicidad_update
+            if (preg_match('#^/publicidad/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if ($this->context->getMethod() != 'PUT') {
+                    $allow[] = 'PUT';
+                    goto not_publicidad_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'publicidad_update')), array (  '_controller' => 'Richpolis\\PublicidadBundle\\Controller\\PublicidadController::updateAction',));
+            }
+            not_publicidad_update:
+
+            // publicidad_delete
+            if (preg_match('#^/publicidad/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if ($this->context->getMethod() != 'DELETE') {
+                    $allow[] = 'DELETE';
+                    goto not_publicidad_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'publicidad_delete')), array (  '_controller' => 'Richpolis\\PublicidadBundle\\Controller\\PublicidadController::deleteAction',));
+            }
+            not_publicidad_delete:
+
+            // publicidad_ordenar
+            if ($pathinfo === '/publicidad/ordenar/registros') {
+                if ($this->context->getMethod() != 'PATCH') {
+                    $allow[] = 'PATCH';
+                    goto not_publicidad_ordenar;
+                }
+
+                return array (  '_controller' => 'Richpolis\\PublicidadBundle\\Controller\\PublicidadController::ordenarRegistrosAction',  '_route' => 'publicidad_ordenar',);
+            }
+            not_publicidad_ordenar:
+
+        }
+
         if (0 === strpos($pathinfo, '/backend')) {
             if (0 === strpos($pathinfo, '/backend/galerias')) {
                 // galerias

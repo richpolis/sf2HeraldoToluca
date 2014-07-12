@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Richpolis\BackendBundle\Utils\Richsys as RpsStms;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use JMS\Serializer\Annotation as Serializer;
-
 
 
 /**
@@ -16,8 +14,6 @@ use JMS\Serializer\Annotation as Serializer;
  * @ORM\Table(name="servicios")
  * @ORM\Entity(repositoryClass="Richpolis\PublicacionesBundle\Repository\ServicioRepository")
  * @ORM\HasLifecycleCallbacks()
- * 
- * @Serializer\ExclusionPolicy("all")
  */
 class Servicio
 {
@@ -27,46 +23,30 @@ class Servicio
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("integer")
-     * @Serializer\Groups({"list", "details"})
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicio_es", type="string", length=255)
+     * @ORM\Column(name="servicios", type="string", length=255)
      * @Assert\NotBlank()
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("string")
-     * @Serializer\Groups({"list", "details"})
      */
-    private $servicioEs;
+    private $servicios;
     
     /**
      * @var string
      *
      * @ORM\Column(name="servicio_en", type="string", length=255)
      * @Assert\NotBlank()
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("string")
-     * @Serializer\Groups({"list", "details"})
      */
-    private $servicioEn;
+    private $servicios;
 
     /**
      * @var string
      *
      * @ORM\Column(name="descripcion_es", type="text")
      * @Assert\NotBlank()
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("string")
-     * @Serializer\Groups({"list", "details"})
      */
     private $descripcionEs;
 
@@ -75,10 +55,6 @@ class Servicio
      *
      * @ORM\Column(name="descripcion_en", type="text")
      * @Assert\NotBlank()
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("string")
-     * @Serializer\Groups({"list", "details"})
      */
     private $descripcionEn;    
     
@@ -86,10 +62,6 @@ class Servicio
      * @var string
      *
      * @ORM\Column(name="imagen", type="string", length=255, nullable=true)
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("string")
-     * @Serializer\Groups({"list", "details"})
      */
     private $imagen;
 
@@ -99,11 +71,6 @@ class Servicio
      * @ORM\ManyToMany(targetEntity="Richpolis\GaleriasBundle\Entity\Galeria")
      * @ORM\JoinTable(name="servicios_galeria")
      * @ORM\OrderBy({"position" = "ASC"})
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("ArrayCollection<Richpolis\GaleriasBundle\Entity\Galeria>")
-     * @Serializer\MaxDepth(1)
-     * @Serializer\Groups({"details"})
      */
     private $galerias;
 
@@ -111,10 +78,6 @@ class Servicio
      * @var integer
      *
      * @ORM\Column(name="position", type="integer")
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("integer")
-     * @Serializer\Groups({"list", "details"})
      */
     private $position;
 
@@ -122,10 +85,6 @@ class Servicio
      * @var boolean
      *
      * @ORM\Column(name="isActive", type="boolean")
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("boolean")
-     * @Serializer\Groups({"list", "details"})
      */
     private $isActive;
     
@@ -133,10 +92,6 @@ class Servicio
      * @var string
      *
      * @ORM\Column(name="slug", type="string", length=255, nullable=true)
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("string")
-     * @Serializer\Groups({"list", "details"})
      */
     private $slug;
 
@@ -144,10 +99,6 @@ class Servicio
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("datetime")
-     * @Serializer\Groups({"list", "details"})
      */
     private $createdAt;
 
@@ -155,10 +106,6 @@ class Servicio
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime")
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("datetime")
-     * @Serializer\Groups({"list", "details"})
      */
     private $updatedAt;
     

@@ -8,18 +8,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-
-use JMS\Serializer\Annotation as Serializer;
-
-
 /**
  * Publicacion
  *
  * @ORM\Table(name="publicaciones")
  * @ORM\Entity(repositoryClass="Richpolis\PublicacionesBundle\Repository\PublicacionRepository")
  * @ORM\HasLifecycleCallbacks()
- * 
- * @Serializer\ExclusionPolicy("all")
  */
 class Publicacion
 {
@@ -29,213 +23,120 @@ class Publicacion
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("integer")
-     * @Serializer\Groups({"list", "details"})
      */
     private $id;
 
     /**
      * @var string
+     * @todo Titulo de la noticia
      *
-     * @ORM\Column(name="titulo_es", type="string", length=255)
+     * @ORM\Column(name="titulo", type="string", length=255, nullable=false)
      * @Assert\NotBlank()
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("titulo")
-     * @Serializer\Groups({"list", "details"})
      */
-    private $tituloEs;
+    private $titulo;
     
     /**
      * @var string
+     * @todo Contenido de la noticia
      *
-     * @ORM\Column(name="titulo_en", type="string", length=255)
+     * @ORM\Column(name="descripcion", type="text",nullable=false)
      * @Assert\NotBlank()
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("titulo")
-     * @Serializer\Groups({"list", "details"})
      */
-    private $tituloEn;
-    
+    private $descripcion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="descripcion_es", type="text",nullable=true)
+     * @var boolean
+     * @todo Cuando es aprobado, se publica.
      * 
-     * @Serializer\Expose
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("descripcion")
-     * @Serializer\Groups({"list", "details"})
+     * @ORM\Column(name="is_approved", type="boolean")
      */
-    private $descripcionEs;
+    private $isAprobado;
+    
+    /**
+     * @var boolean
+     * @todo Es para ponerla en la pagina de inicio como noticia principal
+     *
+     * @ORM\Column(name="is_principal", type="boolean")
+     */
+    private $isPrincipal;
+    
+    /**
+     * @var boolean
+     * @todo Agrega a la noticia en el carrusel de portada.
+     *
+     * @ORM\Column(name="is_carrusel", type="boolean")
+     */
+    private $isCarrusel;
     
     /**
      * @var string
-     *
-     * @ORM\Column(name="descripcion_en", type="text",nullable=true)
+     * @todo Para hacer busquedas.
      * 
-     * @Serializer\Expose
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("descripcion")
-     * @Serializer\Groups({"list", "details"})
+     * @ORM\Column(name="tags", type="string", nullable=true)
      */
-    private $descripcionEn;    
-
+    private $tags;
+    
     /**
-     * @var integer
+     * @var string
+     * @todo Portada de la noticia, si no existe se toma la primera imagen de las galerias.
      *
-     * @ORM\Column(name="empezo", type="integer")
-     *  
-     * @Serializer\Expose
-     * @Serializer\Type("integer")
-     * @Serializer\Groups({"list", "details"})
+     * @ORM\Column(name="imagen", type="string", length=150, nullable=true)
      */
-    private $empezo;
+    private $imagen;
     
     /**
      * @var integer
-     *
-     * @ORM\Column(name="termino", type="integer")
-     *  
-     * @Serializer\Expose
-     * @Serializer\Type("integer")
-     * @Serializer\Groups({"list", "details"})
-     */
-    private $termino;    
-    
-    /**
-     * @var integer
+     * @todo Posicion de la noticia entre el grupo de noticias.
      *
      * @ORM\Column(name="position", type="integer")
-     *  
-     * @Serializer\Expose
-     * @Serializer\Type("integer")
-     * @Serializer\Groups({"list", "details"})
      */
     private $position;
 
     /**
      * @var boolean
+     * @todo Si la noticia es inactiva no es visible para el usuario. 
      *
      * @ORM\Column(name="is_active", type="boolean")
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("boolean")
-     * @Serializer\SerializedName("isActive")
-     * @Serializer\Groups({"list", "details"})
      */
     private $isActive;
     
     /**
      * @var string
+     * @todo Slug de la noticia
      *
      * @ORM\Column(name="slug", type="string", length=255,nullable=true)
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("string")
-     * @Serializer\Groups({"list", "details"})
      */
     private $slug;
     
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="cliente", type="string", length=255)
-     * @Assert\NotBlank()
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("titulo")
-     * @Serializer\Groups({"list", "details"})
-     */
-    private $cliente;
-    
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ubicacion", type="string", length=255)
-     * @Assert\NotBlank()
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("titulo")
-     * @Serializer\Groups({"list", "details"})
-     */
-    private $ubicacion;
-    
-    
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="monto", type="string", length=255, nullable=true)
-     * @Assert\NotBlank()
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("titulo")
-     * @Serializer\Groups({"list", "details"})
-     */
-    private $monto;
-    
     /**
      * @var Richpolis\BackendBundle\Entity\Usuario
+     * @todo Autor de la noticia
      *
      * @ORM\ManyToOne(targetEntity="Richpolis\BackendBundle\Entity\Usuario", inversedBy="publicaciones")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      * })
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("Richpolis\BackendBundle\Entity\Usuario")
-     * @Serializer\Groups({"list", "details"})
      */
     private $usuario;
     
     /**
      * @var \CategoriaPublicacion
+     * @todo Categoria de la noticia
      *
      * @ORM\ManyToOne(targetEntity="CategoriaPublicacion", inversedBy="publicaciones")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="categoria_publicacion_id", referencedColumnName="id")
      * })
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion")
-     * @Serializer\Groups({"list", "details"})
      */
     private $categoria;
-	
-	/**
-     * @var string
-     *
-     * @ORM\Column(name="imagen", type="string", length=150, nullable=true)
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("string")
-     * @Serializer\Groups({"list", "details"})
-     */
-    private $imagen;
 
     /**
      * @var integer
+     * @todo Galeria de la noticia. 
      *
      * @ORM\ManyToMany(targetEntity="Richpolis\GaleriasBundle\Entity\Galeria")
      * @ORM\JoinTable(name="publicaciones_galeria")
      * @ORM\OrderBy({"position" = "ASC"})
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("ArrayCollection<Richpolis\GaleriasBundle\Entity\Galeria>")
-     * @Serializer\MaxDepth(1)
-     * @Serializer\Groups({"details"})
      */
     private $galerias;
     
@@ -243,10 +144,6 @@ class Publicacion
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("DateTime")
-     * @Serializer\Groups({"list", "details"})
      */
     private $createdAt;
 
@@ -254,10 +151,6 @@ class Publicacion
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
-     * 
-     * @Serializer\Expose
-     * @Serializer\Type("DateTime")
-     * @Serializer\Groups({"list", "details"})
      */
     private $updatedAt;
 
@@ -268,8 +161,9 @@ class Publicacion
     {
         $this->galerias = new \Doctrine\Common\Collections\ArrayCollection();
         $this->isActive = true;
-        $this->inCarrusel = true;
-        $this->precio = 0;
+        $this->isCarrusel = false;
+        $this->isAprobado = false;
+        $this->isPrincipal = false;
     }
     
     public function __toString(){
@@ -325,20 +219,9 @@ class Publicacion
     */
     public function setSlugAtValue()
     {
-        $this->slug = RpsStms::slugify($this->getTituloEs());
+        $this->slug = RpsStms::slugify($this->getTitulo());
     }
 
-    public function getSlugLocale($locale)
-    {
-        $slug = '';
-        if($locale == 'es'){
-            $slug = RpsStms::slugify($this->getTituloEs());    
-        }elseif($locale == 'en'){
-            $slug = RpsStms::slugify($this->getTituloEn());
-        }
-        return $slug;
-    }
-    
     /*** uploads ***/
     
     /**
@@ -516,494 +399,4 @@ class Publicacion
         return RpsStms::cut_string2(RpsStms::strip_html_tags($this->getDescripcion()),250);
     }
     
-    
-	
-
-    /**
-     * Set titulo
-     *
-     * @param string $titulo
-     * @return Publicacion
-     */
-    public function setTitulo($value, $locale)
-    {
-        if($locale == "es"){
-            $this->tituloEs = $value;
-        }else{
-            $this->tituloEn = $value;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get titulo
-     *
-     * @return string 
-     */
-    public function getTitulo($locale)
-    {
-        if($locale == "es"){
-            $value = $this->tituloEs;
-        }else{
-            $value = $this->tituloEn;
-        }
-        return $value;
-    }
-
-    /**
-     * Set descripcion
-     *
-     * @param string $descripcion
-     * @return Publicacion
-     */
-    public function setDescripcion($value, $locale)
-    {
-        if($locale == "es"){
-            $this->descripcionEs = $value;
-        }else{
-            $this->descripcionEn = $value;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get descripcion
-     *
-     * @return string 
-     */
-    public function getDescripcion($locale)
-    {
-        if($locale == "es"){
-            $value = $this->descripcionEs;
-        }else{
-            $value = $this->descripcionEn;
-        }
-        return $value;
-    }
-
-    /**
-     * Set position
-     *
-     * @param integer $position
-     * @return Publicacion
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-
-        return $this;
-    }
-
-    /**
-     * Get position
-     *
-     * @return integer 
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    /**
-     * Set isActive
-     *
-     * @param boolean $isActive
-     * @return Publicacion
-     */
-    public function setIsActive($isActive)
-    {
-        $this->isActive = $isActive;
-
-        return $this;
-    }
-
-    /**
-     * Get isActive
-     *
-     * @return boolean 
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Publicacion
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Set imagen
-     *
-     * @param string $imagen
-     * @return Publicacion
-     */
-    public function setImagen($imagen)
-    {
-        $this->imagen = $imagen;
-
-        return $this;
-    }
-
-    /**
-     * Get imagen
-     *
-     * @return string 
-     */
-    public function getImagen()
-    {
-        return $this->imagen;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     * @return Publicacion
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     * @return Publicacion
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime 
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * Set usuario
-     *
-     * @param \Richpolis\BackendBundle\Entity\Usuario $usuario
-     * @return Publicacion
-     */
-    public function setUsuario(\Richpolis\BackendBundle\Entity\Usuario $usuario = null)
-    {
-        $this->usuario = $usuario;
-
-        return $this;
-    }
-
-    /**
-     * Get usuario
-     *
-     * @return \Richpolis\BackendBundle\Entity\Usuario 
-     */
-    public function getUsuario()
-    {
-        return $this->usuario;
-    }
-
-    /**
-     * Set categoria
-     *
-     * @param \Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion $categoria
-     * @return Publicacion
-     */
-    public function setCategoria(\Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion $categoria = null)
-    {
-        $this->categoria = $categoria;
-
-        return $this;
-    }
-
-    /**
-     * Get categoria
-     *
-     * @return \Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion 
-     */
-    public function getCategoria()
-    {
-        return $this->categoria;
-    }
-
-    /**
-     * Add galerias
-     *
-     * @param \Richpolis\GaleriasBundle\Entity\Galeria $galerias
-     * @return Publicacion
-     */
-    public function addGaleria(\Richpolis\GaleriasBundle\Entity\Galeria $galerias)
-    {
-        $this->galerias[] = $galerias;
-
-        return $this;
-    }
-
-    /**
-     * Remove galerias
-     *
-     * @param \Richpolis\GaleriasBundle\Entity\Galeria $galerias
-     */
-    public function removeGaleria(\Richpolis\GaleriasBundle\Entity\Galeria $galerias)
-    {
-        $this->galerias->removeElement($galerias);
-    }
-
-    /**
-     * Get galerias
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getGalerias()
-    {
-        return $this->galerias;
-    }
-
-    /**
-     * Set tituloEs
-     *
-     * @param string $tituloEs
-     * @return Publicacion
-     */
-    public function setTituloEs($tituloEs)
-    {
-        $this->tituloEs = $tituloEs;
-
-        return $this;
-    }
-
-    /**
-     * Get tituloEs
-     *
-     * @return string 
-     */
-    public function getTituloEs()
-    {
-        return $this->tituloEs;
-    }
-
-    /**
-     * Set tituloEn
-     *
-     * @param string $tituloEn
-     * @return Publicacion
-     */
-    public function setTituloEn($tituloEn)
-    {
-        $this->tituloEn = $tituloEn;
-
-        return $this;
-    }
-
-    /**
-     * Get tituloEn
-     *
-     * @return string 
-     */
-    public function getTituloEn()
-    {
-        return $this->tituloEn;
-    }
-
-    /**
-     * Set descripcionEs
-     *
-     * @param string $descripcionEs
-     * @return Publicacion
-     */
-    public function setDescripcionEs($descripcionEs)
-    {
-        $this->descripcionEs = $descripcionEs;
-
-        return $this;
-    }
-
-    /**
-     * Get descripcionEs
-     *
-     * @return string 
-     */
-    public function getDescripcionEs()
-    {
-        return $this->descripcionEs;
-    }
-
-    /**
-     * Set descripcionEn
-     *
-     * @param string $descripcionEn
-     * @return Publicacion
-     */
-    public function setDescripcionEn($descripcionEn)
-    {
-        $this->descripcionEn = $descripcionEn;
-
-        return $this;
-    }
-
-    /**
-     * Get descripcionEn
-     *
-     * @return string 
-     */
-    public function getDescripcionEn()
-    {
-        return $this->descripcionEn;
-    }
-
-    /**
-     * Set empezo
-     *
-     * @param integer $empezo
-     * @return Publicacion
-     */
-    public function setEmpezo($empezo)
-    {
-        $this->empezo = $empezo;
-
-        return $this;
-    }
-
-    /**
-     * Get empezo
-     *
-     * @return integer 
-     */
-    public function getEmpezo()
-    {
-        return $this->empezo;
-    }
-
-    /**
-     * Set termino
-     *
-     * @param integer $termino
-     * @return Publicacion
-     */
-    public function setTermino($termino)
-    {
-        $this->termino = $termino;
-
-        return $this;
-    }
-
-    /**
-     * Get termino
-     *
-     * @return integer 
-     */
-    public function getTermino()
-    {
-        return $this->termino;
-    }
-
-    /**
-     * Set cliente
-     *
-     * @param string $cliente
-     * @return Publicacion
-     */
-    public function setCliente($cliente)
-    {
-        $this->cliente = $cliente;
-
-        return $this;
-    }
-
-    /**
-     * Get cliente
-     *
-     * @return string 
-     */
-    public function getCliente()
-    {
-        return $this->cliente;
-    }
-
-    /**
-     * Set ubicacion
-     *
-     * @param string $ubicacion
-     * @return Publicacion
-     */
-    public function setUbicacion($ubicacion)
-    {
-        $this->ubicacion = $ubicacion;
-
-        return $this;
-    }
-
-    /**
-     * Get ubicacion
-     *
-     * @return string 
-     */
-    public function getUbicacion()
-    {
-        return $this->ubicacion;
-    }
-
-    /**
-     * Set monto
-     *
-     * @param string $monto
-     * @return Publicacion
-     */
-    public function setMonto($monto)
-    {
-        $this->monto = $monto;
-
-        return $this;
-    }
-
-    /**
-     * Get monto
-     *
-     * @return string 
-     */
-    public function getMonto()
-    {
-        return $this->monto;
-    }
 }
