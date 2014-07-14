@@ -43,17 +43,10 @@ class Pagina
     /**
      * @var string
      *
-     * @ORM\Column(name="contenido_es", type="text", nullable=true)
+     * @ORM\Column(name="contenido", type="text", nullable=true)
      */
-    private $contenidoEs;
+    private $contenido;
     
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="contenido_en", type="text", nullable=true)
-     */
-    private $contenidoEn;
-
     /**
      * @var integer
      *
@@ -71,172 +64,7 @@ class Pagina
         $this->galerias = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set pagina
-     *
-     * @param string $pagina
-     * @return Pagina
-     */
-    public function setPagina($pagina)
-    {
-        $this->pagina = $pagina;
-
-        return $this;
-    }
-
-    /**
-     * Get pagina
-     *
-     * @return string 
-     */
-    public function getPagina()
-    {
-        return $this->pagina;
-    }
-
-    /**
-     * Set contenido
-     *
-     * @param string $contenido
-     * @return Pagina
-     */
-    public function setContenido($contenido,$locale)
-    {
-        if($locale == "es"){
-            $this->contenidoEs = $contenido;
-        }else if($locale == "en"){
-            $this->contenidoEn = $contenido;
-        }
-        return $this;
-    }
-
-    /**
-     * Get contenido
-     *
-     * @return string 
-     */
-    public function getContenido($locale)
-    {
-        if($locale == "es"){
-            $contenido = $this->contenidoEs;
-        }else if($locale == "en"){
-            $contenido = $this->contenidoEn;
-        }
-        return $contenido;
-    }
-
-    /**
-     * Set contenidoEs
-     *
-     * @param string $contenidoEs
-     * @return Pagina
-     */
-    public function setContenidoEs($contenidoEs)
-    {
-        $this->contenidoEs = $contenidoEs;
-
-        return $this;
-    }
-
-    /**
-     * Get contenidoEs
-     *
-     * @return string 
-     */
-    public function getContenidoEs()
-    {
-        return $this->contenidoEs;
-    }
-
-    /**
-     * Set contenidoEn
-     *
-     * @param string $contenidoEn
-     * @return Pagina
-     */
-    public function setContenidoEn($contenidoEn)
-    {
-        $this->contenidoEn = $contenidoEn;
-
-        return $this;
-    }
-
-    /**
-     * Get contenidoEn
-     *
-     * @return string 
-     */
-    public function getContenidoEn()
-    {
-        return $this->contenidoEn;
-    }
-
     
-    /**
-     * Set imagen
-     *
-     * @param string $imagen
-     * @return Pagina
-     */
-    public function setImagen($imagen)
-    {
-        $this->imagen = $imagen;
-
-        return $this;
-    }
-
-    /**
-     * Get imagen
-     *
-     * @return string 
-     */
-    public function getImagen()
-    {
-        return $this->imagen;
-    }
-
-    /**
-     * Add galerias
-     *
-     * @param \Richpolis\GaleriasBundle\Entity\Galeria $galerias
-     * @return Pagina
-     */
-    public function addGaleria(\Richpolis\GaleriasBundle\Entity\Galeria $galerias)
-    {
-        $this->galerias[] = $galerias;
-
-        return $this;
-    }
-
-    /**
-     * Remove galerias
-     *
-     * @param \Richpolis\GaleriasBundle\Entity\Galeria $galerias
-     */
-    public function removeGaleria(\Richpolis\GaleriasBundle\Entity\Galeria $galerias)
-    {
-        $this->galerias->removeElement($galerias);
-    }
-
-    /**
-     * Get galerias
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getGalerias()
-    {
-        return $this->galerias;
-    }
 
     /*** uploads ***/
     
@@ -351,4 +179,116 @@ class Pagina
     }
 
     
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set pagina
+     *
+     * @param string $pagina
+     * @return Pagina
+     */
+    public function setPagina($pagina)
+    {
+        $this->pagina = $pagina;
+
+        return $this;
+    }
+
+    /**
+     * Get pagina
+     *
+     * @return string 
+     */
+    public function getPagina()
+    {
+        return $this->pagina;
+    }
+
+    /**
+     * Set imagen
+     *
+     * @param string $imagen
+     * @return Pagina
+     */
+    public function setImagen($imagen)
+    {
+        $this->imagen = $imagen;
+
+        return $this;
+    }
+
+    /**
+     * Get imagen
+     *
+     * @return string 
+     */
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+    /**
+     * Set contenido
+     *
+     * @param string $contenido
+     * @return Pagina
+     */
+    public function setContenido($contenido)
+    {
+        $this->contenido = $contenido;
+
+        return $this;
+    }
+
+    /**
+     * Get contenido
+     *
+     * @return string 
+     */
+    public function getContenido()
+    {
+        return $this->contenido;
+    }
+
+    /**
+     * Add galerias
+     *
+     * @param \Richpolis\GaleriasBundle\Entity\Galeria $galerias
+     * @return Pagina
+     */
+    public function addGaleria(\Richpolis\GaleriasBundle\Entity\Galeria $galerias)
+    {
+        $this->galerias[] = $galerias;
+
+        return $this;
+    }
+
+    /**
+     * Remove galerias
+     *
+     * @param \Richpolis\GaleriasBundle\Entity\Galeria $galerias
+     */
+    public function removeGaleria(\Richpolis\GaleriasBundle\Entity\Galeria $galerias)
+    {
+        $this->galerias->removeElement($galerias);
+    }
+
+    /**
+     * Get galerias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGalerias()
+    {
+        return $this->galerias;
+    }
 }

@@ -31,7 +31,7 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/{categoria}", name="frontend_categoria")
+     * @Route("/categoria/{categoria}", name="frontend_categoria")
      * @Template()
      */
     public function categoriaAction($categoria)
@@ -45,7 +45,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/{categoria}/{publicacion}", name="frontend_publiaciones")
+     * @Route("/publicacion/{publicacion}", name="frontend_publiaciones")
      * @Template()
      */
     public function publicacionAction($categoria,$publicacion)
@@ -84,9 +84,37 @@ class DefaultController extends Controller
         }
         return $arreglo;
     }
+	
+	/**
+     * @Route("/nosotros", name="frontend_nosotros")
+     * @Template("FrontendBundle:Default:estatica.html.twig")
+     */
+    public function nosotrosAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $nosotros = $em->getRepository('PaginasBundle:Pagina')
+                ->findOneBy(array('pagina'=>'nosotros'));
+        return array(
+            'pagina'=>$nosotros
+        );
+    }
+	
+	/**
+     * @Route("/historia", name="frontend_historia")
+     * @Template("FrontendBundle:Default:estatica.html.twig")
+     */
+    public function historiaAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $historia = $em->getRepository('PaginasBundle:Pagina')
+                ->findOneBy(array('pagina'=>'historia'));
+        return array(
+            'pagina'=>$historia
+        );
+    }
     
     /**
-     * @Route("/{_locale}/contacto", name="frontend_contacto")
+     * @Route("/contacto", name="frontend_contacto")
      * @Method({"GET", "POST"})
      */
     public function contactoAction(Request $request) {

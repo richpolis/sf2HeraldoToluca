@@ -1,0 +1,199 @@
+{% extends 'FrontendBundle::layout.html.twig' %}
+
+{% block contenido %}
+
+    <section class="padding columna-2">
+        <article class="list-noticias">
+            <header>
+                <h2 class="titulo">
+                    {{pagina.pagina}}
+                </h2>
+            </header>
+            <div class="contenido">
+                {{ pagina.contenido | raw }}
+            </div>
+        </article>
+    </section>	
+    <aside class="padding-trb columna-1">
+        <div class="publicidad-sin-padding">
+            <img src="http://placehold.it/300x250" alt=""/>
+        </div>
+        <article id="lomasvisto-comentado">
+            <header>
+                <p class="titulo-tabs">
+                    lo más  <span data-tab="lomas-comentado" class="tab tab-comentado">comentado</span><span data-tab="lomas-visto" class="tab tab-visto active">visto</span>
+                </p>
+            </header>
+            <div class="contenido lomas lomas-visto">
+                <select name="cbLoMasVisto" id="cbLoMasVisto" class="control-lomas">
+                    <option value="categoria1">lo mas visto</option>
+                    <option value="categoria2">Categoria 2</option>
+                    <option value="categoria3">Categoria 3</option>
+                </select>
+                <ul>
+                    <li class="item">
+                        <div class="item-lomas item-lomas-visto">
+                            <div class="numero">1</div>
+                            <div class="contenido">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum necessitatibus magni, qui iste, perspiciatis error quibusdam ipsa voluptates doloremque mollitia maxime eius autem similique dolores recusandae perferendis dolore accusamus quam?</div>
+                            <figure class="thumbnail-mini">
+                                <img src="http://placehold.it/90x60" alt=""/>
+                            </figure>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="item-lomas item-lomas-visto">
+                            <div class="numero">2</div>
+                            <div class="contenido">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum necessitatibus magni, qui iste, perspiciatis error quibusdam ipsa voluptates doloremque mollitia maxime eius autem similique dolores recusandae perferendis dolore accusamus quam?</div>
+                            <figure class="thumbnail-mini">
+                                <img src="http://placehold.it/90x60" alt=""/>
+                            </figure>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="item-lomas item-lomas-visto">
+                            <div class="numero">3</div>
+                            <div class="contenido">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum necessitatibus magni, qui iste, perspiciatis error quibusdam ipsa voluptates doloremque mollitia maxime eius autem similique dolores recusandae perferendis dolore accusamus quam?</div>
+                            <figure class="thumbnail-mini">
+                                <img src="http://placehold.it/90x60" alt=""/>
+                            </figure>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="item-lomas item-lomas-visto">
+                            <div class="numero">4</div>
+                            <div class="contenido">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum necessitatibus magni, qui iste, perspiciatis error quibusdam ipsa voluptates doloremque mollitia maxime eius autem similique dolores recusandae perferendis dolore accusamus quam?</div>
+                            <figure class="thumbnail-mini">
+                                <img src="http://placehold.it/90x60" alt=""/>
+                            </figure>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="item-lomas item-lomas-visto">
+                            <div class="numero">5</div>
+                            <div class="contenido">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum necessitatibus magni, qui iste, perspiciatis error quibusdam ipsa voluptates doloremque mollitia maxime eius autem similique dolores recusandae perferendis dolore accusamus quam?</div>
+                            <figure class="thumbnail-mini">
+                                <img src="http://placehold.it/90x60" alt=""/>
+                            </figure>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="contenido lomas lomas-comentado">
+                <select name="cbLoMasComentado" id="cbLoMasComentado"  class="control-lomas">
+                    <option value="categoria1">Lo mas comentado</option>
+                    <option value="categoria2">Categoria 2</option>
+                    <option value="categoria3">Categoria 3</option>
+                </select>
+                <ul>
+                    <li class="item-lomas item-lomas-comentado">
+                        <div class="numero">1</div>
+                        <div class="contenido">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit totam labore ullam voluptates, similique sunt animi incidunt adipisci dicta consectetur quae expedita esse accusantium velit officiis dolores quisquam vitae error!</div>
+                        <figure class="thumbnail-mini">
+                            <img src="http://placehold.it/90x60" alt=""/>
+                        </figure>
+                    </li>
+                    <li class="item-lomas item-lomas-comentado">
+                        <div class="numero">2</div>
+                        <div class="contenido">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui voluptatibus repellendus officia dolorum ad quam corporis, porro debitis eveniet accusamus atque nihil eum, veritatis sunt ex inventore! Temporibus, excepturi, perferendis.</div>
+                        <figure class="thumbnail-mini">
+                            <img src="http://placehold.it/90x60" alt=""/>
+                        </figure>
+                    </li>
+                    <li class="item-lomas item-lomas-comentado">
+                        <div class="numero">3</div>
+                        <div class="contenido">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora sint cumque illo maiores fugit, esse consequuntur doloremque quas dicta reprehenderit? Consequatur non veritatis voluptatem, quas nihil, repellat vero asperiores alias?</div>
+                        <figure class="thumbnail-mini">
+                            <img src="http://placehold.it/90x60" alt=""/>
+                        </figure>
+                    </li>
+                    <li class="item-lomas item-lomas-comentado">
+                        <div class="numero">4</div>
+                        <div class="contenido">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit sapiente magnam nisi aut eos quae voluptatum consequuntur voluptate laudantium, repudiandae sunt quidem ratione aspernatur maxime aliquam consectetur libero ea sint.</div>
+                        <figure class="thumbnail-mini">
+                            <img src="http://placehold.it/90x60" alt=""/>
+                        </figure>
+                    </li>
+                    <li class="item-lomas item-lomas-comentado">
+                        <div class="numero">5</div>
+                        <div class="contenido">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque culpa commodi cumque incidunt aliquid ut unde nihil, sint optio consequatur, ipsam, suscipit enim praesentium recusandae magnam omnis atque maiores mollitia!</div>
+                        <figure class="thumbnail-mini">
+                            <img src="http://placehold.it/90x60" alt=""/>
+                        </figure>
+                    </li>
+                </ul>
+            </div>
+        </article>
+        <article id="ediciones-pdf">
+            <header class="ediciones-pdf ico_edicioespdf">
+                <h3 class="titulo">ediciones pdf</h3>
+            </header>
+            <div class="contenedor-galeria">
+                <span class="control izquierdo ico_edicionespdf_flecha_izquierda"></span>
+                <span class="control derecho ico_edicionespdf_flecha_derecha"></span>
+                <ul class="galeria-pdf">
+                    <li class="item edicion-pdf">
+                        <figure class="imagen-archivo">
+                            <img src="http://placehold.it/60x110" alt="">
+                        </figure>
+                        <div class="contenido">
+                            <h4 class="titulo"> ultima edicion </h4>
+                            <span class="fecha-archivo"> 12 de julio 2014</span>
+                        </div>
+                    </li>
+                    <li class="item edicion-pdf">
+                        <figure class="imagen-archivo">
+                            <img src="http://placehold.it/60x110" alt="">
+                        </figure>
+                        <div class="contenido">
+                            <h4 class="titulo">Dia de edicion</h4>
+                            <span class="fecha-archivo">11 de julio 2014</span>
+                        </div>
+                    </li>
+                    <li class="item edicion-pdf">
+                        <figure class="imagen-archivo">
+                            <img src="http://placehold.it/60x110" alt="">
+                        </figure>
+                        <div class="contenido">
+                            <h4 class="titulo">dia de edicion</h4>
+                            <span class="fecha-archivo">10 de julio 2014</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </article>
+        <article id="minuto-a-minuto">
+            <header>
+                <h2 class="titulo">minuto a minuto</h2>
+            </header>
+            <div class="contenido">
+                <ul class="lista">
+                    <li class="item minuto">
+                        <span class="tiempo">13:37</span>
+                        <div class="contenido">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro sequi esse distinctio ut debitis at nam molestias veniam eius perferendis incidunt odio laboriosam, enim tenetur optio rerum odit doloremque in!</div>
+                    </li>
+                    <li class="item minuto">
+                        <span class="tiempo">13:34</span>
+                        <div class="contenido">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste corrupti placeat magnam sed mollitia dolor impedit sint animi amet, quaerat, nam corporis ut saepe, non adipisci fugiat quae fugit laborum!</div>
+                    </li>
+                    <li class="item minuto">
+                        <span class="tiempo">13:33</span>
+                        <div class="contenido">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo iusto id dolorem adipisci, delectus nemo eius, doloribus suscipit eum autem eligendi molestias pariatur alias quae aut atque consequatur ullam provident!</div>
+                    </li>
+                    <li class="item minuto">
+                        <span class="tiempo">13:32</span>
+                        <div class="contenido">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi ut architecto, distinctio dolorum maiores culpa eius amet eos libero obcaecati similique rerum aliquam autem veniam explicabo laboriosam quod sequi ea.</div>
+                    </li>
+                    <li class="item minuto">
+                        <span class="tiempo">21:23</span>
+                        <div class="contenido">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quidem delectus minima. Ea numquam rem illum quam dolores, corrupti ut vero molestiae hic reiciendis sunt error quisquam, quo enim, tempora!</div>
+                    </li>
+                </ul>
+            </div>
+        </article>
+        <div class="publicidad-sin-padding">
+            <img src="http://placehold.it/300x250" alt=""/>
+        </div>
+    </aside>
+    
+
+{% endblock %}

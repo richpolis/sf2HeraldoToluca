@@ -1,3 +1,8 @@
+usuario:
+    resource: "@UsuarioBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 comentarios:
     resource: "@ComentariosBundle/Controller/"
     type:     annotation
@@ -33,20 +38,33 @@ publicaciones:
     type:     annotation
     prefix:   /backend
     
-#usuarios:
-#    type:     rest
-#    prefix:   /api
-#    resource: "@BackendBundle/Resources/config/routing.yml"
+#hwi_oauth_redirect:
+#    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+#    prefix:   /connect
 
-#publicaciones_fosrest_api:
-#    type:     rest
-#    prefix:   /api
-#    resource: "@PublicacionesBundle/Resources/config/routing.yml"
-    
+#hwi_oauth_login:
+#    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+#    prefix:   /login
 
-#NelmioApiDocBundle:
-#  resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
-#  prefix:   /api/doc
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+	prefix: /admin/
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /admin/profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /admin/register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /admin/resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /admin/profile
 
 _imagine:
     resource: .

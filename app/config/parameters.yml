@@ -3,11 +3,11 @@ parameters:
     database_driver: pdo_mysql
     database_host: localhost
     database_port: null
-    database_name: heraldomexico
-    database_user: root
-    database_password: root
+    database_name: heraldodetoluca
+    database_user: richpolis
+    database_password: D3m3s1s1
     mailer_transport: smtp
-    mailer_host: 127.0.0.1
+    mailer_host: localhost
     mailer_user: null
     mailer_password: null
     locale: es

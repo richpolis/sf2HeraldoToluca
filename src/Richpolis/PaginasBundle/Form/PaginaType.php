@@ -20,16 +20,8 @@ class PaginaType extends AbstractType
                 'placeholder'=>'Pagina',
                 'data-bind'=>'value: pagina'
              )))
-            ->add('contenidoEs',null,array(
-                'label'=>'Contenido español',
-                'required'=>true,
-                'attr'=>array(
-                    'class'=>'tinymce form-control placeholder',
-                   'data-theme' => 'advanced',
-                    )
-                ))
-            ->add('contenidoEn',null,array(
-                'label'=>'Contenido ingles',
+            ->add('contenido',null,array(
+                'label'=>'Contenido',
                 'required'=>true,
                 'attr'=>array(
                     'class'=>'tinymce form-control placeholder',

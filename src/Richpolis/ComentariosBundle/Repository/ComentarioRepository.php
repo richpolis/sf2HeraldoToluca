@@ -1,6 +1,6 @@
 <?php
 
-namespace Richpolis\ComentariosBundle\Entity;
+namespace Richpolis\ComentariosBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -12,4 +12,5 @@ use Doctrine\ORM\EntityRepository;
  */
 class ComentarioRepository extends EntityRepository
 {
+	
 }

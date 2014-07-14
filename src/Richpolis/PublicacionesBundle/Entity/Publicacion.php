@@ -109,10 +109,10 @@ class Publicacion
     private $slug;
     
     /**
-     * @var Richpolis\BackendBundle\Entity\Usuario
+     * @var Richpolis\UsuarioBundle\Entity\Usuario
      * @todo Autor de la noticia
      *
-     * @ORM\ManyToOne(targetEntity="Richpolis\BackendBundle\Entity\Usuario", inversedBy="publicaciones")
+     * @ORM\ManyToOne(targetEntity="Richpolis\UsuarioBundle\Entity\Usuario", inversedBy="publicaciones")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      * })
@@ -399,4 +399,359 @@ class Publicacion
         return RpsStms::cut_string2(RpsStms::strip_html_tags($this->getDescripcion()),250);
     }
     
+
+    /**
+     * Set titulo
+     *
+     * @param string $titulo
+     * @return Publicacion
+     */
+    public function setTitulo($titulo)
+    {
+        $this->titulo = $titulo;
+
+        return $this;
+    }
+
+    /**
+     * Get titulo
+     *
+     * @return string 
+     */
+    public function getTitulo()
+    {
+        return $this->titulo;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return Publicacion
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string 
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set isAprobado
+     *
+     * @param boolean $isAprobado
+     * @return Publicacion
+     */
+    public function setIsAprobado($isAprobado)
+    {
+        $this->isAprobado = $isAprobado;
+
+        return $this;
+    }
+
+    /**
+     * Get isAprobado
+     *
+     * @return boolean 
+     */
+    public function getIsAprobado()
+    {
+        return $this->isAprobado;
+    }
+
+    /**
+     * Set isPrincipal
+     *
+     * @param boolean $isPrincipal
+     * @return Publicacion
+     */
+    public function setIsPrincipal($isPrincipal)
+    {
+        $this->isPrincipal = $isPrincipal;
+
+        return $this;
+    }
+
+    /**
+     * Get isPrincipal
+     *
+     * @return boolean 
+     */
+    public function getIsPrincipal()
+    {
+        return $this->isPrincipal;
+    }
+
+    /**
+     * Set isCarrusel
+     *
+     * @param boolean $isCarrusel
+     * @return Publicacion
+     */
+    public function setIsCarrusel($isCarrusel)
+    {
+        $this->isCarrusel = $isCarrusel;
+
+        return $this;
+    }
+
+    /**
+     * Get isCarrusel
+     *
+     * @return boolean 
+     */
+    public function getIsCarrusel()
+    {
+        return $this->isCarrusel;
+    }
+
+    /**
+     * Set tags
+     *
+     * @param string $tags
+     * @return Publicacion
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return string 
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Set imagen
+     *
+     * @param string $imagen
+     * @return Publicacion
+     */
+    public function setImagen($imagen)
+    {
+        $this->imagen = $imagen;
+
+        return $this;
+    }
+
+    /**
+     * Get imagen
+     *
+     * @return string 
+     */
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+    /**
+     * Set position
+     *
+     * @param integer $position
+     * @return Publicacion
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return integer 
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     * @return Publicacion
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean 
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Publicacion
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Publicacion
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Publicacion
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param \Richpolis\BackendBundle\Entity\Usuario $usuario
+     * @return Publicacion
+     */
+    public function setUsuario(\Richpolis\BackendBundle\Entity\Usuario $usuario = null)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \Richpolis\BackendBundle\Entity\Usuario 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    /**
+     * Set categoria
+     *
+     * @param \Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion $categoria
+     * @return Publicacion
+     */
+    public function setCategoria(\Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion $categoria = null)
+    {
+        $this->categoria = $categoria;
+
+        return $this;
+    }
+
+    /**
+     * Get categoria
+     *
+     * @return \Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion 
+     */
+    public function getCategoria()
+    {
+        return $this->categoria;
+    }
+
+    /**
+     * Add galerias
+     *
+     * @param \Richpolis\GaleriasBundle\Entity\Galeria $galerias
+     * @return Publicacion
+     */
+    public function addGaleria(\Richpolis\GaleriasBundle\Entity\Galeria $galerias)
+    {
+        $this->galerias[] = $galerias;
+
+        return $this;
+    }
+
+    /**
+     * Remove galerias
+     *
+     * @param \Richpolis\GaleriasBundle\Entity\Galeria $galerias
+     */
+    public function removeGaleria(\Richpolis\GaleriasBundle\Entity\Galeria $galerias)
+    {
+        $this->galerias->removeElement($galerias);
+    }
+
+    /**
+     * Get galerias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGalerias()
+    {
+        return $this->galerias;
+    }
 }

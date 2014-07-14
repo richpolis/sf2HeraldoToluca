@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Comentario
  *
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="Richpolis\ComentariosBundle\Entity\ComentarioRepository")
+ * @ORM\Table(name="comentarios")
+ * @ORM\Entity(repositoryClass="Richpolis\ComentariosBundle\Repository\ComentarioRepository")
  */
 class Comentario
 {
@@ -45,7 +45,7 @@ class Comentario
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdAt", type="datetime")
+     * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
 
