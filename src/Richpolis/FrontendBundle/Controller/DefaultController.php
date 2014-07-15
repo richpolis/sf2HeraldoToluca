@@ -48,13 +48,13 @@ class DefaultController extends Controller
      * @Route("/publicacion/{publicacion}", name="frontend_publiaciones")
      * @Template()
      */
-    public function publicacionAction($categoria,$publicacion)
+    public function publicacionAction($publicacion)
     {
         $em = $this->getDoctrine()->getManager();
         //$nosotros = $em->getRepository('PaginasBundle:Pagina')
         //        ->findOneBy(array('pagina'=>'quienes-somos'));
         return array(
-            'categoria'=>$categoria,
+            'categoria'=>'',
             'publicacion' =>$publicacion
         );
     }

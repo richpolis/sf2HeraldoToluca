@@ -179,4 +179,116 @@ class Pagina
     }
 
     
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set pagina
+     *
+     * @param string $pagina
+     * @return Pagina
+     */
+    public function setPagina($pagina)
+    {
+        $this->pagina = $pagina;
+
+        return $this;
+    }
+
+    /**
+     * Get pagina
+     *
+     * @return string 
+     */
+    public function getPagina()
+    {
+        return $this->pagina;
+    }
+
+    /**
+     * Set imagen
+     *
+     * @param string $imagen
+     * @return Pagina
+     */
+    public function setImagen($imagen)
+    {
+        $this->imagen = $imagen;
+
+        return $this;
+    }
+
+    /**
+     * Get imagen
+     *
+     * @return string 
+     */
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+    /**
+     * Set contenido
+     *
+     * @param string $contenido
+     * @return Pagina
+     */
+    public function setContenido($contenido)
+    {
+        $this->contenido = $contenido;
+
+        return $this;
+    }
+
+    /**
+     * Get contenido
+     *
+     * @return string 
+     */
+    public function getContenido()
+    {
+        return $this->contenido;
+    }
+
+    /**
+     * Add galerias
+     *
+     * @param \Richpolis\GaleriasBundle\Entity\Galeria $galerias
+     * @return Pagina
+     */
+    public function addGaleria(\Richpolis\GaleriasBundle\Entity\Galeria $galerias)
+    {
+        $this->galerias[] = $galerias;
+
+        return $this;
+    }
+
+    /**
+     * Remove galerias
+     *
+     * @param \Richpolis\GaleriasBundle\Entity\Galeria $galerias
+     */
+    public function removeGaleria(\Richpolis\GaleriasBundle\Entity\Galeria $galerias)
+    {
+        $this->galerias->removeElement($galerias);
+    }
+
+    /**
+     * Get galerias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGalerias()
+    {
+        return $this->galerias;
+    }
 }

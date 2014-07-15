@@ -21,7 +21,7 @@ use JMS\Serializer\Annotation as Serializer;
  * 
  * @Serializer\ExclusionPolicy("all")
  */
-class Usuario2 implements UserInterface, \Serializable
+class Usuario implements UserInterface, \Serializable
 {
     /**
      * @var integer

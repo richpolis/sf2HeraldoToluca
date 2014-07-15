@@ -19,8 +19,9 @@ class AppKernel extends Kernel
             
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             
+            new FOS\RestBundle\FOSRestBundle(),
+            new FOS\CommentBundle\FOSCommentBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
-			new FOS\UserBundle\FOSUserBundle(),
             
             new Richpolis\BackendBundle\BackendBundle(),
             new Richpolis\FrontendBundle\FrontendBundle(),
@@ -29,12 +30,10 @@ class AppKernel extends Kernel
             new Richpolis\GaleriasBundle\GaleriasBundle(),
             new Richpolis\PublicidadBundle\PublicidadBundle(),
             new Richpolis\ComentariosBundle\ComentariosBundle(),
-			new Richpolis\UsuarioBundle\UsuarioBundle(),
             
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
-			//new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             
         );
 

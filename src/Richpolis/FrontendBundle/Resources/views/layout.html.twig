@@ -107,28 +107,48 @@
                 </li>
                 <li>
                     <a href="{{path('frontend_categoria',{categoria: 'inicio'})}}">inicio</a>
+                </li>
+                <li>
+                    <a href="{{path('frontend_categoria',{categoria: 'entorno'})}}">general</a>
                     <ul class="submenu">
-                        <li><a href="{{path('frontend_categoria',{categoria: 'inicio'})}}">item 1</a></li>
-                        <li><a href="{{path('frontend_categoria',{categoria: 'inicio'})}}">item 2</a></li>
-                        <li><a href="{{path('frontend_categoria',{categoria: 'inicio'})}}">item 3</a></li>
+                        <li><a href="{{path('frontend_categoria',{categoria: 'entorno'})}}">entorno</a></li>
+                        <li><a href="{{path('frontend_categoria',{categoria: 'poder'})}}">poder</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{path('frontend_categoria',{categoria: 'nacional'})}}">nacional</a></li>
+                <li><a href="{{path('frontend_categoria',{categoria: 'mundo'})}}">mundo</a></li>
+                <li><a href="{{path('frontend_categoria',{categoria: 'negocios'})}}">negocios</a></li>
+                <li>
+                    <a href="{{path('frontend_categoria',{categoria: 'municipios'})}}">municipios</a>
+                    <ul class="submenu">
+                        <li><a href="{{path('frontend_categoria',{categoria: 'oriente'})}}">oriente</a></li>
+                        <li><a href="{{path('frontend_categoria',{categoria: 'valle-de-mexico'})}}">valle de mexico</a></li>
+                        <li><a href="{{path('frontend_categoria',{categoria: 'valle-de-toluca'})}}">valle de toluca</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">general</a>
+                    <a href="{{path('frontend_categoria',{categoria: 'trofeo'})}}">trofeo</a>
                     <ul class="submenu">
-                        <li><a href="#">item</a></li>
-                        <li><a href="#">item</a></li>
-                        <li><a href="#">item</a></li>
+                        <li><a href="{{path('frontend_categoria',{categoria: 'local'})}}">local</a></li>
+                        <li><a href="{{path('frontend_categoria',{categoria: 'nacional'})}}">nacional</a></li>
+                        <li><a href="{{path('frontend_categoria',{categoria: 'internacional'})}}">internacional</a></li>
                     </ul>
                 </li>
-                <li><a href="#">nacional</a></li>
-                <li><a href="#">mundo</a></li>
-                <li><a href="#">negocios</a></li>
-                <li><a href="#">municipios</a></li>
-                <li><a href="#">trofeo</a></li>
-                <li><a href="#">arte y gente</a></li>
-                <li><a href="#">ideas y voces</a></li>
-                <li><a href="#">entrevista</a></li>
+                <li>
+                    <a href="{{path('frontend_categoria',{categoria: 'arte-y-gente'})}}">arte y gente</a>
+                    <ul class="submenu">
+                        <li><a href="{{path('frontend_categoria',{categoria: 'espectaculos'})}}">espectaculos</a></li>
+                        <li><a href="{{path('frontend_categoria',{categoria: 'cultura'})}}">cultura</a></li>
+                        <li><a href="{{path('frontend_categoria',{categoria: 'sociales'})}}">sociales</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{{path('frontend_categoria',{categoria: 'ideas-y-voces'})}}">ideas y voces</a>
+                    <ul class="submenu">
+                        <li><a href="{{path('frontend_categoria',{categoria: 'caricaturas'})}}">caricaturas</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{path('frontend_categoria',{categoria: 'entrevista'})}}">entrevista</a></li>
             </ul>
         </nav>
     {% block contenido %}{% endblock %}
@@ -141,11 +161,11 @@
                 <div class="navegador secundario">
                     <ul>
                         <li><a href="{{path('frontend_nosotros')}}">nosotros</a></li>
-						<li><a href="{{path('frontend_historia')}}">historia</a></li>
-						<li><a href="#">edicion pdf</a></li>
-						<li><a href="#">heraldo tv</a></li>
-						<li><a href="#">tu espacio</a></li>
-						<li><a href="{{path('frontend_contacto')}}">contacto</a></li>
+                        <li><a href="{{path('frontend_historia')}}">historia</a></li>
+                        <li><a href="#">edicion pdf</a></li>
+                        <li><a href="#">heraldo tv</a></li>
+                        <li><a href="#">tu espacio</a></li>
+                        <li><a href="{{path('frontend_contacto')}}">contacto</a></li>
                     </ul>
                 </div>
                 <div class="navegador principal principal-footer">
@@ -224,7 +244,11 @@
 
 
           $(".tab-visto").click();
-
+          
+        
+          $(".ver-nota").on("click",function(){
+             location.href = '{{path('frontend_publiaciones',{'publicacion': 'slug-publicacion'})}}' 
+          });  
 
         });
     </script>

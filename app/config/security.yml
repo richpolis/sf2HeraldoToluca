@@ -1,31 +1,44 @@
-# app/config/security.yml
+#jms_security_extra:
+#    secure_all_services: false
+#    expressions: true
+
 security:
     encoders:
-        FOS\UserBundle\Model\UserInterface: sha512
+        Richpolis\BackendBundle\Entity\Usuario: { algorithm: sha512, iterations: 10 }
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_API:         ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
-        fos_userbundle:
-            id: fos_user.user_provider.username
+        usuarios:
+            entity: { class: Richpolis\BackendBundle\Entity\Usuario, property: username }
 
     firewalls:
-        main:
-            pattern: ^/
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        login:
+            pattern:  ^/backend/login$
+            security: false
+
+        secured_area:
+            pattern:    ^/backend
             form_login:
-                check_path: /login_check
-                login_path: /login
-                provider: fos_userbundle
-                csrf_provider: form.csrf_provider
-            logout:       
-                path: /logout
-                target: /
-            anonymous: ~
+                check_path: backend_check
+                login_path: backend_login
+                default_target_path: backend_homepage
+                always_use_default_target_path: true
+            logout:
+                path:   backend_logout
+                target: backend_login
+            #anonymous: ~
+            #http_basic:
+            #    realm: "Secured Demo Area"
 
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/backend/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/backend/users$, roles: ROLE_ADMIN }
+        - { path: ^/backend, roles: ROLE_USER }
