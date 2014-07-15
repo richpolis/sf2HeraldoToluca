@@ -38,15 +38,13 @@ class CategoriasPublicaciones extends AbstractFixture implements OrderedFixtureI
         // Crear las categorias de las publicaciones
 
         $categoria1 = new CategoriaPublicacion();
-        $categoria1->setNombreEs("Categoria 1");
-        $categoria1->setNombreEn("Category 1");
+        $categoria1->setCategoria("Categoria 1");
         $categoria1->setPosition(1);
         
         $manager->persist($categoria1);
 
         $categoria2 = new CategoriaPublicacion();
-        $categoria2->setNombreEs("Categoria 2");
-        $categoria2->setNombreEn("Category 2");
+        $categoria2->setCategoria("Categoria 2");
         $categoria2->setPosition(2);
         
         $manager->persist($categoria2);        
