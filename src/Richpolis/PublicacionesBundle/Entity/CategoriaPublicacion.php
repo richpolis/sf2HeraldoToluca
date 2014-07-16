@@ -37,14 +37,6 @@ class CategoriaPublicacion
     /**
      * @var integer
      *
-     * @ORM\Column(name="parent", type="integer")
-     * @Assert\NotBlank()
-     */
-    private $parent;
-    
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="position", type="integer")
      */
     private $position;
@@ -139,7 +131,7 @@ class CategoriaPublicacion
     */
     public function setSlugAtValue()
     {
-        $this->slug = RpsStms::slugify($this->getNombreEs());
+        $this->slug = RpsStms::slugify($this->getCategoria());
     }
 
     
@@ -166,29 +158,6 @@ class CategoriaPublicacion
     public function getCategoria()
     {
         return $this->categoria;
-    }
-
-    /**
-     * Set parent
-     *
-     * @param integer $parent
-     * @return CategoriaPublicacion
-     */
-    public function setParent($parent)
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * Get parent
-     *
-     * @return integer 
-     */
-    public function getParent()
-    {
-        return $this->parent;
     }
 
     /**
@@ -258,5 +227,33 @@ class CategoriaPublicacion
     public function getSlug()
     {
         return $this->slug;
+    }
+    /**
+     * @var integer
+     */
+    private $parent;
+
+
+    /**
+     * Set parent
+     *
+     * @param integer $parent
+     * @return CategoriaPublicacion
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return integer 
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
 }

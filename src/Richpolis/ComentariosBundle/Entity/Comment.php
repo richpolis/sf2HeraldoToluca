@@ -26,4 +26,16 @@ class Comment extends BaseComment
      * @ORM\ManyToOne(targetEntity="Richpolis\ComentariosBundle\Entity\Thread")
      */
     protected $thread;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    
 }

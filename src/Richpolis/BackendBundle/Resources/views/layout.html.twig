@@ -18,7 +18,7 @@
   {% set usuarios = "" %}
   {% set categorias = "" %}
   {% set publicaciones = "" %}
-  {% set servicios = "" %}
+  {% set publicidad = "" %}
   {% set galerias = "" %}
   {% set configuraciones = "" %}
 
@@ -28,8 +28,8 @@
     {% set usuarios = "class=open" %}
   {% elseif route == "publicaciones" %}
     {% set publicaciones = "class=open" %}
-  {% elseif route == "servicios" %}
-    {% set servicios = "class=open" %}
+  {% elseif route == "publicidad" %}
+    {% set publicidad = "class=open" %}
   {% elseif route == "galerias" %}
     {% set galerias = "class=open" %}     
   {% elseif route == "configuraciones" %}
@@ -107,12 +107,12 @@
             </li>
             <li>
                 <a href="{{path('categorias_publicaciones')}}">
-                    <i class="fa fa-comment"></i> <span>Proyectos</span>
+                    <i class="fa fa-comment"></i> <span>Publicaciones</span>
                 </a>
             </li>
             <li>
-                <a href="{{path('servicios')}}">
-                    <i class="fa fa-dashboard"></i> <span>Servicios</span>
+                <a href="{{path('publicidad')}}">
+                    <i class="fa fa-dashboard"></i> <span>Publicidad</span>
                 </a>
             </li>
             {% if is_granted('ROLE_ADMIN') %}

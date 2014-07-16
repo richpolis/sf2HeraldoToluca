@@ -109,10 +109,10 @@ class Publicacion
     private $slug;
     
     /**
-     * @var Richpolis\UsuarioBundle\Entity\Usuario
+     * @var Richpolis\BackendBundle\Entity\Usuario
      * @todo Autor de la noticia
      *
-     * @ORM\ManyToOne(targetEntity="Richpolis\UsuarioBundle\Entity\Usuario", inversedBy="publicaciones")
+     * @ORM\ManyToOne(targetEntity="Richpolis\BackendBundle\Entity\Usuario", inversedBy="publicaciones")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      * })

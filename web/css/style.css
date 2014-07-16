@@ -2145,7 +2145,7 @@ footer .copy{
 }
 
 .encabezado-login{
-	background: #79004A;
+	background: #f8f8f8;
 	height: 80px;
 	position: absolute;
 	top: 0px;
@@ -2159,7 +2159,7 @@ footer .copy{
     max-height: 75px;
 }
 .pie-login{
-	background: #79004A;
+	background: #f8f8f8;
 	height: 120px;
 	position: absolute;
 	bottom: 0px;
