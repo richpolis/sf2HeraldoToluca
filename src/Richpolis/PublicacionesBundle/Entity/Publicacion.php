@@ -43,14 +43,6 @@ class Publicacion
      * @Assert\NotBlank()
      */
     private $descripcion;
-
-    /**
-     * @var boolean
-     * @todo Cuando es aprobado, se publica.
-     * 
-     * @ORM\Column(name="is_approved", type="boolean")
-     */
-    private $isAprobado;
     
     /**
      * @var boolean
@@ -96,9 +88,9 @@ class Publicacion
      * @var boolean
      * @todo Si la noticia es inactiva no es visible para el usuario. 
      *
-     * @ORM\Column(name="is_active", type="boolean")
+     * @ORM\Column(name="status", type="integer")
      */
-    private $isActive;
+    private $status;
     
     /**
      * @var string
@@ -447,29 +439,6 @@ class Publicacion
     }
 
     /**
-     * Set isAprobado
-     *
-     * @param boolean $isAprobado
-     * @return Publicacion
-     */
-    public function setIsAprobado($isAprobado)
-    {
-        $this->isAprobado = $isAprobado;
-
-        return $this;
-    }
-
-    /**
-     * Get isAprobado
-     *
-     * @return boolean 
-     */
-    public function getIsAprobado()
-    {
-        return $this->isAprobado;
-    }
-
-    /**
      * Set isPrincipal
      *
      * @param boolean $isPrincipal
@@ -585,26 +554,26 @@ class Publicacion
     }
 
     /**
-     * Set isActive
+     * Set status
      *
-     * @param boolean $isActive
+     * @param integer $status
      * @return Publicacion
      */
-    public function setIsActive($isActive)
+    public function setStatus($status)
     {
-        $this->isActive = $isActive;
+        $this->status = $status;
 
         return $this;
     }
 
     /**
-     * Get isActive
+     * Get status
      *
-     * @return boolean 
+     * @return integer 
      */
-    public function getIsActive()
+    public function getStatus()
     {
-        return $this->isActive;
+        return $this->status;
     }
 
     /**

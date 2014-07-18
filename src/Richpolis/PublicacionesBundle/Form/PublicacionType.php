@@ -18,69 +18,19 @@ class PublicacionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('tituloEs','text',array(
+            ->add('titulo','text',array(
                 'label'=>'Proyecto en español','required'=>true,'attr'=>array(
                     'class'=>'form-control placeholder',
                     'placeholder'=>'Proyecto',
                     'data-bind'=>'value: proyecto'
                     )
                 ))    
-            ->add('descripcionEs',null,array(
+            ->add('descripcion',null,array(
                 'label'=>'Descripcion en español',
                 'required'=>true,
                 'attr'=>array(
                     'class'=>'cleditor tinymce form-control placeholder',
                    'data-theme' => 'advanced',
-                    )
-                ))
-            ->add('tituloEn','text',array(
-                'label'=>'Proyecto en ingles','required'=>true,'attr'=>array(
-                    'class'=>'form-control placeholder',
-                    'placeholder'=>'Proyecto',
-                    'data-bind'=>'value: proyecto'
-                    )
-                ))    
-            ->add('descripcionEn',null,array(
-                'label'=>'Descripcion en ingles',
-                'required'=>true,
-                'attr'=>array(
-                    'class'=>'cleditor tinymce form-control placeholder',
-                   'data-theme' => 'advanced',
-                    )
-                ))
-            ->add('cliente','text',array(
-                'label'=>'Nombre del cliente','required'=>true,'attr'=>array(
-                    'class'=>'form-control placeholder',
-                    'placeholder'=>'Cliente',
-                    'data-bind'=>'value: cliente'
-                    )
-                ))
-            ->add('ubicacion','text',array(
-                'label'=>'Ubicacion','required'=>true,'attr'=>array(
-                    'class'=>'form-control placeholder',
-                    'placeholder'=>'Ubicacion',
-                    'data-bind'=>'value: ubicacion'
-                    )
-                ))
-            ->add('monto','text',array(
-                'label'=>'Monto','required'=>true,'attr'=>array(
-                    'class'=>'form-control placeholder',
-                    'placeholder'=>'Monto',
-                    'data-bind'=>'value: monto'
-                    )
-                ))
-            ->add('empezo','text',array(
-                'label'=>'Año de inicio','required'=>true,'attr'=>array(
-                    'class'=>'form-control placeholder',
-                    'placeholder'=>'Empezo',
-                    'data-bind'=>'value: empezo'
-                    )
-                ))
-            ->add('termino','text',array(
-                'label'=>'Año de termino','required'=>true,'attr'=>array(
-                    'class'=>'form-control placeholder',
-                    'placeholder'=>'Termino',
-                    'data-bind'=>'value: termino'
                     )
                 ))
             ->add('categoria',null,array(
@@ -103,19 +53,15 @@ class PublicacionType extends AbstractType
                     'data-bind'=>'value: usuario',
                     )
                 ))
-            ->add('file','file',array('label'=>'Imagen','attr'=>array(
+            ->add('file','file',array('label'=>'Portada','attr'=>array(
                 'class'=>'form-control placeholder',
-                'placeholder'=>'Imagen pagina',
-                'data-bind'=>'value: imagen pagina'
+                'placeholder'=>'Portada',
+                'data-bind'=>'value: portada'
              )))
-            ->add('isActive',null,array('label'=>'Activo?','attr'=>array(
-                'class'=>'checkbox-inline',
-                'placeholder'=>'Es activo',
-                'data-bind'=>'value: isActive'
-                )))
             ->add('imagen','hidden')
             ->add('position','hidden')
             ->add('slug','hidden')
+			->add('status','hidden')
             //->add('galerias','hidden')    
         ;
     }

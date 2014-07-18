@@ -15,12 +15,7 @@ class CategoriaPublicacionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombreEs','text',array('label'=>'Categoria en español','attr'=>array(
-                'class'=>'validate[required] form-control placeholder',
-                'placeholder'=>'Categoria',
-                'data-bind'=>'value: categoria'
-             )))
-            ->add('nombreEn','text',array('label'=>'Categoria en ingles','attr'=>array(
+            ->add('categoria','text',array('label'=>'Categoria','attr'=>array(
                 'class'=>'validate[required] form-control placeholder',
                 'placeholder'=>'Categoria',
                 'data-bind'=>'value: categoria'
