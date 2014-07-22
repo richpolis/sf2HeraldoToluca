@@ -54,6 +54,24 @@ class CategoriaPublicacion
      * @ORM\Column(name="slug", type="string", length=150)
      */
     private $slug;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nivel", type="integer")
+     */
+    private $nivel;
+    
+    /**
+     * @OneToMany(targetEntity="CategoriaPubliacion", mappedBy="parent")
+     */
+    private $children;
+
+    /**
+     * @ManyToOne(targetEntity="CategoriaPublicacion", inversedBy="children")
+     * @JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    private $parent;
         
     /**
      * @var integer
@@ -70,8 +88,10 @@ class CategoriaPublicacion
      */
     public function __construct()
     {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->publicaciones = new \Doctrine\Common\Collections\ArrayCollection();
         $this->isActive = true;
+        $this->nivel=0;
     }
     
     public function __toString(){
@@ -233,27 +253,4 @@ class CategoriaPublicacion
      */
     private $parent;
 
-
-    /**
-     * Set parent
-     *
-     * @param integer $parent
-     * @return CategoriaPublicacion
-     */
-    public function setParent($parent)
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * Get parent
-     *
-     * @return integer 
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
 }
