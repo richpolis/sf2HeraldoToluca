@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Richpolis\BackendBundle\Utils\Richsys as RpsStms;
 
 
+
 /**
  * CategoriaPublicacion
  *
@@ -63,15 +64,15 @@ class CategoriaPublicacion
     private $nivel;
     
     /**
-     * @OneToMany(targetEntity="CategoriaPubliacion", mappedBy="parent")
-     */
-    private $children;
-
-    /**
-     * @ManyToOne(targetEntity="CategoriaPublicacion", inversedBy="children")
-     * @JoinColumn(name="parent_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="CategoriaPublicacion", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     private $parent;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="CategoriaPublicacion", mappedBy="parent")
+     */
+    private $children;
         
     /**
      * @var integer
@@ -248,9 +249,84 @@ class CategoriaPublicacion
     {
         return $this->slug;
     }
-    /**
-     * @var integer
-     */
-    private $parent;
 
+
+    /**
+     * Set nivel
+     *
+     * @param integer $nivel
+     * @return CategoriaPublicacion
+     */
+    public function setNivel($nivel)
+    {
+        $this->nivel = $nivel;
+
+        return $this;
+    }
+
+    /**
+     * Get nivel
+     *
+     * @return integer 
+     */
+    public function getNivel()
+    {
+        return $this->nivel;
+    }
+
+    /**
+     * Add children
+     *
+     * @param \Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion $children
+     * @return CategoriaPublicacion
+     */
+    public function addChild(\Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion $children
+     */
+    public function removeChild(\Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion $parent
+     * @return CategoriaPublicacion
+     */
+    public function setParent(\Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
 }

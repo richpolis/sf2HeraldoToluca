@@ -1,34 +1,34 @@
-_comentarios:
+Comentarios:
     resource: "@ComentariosBundle/Controller/"
     type:     annotation
     prefix:   /backend
 
-_publicidad:
+Publicidad:
     resource: "@PublicidadBundle/Controller/"
     type:     annotation
     prefix:   /
 
-_galerias:
+Galerias:
     resource: "@GaleriasBundle/Controller/"
     type:     annotation
     prefix:   /backend
 
-_paginas:
+Paginas:
     resource: "@PaginasBundle/Controller/"
     type:     annotation
     prefix:   /backend
 
-_frontend:
+Frontend:
     resource: "@FrontendBundle/Controller/"
     type:     annotation
     prefix:   /
 
-_backend:
+Backend:
     resource: "@BackendBundle/Controller/"
     type:     annotation
     prefix:   /backend
 
-_publicaciones:
+Publicaciones:
     resource: "@PublicacionesBundle/Controller/"
     type:     annotation
     prefix:   /backend

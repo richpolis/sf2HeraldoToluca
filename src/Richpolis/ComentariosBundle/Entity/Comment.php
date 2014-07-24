@@ -5,6 +5,7 @@ namespace Richpolis\ComentariosBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\CommentBundle\Entity\Comment as BaseComment;
+use FOS\CommentBundle\Model\ThreadInterface;
 
 /**
  * @ORM\Entity
@@ -37,5 +38,26 @@ class Comment extends BaseComment
         return $this->id;
     }
 
-    
+    /**
+     * Set thread
+     *
+     * @param ThreadInterface $thread
+     * @return Comment
+     */
+    public function setThread(ThreadInterface $thread = null)
+    {
+        $this->thread = $thread;
+
+        return $this;
+    }
+
+    /**
+     * Get thread
+     *
+     * @return ThreadInterface 
+     */
+    public function getThread()
+    {
+        return $this->thread;
+    }
 }

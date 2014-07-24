@@ -20,15 +20,6 @@ class CategoriaPublicacionType extends AbstractType
                 'placeholder'=>'Categoria',
                 'data-bind'=>'value: categoria'
              )))
-            ->add('parent',null,array(
-                'label'=>'Antecesor',
-                'required'=>false,
-                'attr'=>array(
-                    'class'=>'validate[required] form-control placeholder',
-                    'placeholder'=>'Parent',
-                    'data-bind'=>'value: parent',
-                    )
-                ))
             ->add('isActive',null,array('label'=>'Activo?','attr'=>array(
                 'class'=>'checkbox-inline',
                 'placeholder'=>'Es activo',
