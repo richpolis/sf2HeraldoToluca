@@ -262,7 +262,7 @@ $(document).ready(function(){
           text: 'Some notifications goes here...',
           layout:'topRight',
           type:'alert',
-          timeout:2000
+          timeout:4000
       });
   });
 
@@ -272,7 +272,7 @@ $(document).ready(function(){
           text: 'Some notifications goes here...',
           layout:'topRight',
           type:'success',
-          timeout:2000
+          timeout:4000
       });
   });
 
@@ -282,7 +282,7 @@ $(document).ready(function(){
           text: 'Some notifications goes here...',
           layout:'topRight',
           type:'error',
-          timeout:2000
+          timeout:4000
       });
   });
 
@@ -292,7 +292,7 @@ $(document).ready(function(){
           text: 'Some notifications goes here...',
           layout:'bottom',
           type:'warning',
-          timeout:2000
+          timeout:4000
       });
   });
 

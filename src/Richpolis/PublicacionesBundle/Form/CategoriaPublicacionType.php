@@ -5,6 +5,7 @@ namespace Richpolis\PublicacionesBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class CategoriaPublicacionType extends AbstractType
 {
@@ -20,11 +21,19 @@ class CategoriaPublicacionType extends AbstractType
                 'placeholder'=>'Categoria',
                 'data-bind'=>'value: categoria'
              )))
-            ->add('parent',null,array(
+            ->add('parent','entity',array(
+                'class'=> 'PublicacionesBundle:CategoriaPublicacion',
                 'label'=>'Antecesor',
                 'required'=>false,
+                'property'=>'nivelCategoria',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.nivel=:nivel')
+                        ->orderBy('u.position', 'ASC')
+                        ->setParameter('nivel',0);
+                },
                 'attr'=>array(
-                    'class'=>'validate[required] form-control placeholder',
+                    'class'=>'form-control placeholder',
                     'placeholder'=>'Parent',
                     'data-bind'=>'value: parent',
                     )

@@ -15,26 +15,34 @@ class PublicidadType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('descripcion',null,array(
-                'label'=>'Descripción',
-                'required'=>true,
-                'attr'=>array(
-                    'class'=>'cleditor tinymce form-control placeholder',
-                   'data-theme' => 'advanced',
+            ->add('empresa','text',array(
+                'label'=>'Empresa','required'=>true,'attr'=>array(
+                    'class'=>'form-control placeholder',
+                    'placeholder'=>'Empresa',
+                    'data-bind'=>'value: empresa'
                     )
                 ))
-            ->add('file','file',array('label'=>'Imagen','attr'=>array(
+            ->add('file','file',array('label'=>'Archivo','attr'=>array(
                 'class'=>'form-control placeholder',
-                'placeholder'=>'Imagen pagina',
-                'data-bind'=>'value: imagen pagina'
+                'placeholder'=>'Archivo',
+                'data-bind'=>'value: archivo'
              )))
+            ->add('link','url',array(
+                'label'=>'Link','required'=>false,'attr'=>array(
+                    'class'=>'form-control placeholder',
+                    'placeholder'=>'Link de pagina (solo imagenes)',
+                    'data-bind'=>'value: link'
+                    )
+                ))    
             ->add('isActive',null,array('label'=>'Activo?','attr'=>array(
                 'class'=>'checkbox-inline',
                 'placeholder'=>'Es activo',
                 'data-bind'=>'value: isActive'
                 )))
-            ->add('imagen','hidden')
+            ->add('archivo','hidden')
             ->add('position','hidden')
+            ->add('tipoPublicidad','hidden')
+            ->add('tipoArchivo','hidden')    
             ->add('vigencia')
         ;
     }

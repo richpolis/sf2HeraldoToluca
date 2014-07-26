@@ -101,7 +101,9 @@
     height: 40px;
 }
 
-/*
-    este del articulo de lo proyectos.
-*/
+.is-principal, .is-carrusel{
+    font-size: 20px;
+}
+
+
 

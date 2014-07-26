@@ -9,6 +9,7 @@
         <parameter key="richpolis_backend.usuario.class">Richpolis\BackendBundle\Entity\Usuario</parameter>
         <parameter key="richpolis.isactive.extension.class">Richpolis\BackendBundle\Twig\IsActiveExtension</parameter>
         <parameter key="richpolis.twitterTime.extension.class">Richpolis\BackendBundle\Twig\TwitterTimeExtension</parameter>
+        <parameter key="richpolis.status_publicacion.extension.class">Richpolis\BackendBundle\Twig\StatusPublicacionExtension</parameter>
     </parameters>
 
     <services>
@@ -23,12 +24,16 @@
         <service id="richpolis.twig.is_active_extension" class="%richpolis.isactive.extension.class%">
             <tag name="twig.extension" />
         </service>
-
-		<!-- "twitterTime" twig.extension -->
+        
+        <!-- "twitterTime" twig.extension -->
         <service id="richpolis.twig.twitter_time_extension" class="%richpolis.twitterTime.extension.class%">
             <tag name="twig.extension" />
         </service>
         
+        <!-- "statusPublicacion" twig.extension -->
+        <service id="richpolis.twig.status_publicacion_extension" class="%richpolis.status_publicacion.extension.class%">
+            <tag name="twig.extension" />
+        </service>
         
     </services>
 

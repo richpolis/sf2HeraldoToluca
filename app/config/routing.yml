@@ -6,7 +6,7 @@ Comentarios:
 Publicidad:
     resource: "@PublicidadBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /backend
 
 Galerias:
     resource: "@GaleriasBundle/Controller/"

@@ -5,9 +5,7 @@ namespace Richpolis\PublicacionesBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
-use Richpolis\BackendBundle\Repository\UsuariosRepository;
-use Richpolis\PublicacionesBundle\Repository\CategoriaPublicacionRepository;
+use Doctrine\ORM\EntityRepository;
 
 class PublicacionType extends AbstractType
 {
@@ -19,26 +17,32 @@ class PublicacionType extends AbstractType
     {
         $builder
             ->add('titulo','text',array(
-                'label'=>'Proyecto en español','required'=>true,'attr'=>array(
+                'label'=>'Titulo','required'=>true,'attr'=>array(
                     'class'=>'form-control placeholder',
-                    'placeholder'=>'Proyecto',
-                    'data-bind'=>'value: proyecto'
+                    'placeholder'=>'Titulo de publicacion',
+                    'data-bind'=>'value: publicacion'
                     )
                 ))    
             ->add('descripcion',null,array(
-                'label'=>'Descripcion en español',
+                'label'=>'Descripcion',
                 'required'=>true,
                 'attr'=>array(
                     'class'=>'cleditor tinymce form-control placeholder',
                    'data-theme' => 'advanced',
                     )
                 ))
-            ->add('categoria',null,array(
+            ->add('categoria','entity',array(
+                'class'=> 'PublicacionesBundle:CategoriaPublicacion',
                 'label'=>'Categoria',
                 'required'=>true,
                 'read_only'=>true,
+                'property'=>'nivelCategoria',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.position', 'ASC');
+                },
                 'attr'=>array(
-                    'class'=>'validate[required] form-control placeholder',
+                    'class'=>'form-control placeholder',
                     'placeholder'=>'Categoria',
                     'data-bind'=>'value: categoria',
                     )
@@ -61,7 +65,7 @@ class PublicacionType extends AbstractType
             ->add('imagen','hidden')
             ->add('position','hidden')
             ->add('slug','hidden')
-			->add('status','hidden')
+            ->add('status','hidden')
             //->add('galerias','hidden')    
         ;
     }

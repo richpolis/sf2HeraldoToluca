@@ -1,6 +1,6 @@
 {% extends 'BackendBundle::layout.html.twig' %}
 
-{% block stylesheets%}
+{% block stylesheets %}
     <!-- Stylesheets -->
   <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
   <!-- Font awesome icon -->
@@ -70,7 +70,7 @@
                 <div class="widget">
 
                 <div class="widget-head">
-                  <div class="pull-left">Registro de publicidad</div>
+                  <div class="pull-left">Registro de tipo "{{tipos[tipo_publicidad]}}"</div>
                   <!--div class="widget-icons pull-right">
                     <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
                     <a href="#" class="wsettings"><i class="fa fa-wrench"></i></a>  
@@ -85,8 +85,8 @@
                       <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Descripcion</th>
-                            <th>Imagen</th>
+                            <th>Empresa</th>
+                            <th>Archivo</th>
                             <th>Vigencia</th>
                             <th>Activo?</th>
                             <th>Actions</th>
@@ -94,32 +94,8 @@
                       </thead>
                       <tbody id="cuerpoTabla">
                       {% for entity in entities %}
-                            <tr id="registro-{{entity.id}}">
-                                <td><a href="{{ path('publicidad_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                                <td>{{ entity.descripcion | raw }}</td>
-                                <td>
-                                {% if entity.imagen | length > 0 %}
-                                    <img src="{{entity.webPath}}" style="max-width: 200px;"/>
-                                {% else  %}
-                                    sin imagen 
-                                {% endif %}
-                                </td>
-                                <td>{% if entity.vigencia %}{{ entity.vigencia|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                <td>
-                                    {% if entity.isActive %}
-                                        <i class="fa fa-check-circle"></i>
-                                    {% else %}
-                                        <i class="fa fa-circle"></i>
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    <button onclick="javascript:editarRegistro('{{ path('publicidad_edit', { 'id': entity.id }) }}')" class="btn btn-xs btn-warning"><i class="fa fa-pencil"></i> </button>
-                                    <button onclick="javascript:editarRegistro('{{ path('publicidad_show', { 'id': entity.id }) }}','#registro-{{entity.id}}')" class="btn btn-xs btn-info"><i class="fa fa-folder-open"></i> </button>
-                                </td>
-                                
-                            </tr>
-                        {% endfor %}
-
+                          {% include 'PublicidadBundle:Publicidad:item.html.twig' with {'entity': entity } %}  
+                      {% endfor %}
                       </tbody>
                     </table>
 
@@ -197,10 +173,36 @@ $(document).ready(function() {
         "sFirst":"Primero",
         "sPrevious": "Anterior",
     });*/
-	
 	iniciarlizarSorteable();
 	
+        iniciarIsActive();
 });
+
+
+function iniciarIsActive(){
+    $(".is-active button").on("click",function(){
+       var $registro = $(this).parent().parent();
+       var id = $registro.data('id');
+       var url = $(this).parent().data('url');
+       $(".loader").fadeIn();
+       $.ajax({
+            url: url,
+            type: 'PATCH',
+            dataType: 'html',
+            success: function(data){
+               $registro.find(".is-active").html($(data).find(".is-active").html());
+               noty({ text: 'Actualizacion realizada', layout:'topRight', type:'success',  timeout:2000 });
+               $(".loader").fadeOut();
+               iniciarIsActive();
+            },
+            error: function(data){
+                noty({ text: 'Error de actualizacion', layout:'topRight', type:'error', timeout:2000 });
+                console.log(data);
+                $(".loader").fadeOut();
+            },
+        });
+    });
+}
 
 function iniciarlizarSorteable(){
     $("#cuerpoTabla").sortable({
@@ -215,7 +217,6 @@ function iniciarlizarSorteable(){
 }
 
 function sendOrderToServer() {
-    debugger;
     $(".loader").fadeIn();
     var order = $("#cuerpoTabla").sortable('serialize');
     $.ajax({

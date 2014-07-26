@@ -20,7 +20,37 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class PublicidadController extends Controller
 {
+    
+    private $tipos = null;
 
+    protected function getFilters() {
+        return $this->get('session')->get('filters', array());
+    }
+
+    protected function setFilters($filtros) {
+        $this->get('session')->set('filters', $filtros);
+    }
+
+    protected function getTipoPublicidadDefault() {
+        $filters = $this->getFilters();
+        $tipoPublicidad = null;
+        if (isset($filters['tipoPublicidad'])) {
+            $this->tipos = Publicidad::getArrayTipoPublicidad();
+            foreach ($this->tipos as $tipo) {
+                if ($tipo == $filters['tipoPublicidad']) {
+                    $tipoPublicidad = $tipo;
+                    break;
+                }
+            }
+        } else {
+            $this->tipos = Publicidad::getArrayTipoPublicidad();
+            $this->setFilters(array('tipoPublicidad' => $this->tipos[0]));
+            $tipoPublicidad = $this->tipos[0];
+        }
+        return $tipoPublicidad;
+    }
+
+    
     /**
      * Lists all Publicidad entities.
      *
@@ -31,13 +61,55 @@ class PublicidadController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('PublicidadBundle:Publicidad')->getPublicidadActivos();
+        $tipoPublicidad = $this->getTipoPublicidadDefault();
+        $entities = $em->getRepository('PublicidadBundle:Publicidad')
+                        ->getPublicidadPorTipo($tipoPublicidad);
 
         return array(
             'entities' => $entities,
+            'tipos'=> Publicidad::getArrayTipoPublicidad(),
+            'tipo_publicidad' => $tipoPublicidad,
         );
     }
+    
+    /**
+     * Lists all Publicidad entities for tipo de publicidad.
+     *
+     * @Route("/tipo/{tipoPublicidad}", name="publicidad_por_tipo",requirements={"tipoPublicidad" = "\d+"})
+     * @Method("GET")
+     * @Template("PublicidadBundle:Publicidad:index.html.twig")
+     */
+    public function tipoPublicidadAction($tipoPublicidad) {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('PublicidadBundle:Publicidad')
+                        ->getPublicidadPorTipo($tipoPublicidad);
+
+        $filters = $this->getFilters();
+        $filters['tipoPublicidad'] = $tipoPublicidad;
+        $this->setFilters($filters);
+
+        return array(
+            'entities' => $entities,
+            'tipos'=> Publicidad::getArrayTipoPublicidad(),
+            'tipo_publicidad' => $tipoPublicidad,
+        );
+    }
+    
+    /**
+     * Get list tipos de publicidad.
+     *
+     * @Route("/ul", name="publicidad_lista_ul")
+     * @Method("GET")
+     * @Template("PublicidadBundle:Publicidad:ul.html.twig")
+     */
+    public function ulAction() {
+       
+        return array(
+            'tipos' => Publicidad::getArrayTipoPublicidad(),
+        );
+    }
+    
     /**
      * Creates a new Publicidad entity.
      *
@@ -95,21 +167,21 @@ class PublicidadController extends Controller
     public function newAction()
     {
         $entity = new Publicidad();
-		
-		$max = $this->getDoctrine()->getRepository('PublicidadBundle:Publicidad')
+        $max = $this->getDoctrine()->getRepository('PublicidadBundle:Publicidad')
                 ->getMaxPosicion();
-
+        $tipoPublicidad = $this->getTipoPublicidadDefault();
         if (!is_null($max)) {
             $entity->setPosition($max + 1);
         } else {
             $entity->setPosition(1);
         }
-		
-        $form   = $this->createCreateForm($entity);
+        $entity->setTipoPublicidad($tipoPublicidad);    
+        
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
             'errores' => RpsStms::getErrorMessages($form)
         );
     }
@@ -163,7 +235,7 @@ class PublicidadController extends Controller
             'entity'    => $entity,
             'form'   	=> $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-			'errores' => RpsStms::getErrorMessages($editForm)
+            'errores' => RpsStms::getErrorMessages($editForm)
         );
     }
 
@@ -294,5 +366,27 @@ class PublicidadController extends Controller
             $response->setData(array('ok' => false));
             return $response;
         }
+    }
+    
+    /**
+     * Activa o inactiva si una publicidad.
+     *
+     * @Route("/{id}/is/active", name="publicaciones_is_active", requirements={"id" = "\d+"})
+     * @Method("PATCH")
+     */
+    public function isActiveAction($id) 
+    {
+        $em = $this->getDoctrine()->getManager();
+        $publicidad = $em->getRepository('PublicidadBundle:Publicidad')->find($id);
+
+        if (!$publicidad) {
+            throw $this->createNotFoundException('Unable to find publicidad entity.');
+        }
+        $publicidad->setIsActive(!$publicidad->getIsActive());
+        $em->flush();
+        
+        return $this->render("PublicidadBundle:Publicidad:item.html.twig",array(
+            'entity'=>$publicidad
+        ));
     }
 }

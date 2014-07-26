@@ -146,16 +146,33 @@ class Publicacion
      */
     private $updatedAt;
 
+    const STATUS_BORRADO = -1;
+    const STATUS_INCOMPLETO = 1;
+    const STATUS_REVISAR = 2;
+    const STATUS_APROBADO = 3;
+    const STATUS_PUBLICADO = 4;
+    const STATUS_CADUCADO = 5;
+        
+    static public $sStatus=array(
+        self::STATUS_BORRADO=>'Borrado',
+        self::STATUS_INCOMPLETO=>'Incompleto',
+        self::STATUS_REVISAR=>'Revisar',
+        self::STATUS_APROBADO=>'Aprobado',
+        self::STATUS_PUBLICADO=>'Publicado',
+        self::STATUS_CADUCADO=>'Caducado',
+    );
+    
+    
+    
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->galerias = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->isActive = true;
         $this->isCarrusel = false;
-        $this->isAprobado = false;
         $this->isPrincipal = false;
+        $this->status = self::STATUS_INCOMPLETO;
     }
     
     public function __toString(){

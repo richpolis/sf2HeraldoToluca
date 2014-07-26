@@ -29,16 +29,38 @@ class Publicidad
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion", type="text")
+     * @ORM\Column(name="empresa", type="string", length=255, nullable=true)
      */
-    private $descripcion;
+    private $empresa;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="link", type="string", length=255, nullable=true)
+     */
+    private $link;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="imagen", type="string", length=255)
+     * @ORM\Column(name="archivo", type="string", length=255, nullable=false)
+     * @Assert\NotBlank()
      */
-    private $imagen;
+    private $archivo;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tipo_archivo", type="integer")
+     */
+    private $tipoArchivo;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tipo_publicidad", type="integer")
+     */
+    private $tipoPublicidad;
 
     /**
      * @var integer
@@ -71,16 +93,55 @@ class Publicidad
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="vigencia", type="date")
+     * @ORM\Column(name="vigencia", type="date", nullable=true)
      */
     private $vigencia;
-
+    
+    const TIPO_PUBLICIDAD_ENCABEZADO_IZQUIERDO=1;
+    const TIPO_PUBLICIDAD_ENCABEZADO_DERECHO=2;
+    const TIPO_PUBLICIDAD_ASIDE_ARRIBA=3;
+    const TIPO_PUBLICIDAD_ASIDE_ABAJO=4;
+        
+    static public $sTipoPublicidad=array(
+        self::TIPO_PUBLICIDAD_ENCABEZADO_IZQUIERDO=>'Encabezado derecho',
+        self::TIPO_PUBLICIDAD_ENCABEZADO_DERECHO=>'Encabezado izquierdo',
+        self::TIPO_PUBLICIDAD_ASIDE_ARRIBA=>'Lateral arriba',
+        self::TIPO_PUBLICIDAD_ASIDE_ABAJO=>'Lateral abajo',
+    );
+    
 	
-	public function __construct(){
-		$this->isActive = true;
-		$this->vigencia = new \DateTime("+1 year");
-	}
+    public function __construct() {
+        $this->isActive = true;
+        $this->vigencia = new \DateTime("+1 month");
+        $this->tipoArchivo = RpsStms::TIPO_ARCHIVO_IMAGEN;
+        $this->tipoPublicidad = Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_DERECHO;
+    }
+    
+    public function getStringTipoArchivo(){
+        return RpsStms::$sTipoArchivo[$this->getTipoArchivo()];
+    }
 
+    static function getArrayTipoArchivos(){
+        return RpsStms::$sTipoArchivo;
+    }
+
+    static function getPreferedTipoArchivo(){
+        return array(RpsStms::$TIPO_ARCHIVO_IMAGEN);
+    }
+
+    public function getStringTipoPublicidad(){
+        return self::$sTipoPublicidad[$this->getTipoPublicidad()];
+    }
+
+    static function getArrayTipoPublicidad(){
+        return self::$sTipoPublicidad;
+    }
+
+    static function getPreferedTipoPublicidad(){
+        return array(self::TIPO_PUBLICIDAD_ENCABEZADO_IZQUIERDO);
+    }
+    
+    
     /**
      * Get id
      *
@@ -92,49 +153,26 @@ class Publicidad
     }
 
     /**
-     * Set descripcion
+     * Set archivo
      *
-     * @param string $descripcion
+     * @param string $archivo
      * @return Publicidad
      */
-    public function setDescripcion($descripcion)
+    public function setArchivo($archivo)
     {
-        $this->descripcion = $descripcion;
+        $this->archivo = $archivo;
 
         return $this;
     }
 
     /**
-     * Get descripcion
+     * Get archivo
      *
      * @return string 
      */
-    public function getDescripcion()
+    public function getArchivo()
     {
-        return $this->descripcion;
-    }
-
-    /**
-     * Set imagen
-     *
-     * @param string $imagen
-     * @return Publicidad
-     */
-    public function setImagen($imagen)
-    {
-        $this->imagen = $imagen;
-
-        return $this;
-    }
-
-    /**
-     * Get imagen
-     *
-     * @return string 
-     */
-    public function getImagen()
-    {
-        return $this->imagen;
+        return $this->archivo;
     }
 
     /**
@@ -251,8 +289,101 @@ class Publicidad
     {
         return $this->vigencia;
     }
-	
-	/*
+
+    /**
+     * Set empresa
+     *
+     * @param string $empresa
+     * @return Publicidad
+     */
+    public function setEmpresa($empresa)
+    {
+        $this->empresa = $empresa;
+
+        return $this;
+    }
+
+    /**
+     * Get empresa
+     *
+     * @return string 
+     */
+    public function getEmpresa()
+    {
+        return $this->empresa;
+    }
+
+    /**
+     * Set link
+     *
+     * @param string $link
+     * @return Publicidad
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
+
+        return $this;
+    }
+
+    /**
+     * Get link
+     *
+     * @return string 
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
+
+    /**
+     * Set tipoArchivo
+     *
+     * @param integer $tipoArchivo
+     * @return Publicidad
+     */
+    public function setTipoArchivo($tipoArchivo)
+    {
+        $this->tipoArchivo = $tipoArchivo;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoArchivo
+     *
+     * @return integer 
+     */
+    public function getTipoArchivo()
+    {
+        return $this->tipoArchivo;
+    }
+
+    /**
+     * Set tipoPublicidad
+     *
+     * @param integer $tipoPublicidad
+     * @return Publicidad
+     */
+    public function setTipoPublicidad($tipoPublicidad)
+    {
+        $this->tipoPublicidad = $tipoPublicidad;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoPublicidad
+     *
+     * @return integer 
+     */
+    public function getTipoPublicidad()
+    {
+        return $this->tipoPublicidad;
+    }
+    
+    
+    /*
      * Timestable
      */
     
@@ -261,12 +392,10 @@ class Publicidad
      */
     public function setCreatedAtValue()
     {
-        if(!$this->getCreatedAt())
-        {
+        if(!$this->getCreatedAt()){
           $this->createdAt = new \DateTime();
         }
-        if(!$this->getUpdatedAt())
-        {
+        if(!$this->getUpdatedAt()){
           $this->updatedAt = new \DateTime();
         }
     }
@@ -279,7 +408,8 @@ class Publicidad
         $this->updatedAt = new \DateTime();
     }
 	
-	/*** uploads ***/
+    
+    /*** uploads ***/
     
     public $file;
     
@@ -292,12 +422,12 @@ class Publicidad
     {
         $this->file = $file;
         // check if we have an old image path
-        if (isset($this->imagen)) {
+        if (isset($this->archivo)) {
             // store the old name to delete after the update
-            $this->temp = $this->imagen;
-            $this->imagen = null;
+            $this->temp = $this->archivo;
+            $this->archivo = null;
         } else {
-            $this->imagen = 'initial';
+            $this->archivo = 'initial';
         }
     }
     
@@ -320,7 +450,8 @@ class Publicidad
       if (null !== $this->getFile()) {
             // do whatever you want to generate a unique name
             $filename = sha1(uniqid(mt_rand(), true));
-            $this->imagen = $filename.'.'.$this->getFile()->guessExtension();
+            $this->archivo = $filename.'.'.$this->getFile()->guessExtension();
+            $this->setTipoArchivo(RpsStms::getTipoArchivo($this->getArchivo()));
         }
     }
 
@@ -337,7 +468,7 @@ class Publicidad
         // if there is an error when moving the file, an exception will
         // be automatically thrown by move(). This will properly prevent
         // the entity from being persisted to the database on error
-        $this->getFile()->move($this->getUploadRootDir(), $this->imagen);
+        $this->getFile()->move($this->getUploadRootDir(), $this->archivo);
 
         // check if we have an old image
         if (isset($this->temp)) {
@@ -374,12 +505,12 @@ class Publicidad
     
     public function getWebPath()
     {
-        return null === $this->imagen ? null : $this->getUploadDir().'/'.$this->imagen;
+        return null === $this->archivo ? null : $this->getUploadDir().'/'.$this->archivo;
     }
     
     public function getAbsolutePath()
     {
-        return null === $this->imagen ? null : $this->getUploadRootDir().'/'.$this->imagen;
+        return null === $this->archivo ? null : $this->getUploadRootDir().'/'.$this->archivo;
     }
 	
 }

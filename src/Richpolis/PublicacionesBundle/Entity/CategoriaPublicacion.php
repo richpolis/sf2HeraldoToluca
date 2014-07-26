@@ -71,6 +71,7 @@ class CategoriaPublicacion
     
     /**
      * @ORM\OneToMany(targetEntity="CategoriaPublicacion", mappedBy="parent")
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $children;
         
@@ -274,6 +275,15 @@ class CategoriaPublicacion
         return $this->nivel;
     }
 
+    public function getNivelCategoria(){
+        if($this->getNivel()>0){
+            //return str_pad($this->getCategoria(), strlen($this->getCategoria())+$this->getNivel(), "-", STR_PAD_LEFT);
+            return $this->getParent() . " > " . $this->getCategoria();
+        }else{
+            return $this->getCategoria();
+        }   
+    }
+
     /**
      * Add children
      *
@@ -316,6 +326,12 @@ class CategoriaPublicacion
     public function setParent(\Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion $parent = null)
     {
         $this->parent = $parent;
+
+        if(null !== $parent ){
+            $this->setNivel($parent->getNivel()+1);
+        }else{
+            $this->setNivel();
+        }
 
         return $this;
     }

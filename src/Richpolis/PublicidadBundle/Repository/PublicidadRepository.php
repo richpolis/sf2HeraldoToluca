@@ -24,7 +24,7 @@ class PublicidadRepository extends EntityRepository
         $max=$query->getResult();
         return $max[0]['value'];
     }
-	public function getPublicidadActivos(){
+    public function getPublicidadActivos(){
         $em=$this->getEntityManager();
         $query=$em->createQuery('
                SELECT e 
@@ -32,6 +32,17 @@ class PublicidadRepository extends EntityRepository
                WHERE e.isActive = :active
                ORDER BY e.position ASC
         ')->setParameters(array('active'=>true));
+        return $query->getResult();
+    }
+    
+    public function getPublicidadPorTipo($tipoPublicidad){
+        $em=$this->getEntityManager();
+        $query=$em->createQuery('
+               SELECT e 
+               FROM PublicidadBundle:Publicidad e 
+               WHERE e.tipoPublicidad = :tipo
+               ORDER BY e.position ASC
+        ')->setParameters(array('tipo'=>$tipoPublicidad));
         return $query->getResult();
     }
 }

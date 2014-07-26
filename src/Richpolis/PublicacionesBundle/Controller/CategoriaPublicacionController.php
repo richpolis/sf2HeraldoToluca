@@ -18,7 +18,7 @@ use PHPExcel_Cell;
 /**
  * CategoriaPublicacion controller.
  *
- * @Route("/categorias/proyectos")
+ * @Route("/categorias/publicaciones")
  */
 class CategoriaPublicacionController extends Controller {
 
@@ -53,6 +53,23 @@ class CategoriaPublicacionController extends Controller {
      * @Template()
      */
     public function indexAction() {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')->findAll();
+        
+        return array(
+            'entities' => $entities,
+        );
+    }
+    
+    /**
+     * Lists all CategoriaPublicacion entities.
+     *
+     * @Route("/ul", name="categorias_publicaciones_lista")
+     * @Method("GET")
+     * @Template()
+     */
+    public function ulAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')->findAll();

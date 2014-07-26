@@ -2,7 +2,7 @@
 
 {% block title %}Administrador{% endblock %}
 
-{% block stylesheets%}
+{% block stylesheets %}
 <!-- Stylesheets -->
 <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
 <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
@@ -65,11 +65,11 @@
 
                             <!-- Dropdown menu -->
                             <ul class="dropdown-menu">
-                                <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                                <li><a href="#"><i class="fa fa-user"></i> Perfil</a></li>
                                 <!--li><a href="#"><i class="fa fa-cogs"></i> Settings</a></li-->
                                 <li>
                                     <a href="{{path('backend_logout')}}">
-                                        <i class="fa fa-key"></i> Logout
+                                        <i class="fa fa-key"></i> Salir
                                     </a>
                                 </li>
                             </ul>
@@ -85,7 +85,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-dropdown">
-            <a href="#">Navigation</a>
+            <a href="#">Navegador</a>
         </div>
         <!-- Search form -->
         <form class="navbar-form" role="search" action="#search" method="post">
@@ -105,15 +105,22 @@
                     <i class="fa fa-sitemap"></i> <span>Paginas</span>
                 </a>
             </li>
-            <li>
-                <a href="{{path('categorias_publicaciones')}}">
-                    <i class="fa fa-comment"></i> <span>Publicaciones</span>
+            <li class="has_sub">
+                <a  href="#">
+                    <i class="fa fa-copy"></i> <span>Publicaciones</span> <span class="pull-right"><i class="fa fa-chevron-left"></i></span>
                 </a>
+                {% render(controller('PublicacionesBundle:CategoriaPublicacion:ul')) %}
             </li>
             <li>
-                <a href="{{path('publicidad')}}">
-                    <i class="fa fa-dashboard"></i> <span>Publicidad</span>
+                <a  href="{{path('categorias_publicaciones')}}">
+                    <i class="fa fa-comment"></i> <span>Categorias</span> 
                 </a>
+            </li>
+            <li class="has_sub">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Publicidad</span> <span class="pull-right"><i class="fa fa-chevron-left"></i></span>
+                </a>
+                {% render(controller('PublicidadBundle:Publicidad:ul')) %}
             </li>
             {% if is_granted('ROLE_ADMIN') %}
             <li>

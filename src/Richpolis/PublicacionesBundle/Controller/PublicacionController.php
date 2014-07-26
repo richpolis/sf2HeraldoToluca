@@ -212,7 +212,7 @@ class PublicacionController extends Controller {
     /**
      * Finds and displays a Publicacion entity.
      *
-     * @Route("/{id}", name="publicaciones_show")
+     * @Route("/{id}", name="publicaciones_show", requirements={"id" = "\d+"})
      * @Method("GET")
      * @Template()
      */
@@ -226,8 +226,13 @@ class PublicacionController extends Controller {
         }
 
         $deleteForm = $this->createDeleteForm($id);
+        
+        $incompleto = Publicacion::STATUS_INCOMPLETO;
+        $revisar = Publicacion::STATUS_REVISAR;
 
         return array(
+            'incompleto'=>$incompleto,
+            'revisar'=>$revisar,
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
             'get_galerias' => $this->generateUrl('publicaciones_galerias', array('id' => $entity->getId())),
@@ -236,11 +241,36 @@ class PublicacionController extends Controller {
             'url_delete' => $this->generateUrl('publicaciones_galerias_delete', array('id' => $entity->getId(), 'idGaleria' => '0')),
         );
     }
+    
+    /**
+     * Aprueba una publicacion para ser publicada.
+     *
+     * @Route("/{id}/aprobar", name="publicaciones_aprobar", requirements={"id" = "\d+"})
+     * @Method("PATCH")
+     * @Template("PublicacionesBundle:Publicacion:status.html.twig")
+     */
+    public function aprobarAction($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('PublicacionesBundle:Publicacion')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Publicacion entity.');
+        }
+        
+        $entity->setStatus(Publicacion::STATUS_APROBADO);
+        $em->flush();
+
+        return array(
+            'status' => $entity->getStatus(),
+        );
+    }
+
 
     /**
      * Displays a form to edit an existing Publicacion entity.
      *
-     * @Route("/{id}/edit", name="publicaciones_edit")
+     * @Route("/{id}/edit", name="publicaciones_edit", requirements={"id" = "\d+"})
      * @Method("GET")
      * @Template()
      */
@@ -286,7 +316,7 @@ class PublicacionController extends Controller {
     /**
      * Edits an existing Publicacion entity.
      *
-     * @Route("/{id}", name="publicaciones_update")
+     * @Route("/{id}", name="publicaciones_update", requirements={"id" = "\d+"})
      * @Method("PUT")
      * @Template("PublicacionesBundle:Publicacion:edit.html.twig")
      */
@@ -321,7 +351,7 @@ class PublicacionController extends Controller {
     /**
      * Deletes a Publicacion entity.
      *
-     * @Route("/{id}", name="publicaciones_delete")
+     * @Route("/{id}", name="publicaciones_delete", requirements={"id" = "\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id) {
@@ -366,7 +396,7 @@ class PublicacionController extends Controller {
 	/**
      * Up registro.
      *
-     * @Route("/{id}/up", name="publicaciones_up")
+     * @Route("/{id}/up", name="publicaciones_up", requirements={"id" = "\d+"})
      * @Method("PATCH")
      */
     public function upAction($id)
@@ -393,7 +423,7 @@ class PublicacionController extends Controller {
     /**
      * Down registro.
      *
-     * @Route("/{id}/down", name="publicaciones_down")
+     * @Route("/{id}/down", name="publicaciones_down", requirements={"id" = "\d+"})
      * @Method("PATCH")
      */
     public function downAction($id)
@@ -452,7 +482,7 @@ class PublicacionController extends Controller {
     }
     
     /**
-     * Lists all Proyecto galerias entities.
+     * Lists all publicacion galerias entities.
      *
      * @Route("/{id}/galerias", name="publicaciones_galerias", requirements={"id" = "\d+"})
      * @Method("GET")
@@ -461,13 +491,13 @@ class PublicacionController extends Controller {
     {
         $em = $this->getDoctrine()->getManager();
 
-        $autobus = $em->getRepository('PublicacionesBundle:Publicacion')->find($id);
+        $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')->find($id);
         
-        $galerias = $autobus->getGalerias();
-        $get_galerias = $this->generateUrl('publicaciones_galerias',array('id'=>$autobus->getId()));
-        $post_galerias = $this->generateUrl('publicaciones_galerias_upload', array('id'=>$autobus->getId()));
-	$post_galerias_link_video = $this->generateUrl('publicaciones_galerias_link_video',array('id'=>$autobus->getId()));
-        $url_delete = $this->generateUrl('publicaciones_galerias_delete',array('id'=>$autobus->getId(),'idGaleria'=>'0'));
+        $galerias = $publicacion->getGalerias();
+        $get_galerias = $this->generateUrl('publicaciones_galerias',array('id'=>$publicacion->getId()));
+        $post_galerias = $this->generateUrl('publicaciones_galerias_upload', array('id'=>$publicacion->getId()));
+	$post_galerias_link_video = $this->generateUrl('publicaciones_galerias_link_video',array('id'=>$publicacion->getId()));
+        $url_delete = $this->generateUrl('publicaciones_galerias_delete',array('id'=>$publicacion->getId(),'idGaleria'=>'0'));
         
         return $this->render('GaleriasBundle:Galeria:galerias.html.twig', array(
             'galerias'=>$galerias,
@@ -479,14 +509,14 @@ class PublicacionController extends Controller {
     }
     
     /**
-     * Crea una galeria de una autobus.
+     * Crea una galeria de una publicacion.
      *
      * @Route("/{id}/galerias", name="publicaciones_galerias_upload", requirements={"id" = "\d+"})
      * @Method("POST")
      */
     public function galeriasUploadAction(Request $request,$id){
         $em = $this->getDoctrine()->getManager();
-        $autobus=$em->getRepository('PublicacionesBundle:Publicacion')->find($id);
+        $publicacion=$em->getRepository('PublicacionesBundle:Publicacion')->find($id);
        
         if(!$request->request->has('tipoArchivo')){ 
             // list of valid extensions, ex. array("jpeg", "xml", "bmp")
@@ -514,7 +544,7 @@ class PublicacionController extends Controller {
                 //unset($result["filename"],$result['original'],$result['titulo'],$result['contenido']);
                 $em->persist($registro);
                 $registro->crearThumbnail();
-                $autobus->getGalerias()->add($registro);
+                $publicacion->getGalerias()->add($registro);
                 $em->flush();
             }
         }else{
@@ -525,7 +555,7 @@ class PublicacionController extends Controller {
             $registro->setPosition($result['position']);
             $registro->setTipoArchivo($result['tipoArchivo']);
             $em->persist($registro);
-            $autobus->getGalerias()->add($registro);
+            $publicacion->getGalerias()->add($registro);
             $em->flush();  
         }
         
@@ -535,14 +565,14 @@ class PublicacionController extends Controller {
     }
     
     /**
-     * Crea una galeria link video de una autobus.
+     * Crea una galeria link video de una publicacion.
      *
      * @Route("/{id}/galerias/link/video", name="publicaciones_galerias_link_video", requirements={"id" = "\d+"})
      * @Method({"POST","GET"})
      */
     public function galeriasLinkVideoAction(Request $request,$id){
         $em = $this->getDoctrine()->getManager();
-        $autobus=$em->getRepository('PublicacionesBundle:Publicacion')->find($id);
+        $publicacion=$em->getRepository('PublicacionesBundle:Publicacion')->find($id);
         $parameters = $request->request->all();
       
         if(isset($parameters['archivo'])){ 
@@ -552,7 +582,7 @@ class PublicacionController extends Controller {
             $registro->setPosition($parameters['position']);
             $registro->setTipoArchivo($parameters['tipoArchivo']);
             $em->persist($registro);
-            $autobus->getGalerias()->add($registro);
+            $publicacion->getGalerias()->add($registro);
             $em->flush();  
         }
         $response = new \Symfony\Component\HttpFoundation\JsonResponse();
@@ -561,7 +591,7 @@ class PublicacionController extends Controller {
     }
     
     /**
-     * Deletes una Galeria entity de una Proyecto.
+     * Deletes una Galeria entity de una publicacion.
      *
      * @Route("/{id}/galerias/{idGaleria}", name="publicaciones_galerias_delete", requirements={"id" = "\d+","idGaleria"="\d+"})
      * @Method("DELETE")
@@ -569,14 +599,14 @@ class PublicacionController extends Controller {
     public function deleteGaleriaAction(Request $request, $id, $idGaleria)
     {
             $em = $this->getDoctrine()->getManager();
-            $autobus = $em->getRepository('PublicacionesBundle:Publicacion')->find($id);
+            $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')->find($id);
             $galeria = $em->getRepository('GaleriasBundle:Galeria')->find(intval($idGaleria));
 
-            if (!$autobus) {
-                throw $this->createNotFoundException('Unable to find Proyecto entity.');
+            if (!$publicacion) {
+                throw $this->createNotFoundException('Unable to find publicacion entity.');
             }
             
-            $autobus->getGalerias()->removeElement($galeria);
+            $publicacion->getGalerias()->removeElement($galeria);
             $em->remove($galeria);
             $em->flush();
         
@@ -584,5 +614,49 @@ class PublicacionController extends Controller {
         $response = new \Symfony\Component\HttpFoundation\JsonResponse();
         $response->setData(array("ok"=>true));
         return $response;
+    }
+    
+    /**
+     * Activa o inactiva si una publicacion si es principal o no.
+     *
+     * @Route("/{id}/is/principal", name="publicaciones_is_principal", requirements={"id" = "\d+"})
+     * @Method("PATCH")
+     */
+    public function isPrincipalAction($id) 
+    {
+        $em = $this->getDoctrine()->getManager();
+        $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')->find($id);
+
+        if (!$publicacion) {
+            throw $this->createNotFoundException('Unable to find publicacion entity.');
+        }
+        $publicacion->setIsPrincipal(!$publicacion->getIsPrincipal());
+        $em->flush();
+        
+        return $this->render("PublicacionesBundle:Publicacion:item.html.twig",array(
+            'entity'=>$publicacion
+        ));
+    }
+    
+    /**
+     * Activa o inactiva si una publicacion si esta en carrusel o no.
+     *
+     * @Route("/{id}/is/carrusel", name="publicaciones_is_carrusel", requirements={"id" = "\d+"})
+     * @Method("PATCH")
+     */
+    public function isCarruselAction($id) 
+    {
+        $em = $this->getDoctrine()->getManager();
+        $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')->find($id);
+
+        if (!$publicacion) {
+            throw $this->createNotFoundException('Unable to find publicacion entity.');
+        }
+        $publicacion->setIsCarrusel(!$publicacion->getIsCarrusel());
+        $em->flush();
+        
+        return $this->render("PublicacionesBundle:Publicacion:item.html.twig",array(
+            'entity'=>$publicacion
+        ));
     }
 }

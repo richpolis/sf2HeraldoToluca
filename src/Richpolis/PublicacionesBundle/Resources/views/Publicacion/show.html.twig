@@ -1,6 +1,6 @@
 {% extends 'BackendBundle::layout.html.twig' %}
 
-{% block stylesheets%}
+{% block stylesheets %}
     <!-- Stylesheets -->
   <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
   <!-- Font awesome icon -->
@@ -43,7 +43,7 @@
 
         <!-- Page heading -->
         <div class="page-head">
-            <h2 class="pull-left">Servicios</h2>
+            <h2 class="pull-left">Publicaciones</h2>
             <div class="clearfix"></div>
             <!-- Breadcrumb -->
             <div class="bread-crumb">
@@ -53,8 +53,8 @@
                 <a href="{{path('categorias_publicaciones')}}" class="bread-current">{{entity.categoria}}</a>
                 <Divider>
                 <span class="divider">/</span>
-                <a href="{{path('publicaciones')}}" class="bread-current">Proyectos</a>
-                <a href="{{path('publicaciones_new')}}" class="btn btn-info pull-right" style="color: white; margin-left: 5px;">Crear Proyecto</a>
+                <a href="{{path('publicaciones')}}" class="bread-current">Publicaciones</a>
+                <a href="{{path('publicaciones_new')}}" class="btn btn-info pull-right" style="color: white; margin-left: 5px;">Crear publicacion</a>
             </div>
 
             <div class="clearfix"></div>
@@ -69,7 +69,7 @@
                         <div class="col-md-12">
                             <div class="widget">
                                 <div class="widget-head">
-                                    <div class="pull-left">Proyecto "{{entity.tituloEs}}"</div>
+                                    <div class="pull-left">Publicacion "{{entity.titulo}}"</div>
                                     <div class="clearfix"></div>
                                 </div>
 
@@ -92,43 +92,23 @@
                                                                     <td>{{entity.categoria}}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Proyecto en español:</td>
-                                                                    <td>{{ entity.tituloEs }}</td>
+                                                                    <td>Titulo:</td>
+                                                                    <td>{{ entity.titulo }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Descripcion en español :</td>
-                                                                    <td>{{ entity.descripcionEs | raw }}</td>
+                                                                    <td>Descripcion:</td>
+                                                                    <td>{{ entity.descripcion | raw }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Proyecto en ingles:</td>
-                                                                    <td>{{ entity.tituloEn }}</td>
+                                                                    <td>Categoria:</td>
+                                                                    <td>{{entity.categoria.nivelCategoria}}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Descripcion en ingles :</td>
-                                                                    <td>{{ entity.descripcionEn | raw }}</td>
+                                                                    <td>Creado por:</td>
+                                                                    <td>{{entity.usuario}}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Empezo:</td>
-                                                                    <td>{{entity.empezo}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Termino:</td>
-                                                                    <td>{{entity.termino}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Cliente:</td>
-                                                                    <td>{{entity.cliente}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Ubicacion:</td>
-                                                                    <td>{{entity.ubicacion}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Monto:</td>
-                                                                    <td>{{entity.monto}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Imagen:</td>
+                                                                    <td>Portada:</td>
                                                                     <td>
                                                                         {% if entity.imagen | length > 0 %}
                                                                             <img src="{{ entity.thumbnailWebPath }}" style="max-width: 300px;max-height: 300px;"/>
@@ -138,13 +118,9 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Activo?:</td>
-                                                                    <td>
-                                                                        {% if entity.isActive %}
-                                                                            <i class="fa fa-check-circle"></i>
-                                                                        {% else %}
-                                                                            <i class="fa fa-circle"></i>
-                                                                        {% endif %}
+                                                                    <td>Estatus:</td>
+                                                                    <td class="status">
+                                                                        {{ entity.status | status_publicacion | raw }}
                                                                     </td>
                                                                 </tr>
                                                                 
@@ -189,7 +165,10 @@
                                             {{ form_widget(delete_form) }}
                                         </form>
 					<button class="btn btn-danger " onclick="eliminarRegistro();">Eliminar</button>
-                                    </div>        
+                                    </div>
+                                    {% if entity.status >= incompleto and entity.status <= revisar %}
+                                    <button id="botonAprobar" class="btn btn-primary" data-url="{{path('publicaciones_aprobar',{id: entity.id})}}">Aprobar</button>
+                                    {% endif %}
                                 </div>
                             </div>  
                         </div>    
@@ -268,6 +247,8 @@ var eliminarRegistro = function(){
   {% endif %}      
 };
 
+
+
 </script>
 
 {% include 'GaleriasBundle:Galeria:formulariosGaleria.js.twig' with {'entity': entity, 'url_delete': url_delete, 'get_galerias': get_galerias, 'post_galerias': post_galerias, 'post_galerias_link_video': post_galerias_link_video } %}
@@ -277,6 +258,27 @@ var eliminarRegistro = function(){
      createUploader();
      refrescarGaleria();
      $('.loader').fadeOut();
+     $("#botonAprobar").on("click",function(){
+       var $elemento = $('.status');
+       var url = $(this).data('url');
+       $(".loader").fadeIn();
+       $.ajax({
+            url: url,
+            type: 'PATCH',
+            dataType: 'html',
+            success: function(data){
+               $elemento.html(data);
+               noty({ text: 'Actualizacion realizada', layout:'topRight', type:'success',  timeout:2000 });
+               $(".loader").fadeOut();
+               $("#botonAprobar").remove();
+            },
+            error: function(data){
+                noty({ text: 'Error de actualizacion', layout:'topRight', type:'error', timeout:2000 });
+                console.log(data);
+                $(".loader").fadeOut();
+            },
+        });
+     });
  });
  </script>   
 {% endblock %}

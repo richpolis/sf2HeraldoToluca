@@ -1,4 +1,5 @@
 <?php
+
 namespace Richpolis\BackendBundle\Twig;
 
 class IsActiveExtension extends \Twig_Extension
@@ -13,9 +14,9 @@ class IsActiveExtension extends \Twig_Extension
     public function isActiveFilter($is_active)
     {
         if($is_active){
-            $img="<i class='icon-ok'></i>";
+            $img="<i class='fa fa-check-circle'></i>";
         }else{
-            $img="<i class='icon-remove'></i>";
+            $img="<i class='fa fa-circle'></i>";
         }
         
         return $img;
