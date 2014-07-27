@@ -78,10 +78,10 @@
                                         {{form_widget(form)}}
                                     </form>
                                     <br/>
-                                    {% if entity.imagen | length > 0 %}
-                                        <img src="{{ entity.webPath }}" style="max-width: 400px;"/>
+                                    {% if entity.archivo | length > 0 %}
+                                        {{ entity.archivoView | raw }}
                                     {% else %}    
-                                        sin imagen
+                                        sin archivo
                                     {% endif %}
                                 </div>
                             </div>

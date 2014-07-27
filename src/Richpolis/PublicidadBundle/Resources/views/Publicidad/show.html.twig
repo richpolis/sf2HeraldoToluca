@@ -78,30 +78,34 @@
                                                                     <td>{{ entity.id }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Descripcion</th>
-                                                                    <td>{{ entity.descripcion | raw }}</td>
+                                                                    <th>Empresa</th>
+                                                                    <td>{{ entity.empresa }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Creado</th>
-                                                                    <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Actualizado</th>
-                                                                    <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Vigencia</th>
-                                                                    <td>{{ entity.vigencia|date('Y-m-d H:i:s') }}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Imagen:</td>
+                                                                    <td>Archivo:</td>
                                                                     <td>
-                                                                        {% if entity.imagen | length > 0 %}
-                                                                            <img src="{{ entity.webPath }}" style="max-width: 400px;"/>
+                                                                        {% if entity.archivo | length > 0 %}
+                                                                            {{ entity.archivoView | raw }}
                                                                         {% else %}    
-                                                                            sin imagen
+                                                                            sin archivo
                                                                         {% endif %}
                                                                     </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Link:</td>
+                                                                    <td>
+                                                                        {% if entity.link | length > 0 %}
+                                                                            <a href="{{ entity.webPath }}" target="_blank">{{entity.link}}</a>
+                                                                        {% endif %}
+                                                                    </td>
+                                                                </tr>
+																<tr>
+                                                                    <th>Tipo publicidad</th>
+                                                                    <td>{{ entity.stringTipoPublicidad }}</td>
+                                                                </tr>
+																<tr>
+                                                                    <th>Vigencia</th>
+                                                                    <td>{{ entity.vigencia|date('Y-m-d H:i:s') }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Activo?:</td>
@@ -112,6 +116,14 @@
                                                                             <i class="fa fa-circle"></i>
                                                                         {% endif %}
                                                                     </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Creado</th>
+                                                                    <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Actualizado</th>
+                                                                    <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
                                                                 </tr>
                                                                 
                                                             </tbody>

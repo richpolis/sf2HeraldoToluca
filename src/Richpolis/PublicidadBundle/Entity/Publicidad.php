@@ -44,7 +44,6 @@ class Publicidad
      * @var string
      *
      * @ORM\Column(name="archivo", type="string", length=255, nullable=false)
-     * @Assert\NotBlank()
      */
     private $archivo;
     
@@ -113,8 +112,8 @@ class Publicidad
     public function __construct() {
         $this->isActive = true;
         $this->vigencia = new \DateTime("+1 month");
-        $this->tipoArchivo = RpsStms::TIPO_ARCHIVO_IMAGEN;
-        $this->tipoPublicidad = Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_DERECHO;
+        $this->tipoArchivo = RpsStms::TIPO_ARCHIVO_IMAGEN;  
+		$this->tipoPublicidad = Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_DERECHO;
     }
     
     public function getStringTipoArchivo(){
@@ -524,8 +523,20 @@ class Publicidad
             'tipo_archivo'  => RpsStms::getTipoArchivo($this->getArchivo()),
             'path'      =>  $this->getWebPath(),
             'carpeta'   =>  'publicidad',
-            'width'     =>  300,
-            'height'    =>  250,
+            'width'     =>  $this->getWidth()/2,
+            'height'    =>  $this->getHeight()/2,
+        );
+        
+        return RpsStms::getArchivoView($opciones);
+    }
+	
+	public function getArchivoView(){
+        $opciones=array(
+            'tipo_archivo'  => RpsStms::getTipoArchivo($this->getArchivo()),
+            'path'      =>  $this->getWebPath(),
+            'carpeta'   =>  'publicidad',
+            'width'     =>  $this->getWidth(),
+            'height'    =>  $this->getHeight(),
         );
         
         return RpsStms::getArchivoView($opciones);
@@ -562,32 +573,15 @@ class Publicidad
     }
     
     /*
-     * Crea el thumbnail y lo guarda en un carpeta dentro del webPath thumbnails
+     * Crea el thumbnail si por alguna razon no es del tamaño.
      * 
      * @return void
      */
-    public function crearThumbnail($width=120,$height=100,$path=""){
-        $this->thumbnail=$this->archivo;
-        $imagine= new \Imagine\Gd\Imagine();
-        $mode=  \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND;
-        $image     = $imagine->open($this->getAbsolutePath());
-        $sizeImage = $image->getSize();
-        if(strlen($path)==0){
-            $path = $this->getAbosluteThumbnailPath();
-        }
-        /*if($height == null){
-            $height = $sizeImage->getHeight();
-            if($height>369){
-                $height = 369;
-            }
-        }
-        if($width == null){
-            $width = $sizeImage->getWidth();
-            if($width>638){
-                $width = 638;
-            }
-        }*/
-        $size=new \Imagine\Image\Box($width,$height);
-        $image->thumbnail($size,$mode)->save($path);        
+    public function crearThumbnail($width=120,$height=100){
+        $imagine 	= 	new \Imagine\Gd\Imagine();
+        $mode		=  	\Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND;
+        $image     	= 	$imagine->open($this->getAbsolutePath());
+        $size		=	new \Imagine\Image\Box($width,$height);
+        $image->thumbnail($size,$mode)->save($this->getAbsolutePath());        
     }
 }

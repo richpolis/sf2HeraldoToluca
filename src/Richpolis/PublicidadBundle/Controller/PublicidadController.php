@@ -36,16 +36,17 @@ class PublicidadController extends Controller
         $tipoPublicidad = null;
         if (isset($filters['tipoPublicidad'])) {
             $this->tipos = Publicidad::getArrayTipoPublicidad();
-            foreach ($this->tipos as $tipo) {
-                if ($tipo == $filters['tipoPublicidad']) {
-                    $tipoPublicidad = $tipo;
+            foreach ($this->tipos as $key => $value) {
+                if ($key == $filters['tipoPublicidad']) {
+                    $tipoPublicidad = $key;
                     break;
                 }
             }
         } else {
             $this->tipos = Publicidad::getArrayTipoPublicidad();
-            $this->setFilters(array('tipoPublicidad' => $this->tipos[0]));
-            $tipoPublicidad = $this->tipos[0];
+			$keys = array_keys($this->tipos);
+            $this->setFilters(array('tipoPublicidad' => $keys[0]));
+            $tipoPublicidad = $keys[0];
         }
         return $tipoPublicidad;
     }
@@ -167,16 +168,20 @@ class PublicidadController extends Controller
     public function newAction()
     {
         $entity = new Publicidad();
+		
         $max = $this->getDoctrine()->getRepository('PublicidadBundle:Publicidad')
                 ->getMaxPosicion();
-        $tipoPublicidad = $this->getTipoPublicidadDefault();
-        if (!is_null($max)) {
+        
+		$tipoPublicidad = $this->getTipoPublicidadDefault();
+        
+		if (!is_null($max)) {
             $entity->setPosition($max + 1);
         } else {
             $entity->setPosition(1);
         }
+		
         $entity->setTipoPublicidad($tipoPublicidad);    
-        
+		
         $form = $this->createCreateForm($entity);
 
         return array(
@@ -371,7 +376,7 @@ class PublicidadController extends Controller
     /**
      * Activa o inactiva si una publicidad.
      *
-     * @Route("/{id}/is/active", name="publicaciones_is_active", requirements={"id" = "\d+"})
+     * @Route("/{id}/is/active", name="publicidad_is_active", requirements={"id" = "\d+"})
      * @Method("PATCH")
      */
     public function isActiveAction($id) 
