@@ -15,7 +15,22 @@ use Richpolis\FrontendBundle\Form\ContactoType;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="portada")
+     * @Template()
+     */
+    public function portadaAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $portada = $em->getRepository('PublicacionesBundle:Publicacion')
+                ->findPortada();
+        
+        return array(
+          'publicacion'=>$portada
+        );
+    }
+    
+    /**
+     * @Route("/inicio", name="homepage")
      * @Template()
      */
     public function indexAction()

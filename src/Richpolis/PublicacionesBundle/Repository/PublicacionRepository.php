@@ -26,32 +26,6 @@ class PublicacionRepository extends EntityRepository
         return $max[0]['value'];
     }
 
-    public function getMinEmpezo(){
-        $em=$this->getEntityManager();
-       
-        $query=$em->createQuery('
-            SELECT MIN(c.empezo) as value 
-            FROM PublicacionesBundle:Publicacion c 
-            ORDER BY c.position ASC
-        ');
-        
-        $min=$query->getResult();
-        return $min[0]['value'];
-    }
-
-    public function getMaxTermino(){
-        $em=$this->getEntityManager();
-       
-        $query=$em->createQuery('
-            SELECT MIN(c.termino) as value 
-            FROM PublicacionesBundle:Publicacion c 
-            ORDER BY c.position ASC
-        ');
-        
-        $max=$query->getResult();
-        return $max[0]['value'];
-    }
-    
     public function getPublicacionConGaleriaPorId($publicacion_id,$active=true){
         $em=$this->getEntityManager();
         $query=$em->createQuery('
@@ -206,20 +180,24 @@ class PublicacionRepository extends EntityRepository
         return $query->getQuery()->setMaxResults(1)->getOneOrNullResult();
     }
     
-    public function findInCarrusel(){
-        $em=$this->getEntityManager();
-        $query=$em->createQuery('
-               SELECT p,c,u,g 
-               FROM PublicacionesBundle:Publicacion p 
-               JOIN p.galerias g 
-               JOIN p.usuario u 
-               JOIN p.categoria c 
-               WHERE p.inCarrusel = :inCarrusel 
-               AND g.isActive = :isActive 
-               ORDER BY p.createdAt DESC,g.position ASC
-        ')->setParameters(array('inCarrusel'=> true,'isActive'=>true));
-        
-        return $query->getResult();
+    public function findQueryCarrusel(){
+        $query=$this->getEntityManager()->createQueryBuilder();
+        $query->select('p,c,u,g')
+                ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
+                ->leftJoin('p.galerias', 'g')
+                ->leftJoin('p.usuario', 'u')
+                ->leftJoin('p.categoria', 'c')
+                ->where('p.isCarrusel=:isCarrusel')
+                ->setParameter('isCarrusel', true)
+                ->andWhere('p.status =:status')
+                ->setParameter('status', Publicacion::STATUS_PUBLICADO)
+                ->orderBy('p.createdAt', 'DESC')
+                ->addOrderBy('g.position', 'ASC');
+        return $query->getQuery();
+    }
+    
+    public function findCarrusel(){
+        return $this->getQueryCarrusel()->getResult();
     }
     
     public function getQueryPortada(){
@@ -229,8 +207,10 @@ class PublicacionRepository extends EntityRepository
                 ->leftJoin('p.galerias', 'g')
                 ->leftJoin('p.usuario', 'u')
                 ->leftJoin('p.categoria', 'c')
-                ->where('p.isActive=:isActive')
-                ->setParameter('isActive', true)
+                ->where('p.isPrincipal=:isPrincipal')
+                ->setParameter('isPrincipal', true)
+                ->andWhere('p.status =:status')
+                ->setParameter('status', Publicacion::STATUS_PUBLICADO)
                 ->orderBy('p.createdAt', 'DESC')
                 ->addOrderBy('g.position', 'ASC');
         return $query->getQuery();

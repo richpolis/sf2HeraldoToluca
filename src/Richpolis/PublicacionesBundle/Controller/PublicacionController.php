@@ -84,15 +84,14 @@ class PublicacionController extends Controller {
      */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-
         $categoria = $this->getCategoriaDefault();
-
-
         return array(
             'categoria' => $categoria,
             'entities' => $categoria->getPublicaciones(),
         );
     }
+    
+    
 
     /**
      * Lists all Publicacion entities for eventos.
