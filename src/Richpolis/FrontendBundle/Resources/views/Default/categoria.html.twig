@@ -4,7 +4,7 @@
   <section class="padding columna-2">
         <article class="list-noticias categoria">
             <header>
-                <h2 class="titulo azul estatica">
+                <h2 class="titulo azul">
                     <span>{{categoria}}</span>
                 </h2>
             </header>
@@ -14,6 +14,26 @@
                 {% endfor %}
             </section>
         </article>
+        <div class="pgn clearfix">
+            <span class="prv">
+                <a href="#">« previous</a>
+            </span>
+            <div class="pgs clearfix">
+                <a href="#" class="page">1</a>
+                <span class="cur">2</span>
+                <a href="#" class="page">3</a>
+                <a href="#" class="page">4</a>
+                <a href="#" class="page">5</a>
+                <a href="#" class="page">6</a>
+                <a href="#" class="page">7</a>
+                <a href="#" class="page">8</a>
+                <a href="#" class="page">9</a>
+                <a href="#" class="page">10</a>
+            </div>
+            <span class="nxt">
+                <a href="#">next »</a>
+            </span>
+        </div>
     </section>	
     {% include 'FrontendBundle:Default:aside.html.twig' %}            
 {% endblock %}

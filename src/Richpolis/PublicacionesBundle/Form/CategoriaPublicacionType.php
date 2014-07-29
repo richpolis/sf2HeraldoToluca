@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
+use Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion;
 
 class CategoriaPublicacionType extends AbstractType
 {
@@ -21,6 +22,17 @@ class CategoriaPublicacionType extends AbstractType
                 'placeholder'=>'Categoria',
                 'data-bind'=>'value: categoria'
              )))
+            ->add('tipoCategoria','choice',array(
+                'label'=>'Tipo',
+                'empty_value'=>false,
+                'read_only'=> true,
+                'choices'=>  CategoriaPublicacion::getArrayTipoCategoria(),
+                'preferred_choices'=>  CategoriaPublicacion::getPreferedTipoCategoria(),
+                'attr'=>array(
+                    'class'=>'validate[required] form-control placeholder',
+                    'placeholder'=>'Tipo de categoria',
+                    'data-bind'=>'value: tipoCategoria'
+                )))    
             ->add('parent','entity',array(
                 'class'=> 'PublicacionesBundle:CategoriaPublicacion',
                 'label'=>'Antecesor',
@@ -44,6 +56,7 @@ class CategoriaPublicacionType extends AbstractType
                 'data-bind'=>'value: isActive'
              )))    
             ->add('position','hidden')
+            ->add('contPublicaciones','hidden')
         ;
     }
     

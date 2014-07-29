@@ -38,6 +38,13 @@ class CategoriaPublicacion
     /**
      * @var integer
      *
+     * @ORM\Column(name="tipo_categoria", type="integer")
+     */
+    private $tipoCategoria;
+    
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="position", type="integer")
      */
     private $position;
@@ -83,7 +90,24 @@ class CategoriaPublicacion
      */
     private $publicaciones;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="cont_publicaciones", type="integer")
+     */
+    private $contPublicaciones;
 
+    const TIPO_CATEGORIA_PUBLICACION=1;
+    const TIPO_CATEGORIA_LLAMADOS=2;
+    const TIPO_CATEGORIA_HERALDO_TV=3;
+    const TIPO_CATEGORIA_TU_ESPACIO=4;
+        
+    static public $sTipoCategoria=array(
+        self::TIPO_CATEGORIA_PUBLICACION=>'Noticia',
+        self::TIPO_CATEGORIA_LLAMADOS=>'Noticia en llamados',
+        self::TIPO_CATEGORIA_HERALDO_TV=>'Heraldo Tv',
+        self::TIPO_CATEGORIA_TU_ESPACIO=>'Tu espacio',
+    );
     
     /**
      * Constructor
@@ -93,7 +117,21 @@ class CategoriaPublicacion
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->publicaciones = new \Doctrine\Common\Collections\ArrayCollection();
         $this->isActive = true;
+        $this->tipoCategoria = self::TIPO_CATEGORIA_PUBLICACION;
         $this->nivel=0;
+        $this->contPublicaciones=0;
+    }
+    
+    public function getStringTipoCategoria(){
+        return self::$sTipoCategoria[$this->getTipoCategoria()];
+    }
+
+    static function getArrayTipoCategoria(){
+        return self::$sTipoCategoria;
+    }
+
+    static function getPreferedTipoCategoria(){
+        return array(self::TIPO_CATEGORIA_PUBLICACION);
     }
     
     public function __toString(){
@@ -344,5 +382,51 @@ class CategoriaPublicacion
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * Set tipoCategoria
+     *
+     * @param integer $tipoCategoria
+     * @return CategoriaPublicacion
+     */
+    public function setTipoCategoria($tipoCategoria)
+    {
+        $this->tipoCategoria = $tipoCategoria;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoCategoria
+     *
+     * @return integer 
+     */
+    public function getTipoCategoria()
+    {
+        return $this->tipoCategoria;
+    }
+
+    /**
+     * Set contPublicaciones
+     *
+     * @param integer $contPublicaciones
+     * @return CategoriaPublicacion
+     */
+    public function setContPublicaciones($contPublicaciones)
+    {
+        $this->contPublicaciones = $contPublicaciones;
+
+        return $this;
+    }
+
+    /**
+     * Get contPublicaciones
+     *
+     * @return integer 
+     */
+    public function getContPublicaciones()
+    {
+        return $this->contPublicaciones;
     }
 }

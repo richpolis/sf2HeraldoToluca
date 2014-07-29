@@ -12,6 +12,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Richpolis\FrontendBundle\Entity\Contacto;
 use Richpolis\FrontendBundle\Form\ContactoType;
 
+use Richpolis\PublicacionesBundle\Entity\Publicacion;
+
 class DefaultController extends Controller
 {
     /**
@@ -22,7 +24,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $portada = $em->getRepository('PublicacionesBundle:Publicacion')
-                ->findPortada();
+                ->findPortada(Publicacion::STATUS_APROBADO);
         
         return array(
           'publicacion'=>$portada

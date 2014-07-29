@@ -2,16 +2,29 @@
 
 {% block contenido %}
     <section class="padding columna-2">
-        <article class="list-noticias">
+        {% if pagina != null %}
+        <article class="estatica">
             <header>
-                <h2 class="titulo estatica">
-                    {{pagina.pagina}}
+                <h2 class="titulo">
+                    <span>{{pagina.pagina}}</span>
                 </h2>
             </header>
             <div class="contenido">
                 {{ pagina.contenido | raw }}
             </div>
         </article>
+        {% else %}    
+         <article class="estatica">
+            <header>
+                <h2 class="titulo">
+                    <span>Pagina no encontrada</span>
+                </h2>
+            </header>
+            <div class="contenido">
+                La pagina buscada no se ha encontrado
+            </div>
+        </article>   
+        {% endif %}    
     </section>	
     {% include 'FrontendBundle:Default:aside.html.twig' %}
 {% endblock %}

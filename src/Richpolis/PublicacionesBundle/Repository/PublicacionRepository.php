@@ -200,7 +200,7 @@ class PublicacionRepository extends EntityRepository
         return $this->getQueryCarrusel()->getResult();
     }
     
-    public function getQueryPortada(){
+    public function getQueryPortada($status = Publicacion::STATUS_PUBLICADO){
         $query=$this->getEntityManager()->createQueryBuilder();
         $query->select('p,c,u,g')
                 ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
@@ -210,14 +210,14 @@ class PublicacionRepository extends EntityRepository
                 ->where('p.isPrincipal=:isPrincipal')
                 ->setParameter('isPrincipal', true)
                 ->andWhere('p.status =:status')
-                ->setParameter('status', Publicacion::STATUS_PUBLICADO)
+                ->setParameter('status', $status)
                 ->orderBy('p.createdAt', 'DESC')
                 ->addOrderBy('g.position', 'ASC');
         return $query->getQuery();
     }
     
-    public function findPortada(){
-        return $this->getQueryPortada()->getResult();
+    public function findPortada($status = Publicacion::STATUS_PUBLICADO){
+        return $this->getQueryPortada()->getResult($status);
     }
     
 }

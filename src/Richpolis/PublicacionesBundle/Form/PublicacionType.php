@@ -66,6 +66,8 @@ class PublicacionType extends AbstractType
             ->add('position','hidden')
             ->add('slug','hidden')
             ->add('status','hidden')
+            ->add('contVisitas','hidden')
+            ->add('contComentarios','hidden')
             //->add('galerias','hidden')    
         ;
     }

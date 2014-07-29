@@ -85,6 +85,22 @@ class Publicacion
     private $position;
 
     /**
+     * @var integer
+     * @todo Cuantas personas han leido esta publicacion.
+     *
+     * @ORM\Column(name="cont_visitas", type="integer")
+     */
+    private $contVisitas;
+
+    /**
+     * @var integer
+     * @todo Cuantos comentarios tiene esta publicacion
+     *
+     * @ORM\Column(name="contComentarios", type="integer")
+     */
+    private $contComentarios;
+
+    /**
      * @var boolean
      * @todo Si la noticia es inactiva no es visible para el usuario. 
      *
@@ -173,6 +189,8 @@ class Publicacion
         $this->isCarrusel = false;
         $this->isPrincipal = false;
         $this->status = self::STATUS_INCOMPLETO;
+        $this->contVisitas = 0;
+        $this->contComentarios = 0;
     }
     
     public function __toString(){
