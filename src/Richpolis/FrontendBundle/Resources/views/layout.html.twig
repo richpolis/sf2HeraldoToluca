@@ -109,10 +109,10 @@
                     <a href="{{path('portada')}}">portada</a>
                 </li>
                 <li>
-                    <a href="{{path('homepage',{categoria: 'inicio'})}}">inicio</a>
+                    <a href="{{path('homepage')}}">inicio</a>
                 </li>
                 <li>
-                    <a href="{{path('frontend_categoria',{categoria: 'entorno'})}}">general</a>
+                    <a href="{{path('frontend_categoria',{categoria: 'general'})}}">general</a>
                     <ul class="submenu">
                         <li><a href="{{path('frontend_categoria',{categoria: 'entorno'})}}">entorno</a></li>
                         <li><a href="{{path('frontend_categoria',{categoria: 'poder'})}}">poder</a></li>
@@ -173,17 +173,17 @@
                 </div>
                 <div class="navegador principal principal-footer">
                     <ul>
-                        <li><a href="#">portada</a></li>
-                        <li><a href="#">inicio</a></li>
-                        <li><a href="#">general</a></li>
-                        <li><a href="#">nacional</a></li>
-                        <li><a href="#">mundo</a></li>
-                        <li><a href="#">negocios</a></li>
-                        <li><a href="#">municipios</a></li>
-                        <li><a href="#">trofeo</a></li>
-                        <li><a href="#">arte y gente</a></li>
-                        <li><a href="#">ideas y voces</a></li>
-                        <li><a href="#">entrevista</a></li>
+                        <li><a href="{{path('portada')}}">portada</a></li>
+                        <li><a href="{{path('homepage')}}">inicio</a></li>
+                        <li><a href="{{path('frontend_categoria',{categoria: 'general'})}}">general</a></li>
+                        <li><a href="{{path('frontend_categoria',{categoria: 'nacional'})}}">nacional</a></li>
+                        <li><a href="{{path('frontend_categoria',{categoria: 'mundo'})}}">mundo</a></li>
+                        <li><a href="{{path('frontend_categoria',{categoria: 'negocios'})}}">negocios</a></li>
+                        <li><a href="{{path('frontend_categoria',{categoria: 'municipios'})}}">municipios</a></li>
+                        <li><a href="{{path('frontend_categoria',{categoria: 'trofeo'})}}">trofeo</a></li>
+                        <li><a href="{{path('frontend_categoria',{categoria: 'arte-y-gente'})}}">arte y gente</a></li>
+                        <li><a href="{{path('frontend_categoria',{categoria: 'ideas-y-voces'})}}">ideas y voces</a></li>
+                        <li><a href="{{path('frontend_categoria',{categoria: 'entrevista'})}}">entrevista</a></li>
                     </ul>
                 </div>
             </div>
@@ -250,7 +250,7 @@
           
         
           $(".ver-nota").on("click",function(){
-             location.href = '{{path('frontend_publiaciones',{'publicacion': 'slug-publicacion'})}}' 
+             location.href = '{{path('frontend_publicaciones',{'publicacion': 'slug-publicacion'})}}' 
           });  
 
         });

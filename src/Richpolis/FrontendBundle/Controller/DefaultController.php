@@ -24,8 +24,8 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $portada = $em->getRepository('PublicacionesBundle:Publicacion')
-                ->findPortada(Publicacion::STATUS_APROBADO);
-        
+                ->findOnePortada(Publicacion::STATUS_APROBADO);
+                
         return array(
           'publicacion'=>$portada
         );
@@ -62,7 +62,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/publicacion/{publicacion}", name="frontend_publiaciones")
+     * @Route("/publicacion/{publicacion}", name="frontend_publicaciones")
      * @Template()
      */
     public function publicacionAction($publicacion)

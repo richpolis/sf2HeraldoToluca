@@ -72,7 +72,9 @@ class CategoriaPublicacionController extends Controller {
     public function ulAction() {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')->findAll();
+        $entities = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')
+                        ->findBy(array('tipoCategoria'=>  CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION)
+                                , array('position'=>'DESC'));
         
         return array(
             'entities' => $entities,

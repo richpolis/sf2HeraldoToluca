@@ -216,8 +216,13 @@ class PublicacionRepository extends EntityRepository
         return $query->getQuery();
     }
     
-    public function findPortada($status = Publicacion::STATUS_PUBLICADO){
-        return $this->getQueryPortada()->getResult($status);
+    public function findOnePortada($status = Publicacion::STATUS_PUBLICADO){
+        $resultados = $this->getQueryPortada($status)->getResult();
+        if(isset($resultados[0])){
+            return $resultados[0];
+        }else{
+            return null;
+        }
     }
     
 }

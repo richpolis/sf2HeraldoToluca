@@ -96,7 +96,7 @@ class Publicacion
      * @var integer
      * @todo Cuantos comentarios tiene esta publicacion
      *
-     * @ORM\Column(name="contComentarios", type="integer")
+     * @ORM\Column(name="cont_comentarios", type="integer")
      */
     private $contComentarios;
 
