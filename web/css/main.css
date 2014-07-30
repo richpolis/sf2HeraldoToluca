@@ -81,11 +81,11 @@ nav{height:30px}
 #logo-redes-sociales > .redes-sociales{position:absolute;top:20px;right:0;z-index:1000}
 #logo-redes-sociales > .buscador{position:absolute;top:50px;right:0;z-index:1000}
 #logo-redes-sociales > .fecha{bottom:0;color:#1e1e1e;font-family:'Conv_Amplitude-Regular';font-size:14px;position:absolute;right:0;z-index:1000}
-#minuto-a-minuto{border-top:1px solid #2369ab;margin-bottom:10px;margin-top:10px;overflow:hidden;}
+#minuto-a-minuto{margin-bottom:10px;overflow:hidden;}
 #minuto-a-minuto h2.titulo{background:#2369ab;color:#fff;font-family:'Conv_FRAMDCN';font-size:20px;font-weight:normal;height:34px;line-height:34px;overflow:hidden;padding-left:20px;text-transform:uppercase}
 #minuto-a-minuto ul{margin:0;padding:0}
 #minuto-a-minuto li{border-bottom:1px dotted #808080;font-size:14px;height:60px;list-style:none;overflow:hidden;padding:10px 0;}
-#minuto-a-minuto li .tiempo,#minuto-a-minuto li .contenido{display:inline-block;vertical-align:top}
+#minuto-a-minuto li .tiempo,#minuto-a-minuto li .contenido{display:inline-block;vertical-align:middle}
 #minuto-a-minuto li .tiempo{margin-top:20px;width:45px;background:#d1d1d1;color:#2369ab;padding:3px;position:relative;text-align:center;}
 #minuto-a-minuto li .tiempo:after{content:"";display:block;border-left:12px solid #d1d1d1;border-top:11px solid transparent;border-bottom:11px solid transparent;position:absolute;right:-12px;top:0}
 #minuto-a-minuto li .contenido{width:225px;margin-left:20px}
@@ -126,18 +126,18 @@ nav{height:30px}
 .item-video:first-child{margin-left:16px}
 .estatica{border-bottom:1px solid #c0c0c0;margin-top:0;padding-bottom:16px;}
 .estatica div.contenido{margin-top:20px;text-align:justificy}
-.estatica h2.titulo{margin:0;border-top:1px solid #2369ab;border-bottom:1px solid #808080;padding:20px 0 13px;}
-.estatica h2.titulo span{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-weight:normal;background:transparent;text-transform:uppercase;border-bottom:10px solid #808080;color:#000;font-family:'Conv_FRAMDCN';font-size:40px;height:80px;line-height:40px;}
+.estatica h2.titulo{border-bottom:1px solid #808080;border-top:1px solid #2369ab;margin:0;padding:20px 0 0;}
+.estatica h2.titulo span{background:transparent;border-bottom:10px solid #808080;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;color:#000;display:block;font-family:'Conv_FRAMDCN';font-size:40px;font-weight:normal;height:50px;line-height:40px;text-transform:uppercase;width:50%;}
 .estatica h2.titulo span.azul{border-bottom:10px solid #2369ab}
 .estatica h2.titulo span.rojo{border-bottom:10px solid #f00}
-.list-noticias{border-bottom:1px solid #c0c0c0;margin-top:0;padding-bottom:16px;}
+.list-noticias{border-bottom:1px solid #c0c0c0;margin-top:0;padding-bottom:16px;margin-right:16px;}
 .list-noticias h2.titulo{background:#000;border-bottom:10px solid #808080;color:#fff;font-family:'Conv_FRAMDCN';font-size:20.83px;height:44px;line-height:34px;margin:5px 0;min-width:300px;padding:0 10px;text-transform:uppercase;width:314px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-weight:normal;margin-bottom:10px;}
 .list-noticias h2.titulo.azul{border-bottom:10px solid #2369ab}
 .list-noticias h2.titulo.rojo{border-bottom:10px solid #f00}
 .lomas{width:300px;display:none;overflow:hidden;}
 .lomas ul{padding:0;margin:0}
 .lomas li{list-style:none;border-bottom:1px dotted #000;padding-bottom:8px;padding-top:8px;font-size:12px;float:left}
-.lomas .numero,.lomas .contenido,.lomas figure{display:inline-block;vertical-align:top}
+.lomas .numero,.lomas .contenido,.lomas figure{display:inline-block;vertical-align:middle}
 .lomas .numero{width:15px;vertical-align:middle;color:#2369ab;font-weight:bold}
 .lomas .contenido{width:179px}
 .lomas figure{margin:0;padding:5px;width:90px}
@@ -170,17 +170,30 @@ nav{height:30px}
 .publicidad{padding-bottom:1em;}
 .publicidad .item-publicidad{display:inline-block;vertical-align:top;}
 .publicidad .item-publicidad:last-child{margin-left:1em}
+.publicacion-principal{border-bottom:1px solid #2369ab;border-top:1px solid #2369ab;padding-bottom:1em;}
+.publicacion-principal .contenedor-centrado{margin:0 auto;width:616px}
+.publicacion-principal .titulo{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;color:#2369ab;font-family:'Conv_Georgia_0';font-size:32px;font-weight:normal;margin:5px 0;width:100%;text-align:center;}
+.publicacion-principal .titulo:first-letter{text-transform:uppercase}
+.publicacion-principal .contenedor-galeria ul{margin:0;padding:0;list-style:none}
+.publicacion-principal .contenedor-galeria .bx-prev{left:-35px}
+.publicacion-principal .contenedor-galeria .bx-next{right:-35px}
+.publicacion-principal .contenido{color:#282828;font-size:16px;position:relative}
+.publicacion-principal .ver-nota{background:#2369ab;border:none;color:#fff;font-family:'Conv_Georgia_0';font-size:13px;height:40px;padding:10px 16px;text-transform:uppercase;width:110px}
 .publicacion-completa{border-top:1px solid #2369ab;border-bottom:1px solid #2369ab;padding-bottom:1em;}
 .publicacion-completa > header{margin-bottom:10px}
 .publicacion-completa span.datetime{color:#808080;font-family:'Conv_FRABK';font-size:14.58px}
 .publicacion-completa .titulo{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;color:#000;font-family:'Conv_Georgia_0';font-size:29.17px;font-weight:normal;margin:5px 0;width:100%;}
 .publicacion-completa .titulo:first-letter{text-transform:uppercase}
+.publicacion-completa .contenedor-galeria{width:616px;margin:0 auto;}
+.publicacion-completa .contenedor-galeria ul{padding:0;list-style:none}
+.publicacion-completa .contenedor-galeria .bx-prev{left:-35px}
+.publicacion-completa .contenedor-galeria .bx-next{right:-35px}
 .publicacion-completa .contenido{color:#282828;font-size:16px;position:relative}
 .publicacion-completa .ver-nota{background:#2369ab;border:none;color:#fff;font-family:'Conv_Georgia_0';font-size:13px;height:40px;padding:10px 16px;text-transform:uppercase;width:110px}
 .publicacion{border-top:1px solid #2369ab;border-bottom:1px solid #2369ab;padding-bottom:1em;}
-.publicacion .titulo{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;color:#2369ab;font-family:'Conv_Georgia_0';font-size:30px;font-weight:normal;margin:5px 0;padding-left:1em;width:100%;}
+.publicacion .titulo{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;color:#2369ab;font-family:'Conv_Georgia_0';font-size:30px;font-weight:normal;margin:5px 0;padding:0 1em;width:100%;}
 .publicacion .titulo:first-letter{text-transform:uppercase}
-.publicacion .contenido{color:#282828;font-size:16px;position:relative}
+.publicacion .contenido{color:#282828;font-size:16px;position:relative;padding:0 1em}
 .publicacion .ver-nota{background:#2369ab;border:none;color:#fff;font-family:'Conv_Georgia_0';font-size:13px;height:40px;padding:10px 16px;text-transform:uppercase;width:110px}
 #ediciones-pdf .ediciones-pdf{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;color:#fff;height:65px;margin-top:10px;padding:10px 0;text-transform:uppercase}
 #ediciones-pdf h3.titulo{height:45px;line-height:45px;margin:0;padding:0 20px}
@@ -194,13 +207,24 @@ nav{height:30px}
 .control.izquierdo{left:0}
 .control.derecho{right:0}
 .redes-sociales span{display:inline-block;vertical-align:top;margin-left:.2em}
+.ver-archivos{background:#2369ab;border:none;color:#fff;font-family:'Conv_Georgia_0';font-size:13px;height:40px;padding:10px 16px;text-transform:uppercase;width:110px}
 .relative{position:relative}
 .padding{padding:16px}
 .padding-trb{padding:16px 16px 16px 0}
 .padding-rbl{padding:0 16px 16px}
 .padding-tl{padding:10px 0 0 16px}
+.sin-margen-top{margin-top:0}
+.margen-bottom{margin-bottom:16px}
+.sin-padding{padding:0}
 .cargador{color:#2369ab;font-family:'Conv_FRAMDCN';font-size:14px;margin:0;padding-right:16px;text-align:right;}
 .cargador:first-letter{text-transform:uppercase}
 .cargador.gris{color:#808080}
 .cargador.rojo{color:#f00}
 .cargador.azul{color:#2369ab}
+.pgn{border-bottom:1px solid #c0c0c0;margin-right:16px;position:relative;}
+.pgn .prv{position:absolute;top:0;left:0}
+.pgn .nxt{position:absolute;top:0;right:0}
+.pgn .pgs{text-align:center;height:65px}
+.pgn .pgs a,.pgn .pgs span{display:inline-block;font-family:'Conv_FRABK';font-size:25px;height:65px;line-height:65px;margin:0 3px}
+.pgn .pgs a{color:#555}
+.pgn .pgs span{color:#2369ab}

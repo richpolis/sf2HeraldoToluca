@@ -9,11 +9,9 @@
 {% if mensaje is not defined %}
     {% set mensaje="" %}
 {% endif %}
-
-<img src="{{asset('images/keyarts/logocontacto.png')}}" alt=""/>
-                
+               
 <div id="formulario_contacto">
-     <form onsubmit="return false;" action="{{path('frontend_contacto')}}" method="post" class="form-contacto {% if error == true %}invalid{% endif %} {% if ok == true %}sent{% endif %}" novalidate="novalidate" role="form">
+     <form onsubmit="return false;" action="{{path('frontend_contacto')}}" method="post" class="form-contacto {% if error == true %}invalid{% endif %} {% if ok == true %}sent{% endif %} bootstrap-frm" novalidate="novalidate" role="form">
           <div class="form-group">
              <label for="contacto_name">{{"nombre"|trans}}</label>
              {{ form_widget(form.name, {'attr': {'class': 'form-control','placeholder':'nombre'|trans }}) }}

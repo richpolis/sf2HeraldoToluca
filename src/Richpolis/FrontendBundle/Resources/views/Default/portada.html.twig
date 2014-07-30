@@ -3,28 +3,34 @@
 {% block contenido %}
 
     <section class="padding columna-3">
-        <article class="publicacion">
-            <header>
-                <h2 class="titulo">
-                    {{publicacion.titulo}}
-                </h2>
-            </header>
-            <div class="contenido">
-                <div class="contenedor-galeria">
-                    <ul class="galeria">
-                        {% for galeria in range(1,3) %}
-                        <li class="item">
-                            <img src="http://placehold.it/616x411" alt="publicacion-imagen-{{galeria}}" class="imagen"/>
-                        </li>
-                        {% endfor %}
-                    </ul>
+        {% if publicacion != null %}
+        <article class="publicacion-principal">
+            <div class="contenedor-centrado">
+                <header>
+                    <h2 class="titulo">
+                        {{publicacion.titulo}}
+                    </h2>
+                </header>
+                <div class="contenido">
+                    <div class="contenedor-galeria">
+                        <ul class="galeria">
+                            {% for galeria in range(1,3) %}
+                            <li class="item">
+                                <img src="http://placehold.it/616x411" alt="publicacion-imagen-{{galeria}}" class="imagen"/>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <p class="sin-margen-top margen-bottom">
+                    {{ publicacion.descripcion | raw  | striptags | truncate(250) }}
+                    </p>
+                    <p class="cargador">
+                        <a href="{{path('frontend_publicaciones',{'publicacion': publicacion.slug })}}" class="btn ver-nota">Ver nota</a>
+                    </p>
                 </div>
-                        {{publicacion.descripcion | truncate(250)}}
-                <p class="cargador">
-                    <a href="{{path('frontend_publicaciones',{'publicacion': publicacion.slug })}}" class="btn ver-nota">Ver nota</a>
-                </p>
             </div>
         </article>
+        {% endif %}
         <article class="list-noticias">
             <header>
                 <h2 class="titulo azul">
@@ -32,7 +38,7 @@
                 </h2>
             </header>
             <section class="noticias">
-                {% for noticia in range(1,8) %}
+                {% for noticia in range(1,6) %}
                     {% include 'FrontendBundle:Default:item_largo.html.twig' with {'noticia': noticia} %}
                 {% endfor %}
             </section>

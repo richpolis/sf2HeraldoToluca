@@ -14,11 +14,11 @@
                 {% endfor %}
             </section>
         </article>
-        <div class="pgn clearfix">
-            <span class="prv">
-                <a href="#">« previous</a>
-            </span>
-            <div class="pgs clearfix">
+        <div class="pgn">
+            <a href="#">
+                <span class="prv ico_paginador_izq"></span>
+            </a>
+            <div class="pgs">
                 <a href="#" class="page">1</a>
                 <span class="cur">2</span>
                 <a href="#" class="page">3</a>
@@ -30,10 +30,13 @@
                 <a href="#" class="page">9</a>
                 <a href="#" class="page">10</a>
             </div>
-            <span class="nxt">
-                <a href="#">next »</a>
-            </span>
+            <a href="#">
+                <span class="nxt ico_paginador_der"></span>
+            </a>
         </div>
     </section>	
-    {% include 'FrontendBundle:Default:aside.html.twig' %}            
+    {% include 'FrontendBundle:Default:aside.html.twig' %}
+    <p class="padding">
+        <button class="ver-archivos">Archivos</button>    
+    </p>
 {% endblock %}

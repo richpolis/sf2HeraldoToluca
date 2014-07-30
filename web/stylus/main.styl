@@ -92,9 +92,9 @@ nav
 		z-index 1000
 
 #minuto-a-minuto
-	border-top 1px solid color_azul
+	/*border-top 1px solid color_azul*/
 	margin-bottom 10px
-	margin-top 10px
+	/*margin-top 10px*/
 	overflow hidden
 	& h2.titulo
 		background color_azul
@@ -120,7 +120,7 @@ nav
 		& .tiempo
 		& .contenido
 			display inline-block
-			vertical-align top
+			vertical-align middle
 		& .tiempo
 			margin-top 20px
 			width 45px
@@ -321,21 +321,23 @@ nav
 		margin-top 20px
 		text-align justificy
 	& h2.titulo
-		margin 0px
-		border-top 1px solid color_azul
 		border-bottom 1px solid color_gris
-		padding 20px 0px 13px
+		border-top 1px solid color_azul
+		margin 0px
+		padding 20px 0px 0px
 		& span
-			box-sizing border-box
-			font-weight normal
 			background transparent
-			text-transform uppercase
 			border-bottom 10px solid gray
+			box-sizing border-box
 			color black
+			display block
 			font-family 'Conv_FRAMDCN'
 			font-size 40px
-			height 80px
+			font-weight normal
+			height 50px
 			line-height 40px
+			text-transform uppercase
+			width 50%
 			&.azul
 				border-bottom 10px solid color_azul
 			&.rojo
@@ -346,6 +348,7 @@ nav
 	border-bottom 1px solid silver
 	margin-top 0px
 	padding-bottom 16px
+	margin-right 16px
 	& h2.titulo
 		background black
 		border-bottom 10px solid gray
@@ -385,7 +388,7 @@ nav
 	& .contenido
 	& figure
 		display inline-block
-		vertical-align top
+		vertical-align middle
 	& .numero 
 		width 15px
 		vertical-align middle
@@ -558,6 +561,50 @@ nav
 		&:last-child
 			margin-left 1em
 
+.publicacion-principal
+	border-bottom 1px solid color_azul
+	border-top 1px solid color_azul
+	padding-bottom 1em
+	& .contenedor-centrado
+		margin 0 auto
+		width 616px
+	& .titulo
+		box-sizing border-box
+		color color_azul
+		font-family 'Conv_Georgia_0'
+		font-size 32px
+		font-weight normal
+		margin 5px 0px
+		width 100%
+		text-align center
+		&:first-letter 
+			text-transform uppercase
+	& .contenedor-galeria 
+		& ul
+			margin 0
+			padding 0
+			list-style none
+		& .bx-prev
+			left -35px
+		& .bx-next 
+			right -35px		
+	& .contenido
+		color #282828
+		font-size 16px
+		position relative
+	& .ver-nota
+		background color_azul
+		border none
+		color white
+		font-family 'Conv_Georgia_0'
+		font-size 13px 
+		height 40px
+		padding 10px 16px
+		text-transform uppercase
+		width 110px
+
+
+
 .publicacion-completa
 	border-top 1px solid color_azul
 	border-bottom 1px solid color_azul
@@ -578,6 +625,16 @@ nav
 		width 100%
 		&:first-letter 
 			text-transform uppercase
+	& .contenedor-galeria 
+		width 616px
+		margin 0 auto
+		& ul
+			padding 0
+			list-style none	
+		& .bx-prev
+			left -35px
+		& .bx-next 
+			right -35px
 	& .contenido
 		color #282828
 		font-size 16px
@@ -604,7 +661,7 @@ nav
 		font-size 30px
 		font-weight normal
 		margin 5px 0px
-		padding-left 1em
+		padding 0px 1em
 		width 100%
 		&:first-letter 
 			text-transform uppercase
@@ -612,6 +669,7 @@ nav
 		color #282828
 		font-size 16px
 		position relative
+		padding 0px 1em
 	& .ver-nota
 		background color_azul
 		border none
@@ -690,6 +748,16 @@ nav
 	margin-left .2em
 
 
+.ver-archivos
+	background color_azul
+	border none
+	color white
+	font-family 'Conv_Georgia_0'
+	font-size 13px 
+	height 40px
+	padding 10px 16px
+	text-transform uppercase
+	width 110px
 
 // clases OOCSS
 
@@ -708,8 +776,14 @@ nav
 .padding-tl
 	padding 10px 0px 0px 16px
 
+.sin-margen-top
+	margin-top 0px
 
+.margen-bottom
+	margin-bottom 16px
 
+.sin-padding
+	padding 0
 
 .cargador
 	color color_azul
@@ -726,3 +800,31 @@ nav
 		color color_rojo
 	&.azul
 		color color_azul	
+
+.pgn
+	border-bottom 1px solid silver
+	margin-right 16px
+	position relative
+	& .prv
+		position absolute
+		top 0px
+		left 0px
+	& .nxt
+		position absolute
+		top 0px
+		right 0px
+	& .pgs
+		text-align center
+		height 65px
+	& .pgs a
+	& .pgs span
+		display inline-block
+		font-family 'Conv_FRABK'
+		font-size 25px
+		height 65px
+		line-height 65px
+		margin 0px 3px
+	& .pgs a
+		color #555555
+	& .pgs span
+		color color_azul
