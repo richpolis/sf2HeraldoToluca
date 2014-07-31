@@ -1,6 +1,6 @@
 {% extends 'BackendBundle::layout.html.twig' %}
 
-{% block stylesheets%}
+{% block stylesheets %}
 <!-- Stylesheets -->
 <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
 <!-- Font awesome icon -->
@@ -74,6 +74,13 @@
                             <div class="padd">
                                 <!-- Form starts.  -->
                                 <form action="{{ path('configuraciones_update', { 'id': entity.id }) }}" class="validate" id="formconfiguracions"  method="post" {{ form_enctype(form)}}>
+                                    <div>
+                                        {{ form_label(form.configuracion) }}
+                                        {{ form_errors(form.configuracion) }}
+                                        {{ form_widget(form.configuracion,{'read_only':true }) }}
+                                    </div>
+
+
                                     {{form_widget(form)}}
                                 </form>
                                 <br/>

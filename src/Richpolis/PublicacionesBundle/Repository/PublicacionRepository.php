@@ -225,4 +225,58 @@ class PublicacionRepository extends EntityRepository
         }
     }
     
+    
+    /*
+     * Este query es la nueva version de getQueryPublicacionesPorTipoCategoria Activas
+     * 
+     * @param boolean $todas solo publicaciones activas
+     * @param boolean $conObjs para indicar que se necesitan todas sus relaciones.
+     * @param integer|string $tipoCategoria el tipoCategoria|categoria_slug 
+     */
+    public function getQueryPublicacionesPorTipoCategoria($consulta = array(), $orden = array(), $limite = 20){
+        $ordenOptions = (count($orden)>0? $orden : array('createdAt'=>'DESC'));
+        $limitOption = $limite;
+        $query= $this->getEntityManager()->createQueryBuilder();
+        if(isset($consulta['conObjs']) && $consulta['conObjs'] == true){
+            foreach($ordenOptions as $key => $value){
+                $query->select('p,c,u,g')
+                    ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
+                    ->leftJoin('p.galerias', 'g')
+                    ->leftJoin('p.usuario', 'u')
+                    ->leftJoin('p.categoria', 'c')    
+                    ->orderBy('p.'.$key, $value)
+                    ->addOrderBy('g.position', 'ASC');
+            }
+        }else{
+            foreach($ordenOptions as $key => $value){
+                $query->select('p')
+                    ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
+                    ->orderBy('p.'.$key, $value); 
+                break;
+            }
+        }
+        if(isset($consulta['todas']) && !$consulta['todas']){
+            $query->andWhere('p.isActive=:active')
+                  ->setParameter('active', true);
+        }
+        if(isset($consulta['tipoCategoria']) && is_numeric($consulta['tipoCategoria'])){
+            if(is_numeric($consulta['tipoCategoria'])){
+                $query->andWhere('c.tipoCategoria=:tipo')
+                      ->setParameter('tipo', $consulta['tipoCategoria']);
+            }elseif(strlen($consulta['tipoCategoria'])){
+                $query->andWhere('c.slug=:categoria')
+                      ->setParameter('categoria', $consulta['tipoCategoria']);
+            }
+        }
+        if(isset($consulta['status']) && is_numeric($consulta['status'])){
+            $query->andWhere('p.status=:status')
+                  ->setParameter('status', $consulta['status']);
+        }
+        return $query->getQuery();
+    }
+    
+    public function getPublicacionesPorTipoCategoria($consulta = array(),$orden = array(), $limite = 20){
+        $query=$this->getQueryPublicacionesPorTipoCategoria($consulta, $orden, $limite);
+        return $query->getResult();
+    }
 }

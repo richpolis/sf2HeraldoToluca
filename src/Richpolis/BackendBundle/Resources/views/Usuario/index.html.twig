@@ -47,8 +47,12 @@
           <a href="{{path('backend_homepage')}}"><i class="fa fa-home"></i>Dashboard</a--> 
           <Divider>
           <span class="divider">/</span> 
+          {% if is_granted('ROLE_ADMIN') %}
           <a href="{{path('users')}}" class="bread-current">Usuarios</a>
-          {% if is_granted('ROLE_SUPER_ADMIN') %}
+          {% else %}
+          <a href="{{path('users_show',{'id': app.user.id })}}" class="bread-current">Perfil</a>
+          {% endif %}
+          {% if is_granted('ROLE_ADMIN') %}
           <a href="{{path('users_new')}}" class="btn btn-info pull-right" style="color: white; margin-left: 5px;">Crear usuario</a>
           {% endif %}
         </div>
@@ -107,9 +111,13 @@
                                 <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                                 <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                                 <td>
+                                {% if is_granted('ROLE_ADMIN') or entity.id == app.user.id %}
                                     <button onclick="javascript:editarRegistro('{{ path('users_edit', { 'id': entity.id }) }}')" class="btn btn-xs btn-warning"><i class="fa fa-pencil"></i> </button>
 									<button onclick="javascript:editarRegistro('{{ path('users_show', { 'id': entity.id }) }}','#registro-{{entity.id}}')" class="btn btn-xs btn-info"><i class="fa fa-folder-open"></i> </button>
+                                    {% if is_granted('ROLE_ADMIN') %}
                                     <button onclick="javascript:eliminarRegistro('{{ path('users_delete', { 'id': entity.id }) }}','#registro-{{entity.id}}')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button>
+                                    {% endif %}
+                                {% endif %}
                                 </td>
                                 
                             </tr>

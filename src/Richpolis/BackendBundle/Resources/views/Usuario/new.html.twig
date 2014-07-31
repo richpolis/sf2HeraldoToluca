@@ -40,14 +40,20 @@
 
     <!-- Page heading -->
     <div class="page-head">
-        <h2 class="pull-left">Tours</h2>
+        <h2 class="pull-left">Usuarios</h2>
         <div class="clearfix"></div>
         <!-- Breadcrumb -->
         <div class="bread-crumb">
-            <a href="{{path('users')}}"><i class="fa fa-home"></i>Usuarios</a> 
+          {% if is_granted('ROLE_ADMIN') %}
+          <a href="{{path('users')}}" class="bread-current">Usuarios</a>
+          {% else %}
+          <a href="{{path('users_show',{'id': app.user.id })}}" class="bread-current">Perfil</a>
+          {% endif %}
+           {% if is_granted('ROLE_ADMIN') %}
             <!-- Divider -->
             <span class="divider">/</span> 
             <a href="{{path('users_new')}}" class="bread-current">Nuevo usuario</a>
+            {% endif %}
         </div>
         <div class="clearfix"></div>
     </div>

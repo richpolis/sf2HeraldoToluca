@@ -1,6 +1,6 @@
 
 #upload{
-    margin:30px 200px;
+    margin:30px 0px;
     font-weight:bold; font-size:1.3em;
     font-family:Arial, Helvetica, sans-serif;
     text-align:center;
@@ -11,6 +11,10 @@
     cursor:pointer !important;
     -moz-border-radius:5px; -webkit-border-radius:5px;
     height: 40px;
+}
+
+#upload table td {
+    vertical-align: top;
 }
 
 .qq-uploader { position:relative; width: 100%;}

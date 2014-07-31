@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Richpolis\GaleriasBundle\Entity\Galeria;
 use Richpolis\GaleriasBundle\Form\GaleriaType;
 use Richpolis\GaleriasBundle\Form\GaleriaLinkVideoType;
+use Richpolis\GaleriasBundle\Form\GaleriaParcialType;
 
 use Richpolis\BackendBundle\Utils\Richsys as RpsStms;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -174,7 +175,7 @@ class GaleriaController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -183,15 +184,23 @@ class GaleriaController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Galeria entity.');
         }
-
-        $editForm = $this->createEditForm($entity);
+        
+        $tipo = $request->query->get('tipo','imagen');
+        
+        $editForm = $this->createEditForm($entity,$tipo);
         $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        
+        if($request->isXmlHttpRequest()){
+            return $this->render("GaleriasBundle:Galeria:form.html.twig",array(
+               'form' => $editForm->createView() 
+            ));
+        }else{
+            return array(
+                'entity'      => $entity,
+                'edit_form'   => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            );
+        }
     }
 
     /**
@@ -201,12 +210,24 @@ class GaleriaController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Galeria $entity)
+    private function createEditForm(Galeria $entity, $tipo="imagen")
     {
-        $form = $this->createForm(new GaleriaType(), $entity, array(
-            'action' => $this->generateUrl('galerias_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+        if($tipo == "imagen"){
+            $form = $this->createForm(new GaleriaType(), $entity, array(
+                'action' => $this->generateUrl('galerias_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+            ));
+        }else if($tipo== "link_video"){
+            $form = $this->createForm(new GaleriaLinkVideoType(), $entity, array(
+                'action' => $this->generateUrl('galerias_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+            ));
+        }else if($tipo=="parcial"){
+            $form = $this->createForm(new GaleriaParcialType(), $entity, array(
+                'action' => $this->generateUrl('galerias_actualizar', array('id' => $entity->getId())),
+                'method' => 'PATCH',
+            ));
+        }
 
         //$form->add('submit', 'submit', array('label' => 'Update'));
 
@@ -256,24 +277,18 @@ class GaleriaController extends Controller
     public function actualizarGaleriaAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('GaleriasBundle:Galeria')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Galeria entity.');
         }
-
-        $editForm = $this->createEditForm($entity);
-        $editForm->submit($request->request->all(), 'PATCH' !== $request->getMethod());
-
+        $editForm = $this->createEditForm($entity,"parcial");
+        $editForm->handleRequest($request);
         if ($editForm->isValid()) {
-            $em->flush();
-
+           $em->flush();
            $response = new JsonResponse();
            $response->setData(array("ok"=>true));
            return $response;
         }
-
         $response = new JsonResponse();
         $response->setData(array("ok"=>false));
         return $response;

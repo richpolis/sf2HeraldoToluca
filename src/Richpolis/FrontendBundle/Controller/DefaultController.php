@@ -190,10 +190,10 @@ class DefaultController extends Controller
                 ->findOneBy(array('pagina'=>'contacto'));
         
         return $this->render('FrontendBundle:Default:contacto.html.twig',array(
-              'form' => $form->createView(),
-              'ok'=>$ok,
-              'error'=>$error,
-              'mensaje'=>$mensaje,
+            'form' => $form->createView(),
+            'ok'=>$ok,
+            'error'=>$error,
+            'mensaje'=>$mensaje,
             'pagina'=>$pagina,
         ));
     }

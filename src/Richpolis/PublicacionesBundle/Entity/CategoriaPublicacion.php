@@ -321,6 +321,15 @@ class CategoriaPublicacion
             return $this->getCategoria();
         }   
     }
+    
+    public function getNivelCategoriaSinParent(){
+        if($this->getNivel()>0){
+            //return str_pad($this->getCategoria(), strlen($this->getCategoria())+$this->getNivel(), "-", STR_PAD_LEFT);
+            return " > " . $this->getCategoria();
+        }else{
+            return $this->getCategoria();
+        }   
+    }
 
     /**
      * Add children

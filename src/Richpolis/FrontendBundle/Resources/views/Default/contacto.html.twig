@@ -19,23 +19,11 @@
             -webkit-border-radius: 5px;
             -moz-border-radius: 5px;
         }
-        .bootstrap-frm h1 {
-            font: 25px "Helvetica Neue", Helvetica, Arial, sans-serif;
-            padding: 0px 0px 10px 40px;
-            display: block;
-            border-bottom: 1px solid #DADADA;
-            margin: -10px -30px 30px -30px;
-            color: #888;
-        }
-        .bootstrap-frm h1>span {
-            display: block;
-            font-size: 11px;
-        }
-        .bootstrap-frm label {
+        .bootstrap-frm .form-group {
             display: block;
             margin: 0px 0px 5px;
         }
-        .bootstrap-frm label>span {
+        .bootstrap-frm .form-group>label {
             float: left;
             width: 20%;
             text-align: right;
@@ -44,8 +32,12 @@
             color: #333;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             font-weight: bold;
+            text-transform: capitalize;
         }
-        .bootstrap-frm input[type="text"], .bootstrap-frm input[type="email"], .bootstrap-frm textarea, .bootstrap-frm select{
+        .bootstrap-frm input[type="text"], 
+        .bootstrap-frm input[type="email"], 
+        .bootstrap-frm textarea, 
+        .bootstrap-frm select{
             border: 1px solid #CCC;
             color: #888;
             height: 20px;
@@ -80,14 +72,14 @@
             padding: 5px 0px 0px 5px;
             width: 70%;
         }
-        .bootstrap-frm .button {
+        .bootstrap-frm input[type="submit"] {
             background: #FFF;
             border: 1px solid #CCC;
             padding: 10px 25px 10px 25px;
             color: #333;
             border-radius: 4px;
         }
-        .bootstrap-frm .button:hover {
+        .bootstrap-frm input[type="submit"]:hover {
             color: #333;
             background-color: #EBEBEB;
             border-color: #ADADAD;
@@ -109,9 +101,7 @@
     </article>    
     <article class="contacto formulario">
         <div class="contenido">
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam, repellendus labore aut expedita harum dolorum sed quasi qui officiis numquam. Consectetur ducimus quas sapiente natus animi vero, modi porro est!
-            </p>
+           {{ pagina.contenido | raw }}
         </div>
     </article>
  </section>

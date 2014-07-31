@@ -82,27 +82,40 @@
      * @returns abrir formulario de edicion     
      */
      function editarGaleria(galeria_id,url){
-        debugger;
         var imagen=$("#image-"+galeria_id);
-        $("#field-titulo").val(imagen.data('title'));
-        $("#field-contenido").val(imagen.data('descripcion'));
-        $("#field-url").val(url);
         $(".image-dialog").attr({src:imagen.attr("src"),id:galeria_id});
-        $(".image-dialog").set('id',galeria_id);
+        $('#image-loader').show();
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: {tipo: 'parcial'},
+            dataType: 'html',
+            success: function(data){
+                console.log(data);                
+                $('#image-loader').hide();
+                $("#contenidoEditarFormModal").html(data);
+            },
+            error: function(data){
+               console.log(data);
+               $('#image-loader').hide();
+               $( "#editarFormModal" ).modal( "hide" );
+            },
+        });
         $( "#editarFormModal" ).modal( "show" );
     }
     
     /* 
      * Enviar la actualizacion al servidor
      */
-    function updateRegistroGaleria(Id,Title,Description){
-        debugger;
+    function updateRegistroGaleria(){
         $('#image-loader').show();
-        var url=$("#field-url").val();
+        var $form = $("#contenidoEditarFormModal form ");
+        var url=$form.attr('action');
+        var datos = $form.serialize();
         $.ajax({
            url: url,
            type: 'PATCH',
-           data: {titulo: Title, descripcion: Description},
+           data: datos,
            dataType: 'json',
            success: function(data){
               refrescarGaleria();
@@ -127,7 +140,7 @@
         var tipoArchivo = $form.find("#galeria_tipoArchivo").val();
         $.ajax({
            url: url,
-           type: 'GET',
+           type: 'POST',
            data: {archivo: archivo, 'tipoArchivo': tipoArchivo,'isActive': 1,'position': position},
            dataType: 'json',
            success: function(data){
@@ -163,22 +176,18 @@
                $( "#newVideoLinkFormModal" ).modal( "hide" );
             },
         });
-        
     }
     
+       
     function guardarEditarFormModal(){
         debugger;
         var bValid = true;
-        var fieldTitle=$("#field-titulo"),
-            fieldDescription=$("#field-contenido");
+        var fieldTitle=$("input#galeria_parcial_titulo")/*,
+            fieldDescription=$("input#galeria_parcial_descripcion")*/;
         bValid=(fieldTitle.val().length>0 && fieldTitle.val()!="Titulo de Imagen")?true:false;
         /*bValid=(fieldDescription.val().length>0 && fieldDescription.val()!="Descripcion")?true:false;*/
         if ( bValid ) {
-            updateRegistroGaleria(
-               $(".image-dialog").attr("id"), 
-               fieldTitle.val(),
-               fieldDescription.val()
-        );
+            updateRegistroGaleria();
 	$("#editarFormModal").modal( "hide" );
        } 
     }

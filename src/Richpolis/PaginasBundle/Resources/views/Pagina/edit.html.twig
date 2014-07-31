@@ -75,6 +75,13 @@
                                 <!-- Form starts.  -->
                                 <form action="{{ path('paginas_update', { 'id': entity.id }) }}" class="validate" id="formPaginas"  method="post" {{ form_enctype(form)}}>
                                     <input name="_method" value="put" type="hidden"/>
+                                    <div>
+                                        {{ form_label(form.pagina) }}
+                                        {{ form_errors(form.pagina) }}
+                                        {{ form_widget(form.pagina,{'read_only':true }) }}
+                                    </div>
+                                        
+
                                     {{form_widget(form)}}
                                 </form>
                                 <br/>

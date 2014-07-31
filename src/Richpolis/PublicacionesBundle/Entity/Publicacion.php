@@ -330,9 +330,9 @@ class Publicacion
      * 
      * @return void
      */
-    public function crearThumbnail($width=174,$height=295,$path=""){
+    public function crearThumbnail($width=250,$height=200,$path=""){
         $imagine    = new \Imagine\Gd\Imagine();
-        $collage    = $imagine->create(new \Imagine\Image\Box(190, 323));
+        $collage    = $imagine->create(new \Imagine\Image\Box(250, 200));
         $mode       = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
         $image      = $imagine->open($this->getAbsolutePath());
         $sizeImage  = $image->getSize();
@@ -341,27 +341,27 @@ class Publicacion
         }
         if($height == null){
             $height = $sizeImage->getHeight();
-            if($height>323){
-                $height = 323;
+            if($height>200){
+                $height = 200;
             }
         }
         if($width == null){
             $width = $sizeImage->getWidth();
-            if($width>190){
-                $width = 190;
+            if($width>250){
+                $width = 250;
             }
         }
         $size   =new \Imagine\Image\Box($width,$height);
         $image->thumbnail($size,$mode)->save($path);
         $image      = $imagine->open($path);
         $size = $image->getSize();
-        if((190 - $size->getWidth())>1){
-            $width = ceil((190 - $size->getWidth())/2);
+        if((250 - $size->getWidth())>1){
+            $width = ceil((250 - $size->getWidth())/2);
         }else{
             $width = 0;
         }
-        if((323 - $size->getHeight())>1){
-            $height = ceil((323 - $size->getHeight())/2);
+        if((200 - $size->getHeight())>1){
+            $height = ceil((200 - $size->getHeight())/2);
         }else{
             $height =0;
         }    

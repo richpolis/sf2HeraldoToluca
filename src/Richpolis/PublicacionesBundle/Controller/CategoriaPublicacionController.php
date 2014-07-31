@@ -27,8 +27,9 @@ class CategoriaPublicacionController extends Controller {
     protected function getCategoriasPublicacion() {
         $em = $this->getDoctrine()->getManager();
         if ($this->categorias == null) {
+            $tipo = $this->get('request')->query->get('tipoCategoria',  CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION);
             $this->categorias = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')
-                    ->findAll();
+                    ->findBy(array('tipoCategoria'=>$tipo),array('position'=>'ASC'));
         }
         return $this->categorias;
     }
@@ -55,31 +56,47 @@ class CategoriaPublicacionController extends Controller {
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')->findAll();
+        $entities = $this->getCategoriasPublicacion();
         
         return array(
             'entities' => $entities,
         );
     }
+
+
     
     /**
      * Lists all CategoriaPublicacion entities.
      *
-     * @Route("/ul", name="categorias_publicaciones_lista")
+     * @Route("/ul/categorias/publicaciones", name="categorias_publicaciones_lista_categorias")
      * @Method("GET")
      * @Template()
      */
-    public function ulAction() {
+    public function ulPublicacionesAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')
                         ->findBy(array('tipoCategoria'=>  CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION)
-                                , array('position'=>'DESC'));
+                                , array('position'=>'ASC'));
         
         return array(
             'entities' => $entities,
         );
     }
+
+    /**
+     * Lists all types de categorias.
+     *
+     * @Route("/ul/categorias/tipos", name="categorias_publicaciones_lista_tipos")
+     * @Method("GET")
+     * @Template()
+     */
+    public function ulTiposAction() {
+        return array(
+            'tipos' => CategoriaPublicacion::getArrayTipoCategoria(),
+        );
+    }
+
 
     /**
      * Creates a new CategoriaPublicacion entity.

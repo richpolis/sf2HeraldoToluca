@@ -46,9 +46,13 @@
         <div class="bread-crumb">
           <a href="{{path('backend_homepage')}}"><i class="fa fa-home"></i>Dashboard</a--> 
           <Divider>
-          <span class="divider">/</span> 
+          <span class="divider">/</span>
+          {% if is_granted('ROLE_ADMIN') %}
           <a href="{{path('users')}}" class="bread-current">Usuarios</a>
-          {% if is_granted('ROLE_SUPER_ADMIN') %}
+          {% else %}
+          <a href="{{path('users_show',{'id': app.user.id })}}" class="bread-current">Perfil</a>
+          {% endif %}
+          {% if is_granted('ROLE_ADMIN') %}
           <a href="{{path('users_new')}}" class="btn btn-info pull-right" style="color: white; margin-left: 5px;">Crear usuario</a>
           {% endif %}
         </div>
@@ -105,7 +109,7 @@
                         
                                 <td>
                                     {% if entity.imagen | length > 0 %}
-                                        <img scr="{{entity.webPath}}" style="width: 100px;"/>
+                                        <img src="{{entity.webPath}}" alt="" style="max-width: 120px;max-height: 120px;"/>
                                     {% else %}
                                         sin imagen
                                     {% endif %}
@@ -124,15 +128,23 @@
                     </div>
                 </div>
                 <div class="widget-foot">
+                    {% if is_granted('ROLE_ADMIN') %}
                     <button id="botonRegresar" class="btn btn-default" onclick="javascript:regresar('{{path('users')}}')">Regresar</button>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') or entity.id == app.user.id %}
                     <button id="botonEditar" class="btn btn-info" onclick="javascript:editarRegistro('{{path('users_edit',{id: entity.id})}}')">Editar</button>
-                    <div style="float: left; margin-right: 3px;">
-                        <form id="formEliminar" action="{{ path('users_delete', { 'id': entity.id }) }}" method="post">
-                            <input name="_method" value="DELETE" type="hidden"/>
-							{{ form_widget(delete_form) }}
-                        </form>
-						<button class="btn btn-danger " onclick="eliminarRegistro();">Eliminar</button>
-                    </div>        
+                    {% endif %} 
+                    {% if is_granted('ROLE_ADMIN') %}
+                      <div style="float: left; margin-right: 3px;">
+                          <form id="formEliminar" action="{{ path('users_delete', { 'id': entity.id }) }}" method="post">
+                              <input name="_method" value="DELETE" type="hidden"/>
+  							           {{ form_widget(delete_form) }}
+                          </form>
+                         
+  						              <button class="btn btn-danger " onclick="eliminarRegistro();">Eliminar</button>
+                           
+                      </div>
+                    {% endif %}         
                 </div>
             </div>  
         </div>    
@@ -194,7 +206,7 @@ var editarRegistro = function(url){
 };
     
 var eliminarRegistro = function(){
-  {% if is_granted('ROLE_SUPER_ADMIN') %}
+  {% if is_granted('ROLE_ADMIN') %}
     bootbox.confirm("Esta seguro de eliminar el registro?", function(result) {
       if(result){
          $("#formEliminar").submit();
