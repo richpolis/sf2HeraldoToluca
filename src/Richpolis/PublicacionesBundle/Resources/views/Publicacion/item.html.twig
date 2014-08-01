@@ -9,7 +9,7 @@
         {% endif %}
     </td>
     <td>{{ entity.titulo }}</td>
-    {% if categoria.tipoCategoria is constant('Richpolis\\PublicacionesBundle\\Entity\\CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION') %}
+    {% if entity.categoria.tipoCategoria is constant('Richpolis\\PublicacionesBundle\\Entity\\CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION') %}
     <td class="is-principal" data-url="{{ path('publicaciones_is_principal',{'id': entity.id }) }}">
         {% if is_granted('ROLE_ADMIN') %}
             {% if entity.isPrincipal %}

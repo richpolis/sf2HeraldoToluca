@@ -233,50 +233,44 @@ class PublicacionRepository extends EntityRepository
      * @param boolean $conObjs para indicar que se necesitan todas sus relaciones.
      * @param integer|string $tipoCategoria el tipoCategoria|categoria_slug 
      */
-    public function getQueryPublicacionesPorTipoCategoria($consulta = array(), $orden = array(), $limite = 20){
-        $ordenOptions = (count($orden)>0? $orden : array('createdAt'=>'DESC'));
-        $limitOption = $limite;
+    public function getQueryPublicacionesPorTipoCategoria($status = Publicacion::STATUS_APROBADO, 
+        $tipoCategoria = CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION, 
+        $conObjs = true, $campo_orden = "createdAt" , $orden = "DESC"){
+
         $query= $this->getEntityManager()->createQueryBuilder();
-        if(isset($consulta['conObjs']) && $consulta['conObjs'] == true){
-            foreach($ordenOptions as $key => $value){
-                $query->select('p,c,u,g')
+        if($conObjs == true){
+            $query->select('p,c,u,g')
                     ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
                     ->leftJoin('p.galerias', 'g')
                     ->leftJoin('p.usuario', 'u')
                     ->leftJoin('p.categoria', 'c')    
-                    ->orderBy('p.'.$key, $value)
+                    ->orderBy('p.'.$campo_orden, $orden)
                     ->addOrderBy('g.position', 'ASC');
-            }
-        }else{
-            foreach($ordenOptions as $key => $value){
-                $query->select('p')
-                    ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
-                    ->orderBy('p.'.$key, $value); 
-                break;
-            }
-        }
-        if(isset($consulta['todas']) && !$consulta['todas']){
-            $query->andWhere('p.isActive=:active')
-                  ->setParameter('active', true);
-        }
-        if(isset($consulta['tipoCategoria']) && is_numeric($consulta['tipoCategoria'])){
-            if(is_numeric($consulta['tipoCategoria'])){
+                    
+            if(is_numeric($tipoCategoria)){
                 $query->andWhere('c.tipoCategoria=:tipo')
-                      ->setParameter('tipo', $consulta['tipoCategoria']);
-            }elseif(strlen($consulta['tipoCategoria'])){
+                      ->setParameter('tipo', $tipoCategoria);
+            }elseif(strlen($tipoCategoria)){
                 $query->andWhere('c.slug=:categoria')
-                      ->setParameter('categoria', $consulta['tipoCategoria']);
-            }
+                      ->setParameter('categoria', $tipoCategoria);
+            }       
+        }else{
+            $query->select('p')
+                    ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
+                    ->orderBy('p.'.$campo_orden, $orden);
         }
-        if(isset($consulta['status']) && is_numeric($consulta['status'])){
+        if(is_numeric($status)){
             $query->andWhere('p.status=:status')
-                  ->setParameter('status', $consulta['status']);
+                  ->setParameter('status', $status);
         }
         return $query->getQuery();
     }
     
-    public function getPublicacionesPorTipoCategoria($consulta = array(),$orden = array(), $limite = 20){
-        $query=$this->getQueryPublicacionesPorTipoCategoria($consulta, $orden, $limite);
+    public function getPublicacionesPorTipoCategoria($status = Publicacion::STATUS_APROBADO, 
+        $tipoCategoria = CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION, 
+        $conObjs = true, $campo_orden = "createdAt" , $orden = "DESC"){
+
+        $query=$this->getQueryPublicacionesPorTipoCategoria($status,$tipoCategoria,$conObjs,$campo_orden,$orden);
         return $query->getResult();
     }
 }

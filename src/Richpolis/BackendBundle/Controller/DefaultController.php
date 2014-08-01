@@ -53,49 +53,58 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         
-        $publicaciones = $em->getRepository('PublicacionesBundle:Publicacion')
-                            ->getPublicacionesPorTipoCategoria(array(
-                                'status'    =>Publicacion::STATUS_APROBADO,
-                                'conObjs'   =>true,
-                                'todas'     =>true,
-                                'tipoCategoria' =>  CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION
-                                ), array('createdAt'=>'DESC'), 20);
-                
         $publicidad = $em->getRepository('PublicidadBundle:Publicidad')
                             ->findBy(array('isActive'=>true), array('createdAt'=>'DESC'), 20);
                 
         $llamados = $em->getRepository('PublicacionesBundle:Publicacion')
-                            ->getPublicacionesPorTipoCategoria(array(
-                                'status'    => Publicacion::STATUS_APROBADO,
-                                'conObjs'   => true,
-                                'todas'     => true,
-                                'tipoCategoria' => CategoriaPublicacion::TIPO_CATEGORIA_LLAMADOS
-                                ), array('createdAt'=>'DESC'), 20);
+                            ->getPublicacionesPorTipoCategoria(
+                                Publicacion::STATUS_APROBADO,
+                                CategoriaPublicacion::TIPO_CATEGORIA_LLAMADOS
+                                );
                 
         $tuespacio = $em->getRepository('PublicacionesBundle:Publicacion')
-                            ->getPublicacionesPorTipoCategoria(array(
-                                'status'    => Publicacion::STATUS_APROBADO,
-                                'conObjs'   => true,
-                                'todas'     => true,
-                                'tipoCategoria'=>  CategoriaPublicacion::TIPO_CATEGORIA_HERALDO_TV
-                                ), array('createdAt'=>'DESC'), 20);
+                            ->getPublicacionesPorTipoCategoria(
+                                Publicacion::STATUS_APROBADO,
+                                CategoriaPublicacion::TIPO_CATEGORIA_HERALDO_TV
+                                );
                 
         $heraldotv = $em->getRepository('PublicacionesBundle:Publicacion')
-                            ->getPublicacionesPorTipoCategoria(array(
-                                'status'    => Publicacion::STATUS_APROBADO,
-                                'conObjs'   => true,
-                                'todas'     => true,
-                                'tipoCategoria' =>  CategoriaPublicacion::TIPO_CATEGORIA_TU_ESPACIO
-                                ), array('createdAt'=>'DESC'), 20);
+                            ->getPublicacionesPorTipoCategoria(
+                                Publicacion::STATUS_APROBADO,
+                                CategoriaPublicacion::TIPO_CATEGORIA_TU_ESPACIO
+                                );
         
         return array(
-            'publicaciones'=>$publicaciones,
-            'llamados'=>$llamados,
+          'llamados'=>$llamados,
             'tuespacio'=>$tuespacio,
             'heraldotv'=>$heraldotv,
             'publicidad'=>$publicidad
         );
     }
+    
+    
+    /**
+     * @Route("/get/publicaciones", name="backend_get_publicaciones")
+     * @Template("BackendBundle:Default:lista.html.twig")
+     */
+    public function getPublicacionesAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $status = $request->query->get('status',Publicacion::STATUS_APROBADO);
+        $publicaciones = $em->getRepository('PublicacionesBundle:Publicacion')
+                            ->getPublicacionesPorTipoCategoria(
+                                Publicacion::STATUS_APROBADO,
+                                CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION
+                                );
+        return array(
+            'entities'=>$publicaciones,
+            'tipoCategoria' => CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION,
+            'stringTipoCategoria' =>  CategoriaPublicacion::$sTipoCategoria[CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION],
+        );
+    }
+    
+    
+    
     
     /**
      * @Route("/login", name="backend_login")

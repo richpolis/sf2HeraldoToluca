@@ -1952,11 +1952,11 @@ border:1px solid #eee;
 /* Footer */
 
 footer{
-  background-color: #333;
-	padding:10px 0px;
-	color: #777;
-	font-size: 12px;
-	border-top: 1px solid #333;
+    background-color: #333;
+    padding:10px 0px;
+    color: #777;
+    font-size: 12px;
+    border-top: 1px solid #333;
 }
 
 footer .container{
