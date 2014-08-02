@@ -9,7 +9,6 @@
                 <table id="{{stringTipoCategoria}}" class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Id</th>
                             <th>Categoria</th>
                             <th>Imagen</th>
                             <th>Titulo</th>
@@ -24,7 +23,7 @@
                     </thead>
                     <tbody id="cuerpoTabla">
                         {% for entity in entities %}
-                            {% include 'PublicacionesBundle:Publicacion:item.html.twig' with {'entity': entity } %}
+                            {% include 'BackendBundle:Default:item.html.twig' with {'entity': entity } %}
                         {% endfor %}
                     </tbody>
                 </table>

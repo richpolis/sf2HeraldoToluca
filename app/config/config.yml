@@ -5,7 +5,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: %locale% }
+    translator:      { fallback: %locale% }
     translator: ~
     secret:          %secret%
     router:
@@ -70,7 +70,7 @@ swiftmailer:
     spool:     { type: memory }
 
 knp_paginator:
-    page_range: 5  # número de páginas que se muestran en el paginador
+    page_range: 10  # número de páginas que se muestran en el paginador
 
     default_options:
         # los siguientes tres parámetros permiten "traducir" el paginador

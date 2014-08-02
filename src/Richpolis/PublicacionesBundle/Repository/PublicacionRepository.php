@@ -180,7 +180,7 @@ class PublicacionRepository extends EntityRepository
         return $query->getQuery()->setMaxResults(1)->getOneOrNullResult();
     }
     
-    public function findQueryCarrusel(){
+    public function findQueryCarrusel($status = Publicacion::STATUS_PUBLICADO,$todos = false){
         $query=$this->getEntityManager()->createQueryBuilder();
         $query->select('p,c,u,g')
                 ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
@@ -189,18 +189,24 @@ class PublicacionRepository extends EntityRepository
                 ->leftJoin('p.categoria', 'c')
                 ->where('p.isCarrusel=:isCarrusel')
                 ->setParameter('isCarrusel', true)
-                ->andWhere('p.status =:status')
-                ->setParameter('status', Publicacion::STATUS_PUBLICADO)
                 ->orderBy('p.createdAt', 'DESC')
                 ->addOrderBy('g.position', 'ASC');
+        if($todos){
+            $query->andWhere('p.status <=:status')
+                  ->setParameter('status', $status);
+        }else{
+            $query->andWhere('p.status =:status')
+                  ->setParameter('status', $status);
+        }        
+
         return $query->getQuery();
     }
     
-    public function findCarrusel(){
-        return $this->getQueryCarrusel()->getResult();
+    public function findCarrusel($status = Publicacion::STATUS_PUBLICADO,$todos = false){
+        return $this->getQueryCarrusel($status,$todos)->getResult();
     }
     
-    public function getQueryPortada($status = Publicacion::STATUS_PUBLICADO){
+    public function getQueryPortada($status = Publicacion::STATUS_PUBLICADO,$todos = false){
         $query=$this->getEntityManager()->createQueryBuilder();
         $query->select('p,c,u,g')
                 ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
@@ -209,20 +215,21 @@ class PublicacionRepository extends EntityRepository
                 ->leftJoin('p.categoria', 'c')
                 ->where('p.isPrincipal=:isPrincipal')
                 ->setParameter('isPrincipal', true)
-                ->andWhere('p.status =:status')
-                ->setParameter('status', $status)
                 ->orderBy('p.createdAt', 'DESC')
                 ->addOrderBy('g.position', 'ASC');
+        if($todas){
+            $query->andWhere('p.status <=:status')
+                ->setParameter('status', $status);
+        }else{
+            $query->andWhere('p.status =:status')
+                ->setParameter('status', $status);
+        }        
+
         return $query->getQuery();
     }
     
-    public function findOnePortada($status = Publicacion::STATUS_PUBLICADO){
-        $resultados = $this->getQueryPortada($status)->getResult();
-        if(isset($resultados[0])){
-            return $resultados[0];
-        }else{
-            return null;
-        }
+    public function findPortada($status = Publicacion::STATUS_PUBLICADO, $todos = false){
+        return $this->getQueryPortada($status,$todos)->getResult();
     }
     
     

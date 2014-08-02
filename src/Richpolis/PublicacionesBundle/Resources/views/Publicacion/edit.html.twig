@@ -104,7 +104,9 @@
                             </div>
                             <div class="widget-foot">
                                 <button id="botonRegresar" class="btn btn-default">Regresar</button>
+                                {% if entity.status < constant('Richpolis\\PublicacionesBundle\\Entity\\Publicacion::STATUS_APROBADO') %}
                                 <button id="botonGuardar" class="btn btn-primary">Guardar cambios</button>
+                                {% endif %}
                                 <div style="float: left; margin-right: 3px;">
                                     {{form_widget(delete_form)}}
                                 </div>        

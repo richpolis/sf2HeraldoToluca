@@ -34,7 +34,9 @@
         {{ entity.status | status_publicacion | raw }}
     </td>
     <td>
+        {% if entity.status < constant('Richpolis\\PublicacionesBundle\\Entity\\Publicacion::STATUS_APROBADO') %}
         <button onclick="javascript:editarRegistro('{{ path('publicaciones_edit', { 'id': entity.id }) }}')" class="btn btn-xs btn-warning"><i class="fa fa-pencil"></i> </button>
+        {% endif %}
         <button onclick="javascript:editarRegistro('{{ path('publicaciones_show', { 'id': entity.id }) }}', '#registro-{{entity.id}}')" class="btn btn-xs btn-info"><i class="fa fa-folder-open"></i> </button>
     </td>
 </tr>

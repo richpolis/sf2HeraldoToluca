@@ -1,0 +1,52 @@
+<tr id="registro-{{entity.id}}" data-id="{{ entity.id }}">
+    <td>{{ entity.categoria.nivelCategoria }}</td>
+    <td>
+        {% if entity.imagen | length > 0 %}
+            <img src="{{entity.thumbnailWebPath}}" style="max-height: 100px; max-width: 100px;"/>
+        {% else  %}
+            sin imagen 
+        {% endif %}
+    </td>
+    <td>{{ entity.titulo }}</td>
+    {% if entity.categoria.tipoCategoria is constant('Richpolis\\PublicacionesBundle\\Entity\\CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION') %}
+    <td class="is-principal">
+        {% if is_granted('ROLE_ADMIN') %}
+            {% if entity.isPrincipal %}
+                <button class="btn btn-success activo" data-url="{{ path('backend_publicacion_is_principal',{'id': entity.id }) }}"><i class="fa fa-check-square-o"></i></button>
+                {% else %}
+                <button class="btn btn-info inactivo" data-url="{{ path('backend_publicacion_is_principal',{'id': entity.id }) }}"><i class="fa fa-square-o"></i></button>
+                {% endif %}    
+            {% else %}
+                {{ entity.isPrincipal | isActive | raw }}
+            {% endif %}    
+    </td>
+    <td class="in-carrusel">
+        {% if entity.isCarrusel %}
+            <button class="btn btn-success activo" data-url="{{ path('backend_publicacion_in_carrusel',{'id': entity.id }) }}"><i class="fa fa-check-square-o"></i></button>
+        {% else %}
+            <button class="btn btn-info inactivo" data-url="{{ path('backend_publicacion_in_carrusel',{'id': entity.id }) }}"><i class="fa fa-square-o"></i></button>
+        {% endif %}
+    </td>
+    {% endif %}
+    <td>{{ entity.usuario }}</td>
+    <td class="status">
+        {{ entity.status | status_publicacion | raw }}
+    </td>
+    <td>
+        {% if is_granted('ROLE_ADMIN') %}
+        {% if entity.status is constant('Richpolis\\PublicacionesBundle\\Entity\\Publicacion::STATUS_APROBADO') %}    
+        <button data-url="{{ path('backend_publicacion_publicar', { 'id': entity.id }) }}" class="backend btn btn-xs btn-success"><i class="fa fa-check"></i> </button>
+        <button data-url="{{ path('backend_publicacion_revisar', { 'id': entity.id }) }}" class="backend btn btn-xs btn-danger"><i class="fa fa-repeat"></i> </button>
+        {% endif %}
+        {% if entity.status is constant('Richpolis\\PublicacionesBundle\\Entity\\Publicacion::STATUS_PUBLICADO') %}
+        <button data-url="{{ path('backend_publicacion_revisar', { 'id': entity.id }) }}" class="backend btn btn-xs btn-danger"><i class="fa fa-repeat"></i> </button>
+        <button data-url="{{ path('backend_publicacion_caducar', { 'id': entity.id }) }}" class="backend btn btn-xs btn-info"><i class="fa fa-archive"></i> </button>
+        {% endif %}
+        {% endif %}
+        {% if entity.status < constant('Richpolis\\PublicacionesBundle\\Entity\\Publicacion::STATUS_APROBADO') %}
+        <button data-url="{{ path('publicaciones_edit', { 'id': entity.id }) }}" class="publicaciones btn btn-xs btn-warning"><i class="fa fa-pencil"></i> </button>
+        {% endif %}
+        <button data-url="{{ path('publicaciones_show', { 'id': entity.id }) }}" class="publicaciones btn btn-xs btn-info"><i class="fa fa-folder-open"></i> </button>
+        <button data-url="{{ path('frontend_publicaciones', { 'slug': entity.slug }) }}" class="sitio btn btn-xs btn-info"><i class="fa fa-eye"></i> </button>
+    </td>
+</tr>

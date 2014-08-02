@@ -16,6 +16,16 @@ use Richpolis\PublicacionesBundle\Entity\Publicacion;
 
 class DefaultController extends Controller
 {
+    protected function getPublicacionesSession()
+    {
+        return $this->get('session')->get('publicaciones', array());
+    }
+    
+    protected function setPublicacionesSession($publicaciones)
+    {
+        return $this->get('session')->set('publicaciones', $publicaciones);
+    }
+    
     /**
      * @Route("/", name="portada")
      * @Template()
@@ -48,30 +58,40 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/categoria/{categoria}", name="frontend_categoria")
+     * @Route("/categoria/{slug}", name="frontend_categoria")
      * @Template()
      */
-    public function categoriaAction($categoria)
+    public function categoriaAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
-        //$nosotros = $em->getRepository('PaginasBundle:Pagina')
-        //        ->findOneBy(array('pagina'=>'quienes-somos'));
+        $categoria = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')
+                          ->findOneBy(array('slug'=>$slug));
+        
         return array(
             'categoria'=>$categoria
         );
     }
 
     /**
-     * @Route("/publicacion/{publicacion}", name="frontend_publicaciones")
+     * @Route("/publicacion/{slug}", name="frontend_publicaciones")
      * @Template()
      */
-    public function publicacionAction($publicacion)
+    public function publicacionAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
-        //$nosotros = $em->getRepository('PaginasBundle:Pagina')
-        //        ->findOneBy(array('pagina'=>'quienes-somos'));
+        $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')
+                          ->findOneBy(array('slug'=>$slug));
+        
+        $publicacionesSession = $this->getPublicacionesSession();
+        if(!isset($publicacionesSession[$publicacion->getSlug()])){
+            $publicacion->setContVisitas($publicacion->getContVisitas()+1);
+            $em->flush();
+            $publicacionesSession[$publicacion->getSlug()]=true;
+            $this->setPublicacionesSession($publicacionesSession);
+        }
+        
         return array(
-            'categoria'=>'',
+            'categoria'=>$publicacion->getCategoria(),
             'publicacion' =>$publicacion
         );
     }

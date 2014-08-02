@@ -67,38 +67,6 @@
                 <!-- Todas las publicaciones tipo Publicacion o Noticia -->
                 <div class="row">
                     <div class="col-md-12">
-
-                        <!-- Widget content -->
-                        <!--div class="widget">
-                            
-                            <div class="widget-content">
-                                <div class="padd">
-                                    <div data-toggle="buttons" class="btn-group">
-                                        <a href="#" class="btn btn-default">
-                                            Borrados
-                                        </a>
-                                        <a href="#" class="btn btn-default">
-                                            Incompletos
-                                        </a>
-                                        <a href="#" class="btn btn-default">
-                                            Revisar
-                                        </a>
-                                        <a href="#" class="btn btn-default">
-                                            Aprobados
-                                        </a>
-                                        <a href="#" class="btn btn-default">
-                                            Publicados
-                                        </a>
-                                        <a href="#" class="btn btn-default">
-                                            Caducados
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div-->
-                        <!-- Widget ends -->
-                        
                      <ul id="myTab" class="nav nav-tabs">
                       <li class="active"><a href="#publicaciones" data-toggle="tab">Publicaciones</a></li>
                       <li class=""><a href="#llamados" data-toggle="tab">Llamados</a></li>
@@ -107,16 +75,20 @@
                      </ul>
                      <div id="myTabContent" class="tab-content">
                       <div class="tab-pane fade active in" id="publicaciones">
-                          {{render(controller('BackendBundle:Default:getPublicaciones', {'status': constant('Richpolis\\PublicacionesBundle\\Entity\\Publicacion::STATUS_APROBADO')}))}}
+                          {% include 'BackendBundle:Default:controlesPublicaciones.html.twig' with {'tipoCategoria': categoriaPublicacion } %}
+                          {{render(controller('BackendBundle:Default:getPublicaciones', {'status': statusAprobado, 'tipoCategoria': categoriaPublicacion }))}}
                       </div>
                       <div class="tab-pane fade" id="llamados">
-                          {% include 'BackendBundle:Default:lista.html.twig' with {'entities': llamados, 'tipoCategoria': constant('Richpolis\\PublicacionesBundle\\Entity\\CategoriaPublicacion::TIPO_CATEGORIA_LLAMADOS'), 'stringTipoCategoria': 'llamados-noticias' } %}
+                          {% include 'BackendBundle:Default:controlesPublicaciones.html.twig' with {'tipoCategoria': categoriaLlamados } %}
+                          {{render(controller('BackendBundle:Default:getPublicaciones', {'status': statusAprobado, 'tipoCategoria': categoriaLlamados }))}}
                       </div>
                       <div class="tab-pane fade" id="tuespacio">
-                        {% include 'BackendBundle:Default:lista.html.twig' with {'entities': tuespacio, 'tipoCategoria': constant('Richpolis\\PublicacionesBundle\\Entity\\CategoriaPublicacion::TIPO_CATEGORIA_TU_ESPACIO'), 'stringTipoCategoria': 'tu-espacio' } %}
+                          {% include 'BackendBundle:Default:controlesPublicaciones.html.twig' with {'tipoCategoria': categoriaTuEspacio } %}
+                        {{render(controller('BackendBundle:Default:getPublicaciones', {'status': statusAprobado, 'tipoCategoria': categoriaTuEspacio }))}}
                       </div>
                       <div class="tab-pane fade" id="heraldotv">
-                         {% include 'BackendBundle:Default:lista.html.twig' with {'entities': heraldotv, 'tipoCategoria': constant('Richpolis\\PublicacionesBundle\\Entity\\CategoriaPublicacion::TIPO_CATEGORIA_HERALDO_TV'), 'stringTipoCategoria': 'heraldo-tv' } %}
+                          {% include 'BackendBundle:Default:controlesPublicaciones.html.twig' with {'tipoCategoria': categoriaHeraldoTv } %}
+                         {{render(controller('BackendBundle:Default:getPublicaciones', {'status': statusAprobado, 'tipoCategoria': categoriaHeraldoTv }))}}
                       </div>
                     </div>
                     </div>
@@ -167,7 +139,35 @@
  <script>
     $(document).ready(function() {
         $('#datatable').dataTable({"sPaginationType": "full_numbers"});
+        backend();
     });
+
+function backend(url){
+   $("button.backend").on("click",function(e){
+       e.preventDefault();
+       var $registro = $(this).parent().parent();
+       var id = $registro.data('id');
+       var url = $(this).data('url');
+       $(".loader").fadeIn();
+       $.ajax({
+            url: url,
+            type: 'PATCH',
+            dataType: 'html',
+            success: function(data){
+               $registro.html($(data).html());
+               noty({ text: 'Actualizacion realizada', layout:'topRight', type:'success',  timeout:2000 });
+               $(".loader").fadeOut();
+               backend();
+            },
+            error: function(data){
+                noty({ text: 'Error de actualizacion', layout:'topRight', type:'error', timeout:2000 });
+                console.log(data);
+                $(".loader").fadeOut();
+            },
+        });
+    });
+}
+
  </script>
 
 

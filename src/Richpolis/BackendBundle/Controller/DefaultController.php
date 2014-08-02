@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Security\Core\SecurityContext;
 
 use Richpolis\PublicacionesBundle\Entity\Publicacion;
@@ -53,33 +54,21 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         
+        $statusAprobado = Publicacion::STATUS_APROBADO;
+        $statusPublicado = Publicacion::STATUS_PUBLICADO;
+        $categoriaPublicacion = CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION;
+        $categoriaLlamados = CategoriaPublicacion::TIPO_CATEGORIA_LLAMADOS;
+        $categoriaTuEspacio = CategoriaPublicacion::TIPO_CATEGORIA_TU_ESPACIO;
+        $categoriaHeraldoTv = CategoriaPublicacion::TIPO_CATEGORIA_HERALDO_TV;
+
         $publicidad = $em->getRepository('PublicidadBundle:Publicidad')
                             ->findBy(array('isActive'=>true), array('createdAt'=>'DESC'), 20);
-                
-        $llamados = $em->getRepository('PublicacionesBundle:Publicacion')
-                            ->getPublicacionesPorTipoCategoria(
-                                Publicacion::STATUS_APROBADO,
-                                CategoriaPublicacion::TIPO_CATEGORIA_LLAMADOS
-                                );
-                
-        $tuespacio = $em->getRepository('PublicacionesBundle:Publicacion')
-                            ->getPublicacionesPorTipoCategoria(
-                                Publicacion::STATUS_APROBADO,
-                                CategoriaPublicacion::TIPO_CATEGORIA_HERALDO_TV
-                                );
-                
-        $heraldotv = $em->getRepository('PublicacionesBundle:Publicacion')
-                            ->getPublicacionesPorTipoCategoria(
-                                Publicacion::STATUS_APROBADO,
-                                CategoriaPublicacion::TIPO_CATEGORIA_TU_ESPACIO
-                                );
         
-        return array(
-          'llamados'=>$llamados,
-            'tuespacio'=>$tuespacio,
-            'heraldotv'=>$heraldotv,
-            'publicidad'=>$publicidad
-        );
+        $arreglo =compact('statusAprobado','statusPublicado',
+            'categoriaPublicacion','categoriaLlamados','categoriaHeraldoTv',
+            'categoriaTuEspacio','publicidad');
+
+        return $arreglo;
     }
     
     
@@ -90,20 +79,35 @@ class DefaultController extends Controller
     public function getPublicacionesAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $status = $request->query->get('status',Publicacion::STATUS_APROBADO);
-        $publicaciones = $em->getRepository('PublicacionesBundle:Publicacion')
-                            ->getPublicacionesPorTipoCategoria(
-                                Publicacion::STATUS_APROBADO,
-                                CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION
-                                );
+        $status = $request->get('status', Publicacion::STATUS_APROBADO);
+        $tipoCategoria = $request->get('tipoCategoria', CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION);
+        if($tipoCategoria == CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION){
+            $isPrincipal = $request->get('isPrincipal', false);
+            $inCarrusel = $request->get('inCarrusel', false);
+            if($isPrincipal){
+                $publicaciones = $em->getRepository('PublicacionesBundle:Publicacion')
+                                ->findPortada($status,true);
+            }else if($inCarrusel){
+                $publicaciones = $em->getRepository('PublicacionesBundle:Publicacion')
+                                ->findCarrusel($status,true);
+            }else{
+                $publicaciones = $this->getPublicaciones($em,$status,$tipoCategoria);
+            }
+        }else{
+            $publicaciones = $this->getPublicaciones($em,$status,$tipoCategoria);
+        }
+        
         return array(
             'entities'=>$publicaciones,
-            'tipoCategoria' => CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION,
-            'stringTipoCategoria' =>  CategoriaPublicacion::$sTipoCategoria[CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION],
+            'tipoCategoria' => $tipoCategoria,
+            'stringTipoCategoria' =>  CategoriaPublicacion::$sTipoCategoria[$tipoCategoria],
         );
     }
     
-    
+    private function getPublicaciones($em,$status,$tipoCategoria){
+        return $em->getRepository('PublicacionesBundle:Publicacion')
+                  ->getPublicacionesPorTipoCategoria($status,$tipoCategoria);
+    }
     
     
     /**
@@ -153,4 +157,108 @@ class DefaultController extends Controller
     }
     
     
+    /**
+     * Activa o inactiva si una publicacion si es principal o no.
+     *
+     * @Route("/publicacion/{id}/is/principal", name="backend_publicacion_is_principal", requirements={"id" = "\d+"})
+     * @Method("PATCH")
+     */
+    public function publicacionIsPrincipalAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')->find($id);
+
+        if (!$publicacion) {
+            throw $this->createNotFoundException('Unable to find publicacion entity.');
+        }
+        $publicacion->setIsPrincipal(!$publicacion->getIsPrincipal());
+        $em->flush();
+
+        return $this->render("BackendBundle:Default:item.html.twig", array(
+                    'entity' => $publicacion
+        ));
+    }
+
+    /**
+     * Activa o inactiva si una publicacion si esta en carrusel o no.
+     *
+     * @Route("/publicacion/{id}/in/carrusel", name="backend_publicacion_in_carrusel", requirements={"id" = "\d+"})
+     * @Method("PATCH")
+     */
+    public function publicacionInCarruselAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')->find($id);
+
+        if (!$publicacion) {
+            throw $this->createNotFoundException('Unable to find publicacion entity.');
+        }
+        $publicacion->setIsCarrusel(!$publicacion->getIsCarrusel());
+        $em->flush();
+
+        return $this->render("BackendBundle:Default:item.html.twig", array(
+                    'entity' => $publicacion
+        ));
+    }
+    
+    /**
+     * Publicar una publicacion para que aparezca en la pagina.
+     *
+     * @Route("/publicacion/{id}/publicar", name="backend_publicacion_publicar", requirements={"id" = "\d+"})
+     * @Method("PATCH")
+     */
+    public function publicacionPublicarAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')->find($id);
+
+        if (!$publicacion) {
+            throw $this->createNotFoundException('Unable to find publicacion entity.');
+        }
+        $publicacion->setStatus(Publicacion::STATUS_PUBLICADO);
+        $em->flush();
+
+        return $this->render("BackendBundle:Default:item.html.twig", array(
+                    'entity' => $publicacion
+        ));
+    }
+    
+    /**
+     * Revisar una publicacion para que se haga la correccion y se vuelva activar para editar.
+     *
+     * @Route("/publicacion/{id}/revisar", name="backend_publicacion_revisar", requirements={"id" = "\d+"})
+     * @Method("PATCH")
+     */
+    public function publicacionRevisarAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')->find($id);
+
+        if (!$publicacion) {
+            throw $this->createNotFoundException('Unable to find publicacion entity.');
+        }
+        $publicacion->setStatus(Publicacion::STATUS_REVISAR);
+        $em->flush();
+
+        return $this->render("BackendBundle:Default:item.html.twig", array(
+                    'entity' => $publicacion
+        ));
+    }
+    
+    /**
+     * Caducar una publicacion publicada para que deje de aparecer en la pagina.
+     *
+     * @Route("/publicacion/{id}/caducar", name="backend_publicacion_caducar", requirements={"id" = "\d+"})
+     * @Method("PATCH")
+     */
+    public function publicacionCaducarAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')->find($id);
+
+        if (!$publicacion) {
+            throw $this->createNotFoundException('Unable to find publicacion entity.');
+        }
+        $publicacion->setStatus(Publicacion::STATUS_CADUCADO);
+        $em->flush();
+
+        return $this->render("BackendBundle:Default:item.html.twig", array(
+                    'entity' => $publicacion
+        ));
+    }
 }
