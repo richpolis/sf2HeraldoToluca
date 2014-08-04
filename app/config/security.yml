@@ -42,3 +42,5 @@ security:
         - { path: ^/backend/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/backend/users$, roles: ROLE_ADMIN }
         - { path: ^/backend, roles: ROLE_USER }
+        - { path: ^/efconnect, role: ROLE_USER }
+        - { path: ^/elfinder, role: ROLE_USER }

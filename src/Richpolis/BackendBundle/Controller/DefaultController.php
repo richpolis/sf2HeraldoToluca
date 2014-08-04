@@ -79,17 +79,20 @@ class DefaultController extends Controller
     public function getPublicacionesAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $status = $request->get('status', Publicacion::STATUS_APROBADO);
+        $status = $request->get('status', 0);
         $tipoCategoria = $request->get('tipoCategoria', CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION);
+        $paginador = true;
         if($tipoCategoria == CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION){
             $isPrincipal = $request->get('isPrincipal', false);
             $inCarrusel = $request->get('inCarrusel', false);
             if($isPrincipal){
                 $publicaciones = $em->getRepository('PublicacionesBundle:Publicacion')
                                 ->findPortada($status,true);
+                $paginador = false;
             }else if($inCarrusel){
                 $publicaciones = $em->getRepository('PublicacionesBundle:Publicacion')
                                 ->findCarrusel($status,true);
+                $paginador = false;
             }else{
                 $publicaciones = $this->getPublicaciones($em,$status,$tipoCategoria);
             }
@@ -100,16 +103,65 @@ class DefaultController extends Controller
         return array(
             'entities'=>$publicaciones,
             'tipoCategoria' => $tipoCategoria,
+            'paginador'=>$paginador,
             'stringTipoCategoria' =>  CategoriaPublicacion::$sTipoCategoria[$tipoCategoria],
         );
     }
     
     private function getPublicaciones($em,$status,$tipoCategoria){
-        return $em->getRepository('PublicacionesBundle:Publicacion')
-                  ->getPublicacionesPorTipoCategoria($status,$tipoCategoria);
+        $query = $em->getRepository('PublicacionesBundle:Publicacion')
+                  ->queryPublicacionesPorTipoCategoria($status,$tipoCategoria);
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            100/*limit per page*/
+        );
+        return $pagination;
+
     }
     
-    
+
+    /**
+     * @Route("/publicacion/los/mas/vistos", name="backend_publicacion_losmasvisto")
+     * @Template("BackendBundle:Default:lista.html.twig")
+     */
+    public function publicacionLosMasVistosAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $tipoCategoria = $request->get('tipoCategoria', CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION);
+        
+        $publicaciones = $em->getRepository('PublicacionesBundle:Publicacion')
+                            ->findLosMasVistos(0,$tipoCategoria);
+        
+        return array(
+            'entities'=>$publicaciones,
+            'tipoCategoria' => $tipoCategoria,
+            'paginador'=>false,
+            'stringTipoCategoria' =>  CategoriaPublicacion::$sTipoCategoria[$tipoCategoria],
+        );
+    }
+
+    /**
+     * @Route("/publicacion/los/mas/comentados", name="backend_publicacion_losmascomentados")
+     * @Template("BackendBundle:Default:lista.html.twig")
+     */
+    public function publicacionLosMasComentadosAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $tipoCategoria = $request->get('tipoCategoria', CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION);
+        
+        $publicaciones = $em->getRepository('PublicacionesBundle:Publicacion')
+                            ->findLosMasComentados(0,$tipoCategoria);
+        
+        return array(
+            'entities'=>$publicaciones,
+            'tipoCategoria' => $tipoCategoria,
+            'paginador'=>false,
+            'stringTipoCategoria' =>  CategoriaPublicacion::$sTipoCategoria[$tipoCategoria],
+        );
+    }
+ 
     /**
      * @Route("/login", name="backend_login")
      * @Template()

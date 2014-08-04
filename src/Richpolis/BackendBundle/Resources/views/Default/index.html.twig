@@ -75,20 +75,20 @@
                      </ul>
                      <div id="myTabContent" class="tab-content">
                       <div class="tab-pane fade active in" id="publicaciones">
-                          {% include 'BackendBundle:Default:controlesPublicaciones.html.twig' with {'tipoCategoria': categoriaPublicacion } %}
-                          {{render(controller('BackendBundle:Default:getPublicaciones', {'status': statusAprobado, 'tipoCategoria': categoriaPublicacion }))}}
+                          {% include 'BackendBundle:Default:controlesPublicaciones.html.twig' with { 'tipoCategoria': categoriaPublicacion } %}
+                          {{render(controller('BackendBundle:Default:getPublicaciones', {'tipoCategoria': categoriaPublicacion }))}}
                       </div>
                       <div class="tab-pane fade" id="llamados">
                           {% include 'BackendBundle:Default:controlesPublicaciones.html.twig' with {'tipoCategoria': categoriaLlamados } %}
-                          {{render(controller('BackendBundle:Default:getPublicaciones', {'status': statusAprobado, 'tipoCategoria': categoriaLlamados }))}}
+                          {{render(controller('BackendBundle:Default:getPublicaciones', {'tipoCategoria': categoriaLlamados }))}}
                       </div>
                       <div class="tab-pane fade" id="tuespacio">
                           {% include 'BackendBundle:Default:controlesPublicaciones.html.twig' with {'tipoCategoria': categoriaTuEspacio } %}
-                        {{render(controller('BackendBundle:Default:getPublicaciones', {'status': statusAprobado, 'tipoCategoria': categoriaTuEspacio }))}}
+                        {{render(controller('BackendBundle:Default:getPublicaciones', {'tipoCategoria': categoriaTuEspacio }))}}
                       </div>
                       <div class="tab-pane fade" id="heraldotv">
                           {% include 'BackendBundle:Default:controlesPublicaciones.html.twig' with {'tipoCategoria': categoriaHeraldoTv } %}
-                         {{render(controller('BackendBundle:Default:getPublicaciones', {'status': statusAprobado, 'tipoCategoria': categoriaHeraldoTv }))}}
+                         {{render(controller('BackendBundle:Default:getPublicaciones', {'tipoCategoria': categoriaHeraldoTv }))}}
                       </div>
                     </div>
                     </div>
@@ -135,14 +135,31 @@
     <script src="{{asset('js/bootstrap-switch.min.js')}}"></script> <!-- Bootstrap Toggle -->
     <script src="{{asset('js/filter.js')}}"></script> <!-- Filter for support page -->
     <script src="{{asset('js/custom.js')}}"></script> <!-- Custom codes -->
-    
+    <script src="{{asset('js/sfrichpolis.js')}}"></script>
  <script>
     $(document).ready(function() {
-        $('#datatable').dataTable({"sPaginationType": "full_numbers"});
-        backend();
+        $('.tipo-categoria-{{categoriaPublicacion}}').dataTable({
+            "sPaginationType": "full_numbers"
+        });
+        $('.tipo-categoria-{{categoriaLlamados}}').dataTable({
+            "sPaginationType": "full_numbers"
+        });
+        $('.tipo-categoria-{{categoriaTuEspacio}}').dataTable({
+            "sPaginationType": "full_numbers"
+        });
+        $('.tipo-categoria-{{categoriaHeraldoTv}}').dataTable({
+            "sPaginationType": "full_numbers"
+        });
+        iniciarlizarFunciones();
     });
 
-function backend(url){
+function iniciarlizarFunciones(){
+    backend();
+    $.configPrettyPhoto();
+    controles();
+}
+
+function backend(){
    $("button.backend").on("click",function(e){
        e.preventDefault();
        var $registro = $(this).parent().parent();
@@ -157,7 +174,7 @@ function backend(url){
                $registro.html($(data).html());
                noty({ text: 'Actualizacion realizada', layout:'topRight', type:'success',  timeout:2000 });
                $(".loader").fadeOut();
-               backend();
+               iniciarlizarFunciones();
             },
             error: function(data){
                 noty({ text: 'Error de actualizacion', layout:'topRight', type:'error', timeout:2000 });
@@ -167,6 +184,34 @@ function backend(url){
         });
     });
 }
+
+function controles(){
+   $("button.boton-control").on("click",function(e){
+       debugger;
+       e.preventDefault();
+       var tabla ="."+$(this).parent().data('table');
+       var $table = $(tabla);
+       var url = $(this).data('url');
+       console.log(url);
+       $(".loader").fadeIn();
+       $.ajax({
+            url: url,
+            type: 'PATCH',
+            dataType: 'html',
+            success: function(data){
+               $table.html($(data).find(tabla).html());
+               $(".loader").fadeOut();
+               iniciarlizarFunciones();
+            },
+            error: function(data){
+                noty({ text: 'Error al mostrar informacion', layout:'topRight', type:'error', timeout:2000 });
+                console.log(data);
+                $(".loader").fadeOut();
+            },
+        });
+    });
+}
+
 
  </script>
 

@@ -42,7 +42,8 @@ stfalcon_tinymce:
             image: "http://stfalcon.com/favicon.ico"
     theme:
         # Simple theme: same as default theme
-        simple: ~
+        simple:
+            file_browser_callback : 'elFinderBrowser'
         # Advanced theme with almost all enabled plugins
         advanced:
              plugins:

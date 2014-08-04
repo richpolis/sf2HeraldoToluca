@@ -29,8 +29,7 @@
         "stfalcon/tinymce-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "~2.0@dev",
 	"friendsofsymfony/rest-bundle": "~1.0",
-	"friendsofsymfony/comment-bundle": "2.0.x-dev",
-        "helios-ag/fm-elfinder-bundle": "*"
+	"friendsofsymfony/comment-bundle": "2.0.x-dev"
     },
     "scripts": {
         "post-install-cmd": [

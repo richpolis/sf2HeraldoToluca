@@ -34,7 +34,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
-            
+            new FM\ElfinderBundle\FMElfinderBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

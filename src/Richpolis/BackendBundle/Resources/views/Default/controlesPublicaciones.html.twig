@@ -1,26 +1,36 @@
+{% if statusAprobado is not defined %}
+    {% set statusAprobado = constant('Richpolis\\PublicacionesBundle\\Entity\\Publicacion::STATUS_APROBADO') %}
+{% endif %}
+
+{% if statusPublicado is not defined %}
+    {% set statusPublicado = constant('Richpolis\\PublicacionesBundle\\Entity\\Publicacion::STATUS_PUBLICADO') %}
+{% endif %}
+
 <!-- Widget content -->
 <div class="widget">
     <div class="widget-content">
         <div class="padd">
-            <div data-toggle="buttons" class="btn-group">
-                <a href="#" class="btn btn-default">
+            <div data-toggle="buttons" class="btn-group" data-table="tipo-categoria-{{tipoCategoria}}">
+                {% if tipoCategoria is constant('Richpolis\\PublicacionesBundle\\Entity\\CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION') %}
+                <button  class="btn btn-default boton-control" data-url="{{path('backend_get_publicaciones',{'isPrincipal':true ,'status':statusPublicado})}}">
                     Es principal
                 </a>
-                <a href="#" class="btn btn-default">
+                <button class="btn btn-default boton-control" data-url="{{path('backend_get_publicaciones',{'inCarrusel':true ,'status':statusPublicado})}}">
                     En carrusel
-                </a>
-                <a href="#" class="btn btn-default">
+                </button>
+                {% endif %}
+                <button class="btn btn-default boton-control" data-url="{{path('backend_publicacion_losmascomentados',{'tipoCategoria':tipoCategoria})}}">
                     Los mas comentados
-                </a>
-                <a href="#" class="btn btn-default">
+                </button>
+                <button class="btn btn-default boton-control" data-url="{{path('backend_publicacion_losmasvisto',{'tipoCategoria':tipoCategoria})}}">
                     Los mas vistos
-                </a>
-                <a href="#" class="btn btn-default">
+                </button>
+                <button class="btn btn-default boton-control" data-url="{{path('backend_get_publicaciones',{'status':statusAprobado, 'tipoCategoria': tipoCategoria})}}">
                     Por publicar
-                </a>
-                <a href="#" class="btn btn-default">
+                </button>
+                <button class="btn btn-default boton-control" data-url="{{path('backend_get_publicaciones',{'status':statusPublicado, 'tipoCategoria': tipoCategoria})}}">
                     Publicados
-                </a>
+                </button>
             </div>
         </div>
     </div>

@@ -34,7 +34,7 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        [ "FOSCommentBundle" ]
+    bundles:        [ "FOSCommentBundle","FMElfinderBundle" ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -121,6 +121,26 @@ fos_comment:
         model:
             comment: Richpolis\ComentariosBundle\Entity\Comment
             thread: Richpolis\ComentariosBundle\Entity\Thread
+
+fm_elfinder:
+    instances:
+        default:
+            locale: %locale% # defaults to current request locale
+            editor: tinymce
+            tinymce_popup_path: "asset[bundles/stfalcontinymce/vendor/tiny_mce/tiny_mce_popup.js]"
+            showhidden: false # defaults to false
+            fullscreen: true # defaults true, applies to simple and ckeditor editors
+            include_assets: true # disable if you want to handle loading of the javascript and css assets yourself
+            compression: false # enable if you configured the uglifycss and uglifyjs2 assetic filters and want compression
+            connector:
+                debug: false # defaults to false
+                roots:       # at least one root must be defined
+                    uploads:
+                        driver: LocalFileSystem
+                        path: uploads/repositorios
+                        upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
+                        upload_deny: ['all']
+                        upload_max_size: 2M
 
 parameters:
     # dirección de correo electrónico

@@ -45,6 +45,7 @@ stfalcon_tinymce:
         simple: ~
         # Advanced theme with almost all enabled plugins
         advanced:
+             file_browser_callback : elFinderBrowser
              plugins:
                  - "advlist autolink lists link image charmap print preview hr anchor pagebreak"
                  - "searchreplace wordcount visualblocks visualchars code fullscreen"

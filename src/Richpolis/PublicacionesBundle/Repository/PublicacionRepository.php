@@ -82,7 +82,7 @@ class PublicacionRepository extends EntityRepository
         }
     }
       
-    public function getQueryPublicacionesActivas($publicacion_id = 0, $publicacion_slug = "",$activas=false,$conObjs = true){
+    public function queryPublicacionesActivas($publicacion_id = 0, $publicacion_slug = "",$activas=false,$conObjs = true){
         $query= $this->getEntityManager()->createQueryBuilder();
         if($conObjs){
             $query->select('p,c,u,g')
@@ -113,7 +113,7 @@ class PublicacionRepository extends EntityRepository
     }
     
     public function getPublicacionesActivas($id = 0, $slug = "",$todas=false,$conObjs = true){
-        $query=$this->getQueryPublicacionesActivas($id,$slug,$todas,$conObjs);
+        $query=$this->queryPublicacionesActivas($id,$slug,$todas,$conObjs);
         return $query->getResult();
     }
     
@@ -124,7 +124,7 @@ class PublicacionRepository extends EntityRepository
      * @param boolean $conObjs para indicar que se necesitan todas sus relaciones.
      * @param integer|string $categoria el categoria_id|categoria_slug 
      */
-    public function getQueryPublicaciones($todas=false,$conObjs = true,$categoria = null,$campo_order="createdAt",$order="DESC"){
+    public function queryPublicaciones($todas=false,$conObjs = true,$categoria = null,$campo_order="createdAt",$order="DESC"){
         $query= $this->getEntityManager()->createQueryBuilder();
         if($conObjs){
             $query->select('p,c,u,g')
@@ -157,7 +157,7 @@ class PublicacionRepository extends EntityRepository
     }
     
     public function getPublicaciones($todas=false,$conObjs = true,$categoria=null,$campo_order="createdAt",$order="DESC"){
-        $query=$this->getQueryPublicaciones($todas,$conObjs,$categoria,$campo_order,$order);
+        $query=$this->queryPublicaciones($todas,$conObjs,$categoria,$campo_order,$order);
         return $query->getResult();
     }
        
@@ -180,7 +180,7 @@ class PublicacionRepository extends EntityRepository
         return $query->getQuery()->setMaxResults(1)->getOneOrNullResult();
     }
     
-    public function findQueryCarrusel($status = Publicacion::STATUS_PUBLICADO,$todos = false){
+    public function queryCarrusel($status = Publicacion::STATUS_PUBLICADO,$todos = false){
         $query=$this->getEntityManager()->createQueryBuilder();
         $query->select('p,c,u,g')
                 ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
@@ -203,10 +203,10 @@ class PublicacionRepository extends EntityRepository
     }
     
     public function findCarrusel($status = Publicacion::STATUS_PUBLICADO,$todos = false){
-        return $this->getQueryCarrusel($status,$todos)->getResult();
+        return $this->queryCarrusel($status,$todos)->getResult();
     }
     
-    public function getQueryPortada($status = Publicacion::STATUS_PUBLICADO,$todos = false){
+    public function queryPortada($status = Publicacion::STATUS_PUBLICADO,$todos = false){
         $query=$this->getEntityManager()->createQueryBuilder();
         $query->select('p,c,u,g')
                 ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
@@ -229,7 +229,7 @@ class PublicacionRepository extends EntityRepository
     }
     
     public function findPortada($status = Publicacion::STATUS_PUBLICADO, $todos = false){
-        return $this->getQueryPortada($status,$todos)->getResult();
+        return $this->queryPortada($status,$todos)->getResult();
     }
     
     
@@ -240,8 +240,7 @@ class PublicacionRepository extends EntityRepository
      * @param boolean $conObjs para indicar que se necesitan todas sus relaciones.
      * @param integer|string $tipoCategoria el tipoCategoria|categoria_slug 
      */
-    public function getQueryPublicacionesPorTipoCategoria($status = Publicacion::STATUS_APROBADO, 
-        $tipoCategoria = CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION, 
+    public function queryPublicacionesPorTipoCategoria($status = 0, $tipoCategoria = 0, 
         $conObjs = true, $campo_orden = "createdAt" , $orden = "DESC"){
 
         $query= $this->getEntityManager()->createQueryBuilder();
@@ -254,30 +253,55 @@ class PublicacionRepository extends EntityRepository
                     ->orderBy('p.'.$campo_orden, $orden)
                     ->addOrderBy('g.position', 'ASC');
                     
-            if(is_numeric($tipoCategoria)){
+            if($tipoCategoria){
                 $query->andWhere('c.tipoCategoria=:tipo')
                       ->setParameter('tipo', $tipoCategoria);
-            }elseif(strlen($tipoCategoria)){
-                $query->andWhere('c.slug=:categoria')
-                      ->setParameter('categoria', $tipoCategoria);
             }       
         }else{
             $query->select('p')
                     ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
                     ->orderBy('p.'.$campo_orden, $orden);
         }
-        if(is_numeric($status)){
+        if($status){
             $query->andWhere('p.status=:status')
                   ->setParameter('status', $status);
         }
         return $query->getQuery();
     }
     
-    public function getPublicacionesPorTipoCategoria($status = Publicacion::STATUS_APROBADO, 
-        $tipoCategoria = CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION, 
+    public function getPublicacionesPorTipoCategoria($status = 0, $tipoCategoria = 0, 
         $conObjs = true, $campo_orden = "createdAt" , $orden = "DESC"){
 
-        $query=$this->getQueryPublicacionesPorTipoCategoria($status,$tipoCategoria,$conObjs,$campo_orden,$orden);
+        $query=$this->queryPublicacionesPorTipoCategoria($status,$tipoCategoria,$conObjs,$campo_orden,$orden);
         return $query->getResult();
+    }
+
+    public function queryLosmasVistosOrComentados($campo = '',$categoria = 0, $tipoCategoria = 0){
+        $query=$this->getEntityManager()->createQueryBuilder();
+        $query->select('p,c,u,g')
+                ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
+                ->leftJoin('p.galerias', 'g')
+                ->leftJoin('p.usuario', 'u')
+                ->leftJoin('p.categoria', 'c')
+                ->orderBy('p.'.$campo, 'DESC')
+                ->addOrderBy('g.position', 'ASC');
+        if($categoria){
+            $query->andWhere('c.id =:categoria')
+                ->setParameter('categoria', $categoria);
+        }
+        if($tipoCategoria){
+            $query->andWhere('c.tipoCategoria =:tipoCategoria')
+                ->setParameter('tipoCategoria', $tipoCategoria);
+        }        
+
+        return $query->getQuery();
+    }
+    
+    public function findLosMasVistos($categoria = 0, $tipoCategoria = 0){
+        return $this->queryLosmasVistosOrComentados('contVisitas',$categoria,$tipoCategoria)->getResult();
+    }
+
+    public function findLosMasComentados($categoria = 0, $tipoCategoria = 0){
+        return $this->queryLosmasVistosOrComentados('contComentarios',$categoria,$tipoCategoria)->getResult();
     }
 }

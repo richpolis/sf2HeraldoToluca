@@ -12,9 +12,9 @@
     <td class="is-principal">
         {% if is_granted('ROLE_ADMIN') %}
             {% if entity.isPrincipal %}
-                <button class="btn btn-success activo" data-url="{{ path('backend_publicacion_is_principal',{'id': entity.id }) }}"><i class="fa fa-check-square-o"></i></button>
+                <button class="backend btn btn-success activo" data-url="{{ path('backend_publicacion_is_principal',{'id': entity.id }) }}"><i class="fa fa-check-square-o"></i></button>
                 {% else %}
-                <button class="btn btn-info inactivo" data-url="{{ path('backend_publicacion_is_principal',{'id': entity.id }) }}"><i class="fa fa-square-o"></i></button>
+                <button class="backend btn btn-info inactivo" data-url="{{ path('backend_publicacion_is_principal',{'id': entity.id }) }}"><i class="fa fa-square-o"></i></button>
                 {% endif %}    
             {% else %}
                 {{ entity.isPrincipal | isActive | raw }}
@@ -22,9 +22,9 @@
     </td>
     <td class="in-carrusel">
         {% if entity.isCarrusel %}
-            <button class="btn btn-success activo" data-url="{{ path('backend_publicacion_in_carrusel',{'id': entity.id }) }}"><i class="fa fa-check-square-o"></i></button>
+            <button class="backend btn btn-success activo" data-url="{{ path('backend_publicacion_in_carrusel',{'id': entity.id }) }}"><i class="fa fa-check-square-o"></i></button>
         {% else %}
-            <button class="btn btn-info inactivo" data-url="{{ path('backend_publicacion_in_carrusel',{'id': entity.id }) }}"><i class="fa fa-square-o"></i></button>
+            <button class="backend btn btn-info inactivo" data-url="{{ path('backend_publicacion_in_carrusel',{'id': entity.id }) }}"><i class="fa fa-square-o"></i></button>
         {% endif %}
     </td>
     {% endif %}
@@ -44,9 +44,9 @@
         {% endif %}
         {% endif %}
         {% if entity.status < constant('Richpolis\\PublicacionesBundle\\Entity\\Publicacion::STATUS_APROBADO') %}
-        <button data-url="{{ path('publicaciones_edit', { 'id': entity.id }) }}" class="publicaciones btn btn-xs btn-warning"><i class="fa fa-pencil"></i> </button>
+        <a href="{{ path('publicaciones_edit', { 'id': entity.id }) }}" class="publicaciones btn btn-xs btn-warning"><i class="fa fa-pencil"></i> </a>
         {% endif %}
-        <button data-url="{{ path('publicaciones_show', { 'id': entity.id }) }}" class="publicaciones btn btn-xs btn-info"><i class="fa fa-folder-open"></i> </button>
-        <button data-url="{{ path('frontend_publicaciones', { 'slug': entity.slug }) }}" class="sitio btn btn-xs btn-info"><i class="fa fa-eye"></i> </button>
+        <a href="{{ path('publicaciones_show', { 'id': entity.id }) }}" class="publicaciones btn btn-xs btn-info"><i class="fa fa-folder-open"></i> </a>
+        <a href="{{ path('frontend_publicaciones', { 'slug': entity.slug }) }}?iframe=true&width=100%&height=100%" rel="prettyPhoto[iframes]" class="sitio btn btn-xs btn-info"><i class="fa fa-eye"></i> </a>
     </td>
 </tr>
