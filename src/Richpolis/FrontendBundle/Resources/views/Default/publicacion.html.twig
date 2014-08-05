@@ -4,8 +4,8 @@
     <section class="padding columna-3">
         <article class="relacionados">
             <section class="noticias">
-                {% for noticia in range(1,3) %}
-                    {% include 'FrontendBundle:Default:item_relacionado.html.twig' with {'noticia': noticia} %}
+                {% for noticia in categoria.publicaciones %}
+                    {% include 'FrontendBundle:Default:item_relacionado.html.twig' with {'noticia': noticia,'noticia_actual':publicacion} %}
                 {% endfor %}
             </section>
         </article>
@@ -14,9 +14,9 @@
         <article class="publicacion-completa">
             <header>
                 <h2 class="titulo">
-                    {{publicacion}}
+                    {{publicacion.titulo}}
                 </h2>
-                <span class="datetime">{{ "now"|date("m/d/Y  g:ia")}}</span>
+                <span class="datetime">{{ publicacion.createdAt|date("m/d/Y  g:ia")}}</span>
             </header>
             <div class="contenido">
                 <div class="contenedor-galeria">
@@ -34,22 +34,10 @@
                 </div>
                 <!-- Go to www.addthis.com/dashboard to customize your tools -->
                 <div class="addthis_sharing_toolbox"></div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur, eligendi, magni quae omnis sed debitis illum commodi dignissimos necessitatibus possimus sapiente exercitationem nam in incidunt sint quia placeat error dolores?</p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus a eum modi veritatis ut et velit id. Magni deleniti illo quae corporis, voluptatem pariatur quas, officia eos minus rem, ab.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus a eum modi veritatis ut et velit id. Magni deleniti illo quae corporis, voluptatem pariatur quas, officia eos minus rem, ab.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus a eum modi veritatis ut et velit id. Magni deleniti illo quae corporis, voluptatem pariatur quas, officia eos minus rem, ab.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus a eum modi veritatis ut et velit id. Magni deleniti illo quae corporis, voluptatem pariatur quas, officia eos minus rem, ab.
-                </p>
+                {{publicacion.descripcion | raw }}
             </div>
         </article>
-        {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': publicacion } %}
+        {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': publicacion.id } %}
     </section>	
     {% include 'FrontendBundle:Default:aside.html.twig' %}
     

@@ -2820,7 +2820,6 @@
         "friendsofsymfony/comment-bundle": 20,
         "helios-ag/fm-elfinder-bundle": 20
     },
-    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
     },

@@ -40,7 +40,7 @@ class PublicacionController extends Controller {
         } else {
             $categorias = $this->getCategoriasPublicacion();
             $this->setFilters(array('categorias' => $categorias[0]->getId()));
-            $cat = $categorias[0];
+            $cat = $categorias[0]->getId();
         }
         return $cat;
     }

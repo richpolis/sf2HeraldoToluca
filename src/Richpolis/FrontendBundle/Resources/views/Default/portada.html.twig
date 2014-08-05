@@ -3,7 +3,7 @@
 {% block contenido %}
 
     <section class="padding columna-3">
-        {% if publicacion != null %}
+	    {% for publicacion in publicaciones %}
         <article class="publicacion-principal">
             <div class="contenedor-centrado">
                 <header>
@@ -25,12 +25,12 @@
                     {{ publicacion.descripcion | raw  | striptags | truncate(250) }}
                     </p>
                     <p class="cargador">
-                        <a href="{{path('frontend_publicaciones',{'publicacion': publicacion.slug })}}" class="btn ver-nota">Ver nota</a>
+                        <a href="{{path('frontend_publicaciones',{'slug': publicacion.slug })}}" class="btn ver-nota">Ver nota</a>
                     </p>
                 </div>
             </div>
         </article>
-        {% endif %}
+		{% endfor %}
         <article class="list-noticias">
             <header>
                 <h2 class="titulo azul">
@@ -38,7 +38,7 @@
                 </h2>
             </header>
             <section class="noticias">
-                {% for noticia in range(1,6) %}
+                {% for noticia in llamados %}
                     {% include 'FrontendBundle:Default:item_largo.html.twig' with {'noticia': noticia} %}
                 {% endfor %}
             </section>

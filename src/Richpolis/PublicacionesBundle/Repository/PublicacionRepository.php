@@ -206,7 +206,7 @@ class PublicacionRepository extends EntityRepository
         return $this->queryCarrusel($status,$todos)->getResult();
     }
     
-    public function queryPortada($status = Publicacion::STATUS_PUBLICADO,$todos = false){
+    public function queryPortada($status = Publicacion::STATUS_PUBLICADO,$todas = false){
         $query=$this->getEntityManager()->createQueryBuilder();
         $query->select('p,c,u,g')
                 ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')

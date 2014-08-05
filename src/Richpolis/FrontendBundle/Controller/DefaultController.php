@@ -13,6 +13,7 @@ use Richpolis\FrontendBundle\Entity\Contacto;
 use Richpolis\FrontendBundle\Form\ContactoType;
 
 use Richpolis\PublicacionesBundle\Entity\Publicacion;
+use Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion;
 
 class DefaultController extends Controller
 {
@@ -33,11 +34,17 @@ class DefaultController extends Controller
     public function portadaAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $portada = $em->getRepository('PublicacionesBundle:Publicacion')
-                ->findOnePortada(Publicacion::STATUS_APROBADO);
+        $portadas = $em->getRepository('PublicacionesBundle:Publicacion')
+                ->findPortada();
+		$llamados = $em->getRepository('PublicacionesBundle:Publicacion')
+                ->getPublicacionesPorTipoCategoria(
+					Publicacion::STATUS_PUBLICADO,
+					CategoriaPublicacion::TIPO_CATEGORIA_LLAMADOS
+				);
                 
         return array(
-          'publicacion'=>$portada
+          	'publicaciones'=>$portadas,
+			'llamados'=>$llamados
         );
     }
     

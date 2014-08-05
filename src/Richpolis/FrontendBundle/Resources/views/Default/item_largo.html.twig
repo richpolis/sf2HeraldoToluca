@@ -1,13 +1,11 @@
 <article class="item-noticia item-noticia-lg">
-    <a href="{{path('frontend_publicaciones',{'publicacion': 'noticia-' ~ noticia})}}">
+    <a href="{{path('frontend_publicaciones',{'slug': noticia.slug})}}">
         <figure class="thumbnail-mediana">
             <img src="http://placehold.it/302x126" alt="noticia-{{noticia}}"/>
         </figure>
         <h3 class="titulo">
-            Titulo de la noticia {{noticia}}
+            {{noticia.titulo}}
         </h3>
     </a>
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas labore expedita atque, praesentium doloremque repudiandae dolore. Omnis voluptatem eveniet, consequatur dolore quos assumenda ipsum cumque explicabo, quasi, non pariatur! Aliquam!
-    </p>
+    {{noticia.descripcion | raw }}
 </article>

@@ -1,10 +1,12 @@
+{% if noticia.id != noticia_actual.id %}
 <article class="item-noticia item-noticia-lg">
-    <a href="{{path('frontend_publicaciones',{'publicacion': 'noticia-' ~ noticia})}}">
+    <a href="{{path('frontend_publicaciones',{'slug': noticia.slug})}}">
         <figure class="thumbnail-mediana">
             <img src="http://placehold.it/246x76" alt="noticia-{{noticia}}"/>
         </figure>
         <h3 class="titulo">
-            Titulo de la noticia {{noticia}}
+            {{noticia.titulo}}
         </h3>
     </a>
 </article>
+{% endif %}
