@@ -5,6 +5,8 @@ namespace Richpolis\PublicacionesBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion;
 
+
+
 /**
  * CategoriaPublicacionRepository
  *
@@ -168,6 +170,20 @@ class CategoriaPublicacionRepository extends EntityRepository
                     'desde'=>  $desde." 00:00:00",
                     'hasta'=>  $hasta." 23:59:59",
                 ));
+        return $query->getResult();
+    }
+	
+	 public function getCategoriasConPublicaciones($maxPublicaciones = 4){
+        $em=$this->getEntityManager();
+        $query=$em->createQuery('
+               SELECT c,p,g 
+               FROM PublicacionesBundle:CategoriaPublicacion c 
+               JOIN c.publicaciones p 
+               JOIN p.galerias g 
+               WHERE SIZE(c.publicaciones) <= :maximo 
+               ORDER BY p.position ASC, g.position ASC
+        ')->setParameters(array('maximo'=>$maxPublicaciones));
+        
         return $query->getResult();
     }
 }

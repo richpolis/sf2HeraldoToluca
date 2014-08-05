@@ -304,4 +304,6 @@ class PublicacionRepository extends EntityRepository
     public function findLosMasComentados($categoria = 0, $tipoCategoria = 0){
         return $this->queryLosmasVistosOrComentados('contComentarios',$categoria,$tipoCategoria)->getResult();
     }
+	
+	
 }

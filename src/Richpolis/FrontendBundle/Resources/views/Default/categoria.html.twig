@@ -5,11 +5,11 @@
         <article class="list-noticias categoria">
             <header>
                 <h2 class="titulo azul">
-                    <span>{{categoria}}</span>
+                    <span>{{categoria.categoria}}</span>
                 </h2>
             </header>
             <section class="noticias">
-                {% for noticia in range(1,8) %}
+                {% for noticia in categoria.publicaciones %}
                     {% include 'FrontendBundle:Default:item_largo.html.twig' with {'noticia': noticia} %}
                 {% endfor %}
             </section>

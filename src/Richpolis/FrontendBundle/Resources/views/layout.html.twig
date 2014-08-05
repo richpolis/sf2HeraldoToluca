@@ -251,7 +251,9 @@
           
         
           $(".ver-nota").on("click",function(){
-             location.href = '{{path('frontend_publicaciones',{'slug': 'slug-publicacion'})}}' 
+		     var slug = $(this).data('slug');
+             var url = '{{path('frontend_publicaciones',{'slug': '***'})}}';
+			 location.href =  url.replace("***", slug);
           });  
 
         });

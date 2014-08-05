@@ -55,12 +55,14 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        //$inicio = $em->getRepository('PaginasBundle:Pagina')
-        //        ->findOneBy(array('pagina'=>'inicio'));
-        //$servicios = $em->getRepository('PublicacionesBundle:Servicio')->findActivos();
+        $carrusel = $em->getRepository('PublicacionesBundle:Publicacion')
+                ->findCarrusel();
+		$categorias = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')
+						 ->getCategoriasConPublicaciones();
+		
         return array(
-          'categoria'=>'',
-          'publicacion'=>''
+          'carrusel'=>$carrusel,
+          'categorias'=>$categorias
         );
     }
     
