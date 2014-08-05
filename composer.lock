@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f4d12c6a1c9aaf7af75e139efeaa95e1",
+    "hash": "414df566af58173e8e25eca18fc6c893",
     "packages": [
         {
             "name": "avalanche123/imagine-bundle",
@@ -793,6 +793,66 @@
             "time": "2014-07-11 03:05:53"
         },
         {
+            "name": "dropbox-php/dropbox-php",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dropbox-PHP/dropbox-php.git",
+                "reference": "81977a8b021dd5a32b34d84721712f1284029667"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dropbox-PHP/dropbox-php/zipball/81977a8b021dd5a32b34d84721712f1284029667",
+                "reference": "81977a8b021dd5a32b34d84721712f1284029667",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "suggest": {
+                "http_oauth": ">=1.1.18",
+                "oauth": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Dropbox": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Evert Pot",
+                    "email": "evert@rooftopsolutions.nl",
+                    "homepage": "http://www.rooftopsolutions.nl/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Joe Constant",
+                    "email": "lazyguru@jofee.com",
+                    "homepage": "http://www.joeconstant.me/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Evan Kaufman",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Naoki Sawada",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Dropbox PHP library",
+            "homepage": "http://dropbox-php.com/",
+            "keywords": [
+                "dropbox"
+            ],
+            "time": "2012-09-10 06:07:54"
+        },
+        {
             "name": "friendsofsymfony/comment-bundle",
             "version": "dev-master",
             "target-dir": "FOS/CommentBundle",
@@ -956,12 +1016,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "1fe261de17abde29d6d461b7a93873d48b0efce7"
+                "reference": "27a84cec3ea4daa32cd6fe308c0847ca9644f588"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/1fe261de17abde29d6d461b7a93873d48b0efce7",
-                "reference": "1fe261de17abde29d6d461b7a93873d48b0efce7",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/27a84cec3ea4daa32cd6fe308c0847ca9644f588",
+                "reference": "27a84cec3ea4daa32cd6fe308c0847ca9644f588",
                 "shasum": ""
             },
             "require": {
@@ -1015,33 +1075,38 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2014-08-01 02:49:19"
+            "time": "2014-08-04 23:04:17"
         },
         {
             "name": "helios-ag/fm-elfinder-bundle",
-            "version": "1.5",
+            "version": "dev-master",
             "target-dir": "FM/ElfinderBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helios-ag/FMElfinderBundle.git",
-                "reference": "57de87e1bf72f9a87fa1d7cd508e7857a3d03860"
+                "reference": "e7a07d29a4adca6d6c5bb964cea959435bcfacda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helios-ag/FMElfinderBundle/zipball/57de87e1bf72f9a87fa1d7cd508e7857a3d03860",
-                "reference": "57de87e1bf72f9a87fa1d7cd508e7857a3d03860",
+                "url": "https://api.github.com/repos/helios-ag/FMElfinderBundle/zipball/e7a07d29a4adca6d6c5bb964cea959435bcfacda",
+                "reference": "e7a07d29a4adca6d6c5bb964cea959435bcfacda",
                 "shasum": ""
             },
             "require": {
-                "helios-ag/fm-elfinder-php-connector": "1.1.1",
+                "helios-ag/fm-elfinder-php-connector": "2.0.*@dev",
                 "php": ">=5.3.3",
                 "sensio/framework-extra-bundle": "*@dev",
-                "symfony/symfony": "*@stable",
+                "symfony/symfony": "~2.4",
                 "symfony/twig-bundle": "~2.0"
             },
+            "require-dev": {
+                "matthiasnoback/symfony-config-test": "0.*",
+                "matthiasnoback/symfony-dependency-injection-test": "0.*"
+            },
             "suggest": {
-                "Trsteel/ckeditor-bundle": "CKEditor WYSIWYG Editor Bundlefor Symfony2 Project by Trsteel",
-                "stfalcon/tinymce-bundle": "TinyMCE WYSIWYG Editor Bundle by Stfalcon"
+                "egeloen/ckeditor-bundle": "CKEditor Bundle by Egeloen",
+                "stfalcon/tinymce-bundle": "TinyMCE Bundle by Stfalcon",
+                "trsteel/ckeditor-bundle": "CKEditor Bundle by trsteel"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -1063,29 +1128,30 @@
                     "homepage": "https://github.com/helios-ag/FMElfinderBundle/contributors"
                 }
             ],
-            "description": "ElFinder bundle, add ElFinder file manager to your Symfony2 project",
+            "description": "ElFinder bundle, adds ElFinder file manager to your Symfony2 project",
             "homepage": "https://github.com/helios-ag/FMElfinderBundle",
             "keywords": [
                 "elfinder",
                 "file manager"
             ],
-            "time": "2014-05-09 12:02:28"
+            "time": "2014-07-27 13:44:31"
         },
         {
             "name": "helios-ag/fm-elfinder-php-connector",
-            "version": "1.1.1",
+            "version": "2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helios-ag/ElFinderPHP.git",
-                "reference": "fa24c5ce710ec2c9eab899786c93dfac1a232386"
+                "reference": "b8014b69b8ef2955ce7cf13ce84030a3d683ca04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helios-ag/ElFinderPHP/zipball/fa24c5ce710ec2c9eab899786c93dfac1a232386",
-                "reference": "fa24c5ce710ec2c9eab899786c93dfac1a232386",
+                "url": "https://api.github.com/repos/helios-ag/ElFinderPHP/zipball/b8014b69b8ef2955ce7cf13ce84030a3d683ca04",
+                "reference": "b8014b69b8ef2955ce7cf13ce84030a3d683ca04",
                 "shasum": ""
             },
             "require": {
+                "dropbox-php/dropbox-php": "1.*",
                 "php": ">=5.3.0"
             },
             "type": "library",
@@ -1118,7 +1184,7 @@
                 "elfinder",
                 "filemanager"
             ],
-            "time": "2013-08-06 17:02:04"
+            "time": "2014-05-01 22:05:09"
         },
         {
             "name": "imagine/imagine",
@@ -2751,7 +2817,8 @@
         "knplabs/knp-paginator-bundle": 20,
         "stfalcon/tinymce-bundle": 20,
         "friendsofsymfony/user-bundle": 20,
-        "friendsofsymfony/comment-bundle": 20
+        "friendsofsymfony/comment-bundle": 20,
+        "helios-ag/fm-elfinder-bundle": 20
     },
     "prefer-stable": false,
     "platform": {
