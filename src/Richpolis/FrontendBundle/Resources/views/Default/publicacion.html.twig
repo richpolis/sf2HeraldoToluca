@@ -4,8 +4,8 @@
     <section class="padding columna-3">
         <article class="relacionados">
             <section class="noticias">
-                {% for noticia in categoria.publicaciones %}
-                    {% include 'FrontendBundle:Default:item_relacionado.html.twig' with {'noticia': noticia,'noticia_actual':publicacion} %}
+                {% for noticia in categoria.publicaciones if noticia.id!=publicacion.id %}
+                    {% include 'FrontendBundle:Default:item_relacionado.html.twig' with {'noticia': noticia } %}
                 {% endfor %}
             </section>
         </article>
@@ -21,15 +21,11 @@
             <div class="contenido">
                 <div class="contenedor-galeria">
                     <ul class="galeria">
+                        {% for galeria in publicacion.galerias %}
                         <li class="item">
-                            <img src="http://placehold.it/616x411" alt="" class="imagen"/>
+                            <img src="{{galeria.webPath | apply_filter('imagen_grande') }}" alt="{{galeria.titulo}}" class="imagen"/>
                         </li>
-                        <li class="item">
-                            <img src="http://placehold.it/616x411" alt="" class="imagen"/>
-                        </li>
-                        <li class="item">
-                            <img src="http://placehold.it/616x411" alt="" class="imagen"/>
-                        </li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <!-- Go to www.addthis.com/dashboard to customize your tools -->

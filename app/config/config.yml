@@ -90,18 +90,18 @@ knp_paginator:
 
 avalanche_imagine:
     filters:
-        publicaciones_carrusel:
+        imagen_grande:
             type:    thumbnail
-            options: { size: [508, 256], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
-        publicaciones:
+            options: { size: [616, 411], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
+        imagen_302_126:
             type:    thumbnail
-            options: { size: [310, 210], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
-        clientes:
+            options: { size: [302, 126], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
+        imagen_222_94:
             type:    thumbnail
-            options: { size: [220, 220], mode: inset, cache_type: public, cache_expires: '2 weeks' }
-        quienes_somos_carrusel:
+            options: { size: [222, 94], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
+        imagen_246_76:
             type:    thumbnail
-            options: { size: [300, 500], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
+            options: { size: [246, 76], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
         servicios_carrusel:
             type:    thumbnail
             options: { size: [987, 371], mode: outbound, cache_type: public, cache_expires: '2 weeks' }

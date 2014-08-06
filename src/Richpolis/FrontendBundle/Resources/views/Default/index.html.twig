@@ -6,22 +6,22 @@
         <article class="publicacion">
             <section class="galeria">
                 {% for publicacion in carrusel %}
-                <article class="item">
-                    <header>
-                        <h2 class="titulo">
-                            {{publicacion.titulo}}
-                        </h2>
-                    </header>
-                    <div class="contenido">
-                        <figure>
-                            <img src="http://placehold.it/616x411" alt="" class="imagen"/>
-                        </figure>
-                        {{ publicacion.descripcion | raw  }}
-                        <p class="cargador">
-                            <button data-slug="{{publicacion.slug}}" class="ver-nota">Ver nota</button>
-                        </p>
-                    </div>        
-                </article>
+                    <article class="item">
+                        <header>
+                            <h2 class="titulo">
+                                {{publicacion.titulo}}
+                            </h2>
+                        </header>
+                        <div class="contenido">
+                            <figure>
+                                <img src="{{ publicacion.galerias[0].webPath | apply_filter('imagen_grande') }}" alt="{{publicacion.galerias[0].titulo}}"/>
+                            </figure>
+                            {{ publicacion.descripcion | raw  }}
+                            <p class="cargador">
+                                <button data-slug="{{publicacion.slug}}" class="ver-nota">Ver nota</button>
+                            </p>
+                        </div>        
+                    </article>
                 {% endfor %}
             </section>
         </article>
@@ -148,20 +148,10 @@
                 </h2>
             </header>
             <section class="noticias">
-				{% for categoria in categorias if categoria.slug == 'nacional'  %}
-					{% for publicacion in categoria.publicaciones %}
-						<article class="item-noticia">
-							<figure class="thumbnail-mediana">
-								<img src="http://placehold.it/222x94" alt=""/>
-							</figure>
-							<h3 class="titulo">
-								titulo de la noticia
-							</h3>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas labore expedita atque, praesentium doloremque repudiandae dolore. Omnis voluptatem eveniet, consequatur dolore quos assumenda ipsum cumque explicabo, quasi, non pariatur! Aliquam!
-							</p>
-						</article>
-					{% endfor %}
+                {% for categoria in categorias if categoria.slug == 'nacional'  %}
+                    {% for publicacion in categoria.publicaciones %}
+                        {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
+                    {% endfor %}
                 {% endfor %}
             </section>
             <p class="cargador azul">
@@ -175,20 +165,10 @@
                 </h2>
             </header>
             <section class="noticias">
-				{% for categoria in categorias if categoria.slug == 'mundo'  %}
-					{% for publicacion in categoria.publicaciones %}
-						<article class="item-noticia">
-							<figure class="thumbnail-mediana">
-								<img src="http://placehold.it/222x94" alt=""/>
-							</figure>
-							<h3 class="titulo">
-								titulo de la noticia
-							</h3>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas labore expedita atque, praesentium doloremque repudiandae dolore. Omnis voluptatem eveniet, consequatur dolore quos assumenda ipsum cumque explicabo, quasi, non pariatur! Aliquam!
-							</p>
-						</article>
-					{% endfor %}
+                {% for categoria in categorias if categoria.slug == 'mundo'  %}
+                    {% for publicacion in categoria.publicaciones %}
+                        {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
+                    {% endfor %}
                 {% endfor %}
             </section>
             <p class="cargador rojo">
@@ -202,20 +182,10 @@
                 </h2>
             </header>
             <section class="noticias">
-				{% for categoria in categorias if categoria.slug == 'trofeo'  %}
-					{% for publicacion in categoria.publicaciones %}
-						<article class="item-noticia">
-							<figure class="thumbnail-mediana">
-								<img src="http://placehold.it/222x94" alt=""/>
-							</figure>
-							<h3 class="titulo">
-								titulo de la noticia
-							</h3>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas labore expedita atque, praesentium doloremque repudiandae dolore. Omnis voluptatem eveniet, consequatur dolore quos assumenda ipsum cumque explicabo, quasi, non pariatur! Aliquam!
-							</p>
-						</article>
-					{% endfor %}
+                {% for categoria in categorias if categoria.slug == 'trofeo'  %}
+                    {% for publicacion in categoria.publicaciones %}
+                        {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
+                    {% endfor %}
                 {% endfor %}
             </section>
             <p class="cargador gris">
@@ -229,54 +199,34 @@
                 </h2>
             </header>
             <section class="noticias">
-				{% for categoria in categorias if categoria.slug == 'arte-y-gente'  %}
-					{% for publicacion in categoria.publicaciones %}
-						<article class="item-noticia">
-							<figure class="thumbnail-mediana">
-								<img src="http://placehold.it/222x94" alt=""/>
-							</figure>
-							<h3 class="titulo">
-								titulo de la noticia
-							</h3>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas labore expedita atque, praesentium doloremque repudiandae dolore. Omnis voluptatem eveniet, consequatur dolore quos assumenda ipsum cumque explicabo, quasi, non pariatur! Aliquam!
-							</p>
-						</article>
-					{% endfor %}
+                {% for categoria in categorias if categoria.slug == 'arte-y-gente'  %}
+                    {% for publicacion in categoria.publicaciones %}
+                        {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
+                    {% endfor %}
                 {% endfor %}
             </section>
-            </section>
-            <p class="cargador azul">
-                cargar mas notas <span class="cargar-mas-notas azul">+</span>
-            </p>
-        </article>
-        <article class="list-noticias">
-            <header>
-                <h2 class="titulo minucipios">
-                    municipios
-                </h2>
-            </header>
-            <section class="noticias">
-				{% for categoria in categorias if categoria.slug == 'municipios'  %}
-					{% for publicacion in categoria.publicaciones %}
-						<article class="item-noticia">
-							<figure class="thumbnail-mediana">
-								<img src="http://placehold.it/222x94" alt=""/>
-							</figure>
-							<h3 class="titulo">
-								titulo de la noticia
-							</h3>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas labore expedita atque, praesentium doloremque repudiandae dolore. Omnis voluptatem eveniet, consequatur dolore quos assumenda ipsum cumque explicabo, quasi, non pariatur! Aliquam!
-							</p>
-						</article>
-					{% endfor %}
-                {% endfor %}
-            </section>
-            <p class="cargador rojo">
-                cargar mas notas <span class="cargar-mas-notas rojo">+</span>
-            </p>
-        </article>
     </section>
+    <p class="cargador azul">
+        cargar mas notas <span class="cargar-mas-notas azul">+</span>
+    </p>
+</article>
+<article class="list-noticias">
+    <header>
+        <h2 class="titulo minucipios">
+            municipios
+        </h2>
+    </header>
+    <section class="noticias">
+        {% for categoria in categorias if categoria.slug == 'municipios'  %}
+            {% for publicacion in categoria.publicaciones %}
+                {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
+            {% endfor %}
+        {% endfor %}
+    </section>
+    <p class="cargador rojo">
+        cargar mas notas <span class="cargar-mas-notas rojo">+</span>
+    </p>
+</article>
+</section>
 
 {% endblock %}

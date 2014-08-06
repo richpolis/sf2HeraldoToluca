@@ -14,9 +14,9 @@
                 <div class="contenido">
                     <div class="contenedor-galeria">
                         <ul class="galeria">
-                            {% for galeria in range(1,3) %}
+                            {% for galeria in publicacion.galerias %}
                             <li class="item">
-                                <img src="http://placehold.it/616x411" alt="publicacion-imagen-{{galeria}}" class="imagen"/>
+                                <img src="{{ galeria.webPath | apply_filter('imagen_grande') }}" alt="{{galeria.titulo}}" class="imagen"/>
                             </li>
                             {% endfor %}
                         </ul>
