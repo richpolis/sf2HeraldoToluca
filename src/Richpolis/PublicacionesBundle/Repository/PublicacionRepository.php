@@ -4,6 +4,7 @@ namespace Richpolis\PublicacionesBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Richpolis\PublicacionesBundle\Entity\Publicacion;
+use Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion;
 
 /**
  * PublicacionRepository
@@ -116,6 +117,8 @@ class PublicacionRepository extends EntityRepository
         $query=$this->queryPublicacionesActivas($id,$slug,$todas,$conObjs);
         return $query->getResult();
     }
+
+    
     
     /*
      * Este query es la nueva version de getQueryPublicaciones Activas
@@ -241,7 +244,7 @@ class PublicacionRepository extends EntityRepository
      * @param integer|string $tipoCategoria el tipoCategoria|categoria_slug 
      */
     public function queryPublicacionesPorTipoCategoria($status = 0, $tipoCategoria = 0, 
-        $conObjs = true, $campo_orden = "createdAt" , $orden = "DESC"){
+        $conObjs = true, $campo_orden = "position" , $orden = "ASC"){
 
         $query= $this->getEntityManager()->createQueryBuilder();
         if($conObjs == true){
@@ -270,10 +273,22 @@ class PublicacionRepository extends EntityRepository
     }
     
     public function getPublicacionesPorTipoCategoria($status = 0, $tipoCategoria = 0, 
-        $conObjs = true, $campo_orden = "createdAt" , $orden = "DESC"){
+        $conObjs = true, $campo_orden = "position" , $orden = "ASC"){
 
         $query=$this->queryPublicacionesPorTipoCategoria($status,$tipoCategoria,$conObjs,$campo_orden,$orden);
         return $query->getResult();
+    }
+
+    public function getUltimasPublicaciones($registros){
+
+        $query=$this->queryPublicacionesPorTipoCategoria(
+            Publicacion::STATUS_PUBLICADO,
+            CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION,
+            true,
+            'createdAt',
+            'DESC'
+        );
+        return $query->setMaxResults($registros)>getResult();
     }
 
     public function queryLosmasVistosOrComentados($campo = '',$categoria = 0, $tipoCategoria = 0){

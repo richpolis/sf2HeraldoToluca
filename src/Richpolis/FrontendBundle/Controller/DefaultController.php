@@ -46,16 +46,22 @@ class DefaultController extends Controller {
      * @Route("/inicio", name="homepage")
      * @Template()
      */
-    public function indexAction() {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
+
         $carrusel = $em->getRepository('PublicacionesBundle:Publicacion')
                 ->findCarrusel();
+
         $categorias = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')
                 ->getCategoriasConPublicaciones();
 
+        $publicaciones = $em->getRepository('PublicacionesBundle:Publicacion')
+                ->getUltimasPublicaciones(4);        
+
         return array(
             'carrusel' => $carrusel,
-            'categorias' => $categorias
+            'categorias' => $categorias,
+            'ultimasPublicaciones' => $publicaciones 
         );
     }
 
