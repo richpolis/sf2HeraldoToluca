@@ -138,7 +138,7 @@
     <script src="{{asset('js/sfrichpolis.js')}}"></script>
  <script>
     $(document).ready(function() {
-        $('.tipo-categoria-{{categoriaPublicacion}}').dataTable({
+        /*$('.tipo-categoria-{{categoriaPublicacion}}').dataTable({
             "sPaginationType": "full_numbers"
         });
         $('.tipo-categoria-{{categoriaLlamados}}').dataTable({
@@ -149,7 +149,7 @@
         });
         $('.tipo-categoria-{{categoriaHeraldoTv}}').dataTable({
             "sPaginationType": "full_numbers"
-        });
+        });*/
         iniciarlizarFunciones();
     });
 
@@ -162,10 +162,10 @@ function iniciarlizarFunciones(){
 function backend(){
    $("button.backend").on("click",function(e){
        e.preventDefault();
+       $(".loader").fadeIn();
        var $registro = $(this).parent().parent();
        var id = $registro.data('id');
        var url = $(this).data('url');
-       $(".loader").fadeIn();
        $.ajax({
             url: url,
             type: 'PATCH',
@@ -173,8 +173,8 @@ function backend(){
             success: function(data){
                $registro.html($(data).html());
                noty({ text: 'Actualizacion realizada', layout:'topRight', type:'success',  timeout:2000 });
-               $(".loader").fadeOut();
                iniciarlizarFunciones();
+			   $(".loader").fadeOut();
             },
             error: function(data){
                 noty({ text: 'Error de actualizacion', layout:'topRight', type:'error', timeout:2000 });
@@ -187,13 +187,12 @@ function backend(){
 
 function controles(){
    $("button.boton-control").on("click",function(e){
-       debugger;
        e.preventDefault();
+	   $(".loader").fadeIn();
        var tabla ="."+$(this).parent().data('table');
        var $table = $(tabla);
        var url = $(this).data('url');
        console.log(url);
-       $(".loader").fadeIn();
        $.ajax({
             url: url,
             type: 'PATCH',
@@ -202,6 +201,7 @@ function controles(){
                $table.html($(data).find(tabla).html());
                $(".loader").fadeOut();
                iniciarlizarFunciones();
+			   $(".loader").fadeOut();
             },
             error: function(data){
                 noty({ text: 'Error al mostrar informacion', layout:'topRight', type:'error', timeout:2000 });

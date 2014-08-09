@@ -22,7 +22,7 @@
                         </ul>
                     </div>
                     <p class="sin-margen-top margen-bottom">
-                    {{ publicacion.descripcion | raw  | striptags | truncate(250) }}
+                    {{ publicacion.descripcion | striptags | truncate(250,true,'...') }}
                     </p>
                     <p class="cargador">
                         <a href="{{path('frontend_publicaciones',{'slug': publicacion.slug })}}" class="btn ver-nota">Ver nota</a>

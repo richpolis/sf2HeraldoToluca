@@ -28,6 +28,7 @@ class DefaultController extends Controller {
      * @Template()
      */
     public function portadaAction() {
+		
         $em = $this->getDoctrine()->getManager();
         $portadas = $em->getRepository('PublicacionesBundle:Publicacion')
                 ->findPortada();

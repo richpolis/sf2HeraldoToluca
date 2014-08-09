@@ -7,5 +7,5 @@
             {{noticia.titulo}}
         </h3>
     </a>
-    {{noticia.descripcion | raw }}
+    {{noticia.descripcion | striptags | truncate(100,true,'...') }}
 </article>

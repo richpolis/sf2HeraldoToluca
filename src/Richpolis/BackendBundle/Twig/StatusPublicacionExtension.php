@@ -22,11 +22,11 @@ class StatusPublicacionExtension extends \Twig_Extension
     {
         switch($status){
             case self::STATUS_BORRADO:      $resp = "<span class='label label-danger status-borrado'>No aprobado</span>"; break;
-            case self::STATUS_INCOMPLETO:   $resp = "<span class='label label-info status-incompleto'>Incompleto</span>"; break;
-            case self::STATUS_REVISAR:      $resp = "<span class='label label-warning status-revisar'>Revisar</span>"; break;
+            case self::STATUS_INCOMPLETO:   $resp = "<span class='label label-info status-incompleto'>En edición</span>"; break;
+            case self::STATUS_REVISAR:      $resp = "<span class='label label-warning status-revisar'>A revisar</span>"; break;
             case self::STATUS_APROBADO:     $resp = "<span class='label label-primary status-aprobado'>Aprobado</span>"; break;
             case self::STATUS_PUBLICADO:    $resp = "<span class='label label-success status-publicado'>Publicado</span>"; break;
-            case self::STATUS_CADUCADO:     $resp = "<span class='label label-default status-caducado'>Caducado</span>"; break;
+            case self::STATUS_CADUCADO:     $resp = "<span class='label label-default status-caducado'>Archivado</span>"; break;
         }
         return $resp;
     }

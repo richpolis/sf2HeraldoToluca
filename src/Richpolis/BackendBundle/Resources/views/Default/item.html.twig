@@ -35,7 +35,7 @@
     <td>
         {% if is_granted('ROLE_ADMIN') %}
         {% if entity.status is constant('Richpolis\\PublicacionesBundle\\Entity\\Publicacion::STATUS_APROBADO') %}    
-        <button data-url="{{ path('backend_publicacion_publicar', { 'id': entity.id }) }}" class="backend btn btn-xs btn-success"><i class="fa fa-check"></i> </button>
+        <button data-url="{{ path('backend_publicacion_publicar', { 'id': entity.id }) }}" class="backend btn btn-xs btn-success"><i class="fa fa-thumbs-up"></i> </button>
         <button data-url="{{ path('backend_publicacion_revisar', { 'id': entity.id }) }}" class="backend btn btn-xs btn-danger"><i class="fa fa-repeat"></i> </button>
         {% endif %}
         {% if entity.status is constant('Richpolis\\PublicacionesBundle\\Entity\\Publicacion::STATUS_PUBLICADO') %}

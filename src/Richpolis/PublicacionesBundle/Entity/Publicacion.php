@@ -171,11 +171,11 @@ class Publicacion
         
     static public $sStatus=array(
         self::STATUS_BORRADO=>'Borrado',
-        self::STATUS_INCOMPLETO=>'Incompleto',
-        self::STATUS_REVISAR=>'Revisar',
+        self::STATUS_INCOMPLETO=>'En edición',
+        self::STATUS_REVISAR=>'A revisión',
         self::STATUS_APROBADO=>'Aprobado',
         self::STATUS_PUBLICADO=>'Publicado',
-        self::STATUS_CADUCADO=>'Caducado',
+        self::STATUS_CADUCADO=>'Archivado',
     );
     
     

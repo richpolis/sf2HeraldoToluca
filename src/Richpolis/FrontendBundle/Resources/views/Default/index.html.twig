@@ -15,7 +15,7 @@
                             <figure>
                                 <img src="{{ publicacion.galerias[0].webPath | apply_filter('imagen_grande') }}" alt="{{publicacion.galerias[0].titulo}}"/>
                             </figure>
-                            {{ publicacion.descripcion | raw  }}
+                            {{ publicacion.descripcion | striptags | truncate(250,true,'...')  }}
                             <p class="cargador">
                                 <button data-slug="{{publicacion.slug}}" class="ver-nota">Ver nota</button>
                             </p>
@@ -31,50 +31,9 @@
                 </h2>
             </header>
             <section class="noticias">
-                <article class="item-noticia item-noticia-lg">
-                    <figure class="thumbnail-mediana">
-                        <img src="http://placehold.it/302x126" alt=""/>
-                    </figure>
-                    <h3 class="titulo">
-                        titulo de la noticia
-                    </h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas labore expedita atque, praesentium doloremque repudiandae dolore. Omnis voluptatem eveniet, consequatur dolore quos assumenda ipsum cumque explicabo, quasi, non pariatur! Aliquam!
-                    </p>
-                </article>
-                <article class="item-noticia item-noticia-lg">
-                    <figure class="thumbnail-mediana">
-                        <img src="http://placehold.it/302x126" alt=""/>
-                    </figure>
-                    <h3 class="titulo">
-                        titulo de la noticia
-                    </h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas labore expedita atque, praesentium doloremque repudiandae dolore. Omnis voluptatem eveniet, consequatur dolore quos assumenda ipsum cumque explicabo, quasi, non pariatur! Aliquam!
-                    </p>
-                </article>
-                <article class="item-noticia item-noticia-lg">
-                    <figure class="thumbnail-mediana">
-                        <img src="http://placehold.it/302x126" alt=""/>
-                    </figure>
-                    <h3 class="titulo">
-                        titulo de la noticia
-                    </h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas labore expedita atque, praesentium doloremque repudiandae dolore. Omnis voluptatem eveniet, consequatur dolore quos assumenda ipsum cumque explicabo, quasi, non pariatur! Aliquam!
-                    </p>
-                </article>
-                <article class="item-noticia item-noticia-lg">
-                    <figure class="thumbnail-mediana">
-                        <img src="http://placehold.it/302x126" alt=""/>
-                    </figure>
-                    <h3 class="titulo">
-                        titulo de la noticia
-                    </h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas labore expedita atque, praesentium doloremque repudiandae dolore. Omnis voluptatem eveniet, consequatur dolore quos assumenda ipsum cumque explicabo, quasi, non pariatur! Aliquam!
-                    </p>
-                </article>
+                {% for publicacion in ultimasPublicaciones %}
+                   {% include 'FrontendBundle:Default:item_largo.html.twig' with {'noticia': publicacion } %}
+                {% endfor %}
             </section>
             <p class="cargador azul">
                 cargar mas notas <span class="cargar-mas-notas azul">+</span>
@@ -101,18 +60,20 @@
 
                 {% for categoria in categorias if categoria.tipoCategoria is constant('Richpolis\\PublicacionesBundle\\Entity\\CategoriaPublicacion::TIPO_CATEGORIA_HERALDO_TV') %}
                     {% if loop.index < 2 %}
-                        {% for galeria in categoria.galerias %}
-                        <article class="item-noticia item-video">
-                            <figure class="thumbnail-mediana">
-                                <img src="{{ galeria.thumbnailWebPath }}" width="191" height="121" alt="">
-                            </figure>
-                            {{ galeria.descripcion | raw }}
-                            <div class="redes-sociales">
-                                <span class="share"></span>
-                                <span class="twitter"></span>
-                                <span class="facebook"></span>
-                            </div>
-                        </article>
+                        {% for publicacion in categoria.publicaciones %}
+                        	{% for galeria in publicacion.galerias %}
+							<article class="item-noticia item-video">
+								<figure class="thumbnail-mediana">
+									<img src="{{ galeria.thumbnailWebPath }}" width="191" height="121" alt="">
+								</figure>
+								{{ galeria.descripcion | striptags | truncate(100,true,'...')  }}
+								<div class="redes-sociales">
+									<span class="share"></span>
+									<span class="twitter"></span>
+									<span class="facebook"></span>
+								</div>
+							</article>
+							{% endfor %}
                         {% endfor %}
                     {% endif %}
                 {% endfor %}

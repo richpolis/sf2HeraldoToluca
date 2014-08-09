@@ -288,7 +288,7 @@ class PublicacionRepository extends EntityRepository
             'createdAt',
             'DESC'
         );
-        return $query->setMaxResults($registros)>getResult();
+        return $query->setMaxResults($registros)->getResult();
     }
 
     public function queryLosmasVistosOrComentados($campo = '',$categoria = 0, $tipoCategoria = 0){
