@@ -32,7 +32,7 @@ class AppKernel extends Kernel
             new Richpolis\ComentariosBundle\ComentariosBundle(),
             
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             new FM\ElfinderBundle\FMElfinderBundle()
         );

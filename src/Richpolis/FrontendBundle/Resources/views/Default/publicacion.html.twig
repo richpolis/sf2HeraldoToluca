@@ -23,7 +23,7 @@
                     <ul class="galeria">
                         {% for galeria in publicacion.galerias %}
                         <li class="item">
-                            <img src="{{galeria.webPath | apply_filter('imagen_grande') }}" alt="{{galeria.titulo}}" class="imagen"/>
+                            <img src="{{galeria.webPath | imagine_filter('imagen_grande') }}" alt="{{galeria.titulo}}" class="imagen"/>
                         </li>
                         {% endfor %}
                     </ul>

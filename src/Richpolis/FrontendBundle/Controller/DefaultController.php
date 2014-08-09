@@ -84,17 +84,21 @@ class DefaultController extends Controller {
      * @Route("/publicacion/{slug}", name="frontend_publicaciones")
      * @Template()
      */
-    public function publicacionAction($slug) {
+    public function publicacionAction(Request $request, $slug) {
         $em = $this->getDoctrine()->getManager();
         $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')
                 ->findOneBy(array('slug' => $slug));
-
-        $publicacionesSession = $this->getPublicacionesSession();
-        if (!isset($publicacionesSession[$publicacion->getSlug()])) {
-            $publicacion->setContVisitas($publicacion->getContVisitas() + 1);
-            $em->flush();
-            $publicacionesSession[$publicacion->getSlug()] = true;
-            $this->setPublicacionesSession($publicacionesSession);
+        
+        $contar = $request->query->get('contar',true);
+        
+        if($contar){
+            $publicacionesSession = $this->getPublicacionesSession();
+            if (!isset($publicacionesSession[$publicacion->getSlug()])) {
+                $publicacion->setContVisitas($publicacion->getContVisitas() + 1);
+                $em->flush();
+                $publicacionesSession[$publicacion->getSlug()] = true;
+                $this->setPublicacionesSession($publicacionesSession);
+            }
         }
 
         return array(

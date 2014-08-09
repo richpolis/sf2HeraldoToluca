@@ -88,32 +88,63 @@ knp_paginator:
         pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_pagination.html.twig
         sortable:   KnpPaginatorBundle:Pagination:sortable_link.html.twig
 
-avalanche_imagine:
-    filters:
+#avalanche_imagine:
+#    filters:
+#        imagen_grande:
+#            type:    thumbnail
+#            options: { size: [616, 411], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
+#        imagen_302_126:
+#            type:    thumbnail
+#            options: { size: [302, 126], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
+#        imagen_222_94:
+#            type:    thumbnail
+#            options: { size: [222, 94], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
+#        imagen_246_76:
+#            type:    thumbnail
+#            options: { size: [246, 76], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
+#        servicios_carrusel:
+#            type:    thumbnail
+#            options: { size: [987, 371], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
+#        proyectos_carrusel:
+#            type:    thumbnail
+#            options: { size: [430, 340], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
+#        proyectos_thumbnail:
+#            type:    thumbnail
+#            options: { size: [320, 191], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
+#        galerias_productos:
+#            type:    thumbnail
+#            options: { size: [510, 330], mode: inset, cache_type: public, cache_expires: '2 weeks' }
+
+liip_imagine:
+    resolvers:
+        default:
+            web_path: 
+                web_root:  %kernel.root_dir%/../web
+                cache_prefix:  media/cache
+    loaders:
+        default:
+            filesystem:
+                data_root:  %kernel.root_dir%/../web/
+    driver:               gd
+    cache:                default
+    data_loader:          default
+    controller:
+        filter_action:         liip_imagine.controller:filterAction
+        filter_runtime_action: liip_imagine.controller:filterRuntimeAction
+    filter_sets:
         imagen_grande:
-            type:    thumbnail
-            options: { size: [616, 411], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
+            filters:
+                thumbnail: { size: [616, 411], mode: outbound }
         imagen_302_126:
-            type:    thumbnail
-            options: { size: [302, 126], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
+            filters:
+                thumbnail: { size: [302, 126], mode: outbound }
         imagen_222_94:
-            type:    thumbnail
-            options: { size: [222, 94], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
+            filters:
+                thumbnail: { size: [222, 94], mode: outbound }
         imagen_246_76:
-            type:    thumbnail
-            options: { size: [246, 76], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
-        servicios_carrusel:
-            type:    thumbnail
-            options: { size: [987, 371], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
-        proyectos_carrusel:
-            type:    thumbnail
-            options: { size: [430, 340], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
-        proyectos_thumbnail:
-            type:    thumbnail
-            options: { size: [320, 191], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
-        galerias_productos:
-            type:    thumbnail
-            options: { size: [510, 330], mode: inset, cache_type: public, cache_expires: '2 weeks' }
+            filters:
+                thumbnail: { size: [246, 76], mode: outbound }
+
 
 fos_comment:
     db_driver: orm

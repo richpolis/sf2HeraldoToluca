@@ -13,7 +13,7 @@
                         </header>
                         <div class="contenido">
                             <figure>
-                                <img src="{{ publicacion.galerias[0].webPath | apply_filter('imagen_grande') }}" alt="{{publicacion.galerias[0].titulo}}"/>
+                                <img src="{{ publicacion.galerias[0].webPath | imagine_filter('imagen_grande') }}" alt="{{publicacion.galerias[0].titulo}}"/>
                             </figure>
                             {{ publicacion.descripcion | striptags | truncate(250,true,'...')  }}
                             <p class="cargador">
@@ -59,9 +59,9 @@
             <section class="videos">
 
                 {% for categoria in categorias if categoria.tipoCategoria is constant('Richpolis\\PublicacionesBundle\\Entity\\CategoriaPublicacion::TIPO_CATEGORIA_HERALDO_TV') %}
-                    {% if loop.index < 2 %}
+                    {% if loop.first %}
                         {% for publicacion in categoria.publicaciones %}
-                        	{% for galeria in publicacion.galerias %}
+                        	{% for galeria in publicacion.galerias|slice(0, 3) %}
 							<article class="item-noticia item-video">
 								<figure class="thumbnail-mediana">
 									<img src="{{ galeria.thumbnailWebPath }}" width="191" height="121" alt="">
@@ -87,7 +87,7 @@
             </header>
             <section class="noticias">
                 {% for categoria in categorias if categoria.slug == 'nacional'  %}
-                    {% for publicacion in categoria.publicaciones %}
+                    {% for publicacion in categoria.publicaciones|slice(0, 3) %}
                         {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
                     {% endfor %}
                 {% endfor %}
@@ -104,7 +104,7 @@
             </header>
             <section class="noticias">
                 {% for categoria in categorias if categoria.slug == 'mundo'  %}
-                    {% for publicacion in categoria.publicaciones %}
+                    {% for publicacion in categoria.publicaciones|slice(0, 3) %}
                         {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
                     {% endfor %}
                 {% endfor %}
@@ -121,7 +121,7 @@
             </header>
             <section class="noticias">
                 {% for categoria in categorias if categoria.slug == 'trofeo'  %}
-                    {% for publicacion in categoria.publicaciones %}
+                    {% for publicacion in categoria.publicaciones|slice(0, 3) %}
                         {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
                     {% endfor %}
                 {% endfor %}
@@ -138,7 +138,7 @@
             </header>
             <section class="noticias">
                 {% for categoria in categorias if categoria.slug == 'arte-y-gente'  %}
-                    {% for publicacion in categoria.publicaciones %}
+                    {% for publicacion in categoria.publicaciones|slice(0, 3) %}
                         {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
                     {% endfor %}
                 {% endfor %}
@@ -155,7 +155,7 @@
             </header>
             <section class="noticias">
                 {% for categoria in categorias if categoria.slug == 'municipios'  %}
-                    {% for publicacion in categoria.publicaciones %}
+                    {% for publicacion in categoria.publicaciones|slice(0, 3) %}
                         {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
                     {% endfor %}
                 {% endfor %}

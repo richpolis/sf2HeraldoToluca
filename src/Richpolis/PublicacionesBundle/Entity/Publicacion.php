@@ -240,10 +240,9 @@ class Publicacion
      * Slugable
      */
     
-    /**
-    * @ORM\PrePersist
-    * @ORM\PreUpdate
-    */
+    /*
+     * Esta funcion es para slugar el valor. 
+     */
     public function setSlugAtValue()
     {
         $this->slug = RpsStms::slugify($this->getTitulo());

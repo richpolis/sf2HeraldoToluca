@@ -320,5 +320,25 @@ class PublicacionRepository extends EntityRepository
         return $this->queryLosmasVistosOrComentados('contComentarios',$categoria,$tipoCategoria)->getResult();
     }
 	
+
+    public function findTitleSluggable($slug, $excepto = 0){
+        $query= $this->getEntityManager()->createQueryBuilder();
+        if($excepto > 0){
+            $query->select('p')
+                ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
+                ->where('p.id<>:publicacion')
+                ->setParameter('publicacion',$excepto)
+                ->andWhere('p.slug LIKE :slug')
+                ->setParameter('slug',$slug."%")
+                ->orderBy('p.titulo', 'DESC'); 
+        }else{
+            $query->select('p')
+                ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
+                ->andWhere('p.slug LIKE :slug')
+                ->setParameter('slug',$slug."%")
+                ->orderBy('p.titulo', 'DESC'); 
+        }
+        return $query->getQuery()->getResult();
+    }
 	
 }

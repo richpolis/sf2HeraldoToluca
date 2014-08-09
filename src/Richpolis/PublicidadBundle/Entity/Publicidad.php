@@ -102,10 +102,10 @@ class Publicidad
     const TIPO_PUBLICIDAD_ASIDE_ABAJO=4;
         
     static public $sTipoPublicidad=array(
-        self::TIPO_PUBLICIDAD_ENCABEZADO_IZQUIERDO=>'Encabezado derecho',
-        self::TIPO_PUBLICIDAD_ENCABEZADO_DERECHO=>'Encabezado izquierdo',
-        self::TIPO_PUBLICIDAD_ASIDE_ARRIBA=>'Lateral arriba',
-        self::TIPO_PUBLICIDAD_ASIDE_ABAJO=>'Lateral abajo',
+        self::TIPO_PUBLICIDAD_ENCABEZADO_IZQUIERDO=>'Supper Banner 728 X 90',
+        self::TIPO_PUBLICIDAD_ENCABEZADO_DERECHO=>'Micro Banner 230 X 90',
+        self::TIPO_PUBLICIDAD_ASIDE_ARRIBA=>'Box Banner 1 300 X 250',
+        self::TIPO_PUBLICIDAD_ASIDE_ABAJO=>'Box Banner 2 300 X 250',
     );
     
 	
@@ -113,7 +113,7 @@ class Publicidad
         $this->isActive = true;
         $this->vigencia = new \DateTime("+1 month");
         $this->tipoArchivo = RpsStms::TIPO_ARCHIVO_IMAGEN;  
-		$this->tipoPublicidad = Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_DERECHO;
+	$this->tipoPublicidad = Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_DERECHO;
     }
     
     public function getStringTipoArchivo(){
@@ -140,6 +140,10 @@ class Publicidad
         return array(self::TIPO_PUBLICIDAD_ENCABEZADO_IZQUIERDO);
     }
     
+    
+    public function isVigenciaCorrecta(){
+        
+    }
     
     /**
      * Get id

@@ -166,6 +166,9 @@ class PublicacionController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $entity->setPosition(1);
             $categoria = $entity->getCategoria();
+
+            $this->setTitleSluggable($entity,true);
+
             $em->persist($entity);
 
             $cont = 2;
@@ -246,7 +249,7 @@ class PublicacionController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id) {
+    public function showAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PublicacionesBundle:Publicacion')->find($id);
@@ -260,6 +263,8 @@ class PublicacionController extends Controller {
         $incompleto = Publicacion::STATUS_INCOMPLETO;
         $revisar = Publicacion::STATUS_REVISAR;
 
+        $return = $request->query->get('return',$this->generateUrl('publicaciones'));
+        
         return array(
             'incompleto' => $incompleto,
             'revisar' => $revisar,
@@ -269,6 +274,7 @@ class PublicacionController extends Controller {
             'post_galerias' => $this->generateUrl('publicaciones_galerias_upload', array('id' => $entity->getId())),
             'post_galerias_link_video' => $this->generateUrl('publicaciones_galerias_link_video', array('id' => $entity->getId())),
             'url_delete' => $this->generateUrl('publicaciones_galerias_delete', array('id' => $entity->getId(), 'idGaleria' => '0')),
+            'return'=>$return
         );
     }
 
@@ -279,7 +285,7 @@ class PublicacionController extends Controller {
      * @Method("PATCH")
      * @Template("PublicacionesBundle:Publicacion:status.html.twig")
      */
-    public function aprobarAction($id) {
+    public function aprobarAction(  $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PublicacionesBundle:Publicacion')->find($id);
@@ -287,10 +293,10 @@ class PublicacionController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Publicacion entity.');
         }
-
+        
         $entity->setStatus(Publicacion::STATUS_APROBADO);
         $em->flush();
-
+        
         return array(
             'status' => $entity->getStatus(),
         );
@@ -351,9 +357,7 @@ class PublicacionController extends Controller {
      */
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('PublicacionesBundle:Publicacion')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Publicacion entity.');
         }
@@ -363,8 +367,8 @@ class PublicacionController extends Controller {
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $this->setTitleSluggable($entity);
             $em->flush();
-
             return $this->redirect($this->generateUrl('publicaciones_show', array('id' => $id)));
         }
 
@@ -681,6 +685,39 @@ class PublicacionController extends Controller {
         return $this->render("PublicacionesBundle:Publicacion:item.html.twig", array(
                     'entity' => $publicacion
         ));
+    }
+
+    private function setTitleSluggable(Publicacion $entity, $isNew = false){
+        $em = $this->getDoctrine()->getManager();
+        $entity->setSlugAtValue();
+        $slug = $entity->getSlug();
+        $id = 0;
+        if(!$isNew){
+            $id = $entity->getId();
+        }
+        $resultados = $em->getRepository('PublicacionesBundle:Publicacion')
+                         ->findTitleSluggable($slug,$id);
+        if(count($resultados)>0){
+            $cont=0;
+            $encontrado = false;
+            do{
+                //buscamos el slug correcto
+                $slugBuscar = $slug .($cont>0?'-'.$cont:'');
+                foreach($resultados as $resultado){
+                    if($resultado->getSlug() == $slugBuscar){
+                        $encontrado=true;
+                        break;
+                    }else{
+                        $encontrado = false;
+                    }
+                }
+                //entonces empecemos a buscar otro slug
+                $cont++;
+            }while($encontrado);
+            $slug = $slugBuscar;    
+        }   
+        $entity->setSlug($slug);
+        return true;
     }
 
 }

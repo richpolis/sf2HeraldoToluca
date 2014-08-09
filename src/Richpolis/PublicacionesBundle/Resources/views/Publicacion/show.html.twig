@@ -118,12 +118,17 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
+                                                                    <td>Slug:</td>
+                                                                    <td>
+                                                                        {{entity.slug}}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
                                                                     <td>Estatus:</td>
                                                                     <td class="status">
                                                                         {{ entity.status | status_publicacion | raw }}
                                                                     </td>
-                                                                </tr>
-                                                                
+                                                                </tr>                                                                
                                                             </tbody>
                                                         </table>
                                                 </div>
@@ -157,8 +162,10 @@
                                     </div>
                                 </div>
                                 <div class="widget-foot">
-                                    <button id="botonRegresar" class="btn btn-default" onclick="javascript:regresar('{{path('publicaciones')}}')">Regresar</button>
+                                    <button id="botonRegresar" class="btn btn-default" onclick="javascript:regresar('{{return}}')">Regresar</button>
+                                    {% if entity.status <= incompleto %}
                                     <button id="botonEditar" class="btn btn-info" onclick="javascript:editarRegistro('{{path('publicaciones_edit',{id: entity.id})}}')">Editar</button>
+                                    {% endif %}
                                     <div style="float: left; margin-right: 3px;">
                                         <form id="formEliminar" action="{{ path('publicaciones_delete', { 'id': entity.id }) }}" method="post">
                                             <input name="_method" value="DELETE" type="hidden"/>

@@ -1,7 +1,7 @@
 <article class="item-noticia item-noticia-lg">
     <a href="{{path('frontend_publicaciones',{'slug': noticia.slug})}}">
         <figure class="thumbnail-mediana">
-            <img src="{{ noticia.galerias[0].webPath | apply_filter('imagen_302_126') }}" alt="{{noticia.galerias[0].titulo}}"/>
+            <img src="{{ noticia.galerias[0].webPath | imagine_filter('imagen_302_126') }}" alt="{{noticia.galerias[0].titulo}}"/>
         </figure>
         <h3 class="titulo">
             {{noticia.titulo}}

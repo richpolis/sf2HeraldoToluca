@@ -31,7 +31,8 @@
     <link rel="stylesheet" href="{{asset('css/widgets.css')}}">   
     <!-- Gritter Notifications stylesheet -->
     <link rel="stylesheet" href="{{asset('css/jquery.gritter.css')}}"> 
-
+    <!-- Admin stylesheet -->
+    <link rel="stylesheet" href="{{asset('css/admin.css')}}">
 {% endblock %}
 
 {% block mainbar %}
@@ -138,7 +139,7 @@
     <script src="{{asset('js/sfrichpolis.js')}}"></script>
  <script>
     $(document).ready(function() {
-        /*$('.tipo-categoria-{{categoriaPublicacion}}').dataTable({
+        $('.tipo-categoria-{{categoriaPublicacion}}').dataTable({
             "sPaginationType": "full_numbers"
         });
         $('.tipo-categoria-{{categoriaLlamados}}').dataTable({
@@ -149,66 +150,59 @@
         });
         $('.tipo-categoria-{{categoriaHeraldoTv}}').dataTable({
             "sPaginationType": "full_numbers"
-        });*/
-        iniciarlizarFunciones();
+        });
+        $.configPrettyPhoto();
+        $(".loader").fadeOut();
     });
 
 function iniciarlizarFunciones(){
     backend();
-    $.configPrettyPhoto();
+    
     controles();
 }
 
-function backend(){
-   $("button.backend").on("click",function(e){
-       e.preventDefault();
-       $(".loader").fadeIn();
-       var $registro = $(this).parent().parent();
-       var id = $registro.data('id');
-       var url = $(this).data('url');
-       $.ajax({
-            url: url,
-            type: 'PATCH',
-            dataType: 'html',
-            success: function(data){
-               $registro.html($(data).html());
-               noty({ text: 'Actualizacion realizada', layout:'topRight', type:'success',  timeout:2000 });
-               iniciarlizarFunciones();
-			   $(".loader").fadeOut();
-            },
-            error: function(data){
-                noty({ text: 'Error de actualizacion', layout:'topRight', type:'error', timeout:2000 });
-                console.log(data);
-                $(".loader").fadeOut();
-            },
-        });
+function backend(id,clase){
+    $(".loader").fadeIn();
+    var $registro = $("#registro-"+id);
+    var url = $registro.find(clase).data('url');
+    $.ajax({
+        url: url,
+        type: 'PATCH',
+        dataType: 'html',
+        success: function(data){
+            $registro.html($(data).html());
+            notySuccess('Actualizacion realizada');
+            //iniciarlizarFunciones();
+            $(".loader").fadeOut();
+        },
+        error: function(data){
+            notyError('Error de actualizacion');
+            console.log(data);
+            $(".loader").fadeOut();
+        },
     });
 }
 
-function controles(){
-   $("button.boton-control").on("click",function(e){
-       e.preventDefault();
-	   $(".loader").fadeIn();
-       var tabla ="."+$(this).parent().data('table');
-       var $table = $(tabla);
-       var url = $(this).data('url');
-       console.log(url);
-       $.ajax({
-            url: url,
-            type: 'PATCH',
-            dataType: 'html',
-            success: function(data){
-               $table.html($(data).find(tabla).html());
-               $(".loader").fadeOut();
-               iniciarlizarFunciones();
-			   $(".loader").fadeOut();
-            },
-            error: function(data){
-                noty({ text: 'Error al mostrar informacion', layout:'topRight', type:'error', timeout:2000 });
-                console.log(data);
-                $(".loader").fadeOut();
-            },
-        });
+function controles(tipoCategoria, clase){
+    $(".loader").fadeIn();
+    var tabla =".tipo-categoria-"+ tipoCategoria;
+    var claseElemento = clase + "-"+ tipoCategoria
+    var $table = $(tabla);
+    var url = $(claseElemento).data('url');
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'html',
+        success: function(data){
+            $table.html($(data).find(tabla).html());
+           //iniciarlizarFunciones();
+            $(".loader").fadeOut();
+        },
+        error: function(data){
+            notyError('Error al actualizar la informacion');
+            console.log(data);
+            $(".loader").fadeOut();
+        },
     });
 }
 
