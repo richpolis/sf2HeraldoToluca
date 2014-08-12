@@ -112,7 +112,7 @@ class DefaultController extends Controller {
             $comentario->setParent($comentarioParent);
         }
         
-        $form = $this->createForm(new ComentarioType(), $comentario);
+        $form = $this->createForm(new ComentarioType(), $comentario, array('em'=>$em));
         
         if($request->isMethod('GET')){
             if($contar){
@@ -132,7 +132,7 @@ class DefaultController extends Controller {
                 $em->flush();
                 $comentario = new Comentario();
                 $comentario->setPublicacion($publicacion);
-                $form = $this->createForm(new ComentarioType(), $comentario);
+                $form = $this->createForm(new ComentarioType(), $comentario, array('em'=>$em));
             }
         }
         if($request->isXmlHttpRequest()){
@@ -187,7 +187,7 @@ class DefaultController extends Controller {
         $contar = $request->query->get('contar',true);
         $comentario = new Comentario();
         $comentario->setPublicacion($publicacion);
-        $form = $this->createForm(new ComentarioConImagenType(), $comentario);
+        $form = $this->createForm(new ComentarioConImagenType(), $comentario, array('em'=>$em));
         if($request->isMethod('GET')){
             if($contar){
                 $publicacionesSession = $this->getPublicacionesSession();
@@ -206,7 +206,7 @@ class DefaultController extends Controller {
                 $em->flush();
                 $comentario = new Comentario();
                 $comentario->setPublicacion($publicacion);
-                $form = $this->createForm(new ComentarioConImagenType(), $comentario);
+                $form = $this->createForm(new ComentarioConImagenType(), $comentario, array('em'=>$em));
             }
         }
         
