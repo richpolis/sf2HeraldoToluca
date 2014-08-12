@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ComentarioType extends AbstractType
+class ComentarioConImagenType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -32,6 +32,7 @@ class ComentarioType extends AbstractType
                     'class'=>'form-control placeholder',
                     )
                 ))
+            ->add('file','file',array('label'=>'Archivo'))    
             ->add('status','hidden')
             ->add('archivo','hidden')
             ->add('tipoArchivo','hidden')
@@ -56,6 +57,6 @@ class ComentarioType extends AbstractType
      */
     public function getName()
     {
-        return 'richpolis_comentariosbundle_comentario';
+        return 'richpolis_comentariosbundle_comentario_con_imagen';
     }
 }

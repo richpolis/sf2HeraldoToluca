@@ -1,8 +1,14 @@
 <article class="item-noticia">
     <a href="{{path('frontend_publicaciones',{'slug': noticia.slug})}}">
-        <figure class="thumbnail-mediana">
-            <img src="{{ noticia.galerias[0].webPath | imagine_filter('imagen_222_94') }}" alt="{{noticia.galerias[0].titulo}}"/>
-        </figure>
+        {% if noticia.imagen | length > 0 %}
+            <figure class="thumbnail-mediana">
+                <img src="{{ noticia.webPath | imagine_filter('imagen_222_94') }}" alt="{{noticia.titulo}}"/>
+            </figure>
+        {% else %}
+            <figure class="thumbnail-mediana">
+                <img src="{{ noticia.galerias[0].webPath | imagine_filter('imagen_222_94') }}" alt="{{noticia.galerias[0].titulo}}"/>
+            </figure>
+        {% endif %}   
         <h3 class="titulo">
             {{noticia.titulo}}
         </h3>

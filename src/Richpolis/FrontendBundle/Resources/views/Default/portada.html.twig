@@ -18,6 +18,10 @@
                             <li class="item">
                                 <img src="{{ galeria.webPath | imagine_filter('imagen_grande') }}" alt="{{galeria.titulo}}" class="imagen"/>
                             </li>
+                            {% else %}
+                            <li class="item">
+                                <img src="{{ publicacion.webPath | imagine_filter('imagen_grande') }}" alt="{{publicacion.titulo}}" class="imagen"/>
+                            </li>    
                             {% endfor %}
                         </ul>
                     </div>

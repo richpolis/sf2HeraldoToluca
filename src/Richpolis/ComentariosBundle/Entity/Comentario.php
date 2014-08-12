@@ -5,6 +5,7 @@ namespace Richpolis\ComentariosBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Richpolis\BackendBundle\Utils\Richsys as RpsStms;
 
 /**
  * Comentario
@@ -75,10 +76,10 @@ class Comentario
     private $tipoArchivo;
 
     /**
-     * @var \Richpolis\PubliacionesBundle\Entity\Publicacion
+     * @var \Richpolis\PublicacionesBundle\Entity\Publicacion
      * @todo Comentarios de las noticias
      *
-     * @ORM\ManyToOne(targetEntity="Richpolis\PubliacionesBundle\Entity\Publicacion")
+     * @ORM\ManyToOne(targetEntity="Richpolis\PublicacionesBundle\Entity\Publicacion")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="publicacion_id", referencedColumnName="id")
      * })
@@ -123,6 +124,7 @@ class Comentario
     
     public function __construct() {
         $this->status = Comentario::STATUS_PENDIENTE;
+        $this->publicacion = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     public function getStringStatus(){
@@ -197,6 +199,7 @@ class Comentario
             // do whatever you want to generate a unique name
             $filename = sha1(uniqid(mt_rand(), true));
             $this->archivo = $filename.'.'.$this->getFile()->guessExtension();
+            $this->setTipoArchivo(RpsStms::getTipoArchivo($this->archivo));
         }
     }
 
@@ -452,10 +455,10 @@ class Comentario
     /**
      * Set publicacion
      *
-     * @param \Richpolis\PubliacionesBundle\Entity\Publicacion $publicacion
+     * @param \Richpolis\PublicacionesBundle\Entity\Publicacion $publicacion
      * @return Comentario
      */
-    public function setPublicacion(\Richpolis\PubliacionesBundle\Entity\Publicacion $publicacion = null)
+    public function setPublicacion(\Richpolis\PublicacionesBundle\Entity\Publicacion $publicacion = null)
     {
         $this->publicacion = $publicacion;
 

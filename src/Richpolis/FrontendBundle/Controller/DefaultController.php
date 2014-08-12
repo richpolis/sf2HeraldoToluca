@@ -13,6 +13,10 @@ use Richpolis\FrontendBundle\Form\ContactoType;
 use Richpolis\PublicacionesBundle\Entity\Publicacion;
 use Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion;
 
+use Richpolis\ComentariosBundle\Entity\Comentario;
+use Richpolis\ComentariosBundle\Form\ComentarioConImagenType;
+use Richpolis\ComentariosBundle\Form\ComentarioType;
+
 class DefaultController extends Controller {
 
     protected function getPublicacionesSession() {
@@ -83,14 +87,78 @@ class DefaultController extends Controller {
     /**
      * @Route("/publicacion/{slug}", name="frontend_publicaciones")
      * @Template()
+     * @Method({"GET","POST"})
      */
     public function publicacionAction(Request $request, $slug) {
         $em = $this->getDoctrine()->getManager();
+        
         $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')
                 ->findOneBy(array('slug' => $slug));
         
         $contar = $request->query->get('contar',true);
         
+        if($publicacion->getCategoria()->getTipoCategoria() == CategoriaPublicacion::TIPO_CATEGORIA_HERALDO_TV){
+            return $this->redirect($this->generateUrl('frontend_heraldo_tv', array('slug'=>$slug,'contar'=>$contar)));
+        }elseif($publicacion->getCategoria()->getTipoCategoria() == CategoriaPublicacion::TIPO_CATEGORIA_TU_ESPACIO){
+            return $this->redirect($this->generateUrl('frontend_tu_espacio', array('slug'=>$slug,'contar'=>$contar)));
+        }
+        
+        $parent = $request->query->get('parent',0);
+        $comentario = new Comentario();
+        $comentario->setPublicacion($publicacion);
+        
+        if($parent>0){
+            $comentarioParent = $em->getRepository('ComentariosBundle:Comentario')->find($parent);
+            $comentario->setParent($comentarioParent);
+        }
+        
+        $form = $this->createForm(new ComentarioType(), $comentario);
+        
+        if($request->isMethod('GET')){
+            if($contar){
+                $publicacionesSession = $this->getPublicacionesSession();
+                if (!isset($publicacionesSession[$publicacion->getSlug()])) {
+                    $publicacion->setContVisitas($publicacion->getContVisitas() + 1);
+                    $em->flush();
+                    $publicacionesSession[$publicacion->getSlug()] = true;
+                    $this->setPublicacionesSession($publicacionesSession);
+                }
+            }
+        }elseif($request->isMethod('POST')){
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em->persist($comentario);
+                $publicacion->setContComentarios($publicacion->getContComentarios()+1);
+                $em->flush();
+                $comentario = new Comentario();
+                $comentario->setPublicacion($publicacion);
+                $form = $this->createForm(new ComentarioType(), $comentario);
+            }
+        }
+        if($request->isXmlHttpRequest()){
+            return $this->render('FrontendBundle:Default:form.html.twig',array('form'=>$form->createView()));
+        }
+        $comentarios = $em->getRepository('ComentariosBundle:Comentario')
+                ->findBy(array('publicacion' => $publicacion),array('createdAt'=>'ASC'));
+
+        return array(
+            'categoria'     =>  $publicacion->getCategoria(),
+            'publicacion'   =>  $publicacion,
+            'comentarios'   =>  $comentarios,
+            'form'          =>  $form->createView(),
+        );
+    }
+    
+    /**
+     * @Route("/heraldo/tv/{slug}", name="frontend_heraldo_tv")
+     * @Template("FrontendBundle:Default:heraldoTv.html.twig")
+     */
+    public function heraldoTvAction(Request $request, $slug) {
+        $em = $this->getDoctrine()->getManager();
+        $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')
+                ->findOneBy(array('slug' => $slug));
+        $contar = $request->query->get('contar',true);
+               
         if($contar){
             $publicacionesSession = $this->getPublicacionesSession();
             if (!isset($publicacionesSession[$publicacion->getSlug()])) {
@@ -104,6 +172,52 @@ class DefaultController extends Controller {
         return array(
             'categoria' => $publicacion->getCategoria(),
             'publicacion' => $publicacion
+        );
+    }
+    
+    /**
+     * @Route("/tu/espacio/{slug}", name="frontend_tu_espacio")
+     * @Template("FrontendBundle:Default:tuEspacio.html.twig")
+     * @Method({"GET","POST"})
+     */
+    public function tuEspacioAction(Request $request, $slug) {
+        $em = $this->getDoctrine()->getManager();
+        $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')
+                ->findOneBy(array('slug' => $slug));
+        $contar = $request->query->get('contar',true);
+        $comentario = new Comentario();
+        $comentario->setPublicacion($publicacion);
+        $form = $this->createForm(new ComentarioConImagenType(), $comentario);
+        if($request->isMethod('GET')){
+            if($contar){
+                $publicacionesSession = $this->getPublicacionesSession();
+                if (!isset($publicacionesSession[$publicacion->getSlug()])) {
+                    $publicacion->setContVisitas($publicacion->getContVisitas() + 1);
+                    $em->flush();
+                    $publicacionesSession[$publicacion->getSlug()] = true;
+                    $this->setPublicacionesSession($publicacionesSession);
+                }
+            }
+        }elseif($request->isMethod('POST')){
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em->persist($comentario);
+                $publicacion->setContComentarios($publicacion->getContComentarios()+1);
+                $em->flush();
+                $comentario = new Comentario();
+                $comentario->setPublicacion($publicacion);
+                $form = $this->createForm(new ComentarioConImagenType(), $comentario);
+            }
+        }
+        
+        $comentarios = $em->getRepository('ComentariosBundle:Comentario')
+                ->findBy(array('publicacion' => $publicacion),array('createdAt'=>'DESC'));
+        
+        return array(
+            'categoria'     =>  $publicacion->getCategoria(),
+            'publicacion'   =>  $publicacion,
+            'comentarios'   =>  $comentarios,
+            'form'          =>  $form->createView(),
         );
     }
 
@@ -177,26 +291,20 @@ class DefaultController extends Controller {
     public function contactoAction(Request $request) {
         $contacto = new Contacto();
         $form = $this->createForm(new ContactoType(), $contacto);
-        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
 
         if ($request->getMethod() == 'POST') {
-
             $form->handleRequest($request);
-
             if ($form->isValid()) {
                 $datos = $form->getData();
-
                 $configuracion = $em->getRepository('BackendBundle:Configuraciones')
                         ->findOneBy(array('slug' => 'email-contacto'));
-
                 $message = \Swift_Message::newInstance()
                         ->setSubject('Contacto desde pagina')
                         ->setFrom($datos->getEmail())
                         ->setTo($configuracion->getTexto())
                         ->setBody($this->renderView('FrontendBundle:Default:contactoEmail.html.twig', array('datos' => $datos)), 'text/html');
                 $this->get('mailer')->send($message);
-
                 // Redirige - Esto es importante para prevenir que el usuario
                 // reenvíe el formulario si actualiza la página
                 $ok = true;

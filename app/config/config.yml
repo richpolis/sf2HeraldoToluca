@@ -144,6 +144,9 @@ liip_imagine:
         imagen_246_76:
             filters:
                 thumbnail: { size: [246, 76], mode: outbound }
+        imagen_200_200:
+            filters:
+                thumbnail: { size: [200, 200], mode: outbound }
 
 
 fos_comment:
