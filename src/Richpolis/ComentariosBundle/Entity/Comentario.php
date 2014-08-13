@@ -64,7 +64,7 @@ class Comentario
     /**
      * @var string
      *
-     * @ORM\Column(name="archivo", type="string", length=255, nullable=false)
+     * @ORM\Column(name="archivo", type="string", length=255, nullable=true)
      */
     private $archivo;
 
@@ -125,6 +125,9 @@ class Comentario
     public function __construct() {
         $this->status = Comentario::STATUS_PENDIENTE;
         $this->publicacion = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->nivel = 0;
+		$this->tipoArchivo = RpsStms::TIPO_ARCHIVO_IMAGEN;
+		
     }
     
     public function getStringStatus(){
@@ -151,6 +154,17 @@ class Comentario
         if(!$this->getCreatedAt())
         {
           $this->createdAt = new \DateTime();
+        }
+    }
+	
+	/**
+     * @ORM\PrePersist
+     */
+    public function setUsernameAtValue()
+    {
+        if(!$this->getUsername())
+        {
+          $this->username = "Anonimo";
         }
     }
     

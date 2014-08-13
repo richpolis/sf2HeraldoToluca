@@ -155,8 +155,18 @@ class DefaultController extends Controller {
      */
     public function heraldoTvAction(Request $request, $slug) {
         $em = $this->getDoctrine()->getManager();
-        $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')
-                ->findOneBy(array('slug' => $slug));
+		if($slug != "ultimo"){
+			$publicacion = $em->getRepository('PublicacionesBundle:Publicacion')
+					->findOneBy(array('slug' => $slug));
+		}else{
+			$categoria = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')
+							->findOneBy(array('tipoCategoria'=>CategoriaPublicacion::TIPO_CATEGORIA_HERALDO_TV));
+			$publicacion = $em->getRepository('PublicacionesBundle:Publicacion')
+					->findOneBy(
+				array('categoria'=>$categoria,'status'=>Publicacion::STATUS_PUBLICADO),
+				array('createdAt'=>'DESC')
+			);
+		}
         $contar = $request->query->get('contar',true);
                
         if($contar){
@@ -182,8 +192,20 @@ class DefaultController extends Controller {
      */
     public function tuEspacioAction(Request $request, $slug) {
         $em = $this->getDoctrine()->getManager();
-        $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')
-                ->findOneBy(array('slug' => $slug));
+		
+        if($slug != "ultimo"){
+			$publicacion = $em->getRepository('PublicacionesBundle:Publicacion')
+					->findOneBy(array('slug' => $slug));
+		}else{
+			$categoria = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')
+							->findOneBy(array('tipoCategoria'=>CategoriaPublicacion::TIPO_CATEGORIA_TU_ESPACIO));
+			$publicacion = $em->getRepository('PublicacionesBundle:Publicacion')
+					->findOneBy(
+				array('categoria'=>$categoria,'status'=>Publicacion::STATUS_PUBLICADO),
+				array('createdAt'=>'DESC')
+			);
+		}
+		
         $contar = $request->query->get('contar',true);
         $comentario = new Comentario();
         $comentario->setPublicacion($publicacion);
