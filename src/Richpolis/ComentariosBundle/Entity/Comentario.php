@@ -262,7 +262,7 @@ class Comentario
 
     protected function getUploadRootDir()
     {
-        return __DIR__.'/../../../../web'.$this->getUploadDir();
+        return __DIR__.'/../../../../html'.$this->getUploadDir();
     }
     
     public function getWebPath()

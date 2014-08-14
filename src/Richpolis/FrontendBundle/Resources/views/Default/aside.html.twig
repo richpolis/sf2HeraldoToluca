@@ -1,5 +1,10 @@
+{% set encabezado_izquierdo = constant('Richpolis\\PublicidadBundle\\Entity\\Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_IZQUIERDO') %}
+{% set encabezado_derecho = constant('Richpolis\\PublicidadBundle\\Entity\\Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_DERECHO') %}
+{% set aside_arriba = constant('Richpolis\\PublicidadBundle\\Entity\\Publicidad::TIPO_PUBLICIDAD_ASIDE_ARRIBA') %}
+{% set aside_abajo = constant('Richpolis\\PublicidadBundle\\Entity\\Publicidad::TIPO_PUBLICIDAD_ASIDE_ABAJO') %}
+
 <aside class="padding-trb columna-1">
-    <div class="publicidad sin-padding">
+    <div class="publicidad aside-arriba sin-padding">
         <img src="http://placehold.it/300x250" alt=""/>
     </div>
     <article id="lomasvisto-comentado">
@@ -11,16 +16,23 @@
         <div class="contenido lomas lomas-visto">
             <select name="cbLoMasVisto" id="cbLoMasVisto" class="control-lomas">
                 <option value="categoria1">lo mas visto</option>
-                <option value="categoria2">Categoria 2</option>
-                <option value="categoria3">Categoria 3</option>
+                {% for categoria in categorias %}
+                    <option value="{{categoria.id}}">{{categoria.categoria}}</option>
+                {% endfor %}    
             </select>
             <ul>
-                {% for item in range(1,5) %}
+                {% for item in lomasvistos %}
                 <li class="item-lomas-visto">
                         <div class="numero">{{loop.index}}</div>
-                        <div class="contenido">Titulo de la publicacion {{item}}</div>
+                        <div class="contenido">{{item.titulo}}</div>
                         <figure class="thumbnail-mini">
-                            <img src="http://placehold.it/90x60" alt="imagen{{item}}"/>
+                            <a href="{{path('frontend_publicaciones',{'slug':item.slug})}}">
+                            {% if item.imagen | length > 0 %}
+                                <img src="{{item.webPath | imagine_filter('imagen_90_60') }}" alt="{{item.titulo}}"/>
+                            {% else %}
+                                <img src="{{item.galerias[0].webPath | imagine_filter('imagen_90_60') }}" alt="{{item.galerias[0].titulo}}"/>
+                            {% endif %}
+                            </a>
                         </figure>
                 </li>
                 {% endfor %}
@@ -29,17 +41,24 @@
         <div class="contenido lomas lomas-comentado">
             <select name="cbLoMasComentado" id="cbLoMasComentado"  class="control-lomas">
                 <option value="categoria1">Lo mas comentado</option>
-                <option value="categoria2">Categoria 2</option>
-                <option value="categoria3">Categoria 3</option>
+                {% for categoria in categorias %}
+                    <option value="{{categoria.id}}">{{categoria.categoria}}</option>
+                {% endfor %}
             </select>
             <ul>
-                {% for item in range(1,5) %}
+                {% for item in lomascomentados %}
                 <li class="item-lomas-comentado">
                     <div class="numero">{{loop.index}}</div>
-                    <div class="contenido">Titulo de la publicacion {{item}}</div>
-                    <figure class="thumbnail-mini">
-                        <img src="http://placehold.it/90x60" alt="imagen{{item}}"/>
-                    </figure>
+                        <div class="contenido">{{item.titulo}}</div>
+                        <figure class="thumbnail-mini">
+                            <a href="{{path('frontend_publicaciones',{'slug':item.slug})}}">
+                            {% if item.imagen | length > 0 %}
+                                <img src="{{item.webPath | imagine_filter('imagen_90_60') }}" alt="{{item.titulo}}"/>
+                            {% else %}
+                                <img src="{{item.galerias[0].webPath | imagine_filter('imagen_90_60') }}" alt="{{item.galerias[0].titulo}}"/>
+                            {% endif %}
+                            </a>    
+                        </figure>
                 </li>
                 {% endfor%}
             </ul>
@@ -82,7 +101,7 @@
             </ul>
         </div>
     </article>
-    <div class="publicidad sin-padding">
+    <div class="publicidad aside-abajo sin-padding">
         <img src="http://placehold.it/300x250" alt=""/>
     </div>
 </aside>

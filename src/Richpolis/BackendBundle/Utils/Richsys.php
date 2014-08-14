@@ -377,7 +377,7 @@ EOF;
                 throw new \RuntimeException('Unable to decode the video information for :' . $url);
             }
             
-            //$videoInfo=$web->getResponseText();
+            //$videoInfo=$html->getResponseText();
             
             //self::error('getInfoFindVideoInWeb.- videoInfo: ', var_dump($videoInfo));
             

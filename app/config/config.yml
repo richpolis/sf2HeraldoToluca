@@ -119,12 +119,12 @@ liip_imagine:
     resolvers:
         default:
             web_path: 
-                web_root:  %kernel.root_dir%/../web
+                web_root:  %kernel.root_dir%/../html
                 cache_prefix:  media/cache
     loaders:
         default:
             filesystem:
-                data_root:  %kernel.root_dir%/../web/
+                data_root:  %kernel.root_dir%/../html/
     driver:               gd
     cache:                default
     data_loader:          default
@@ -147,6 +147,9 @@ liip_imagine:
         imagen_200_200:
             filters:
                 thumbnail: { size: [200, 200], mode: outbound }
+        imagen_90_60:
+            filters:
+                thumbnail: { size: [90, 60], mode: outbound }
 
 
 fos_comment:
@@ -178,4 +181,4 @@ fm_elfinder:
 parameters:
     # dirección de correo electrónico
     richpolis.emails.to_email: richpolis@gmail.com
-    richpolis.uploads: %kernel.root_dir%/../web/uploads
+    richpolis.uploads: %kernel.root_dir%/../html/uploads

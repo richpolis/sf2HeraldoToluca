@@ -171,6 +171,8 @@
             </p>
         </article>
     </section>
-    {% include 'FrontendBundle:Default:aside.html.twig' %}
+    {# include 'FrontendBundle:Default:aside.html.twig' #}        
+    {{render(controller('FrontendBundle:Default:aside'))}}
+    
 
 {% endblock %}

@@ -45,4 +45,15 @@ class PublicidadRepository extends EntityRepository
         ')->setParameters(array('tipo'=>$tipoPublicidad));
         return $query->getResult();
     }
+    
+    public function getPublicidadActual(){
+        $em=$this->getEntityManager();
+        $query=$em->createQuery('
+               SELECT e 
+               FROM PublicidadBundle:Publicidad e 
+               WHERE e.vigencia >= :fecha
+               ORDER BY e.position ASC
+        ')->setParameters(array('fecha'=> new \DateTime()));
+        return $query->getResult();
+    }
 }

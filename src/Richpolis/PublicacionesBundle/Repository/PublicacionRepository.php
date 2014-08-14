@@ -312,12 +312,14 @@ class PublicacionRepository extends EntityRepository
         return $query->getQuery();
     }
     
-    public function findLosMasVistos($categoria = 0, $tipoCategoria = 0){
-        return $this->queryLosmasVistosOrComentados('contVisitas',$categoria,$tipoCategoria)->getResult();
+    public function findLosMasVistos($categoria = 0, $tipoCategoria = 0, $maximo = 5){
+        return $this->queryLosmasVistosOrComentados('contVisitas',$categoria,$tipoCategoria)
+                    ->setMaxResults($maximo)->getResult();
     }
 
-    public function findLosMasComentados($categoria = 0, $tipoCategoria = 0){
-        return $this->queryLosmasVistosOrComentados('contComentarios',$categoria,$tipoCategoria)->getResult();
+    public function findLosMasComentados($categoria = 0, $tipoCategoria = 0, $maximo = 5){
+        return $this->queryLosmasVistosOrComentados('contComentarios',$categoria,$tipoCategoria)
+                    ->setMaxResults($maximo)->getResult();
     }
 	
 
