@@ -1,40 +1,41 @@
 {% extends 'FrontendBundle::layout.html.twig' %}
 
 {% block contenido %}
-
     <section class="padding columna-3">
-	    {% for publicacion in publicaciones %}
-        <article class="publicacion-principal">
-            <div class="contenedor-centrado">
-                <header>
-                    <h2 class="titulo">
-                        {{publicacion.titulo}}
-                    </h2>
-                </header>
-                <div class="contenido">
-                    <div class="contenedor-galeria">
-                        <ul class="galeria">
-                            {% for galeria in publicacion.galerias %}
-                            <li class="item">
-                                <img src="{{ galeria.webPath | imagine_filter('imagen_grande') }}" alt="{{galeria.titulo}}" class="imagen"/>
-                            </li>
-                            {% else %}
-                            <li class="item">
-                                <img src="{{ publicacion.webPath | imagine_filter('imagen_grande') }}" alt="{{publicacion.titulo}}" class="imagen"/>
-                            </li>    
-                            {% endfor %}
-                        </ul>
+        {% for publicacion in publicaciones %}
+            {% if loop.first == true %}
+            <article class="publicacion-principal">
+                <div class="contenedor-centrado">
+                    <header>
+                        <h2 class="titulo">
+                            {{publicacion.titulo}}
+                        </h2>
+                    </header>
+                    <div class="contenido">
+                        <div class="contenedor-galeria">
+                            <ul class="galeria">
+                                {% for galeria in publicacion.galerias %}
+                                <li class="item">
+                                    <img src="{{ galeria.webPath | imagine_filter('imagen_grande') }}" alt="{{galeria.titulo}}" class="imagen"/>
+                                </li>
+                                {% else %}
+                                <li class="item">
+                                    <img src="{{ publicacion.webPath | imagine_filter('imagen_grande') }}" alt="{{publicacion.titulo}}" class="imagen"/>
+                                </li>    
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <p class="sin-margen-top margen-bottom">
+                        {{ publicacion.descripcion | striptags | truncate(250,true,'...') }}
+                        </p>
+                        <p class="cargador">
+                            <a href="{{path('frontend_publicaciones',{'slug': publicacion.slug })}}" class="btn ver-nota">Ver nota</a>
+                        </p>
                     </div>
-                    <p class="sin-margen-top margen-bottom">
-                    {{ publicacion.descripcion | striptags | truncate(250,true,'...') }}
-                    </p>
-                    <p class="cargador">
-                        <a href="{{path('frontend_publicaciones',{'slug': publicacion.slug })}}" class="btn ver-nota">Ver nota</a>
-                    </p>
                 </div>
-            </div>
-        </article>
-		{% endfor %}
+            </article>
+            {% endif %}
+        {% endfor %}
         <article class="list-noticias">
             <header>
                 <h2 class="titulo azul">

@@ -65,10 +65,10 @@
 <div class="container border-gris-lr">
         <header class="header">
             <div class="publicidad">
-                <div class="item-publicidad">
+                <div class="item-publicidad encabezado-izquierda">
                     <img src="http://placehold.it/728x90" alt="">
                 </div>
-                <div class="item-publicidad">
+                <div class="item-publicidad encabezado-derecha">
                     <img src="http://placehold.it/230x90" alt="">
                 </div>
             </div>
@@ -209,18 +209,21 @@
 {% endblock %}
  
 {% block javascripts %}
-    {# JS #}
     <script src="{{asset('js/jquery.js')}}"></script>
     <!--script src="{{asset('js/underscore-min.js')}}"></script-->
     <!--script src="{{asset('js/backbone-min.js')}}"></script-->
     <!--script src="{{asset('js/swig.js')}}"></script-->
     <script type="text/javascript" src="{{asset('js/jquery.bxslider.min.js')}}"></script>
     <script>
-        var publicacionesPdf = 1;
-        var publicacionesPdfMax = 3;
-        var valorGaleriaPdf = 0;
         $(document).ready(function(){
           $('.galeria').bxSlider();
+          
+          $('.galeria-publicidad').bxSlider({
+                pager: false,
+                controls: false,
+                auto: true,
+                pause: 4000,
+          }); 
 
           $(".tab").on("click",function(){
             $(".tab").removeClass("active");
@@ -251,9 +254,9 @@
           
         
           $(".ver-nota").on("click",function(){
-		     var slug = $(this).data('slug');
+             var slug = $(this).data('slug');
              var url = '{{path('frontend_publicaciones',{'slug': '***'})}}';
-			 location.href =  url.replace("***", slug);
+	     location.href =  url.replace("***", slug);
           });  
 
         });

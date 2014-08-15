@@ -369,7 +369,7 @@ class DefaultController extends Controller {
         }
         
         return array(
-            'publicidadArray' => $$publicidadArray,
+            'publicidadArray' => $publicidadArray,
             'lomasvistos' => $lomasvistos,
             'lomascomentados' => $lomascomentados,
             'categorias' => $categorias,

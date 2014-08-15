@@ -5,7 +5,13 @@
 
 <aside class="padding-trb columna-1">
     <div class="publicidad aside-arriba sin-padding">
-        <img src="http://placehold.it/300x250" alt=""/>
+        <ul class="galeria-publicidad">
+        {% for publicidad in publicidadArray[aside_arriba] %}
+            <li>{{ publicidad.archivoView | raw }}</li>
+        {% else %}
+            <li><img src="http://placehold.it/300x250" alt=""/></li>
+        {% endfor %}
+        </ul>    
     </div>
     <article id="lomasvisto-comentado">
         <header>
@@ -64,11 +70,13 @@
             </ul>
         </div>
     </article>
-    <!--article id="ediciones-pdf">
+    <article id="ediciones-pdf">
              <header class="ediciones-pdf ico_edicioespdf">
-                 <h3 class="titulo">ediciones pdf</h3>
+                 <a href="{{path('frontend_edicion_pdf')}}">
+                    <h3 class="titulo">ediciones pdf</h3>
+                 </a>
              </header>
-             <div class="contenedor-galeria">
+             <!--div class="contenedor-galeria">
                  <span class="control izquierdo ico_edicionespdf_flecha_izquierda"></span>
                  <span class="control derecho ico_edicionespdf_flecha_derecha"></span>
                  <ul class="galeria-pdf">
@@ -84,8 +92,8 @@
                      </li>
                     {% endfor %}
                  </ul>
-             </div>
-         </article-->
+             </div-->
+    </article>
     <article id="minuto-a-minuto">
         <header>
             <h2 class="titulo">minuto a minuto</h2>
@@ -102,6 +110,12 @@
         </div>
     </article>
     <div class="publicidad aside-abajo sin-padding">
-        <img src="http://placehold.it/300x250" alt=""/>
+        <ul class="galeria-publicidad">
+        {% for publicidad in publicidadArray[aside_abajo] %}
+            <li>{{ publicidad.archivoView | raw }}</li>
+        {% else %}
+            <li><img src="http://placehold.it/300x250" alt=""/></li>
+        {% endfor %}
+        </ul>    
     </div>
 </aside>
