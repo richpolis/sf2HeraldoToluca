@@ -38,37 +38,29 @@
             </div>
         </article>
         {% if comentarios | length > 0 %}        
-        <article class="list-noticias">
-            <section class="noticias">
-                {% for comentario in comentarios %}
-                    <article class="comentario-publicacion">
-                        <div class="contenido">
-                            <p class="publicado-por">Publicado por: <span class="username">{{comentario.username}}</span></p>
-                            <p class="fecha">{{comentario.createdAt|date('d/m/Y')}}</p>
-                            <p class="contenido">
-                                {{comentario.message}}
-                            </p>
-                        </div>
-                        <p>
-                            <button class="boton-responder" data-comentario="{{comentario.id}}" ></button>
-                        </p>
-                        <div class="formulario-comentario-{{comentario.id}}">
-                            
-                        </div>
-                    </article>
+         <article class="comentarios-formulario">
+            <header>
+                <h2 class="titulo">
+                    {{publicacion.contComentarios ~ (publicacion.contComentarios > 1?' comentarios':' comentario')}}
+                </h2>
+            </header>
+            <section class="comentarios">
+                {% for comentario in comentarios if comentario.nivel == 0 %}
+                    {% include 'FrontendBundle:Default:comentario.html.twig' with {'comentario': comentario } %}
                 {% endfor %}
             </section>
         </article>
         {% endif %}
-        <article class="formulario">
+        <article class="comentarios-formulario">
             <header>
                 <h2 class="titulo">
                     Deja tu comentario
                 </h2>
             </header>
-                <form action="{{ path('frontend_publicaciones',{'slug': publicacion.slug,'contar': false}) }}" class="validate" id="formComentarios" method="post" {{ form_enctype(form)}}>
+                <form action="{{ path('frontend_publicaciones',{'slug': publicacion.slug}) }}" class="validate" id="formComentarios" method="post" {{ form_enctype(form)}}>
+                    <span class="closeForm boton" style="display: none;" onclick="javascript:closeForm()">X</span>
                     {{form_errors(form)}}
-					<div class="controles-izquierdos">
+                    <div class="controles-izquierdos">
                         {{form_row(form.username)}}
                         {{form_row(form.email)}}
                     </div>
@@ -76,12 +68,42 @@
                         {{form_row(form.message)}}
                     </div>
                     {{form_rest(form)}}
-					<div class="group-control">
-						<button class="btn btn-submit">Enviar</button>
-					</div>
+                    <div class="group-control">
+                        <input type="submit" value="Enviar"/>
+                    </div>
                 </form>
        </article>  
     </section>	
     {# include 'FrontendBundle:Default:aside.html.twig' #}        
     {{render(controller('FrontendBundle:Default:aside'))}}
 {% endblock %}
+{% block javascripts %}
+    {{parent()}}
+<script type="text/javascript">
+    var $boton;
+    $(document).ready(function(){
+        $(".boton-responder").on("click",function(){
+            $boton = $(this);
+            var $controles = $boton.parent();
+            var idComentario = $boton.data('comentario');
+            var $formulario = $("<form>");
+            var $divComentarioFormulario = $("<div>");
+            var $formComentarios = $("#formComentarios");
+            $formulario.attr('action',$formComentarios.attr('action'));
+            $formulario.attr('method','post');
+            $formulario.html($formComentarios.html());
+            $divComentarioFormulario.attr('id','formulario-comentario-'+idComentario);
+            $divComentarioFormulario.addClass('formulario-comentario');
+            $divComentarioFormulario.append($formulario);
+            $controles.after($divComentarioFormulario)
+            $formulario.find(".closeForm").fadeIn();
+            $formulario.find("#richpolis_comentariosbundle_comentario_parent").val(idComentario);
+            $boton.fadeOut();
+        });
+    });
+function closeForm(){
+   $(".formulario-comentario").remove();
+   $boton.fadeIn();
+}
+</script>
+{% endblock %}    

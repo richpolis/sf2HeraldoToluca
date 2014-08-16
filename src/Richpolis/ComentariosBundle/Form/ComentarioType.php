@@ -21,12 +21,12 @@ class ComentarioType extends AbstractType
 		$publicacionTransformer = new PublicacionToNumberTransformer($em);
 		
         $builder
-            ->add('username','text',array('label'=>'Titulo','attr'=>array(
+            ->add('username','text',array('label'=>'Nombre (obligatorio)','attr'=>array(
                 'class'=>'validate[required] form-control placeholder',
                 'placeholder'=>'Nombre',
                 'data-bind'=>'value: nombre'
              )))
-            ->add('email','email',array('label'=>'Email','attr'=>array(
+            ->add('email','email',array('label'=>'Email (obligatorio, no sera publicado)','attr'=>array(
                 'class'=>'validate[required] form-control placeholder',
                 'placeholder'=>'Email',
                 'data-bind'=>'value: email'

@@ -1,15 +1,20 @@
-{% set encabezado_izquierdo = constant('Richpolis\\PublicidadBundle\\Entity\\Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_IZQUIERDO') %}
-{% set encabezado_derecho = constant('Richpolis\\PublicidadBundle\\Entity\\Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_DERECHO') %}
 {% set aside_arriba = constant('Richpolis\\PublicidadBundle\\Entity\\Publicidad::TIPO_PUBLICIDAD_ASIDE_ARRIBA') %}
 {% set aside_abajo = constant('Richpolis\\PublicidadBundle\\Entity\\Publicidad::TIPO_PUBLICIDAD_ASIDE_ABAJO') %}
-
 <aside class="padding-trb columna-1">
     <div class="publicidad aside-arriba sin-padding">
         <ul class="galeria-publicidad">
         {% for publicidad in publicidadArray[aside_arriba] %}
+            {% if publicidad.isImagen %}
+            <li>
+                <a href="{{publicidad.link}}" target="_blank">
+                {{ publicidad.archivoView | raw }}
+                </a>
+            </li>
+            {% else %}    
             <li>{{ publicidad.archivoView | raw }}</li>
+            {% endif %}
         {% else %}
-            <li><img src="http://placehold.it/300x250" alt=""/></li>
+            <li><img src="http://placehold.it/300x250/ffffff/ffffff" alt=""/></li>
         {% endfor %}
         </ul>    
     </div>
@@ -112,9 +117,17 @@
     <div class="publicidad aside-abajo sin-padding">
         <ul class="galeria-publicidad">
         {% for publicidad in publicidadArray[aside_abajo] %}
+            {% if publicidad.isImagen %}
+            <li>
+                <a href="{{publicidad.link}}" target="_blank">
+                {{ publicidad.archivoView | raw }}
+                </a>
+            </li>
+            {% else %}    
             <li>{{ publicidad.archivoView | raw }}</li>
+            {% endif %}
         {% else %}
-            <li><img src="http://placehold.it/300x250" alt=""/></li>
+            <li><img src="http://placehold.it/300x250/ffffff/ffffff" alt=""/></li>
         {% endfor %}
         </ul>    
     </div>

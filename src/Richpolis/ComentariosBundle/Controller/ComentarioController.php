@@ -10,6 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Richpolis\ComentariosBundle\Entity\Comentario;
 use Richpolis\ComentariosBundle\Form\ComentarioType;
 
+use Richpolis\BackendBundle\Utils\Richsys as RpsStms;
+
 /**
  * Comentario controller.
  *
@@ -59,6 +61,7 @@ class ComentarioController extends Controller
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'errores' => RpsStms::getErrorMessages($form)
         );
     }
 
@@ -74,9 +77,10 @@ class ComentarioController extends Controller
         $form = $this->createForm(new ComentarioType(), $entity, array(
             'action' => $this->generateUrl('comentarios_create'),
             'method' => 'POST',
+            'em'=>$this->getDoctrine()->getManager(),
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        //$form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
@@ -96,6 +100,7 @@ class ComentarioController extends Controller
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'errores' => RpsStms::getErrorMessages($form)
         );
     }
 
@@ -146,8 +151,9 @@ class ComentarioController extends Controller
 
         return array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'errores' => RpsStms::getErrorMessages($editForm)
         );
     }
 
@@ -163,9 +169,10 @@ class ComentarioController extends Controller
         $form = $this->createForm(new ComentarioType(), $entity, array(
             'action' => $this->generateUrl('comentarios_update', array('id' => $entity->getId())),
             'method' => 'PUT',
+            'em'=>$this->getDoctrine()->getManager(),
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        //$form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
@@ -198,8 +205,9 @@ class ComentarioController extends Controller
 
         return array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'errores' => RpsStms::getErrorMessages($editForm)
         );
     }
     /**
@@ -240,7 +248,11 @@ class ComentarioController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('comentarios_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            /*->add('submit', 'submit', array(
+                'label' => 'Eliminar',
+                'attr'=>array(
+                    'class'=>'btn btn-danger'
+            )))*/
             ->getForm()
         ;
     }

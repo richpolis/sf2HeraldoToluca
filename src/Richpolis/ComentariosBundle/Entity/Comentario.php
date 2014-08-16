@@ -498,6 +498,8 @@ class Comentario
     public function setParent(\Richpolis\ComentariosBundle\Entity\Comentario $parent = null)
     {
         $this->parent = $parent;
+        
+        $this->setNivel($parent->getNivel()+1);
 
         return $this;
     }

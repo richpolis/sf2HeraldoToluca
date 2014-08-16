@@ -65,12 +65,7 @@
 <div class="container border-gris-lr">
         <header class="header">
             <div class="publicidad">
-                <div class="item-publicidad encabezado-izquierda">
-                    <img src="http://placehold.it/728x90" alt="">
-                </div>
-                <div class="item-publicidad encabezado-derecha">
-                    <img src="http://placehold.it/230x90" alt="">
-                </div>
+                {{ render(controller('FrontendBundle:Default:publicidadHead')) }}
             </div>
             <div class="navegador secundario">
                 <ul>
@@ -216,14 +211,35 @@
     <script type="text/javascript" src="{{asset('js/jquery.bxslider.min.js')}}"></script>
     <script>
         $(document).ready(function(){
-          $('.galeria').bxSlider();
+          $('.galeria').bxSlider({
+              autoHover:true,
+          });
           
           $('.galeria-publicidad').bxSlider({
                 pager: false,
                 controls: false,
                 auto: true,
-                pause: 4000,
-          }); 
+                pause: 5000,
+                autoHover: true,
+          });
+          
+          $('.galeria-publicidad-head-left').bxSlider({
+                pager: false,
+                controls: false,
+                auto: true,
+                pause: 5000,
+                slideWidth: 728,
+                autoHover: true,
+          });
+          
+          $('.galeria-publicidad-head-right').bxSlider({
+                pager: false,
+                controls: false,
+                auto: true,
+                pause: 5000,
+                slideWidth: 230,
+                autoHover: true
+          });
 
           $(".tab").on("click",function(){
             $(".tab").removeClass("active");

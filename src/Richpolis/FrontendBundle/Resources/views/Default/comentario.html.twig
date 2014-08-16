@@ -1,0 +1,20 @@
+<article class="comentario-publicacion nivel-{{comentario.nivel}}">
+    {% if comentario.archivo | length > 0 %}
+        <figure>
+            <img src="{{comentario.webPath | imagine_filter('imagen_200_200')}}" alt="{{comentario.id}}"/>
+        </figure>
+    {% endif %}
+    <div class="contenido {% if comentario.archivo | length > 0 %} con-imagen {% endif %}">
+        <p class="fecha">{{comentario.createdAt|date("l,j F  Y  g:ia","America/Mexico_City")}}</p>
+        <p class="publicado-por">Publicado por: <span class="username">{{comentario.username}}</span></p>
+        <p class="contenido">
+            {{comentario.message}}
+        </p>
+    </div>
+    <p class="controles">
+        <button class="boton boton-responder" data-comentario="{{comentario.id}}">responder</button>
+    </p>
+</article>
+{% for child in comentario.children %}
+    {% include 'FrontendBundle:Default:comentario.html.twig' with {'comentario': child } %}
+{% endfor %}      

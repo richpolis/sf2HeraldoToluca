@@ -104,6 +104,27 @@ nav{height:30px}
 .controles-videos .siguiente,.controles-videos .anterior{background-image:url("../images/anteriorsiguiente-heraldotv.png");background-repeat:no-repeat;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;color:#fff;cursor:pointer;display:inline-block;line-height:25px;font-size:16.65px;padding:0 10px;height:30px;width:107px;}
 .controles-videos .siguiente:first-letter,.controles-videos .anterior:first-letter{text-transform:uppercase}
 .categorias-videos{background:transparent;border:1px solid #808080;-webkit-border-radius:5px;border-radius:5px;color:#808080;float:right;font-size:16px;margin-right:20px;margin-top:10px;min-width:300px;padding:3px 5px;position:absolute;top:-3px;right:20px;z-index:1000}
+.comentarios-formulario{border-bottom:1px solid #c0c0c0;margin-top:0;padding-bottom:16px;}
+.comentarios-formulario h2.titulo{background:#e6e6e6;border-bottom:3px solid #2369ab;color:#000;font-family:'Conv_FRAMDCN';font-size:20.83px;height:35px;line-height:35px;margin:5px 0;padding:0 10px;text-transform:uppercase;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-weight:normal;margin-bottom:10px}
+.comentarios-formulario label{margin-right:.5em;display:block}
+.comentarios-formulario .controles-izquierdos,.comentarios-formulario .controles-derechos{display:inline-block;vertical-align:top;width:49%;}
+.comentarios-formulario .controles-izquierdos input,.comentarios-formulario .controles-derechos input,.comentarios-formulario .controles-izquierdos textarea,.comentarios-formulario .controles-derechos textarea{padding:2px 5px;width:90%;border:1px solid #c0c0c0}
+.comentarios-formulario .controles-izquierdos textarea,.comentarios-formulario .controles-derechos textarea{height:120px}
+.comentarios-formulario .controles-izquierdos input,.comentarios-formulario .controles-derechos input{margin-bottom:10px;height:25px}
+.comentarios-formulario input[type="submit"],.comentarios-formulario .boton{-webkit-border-radius:20px;border-radius:20px;background:#2369ab;color:#fff;width:150px;height:30px;border:none}
+.comentario-publicacion{width:100%;}
+.comentario-publicacion.nivel-1{padding-left:5%;width:95%}
+.comentario-publicacion.nivel-2{padding-left:10%;width:90%}
+.comentario-publicacion .contenido{padding-left:16px;}
+.comentario-publicacion .contenido p{margin-bottom:5px;margin-top:5px}
+.comentario-publicacion .contenido .fecha{color:#808080;font-size:12px;font-style:italic}
+.comentario-publicacion .contenido .publicado-por{display:block;font-size:14px;color:#000;}
+.comentario-publicacion .contenido .publicado-por .username{font-style:normal;font-weight:bold;text-transform:capitalize}
+.comentario-publicacion .contenido .contenido{font-size:14px;font-style:italic;padding-left:0}
+.comentario-publicacion .controles{text-align:right;margin-right:16px;}
+.comentario-publicacion .controles .boton-responder{height:20px;line-height:10px}
+.comentario-publicacion .formulario-comentario{border-top:1px solid #c0c0c0;margin-top:10px;position:relative;padding-top:20px;border-bottom:1px solid #c0c0c0;margin-bottom:20px;}
+.comentario-publicacion .formulario-comentario .closeForm.boton{height:20px;line-height:20px;display:block;width:20px;text-align:center;position:absolute;right:16px;top:10px;cursor:pointer}
 .control-video{position:absolute;}
 .control-video.siguiente{right:0;background-position:-3px -30px;text-align:left}
 .control-video.anterior{left:0;background-position:0 0;text-align:right}
@@ -170,6 +191,13 @@ nav{height:30px}
 .publicidad{padding-bottom:1em;}
 .publicidad .item-publicidad{display:inline-block;vertical-align:top;}
 .publicidad .item-publicidad:last-child{margin-left:1em}
+.publicacion-tu-espacio{border-bottom:1px solid #c0c0c0;margin-top:0;padding-bottom:16px;}
+.publicacion-tu-espacio h2.titulo{background:#000;border-bottom:5px solid #2369ab;color:#fff;font-family:'Conv_FRAMDCN';font-size:20.83px;height:50px;line-height:30px;margin:5px 0;padding:10px;text-transform:uppercase;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-weight:normal;margin-bottom:10px}
+.publicacion-tu-espacio > .contenido{border-bottom:1px solid #c0c0c0;margin-bottom:16px;}
+.publicacion-tu-espacio > .contenido .contenido-titulo,.publicacion-tu-espacio > .contenido .contenido-principal{display:inline-block;vertical-align:top}
+.publicacion-tu-espacio > .contenido .contenido-titulo{width:30%;text-transform:uppercase}
+.publicacion-tu-espacio > .contenido .contenido-principal{width:69%;color:#2369ab}
+.publicacion-tu-espacio > .contenido .contenido-informacion{border-top:1px solid #c0c0c0;padding-bottom:16px;padding-top:16px;text-align:center}
 .publicacion-principal{border-bottom:1px solid #2369ab;border-top:1px solid #2369ab;padding-bottom:1em;}
 .publicacion-principal .contenedor-centrado{margin:0 auto;width:616px}
 .publicacion-principal .titulo{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;color:#2369ab;font-family:'Conv_Georgia_0';font-size:32px;font-weight:normal;margin:5px 0;width:100%;text-align:center;}

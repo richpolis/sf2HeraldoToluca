@@ -9,7 +9,7 @@
                 </h2>
             </header>
             <div class="contenido">
-                <div class="titulo-contenido">
+                <div class="contenido-titulo">
                     tema actual:
                 </div>
                 <div class="contenido-principal">
@@ -22,7 +22,7 @@
                     <span style="color: blue;">Participa rellenando los siguientes campos.</span>
                 </div>
             </div>
-            <div class="formulario">
+            <div class="comentarios-formulario">
                 <form action="{{ path('frontend_tu_espacio',{'slug': publicacion.slug,'contar': false}) }}" class="validate" id="formComentarios" method="post" {{ form_enctype(form)}}>
                     {{form_errors(form)}}
 					<div class="controles-izquierdos">
@@ -34,9 +34,9 @@
                         {{form_row(form.message)}}
                     </div>
                     {{form_rest(form)}}
-					<div class="group-control">
-						<button class="btn btn-submit">Enviar</button>
-					</div>
+                    <div class="group-control">
+                        <input type="submit" value="Enviar"/>
+                    </div>
                 </form>
             </div>     
         </article>
@@ -48,21 +48,8 @@
                 </h2>
             </header>
             <section class="noticias">
-                {% for comentario in comentarios %}
-                    <article class="comentario-tu-espacio">
-                        {% if comentario.archivo | length > 0 %}
-                        <figure>
-                            <img src="{{comentario.webPath | imagine_filter('imagen_200_200')}}" alt="{{comentario.id}}"/>
-                        </figure>
-                        {% endif %}
-                        <div class="contenido">
-                            <p class="publicado-por">Publicado por: <span class="username">{{comentario.username}}</span></p>
-                            <p class="fecha">{{comentario.createdAt|date('d/m/Y')}}</p>
-                            <p class="contenido">
-                                {{comentario.message}}
-                            </p>
-                        </div>
-                    </article>
+                {% for comentario in comentarios if comentario.nivel == 0 %}
+                    {% include 'FrontendBundle:Default:comentario.html.twig' with {'comentario': comentario } %}
                 {% endfor %}
             </section>
         </article>

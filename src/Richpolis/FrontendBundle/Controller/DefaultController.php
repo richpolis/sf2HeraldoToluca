@@ -18,13 +18,72 @@ use Richpolis\ComentariosBundle\Form\ComentarioType;
 use Richpolis\PublicidadBundle\Entity\Publicidad;
 
 class DefaultController extends Controller {
-
-    protected function getPublicacionesSession() {
-        return $this->get('session')->get('publicaciones', array());
+    
+    protected function getValoresSession($key,$value = array()) {
+        return $this->get('session')->get($key, $value);
     }
 
-    protected function setPublicacionesSession($publicaciones) {
-        return $this->get('session')->set('publicaciones', $publicaciones);
+    protected function setVAloresSession($key,$value) {
+        return $this->get('session')->set($key, $value);
+    }
+    
+    protected function getPublicidadEnSession(&$em) {
+        $publicidad = $this->getValoresSession('publicidad');
+        if (isset($publicidad[Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_IZQUIERDO])) {
+            return $publicidad;
+        } else {
+            $publicidadArray = array();
+            
+            $publicidads = $em->getRepository('PublicidadBundle:Publicidad')
+                          ->getPublicidadActual();
+            
+            $publicidadArray[Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_IZQUIERDO]=null;
+            $publicidadArray[Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_DERECHO]=null;
+            $publicidadArray[Publicidad::TIPO_PUBLICIDAD_ASIDE_ARRIBA]=null;
+            $publicidadArray[Publicidad::TIPO_PUBLICIDAD_ASIDE_ABAJO]=null;
+
+            foreach($publicidads as $publicidad){
+                $publicidadArray[$publicidad->getTipoPublicidad()][]=$publicidad;
+            }
+            $this->setVAloresSession('publicidad', $publicidadArray);
+            return $publicidadArray;
+        }
+    }
+    
+    protected function getLosmasVistosEnSession(&$em) {
+        $losmasvistos = $this->getValoresSession('losmasvistos');
+        if (count($losmasvistos)) {
+            return $losmasvistos;
+        } else {
+            $losmasvistos = $em->getRepository('PublicacionesBundle:Publicacion')
+                          ->findLosMasVistos();
+            $this->setVAloresSession('losmasvistos', $losmasvistos);
+            return $losmasvistos;
+        }
+    }
+    
+    protected function getLosmasComentadosEnSession(&$em) {
+        $losmascomentados = $this->getValoresSession('losmascomentados');
+        if (count($losmascomentados)) {
+            return $losmascomentados;
+        } else {
+            $losmascomentados = $em->getRepository('PublicacionesBundle:Publicacion')
+                          ->findLosMasComentados();
+            $this->setVAloresSession('losmascomentados', $losmascomentados);
+            return $losmascomentados;
+        }
+    }
+    
+    protected function getCategoriasEnSession(&$em) {
+        $categorias = $this->getValoresSession('categorias');
+        if (count($categorias)) {
+            return $categorias;
+        } else {
+            $categorias = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')
+                ->findBy(array('tipoCategoria' => CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION));
+            $this->setVAloresSession('categorias', $categorias);
+            return $categorias;
+        }
     }
 
     /**
@@ -91,37 +150,41 @@ class DefaultController extends Controller {
      */
     public function publicacionAction(Request $request, $slug) {
         $em = $this->getDoctrine()->getManager();
-
+        
         $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')
                 ->findOneBy(array('slug' => $slug));
 
-        $contar = $request->query->get('contar', true);
-
+        if($request->query->has('contar')){
+            $contar = $request->query->get('contar', true);
+        }else{
+            $contar = true;
+        }
+        
         if ($publicacion->getCategoria()->getTipoCategoria() == CategoriaPublicacion::TIPO_CATEGORIA_HERALDO_TV) {
             return $this->redirect($this->generateUrl('frontend_heraldo_tv', array('slug' => $slug, 'contar' => $contar)));
         } elseif ($publicacion->getCategoria()->getTipoCategoria() == CategoriaPublicacion::TIPO_CATEGORIA_TU_ESPACIO) {
             return $this->redirect($this->generateUrl('frontend_tu_espacio', array('slug' => $slug, 'contar' => $contar)));
         }
 
-        $parent = $request->query->get('parent', 0);
+        //$parent = $request->query->get('parent', 0);
         $comentario = new Comentario();
         $comentario->setPublicacion($publicacion);
 
-        if ($parent > 0) {
+        /*if ($parent > 0) {
             $comentarioParent = $em->getRepository('ComentariosBundle:Comentario')->find($parent);
             $comentario->setParent($comentarioParent);
-        }
+        }*/
 
         $form = $this->createForm(new ComentarioType(), $comentario, array('em' => $em));
 
         if ($request->isMethod('GET')) {
             if ($contar) {
-                $publicacionesSession = $this->getPublicacionesSession();
+                $publicacionesSession = $this->getValoresSession('publicaciones');
                 if (!isset($publicacionesSession[$publicacion->getSlug()])) {
                     $publicacion->setContVisitas($publicacion->getContVisitas() + 1);
                     $em->flush();
                     $publicacionesSession[$publicacion->getSlug()] = true;
-                    $this->setPublicacionesSession($publicacionesSession);
+                    $this->setVAloresSession('publicaciones',$publicacionesSession);
                 }
             }
         } elseif ($request->isMethod('POST')) {
@@ -169,12 +232,12 @@ class DefaultController extends Controller {
         $contar = $request->query->get('contar', true);
 
         if ($contar) {
-            $publicacionesSession = $this->getPublicacionesSession();
+            $publicacionesSession = $this->getValoresSession('publicaciones');
             if (!isset($publicacionesSession[$publicacion->getSlug()])) {
                 $publicacion->setContVisitas($publicacion->getContVisitas() + 1);
                 $em->flush();
                 $publicacionesSession[$publicacion->getSlug()] = true;
-                $this->setPublicacionesSession($publicacionesSession);
+                $this->setVAloresSession('publicaciones', $publicacionesSession);
             }
         }
 
@@ -210,12 +273,12 @@ class DefaultController extends Controller {
         $form = $this->createForm(new ComentarioConImagenType(), $comentario, array('em' => $em));
         if ($request->isMethod('GET')) {
             if ($contar) {
-                $publicacionesSession = $this->getPublicacionesSession();
+                $publicacionesSession = $this->getValoresSession('publicaciones');
                 if (!isset($publicacionesSession[$publicacion->getSlug()])) {
                     $publicacion->setContVisitas($publicacion->getContVisitas() + 1);
                     $em->flush();
                     $publicacionesSession[$publicacion->getSlug()] = true;
-                    $this->setPublicacionesSession($publicacionesSession);
+                    $this->setVAloresSession('publicaciones', $publicacionesSession);
                 }
             }
         } elseif ($request->isMethod('POST')) {
@@ -341,38 +404,29 @@ class DefaultController extends Controller {
     }
     
     /**
+     * @Route("/publicidad/head", name="frontend_publicidad_encabezado")
+     * @Template("FrontendBundle:Default:publicidadHead.html.twig")
+     */
+    public function publicidadHeadAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        
+        return array(
+            'publicidadArray' => $this->getPublicidadEnSession($em),
+        );
+    }
+    
+    /**
      * @Route("/aside", name="frontend_aside")
      * @Template()
      */
     public function asideAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         
-        $publicidads = $em->getRepository('PublicidadBundle:Publicidad')
-                          ->getPublicidadActual();
-        
-        $lomasvistos = $em->getRepository('PublicacionesBundle:Publicacion')
-                          ->findLosMasVistos();
-        
-        $lomascomentados = $em->getRepository('PublicacionesBundle:Publicacion')
-                          ->findLosMasComentados();
-        
-        $categorias = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')
-                ->findBy(array('tipoCategoria' => CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION));
-        
-        $publicidadArray[Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_IZQUIERDO]=null;
-        $publicidadArray[Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_DERECHO]=null;
-        $publicidadArray[Publicidad::TIPO_PUBLICIDAD_ASIDE_ARRIBA]=null;
-        $publicidadArray[Publicidad::TIPO_PUBLICIDAD_ASIDE_ABAJO]=null;
-        
-        foreach($publicidads as $publicidad){
-            $publicidadArray[$publicidad->getTipoPublicidad()][]=$publicidad;
-        }
-        
         return array(
-            'publicidadArray' => $publicidadArray,
-            'lomasvistos' => $lomasvistos,
-            'lomascomentados' => $lomascomentados,
-            'categorias' => $categorias,
+            'publicidadArray' => $this->getPublicidadEnSession($em),
+            'lomasvistos' => $this->getLosmasVistosEnSession($em),
+            'lomascomentados' => $this->getLosmasComentadosEnSession($em),
+            'categorias' => $this->getCategoriasEnSession($em),
         );
     }
     
