@@ -136,8 +136,7 @@ class CategoriaPublicacionRepository extends EntityRepository
     public function getCategoriasActivas($id =0, $slug="",$todas=false,$conObjs=true){
         $query=$this->getQueryCategoriasActivas($id,$slug,$todas,$conObjs);
         return $query->getResult();
-    }
-    
+    }   
        
     public function getRegistroUpOrDown(CategoriaPublicacion $categoria,$up=true){
         // $up = true, $up = false is down

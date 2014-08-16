@@ -4,21 +4,16 @@
 
 {% set urlAbsolutaFoto = 'http://'
                              ~ app.request.server.get('SERVER_NAME')
-                             ~ asset('images/keyarts/logomenu.png') %}
-                             
-{% set locale = app.request.locale %}
-    
-{% set route = app.request.get('_route') %}    
-                             
+                             ~ asset('images/heraldologo.png') %}
 {% block stylesheets %}
     
     {% block redes_sociales %}
 
     <meta property="og:url" content="{{url('homepage')}}" />
-    <meta property="og:title" content="Inca México" />
+    <meta property="og:title" content="Heraldo de Toluca" />
     <meta property="og:image" content="{{urlAbsolutaFoto}}" />
     <meta property="og:type" content="article" />
-    <meta property="og:site_name" content="heraldodetoluca.com" />
+    <meta property="og:site_name" content="heraldodetoluca.com.mx" />
     <!--meta property="fb:admins" content="USER_ID1,USER_ID2"/-->
     
     <meta name="twitter:card" content="summary">
@@ -90,13 +85,13 @@
                     <a href="#" target="_blank"><span class="flickr ico_flickr"></span></a>
                 </div>
                 <div class="buscador">
-                    <form action="" class="form-buscador">
+                    <form action="{{path('frontend_buscador')}}" class="form-buscador">
                         <input type="text" class="buscar">
                         <a href="#"><span class="accion-buscar ico_buscar"></span></a>
                         <a href="" class="link-archivo">archivos</a>
                     </form>
                 </div>
-                <div class="fecha">Martes, 12 de Julio 2014</div>
+                <div class="fecha">{{"now"|date("l ,j F  Y","America/Mexico_City")}}</div>
             </div>
         </header>
         <nav class="navegador principal">
@@ -265,10 +260,8 @@
             }
           });
 
-
           $(".tab-visto").click();
           
-        
           $(".ver-nota").on("click",function(){
              var slug = $(this).data('slug');
              var url = '{{path('frontend_publicaciones',{'slug': '***'})}}';

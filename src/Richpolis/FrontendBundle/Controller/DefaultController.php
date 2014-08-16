@@ -137,10 +137,20 @@ class DefaultController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $categoria = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')
                 ->findOneBy(array('slug' => $slug));
-
-        return array(
-            'categoria' => $categoria
+        $query = $em->getRepository('PublicacionesBundle:Publicacion')
+                ->queryPorCategoria($slug);
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, 
+            $this->get('request')->query->get('page', 1),
+            10,
+            array()
         );
+        return array(
+            'categoria' => $categoria,
+            'pagination' => $pagination,
+        );
+        
     }
 
     /**
@@ -428,6 +438,31 @@ class DefaultController extends Controller {
             'lomascomentados' => $this->getLosmasComentadosEnSession($em),
             'categorias' => $this->getCategoriasEnSession($em),
         );
+    }
+    
+    /**
+     * @Route("/buscardor", name="frontend_buscador")
+     * @Method({"POST","GET"})
+     * @Template()
+     */
+    public function buscadorAction() {
+        $em = $this->getDoctrine()->getManager();
+        $categoria = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')
+                ->findOneBy(array('slug' => $slug));
+        $query = $em->getRepository('PublicacionesBundle:Publicacion')
+                ->queryPorCategoria($slug);
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, 
+            $this->get('request')->query->get('page', 1),
+            10,
+            array()
+        );
+        return array(
+            'categoria' => $categoria,
+            'pagination' => $pagination,
+        );
+        
     }
     
 }

@@ -286,7 +286,7 @@ nav
 	&.nivel-2
 		padding-left 10%
 		width 90%
-	& .contenido
+	& > .contenido
 		padding-left 16px
 		& p
 			margin-bottom 5px
@@ -307,6 +307,12 @@ nav
 			font-size 14px
 			font-style italic
 			padding-left 0
+	& figure
+	& .contenido.con-imagen
+		display inline-block
+		vertical-align top
+	& figure
+		margin 0
 	& .controles
 		text-align right
 		margin-right 16px
@@ -662,7 +668,6 @@ nav
 			margin-left 1em
 
 .publicacion-tu-espacio
-	border-bottom 1px solid silver
 	margin-top 0px
 	padding-bottom 16px
 	& h2.titulo
@@ -689,6 +694,7 @@ nav
 		& .contenido-titulo
 			width 30%
 			text-transform uppercase
+			font-weight bold
 		& .contenido-principal 
 			width 69%
 			color color_azul

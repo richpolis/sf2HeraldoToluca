@@ -235,6 +235,28 @@ class PublicacionRepository extends EntityRepository
         return $this->queryPortada($status,$todos)->getResult();
     }
     
+    public function queryPorCategoria($categoria, $status = Publicacion::STATUS_PUBLICADO){
+        $query=$this->getEntityManager()->createQueryBuilder();
+        $query->select('p,c,u,g')
+                ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
+                ->leftJoin('p.galerias', 'g')
+                ->leftJoin('p.usuario', 'u')
+                ->leftJoin('p.categoria', 'c')
+                ->where('p.status = :status')
+                ->setParameter('status', $status)
+                ->orderBy('p.createdAt', 'DESC')
+                ->addOrderBy('g.position', 'ASC');
+        if(is_numeric($categoria)){
+            $query->andWhere('c.id = :categoria')
+                  ->setParameter('categoria', $categoria);
+        }else{
+            $query->andWhere('c.slug =:categoria')
+                  ->setParameter('categoria', $categoria);
+        }        
+
+        return $query->getQuery();
+    }
+    
     
     /*
      * Este query es la nueva version de getQueryPublicacionesPorTipoCategoria Activas
@@ -278,7 +300,7 @@ class PublicacionRepository extends EntityRepository
         $query=$this->queryPublicacionesPorTipoCategoria($status,$tipoCategoria,$conObjs,$campo_orden,$orden);
         return $query->getResult();
     }
-
+    
     public function getUltimasPublicaciones($registros){
 
         $query=$this->queryPublicacionesPorTipoCategoria(

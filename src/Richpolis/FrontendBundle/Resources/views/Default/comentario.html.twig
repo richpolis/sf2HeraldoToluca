@@ -1,8 +1,10 @@
 <article class="comentario-publicacion nivel-{{comentario.nivel}}">
     {% if comentario.archivo | length > 0 %}
-        <figure>
+    <figure>
+        <a href="{{comentario.webPath}}" class="fancybox">
             <img src="{{comentario.webPath | imagine_filter('imagen_200_200')}}" alt="{{comentario.id}}"/>
-        </figure>
+        </a>
+    </figure>
     {% endif %}
     <div class="contenido {% if comentario.archivo | length > 0 %} con-imagen {% endif %}">
         <p class="fecha">{{comentario.createdAt|date("l,j F  Y  g:ia","America/Mexico_City")}}</p>
@@ -11,9 +13,11 @@
             {{comentario.message}}
         </p>
     </div>
+    {% if comentario.publicacion.categoria.tipoCategoria != constant('Richpolis\\PublicacionesBundle\\Entity\\CategoriaPublicacion::TIPO_CATEGORIA_TU_ESPACIO') %}
     <p class="controles">
         <button class="boton boton-responder" data-comentario="{{comentario.id}}">responder</button>
     </p>
+    {% endif %}
 </article>
 {% for child in comentario.children %}
     {% include 'FrontendBundle:Default:comentario.html.twig' with {'comentario': child } %}

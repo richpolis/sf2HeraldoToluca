@@ -1,5 +1,44 @@
 {% extends 'FrontendBundle::layout.html.twig' %}
 
+{% if publicacion.imagen | length > 0 %}
+   {% set portada = 'publicaciones/' ~ publicacion.imagen %}
+{% else %}
+   {% set portada = 'galerias/' ~ publicacion.galerias[0].archivo %} 
+{% endif %}    
+
+{% set urlAbsolutaFoto = 'http://'
+                             ~ app.request.server.get('SERVER_NAME')
+                             ~ 'uploads/' ~ portada %}
+
+{% block redes_sociales %}
+
+    <meta property="og:url" content="{{url('frontend_publicaciones',{'slug': publicacion.slug})}}" />
+    <meta property="og:title" content="{{ publicacion.titulo }}" />
+    <meta property="og:image" content="{{ urlAbsolutaFoto }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="heraldodetoluca.com.mx" />
+    <!--meta property="fb:admins" content="USER_ID1,USER_ID2"/-->
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@heraldodetoluca">
+    <meta name="twitter:title" content="Heraldo de Toluca">
+    <meta name="twitter:description" content="{{publicacion.descripcion}}">
+    <meta name="twitter:creator" content="@richpolis">
+    <meta name="twitter:image:src" content="{{urlAbsolutaFoto}}">
+    <meta name="twitter:domain" content="{{url('homepage')}}">
+    <meta name="twitter:app:name:iphone" content="">
+    <meta name="twitter:app:name:ipad" content="">
+    <meta name="twitter:app:name:googleplay" content="">
+    <meta name="twitter:app:url:iphone" content="">
+    <meta name="twitter:app:url:ipad" content="">
+    <meta name="twitter:app:url:googleplay" content="">
+    <meta name="twitter:app:id:iphone" content="">
+    <meta name="twitter:app:id:ipad" content="">
+    <meta name="twitter:app:id:googleplay" content="">
+    
+
+{% endblock %}
+
 {% block contenido %}
     <section class="padding columna-3">
         <article class="relacionados">
