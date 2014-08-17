@@ -207,7 +207,9 @@
     <script>
         $(document).ready(function(){
           $('.galeria').bxSlider({
+		  	  mode: 'fade',
               autoHover:true,
+			  auto: true,
           });
           
           $('.galeria-publicidad').bxSlider({
@@ -242,22 +244,6 @@
             var tabClass = $(this).data('tab');
             $(".lomas").fadeOut("fast");
             $("."+tabClass).fadeIn("fast");
-          });
-
-          $(".control.izquierdo").on("click",function(){
-            if(publicacionesPdf>1){
-                publicacionesPdf--;
-                valorGaleriaPdf = (((publicacionesPdf)*300)-300);
-                $(".galeria-pdf").animate({left: '-'+valorGaleriaPdf+'px'},1000);
-            }
-          });
-
-          $(".control.derecho").on("click",function(){
-            if(publicacionesPdf<publicacionesPdfMax){
-                publicacionesPdf++;
-                valorGaleriaPdf = (((publicacionesPdf)*300)-300);
-                $(".galeria-pdf").animate({left: '-'+valorGaleriaPdf+'px'},1000);
-            }
           });
 
           $(".tab-visto").click();

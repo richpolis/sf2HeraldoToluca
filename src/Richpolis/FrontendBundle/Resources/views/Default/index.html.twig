@@ -1,5 +1,11 @@
 {% extends 'FrontendBundle::layout.html.twig' %}
 
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{asset('css/fancybox/jquery.fancybox.css')}}"/>
+{% endblock %} 
+
 {% block contenido %}
     <section class="padding columna-2">
         <article class="publicacion">
@@ -50,9 +56,10 @@
                 <h2 class="titulo rojo">
                     heraldo tv
                 </h2>
-                <select name="cbCategoriasVideos" id="cbCategoriasVideos" class="categorias-videos">
+                <select name="cbCategoriasVideos" id="cbCategoriasVideos" class="categorias-videos" onchange="javascript:categoriasVideos()">
                     {% for categoria in categorias if categoria.tipoCategoria is constant('Richpolis\\PublicacionesBundle\\Entity\\CategoriaPublicacion::TIPO_CATEGORIA_HERALDO_TV') %}
-                        {% for publicacion in categoria.publicaciones %}
+                        <option value="" disabled selected style="display:none;">Selecciona opcion</option>
+						{% for publicacion in categoria.publicaciones %}
                             <option value="{{publicacion.slug}}">{{publicacion.titulo}}</option>
                         {% endfor %}
                     {% endfor %}
@@ -70,7 +77,9 @@
                             {% for galeria in publicacion.galerias|slice(0, 3) %}
                                 <article class="item-noticia item-video">
                                     <figure class="thumbnail-mediana">
-                                        <img src="{{ galeria.thumbnailWebPath }}" width="191" height="121" alt="">
+										<a href="{{galeria.archivo}}" class="fancybox-media iframe">
+											<img src="{{ galeria.thumbnailWebPath }}" width="191" height="121" alt="">
+										</a>
                                     </figure>
                                     {{ galeria.descripcion | striptags | truncate(100,true,'...')  }}
                                     <div class="redes-sociales">
@@ -175,4 +184,41 @@
     {{render(controller('FrontendBundle:Default:aside'))}}
     
 
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script src="{{asset('js/fancybox/jquery.fancybox.js')}}"></script>
+<script src="{{asset('js/fancybox/jquery.fancybox-media.js')}}"></script>
+<script>
+    $(document).ready(function() {
+		
+          $(".control.izquierdo").on("click",function(){
+            if(publicacionesPdf>1){
+                publicacionesPdf--;
+                valorGaleriaPdf = (((publicacionesPdf)*300)-300);
+                $(".galeria-pdf").animate({left: '-'+valorGaleriaPdf+'px'},1000);
+            }
+          });
+
+          $(".control.derecho").on("click",function(){
+            if(publicacionesPdf<publicacionesPdfMax){
+                publicacionesPdf++;
+                valorGaleriaPdf = (((publicacionesPdf)*300)-300);
+                $(".galeria-pdf").animate({left: '-'+valorGaleriaPdf+'px'},1000);
+            }
+          });
+
+	
+        $("a.fancybox").fancybox();
+          
+        $("a.fancybox-media").fancybox({
+            helpers : {
+                media: true
+            },
+            youtube : {
+               autoplay: 0
+            }
+        });
+    });
+</script>
 {% endblock %}
