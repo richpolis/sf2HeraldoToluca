@@ -85,10 +85,10 @@
                     <a href="#" target="_blank"><span class="flickr ico_flickr"></span></a>
                 </div>
                 <div class="buscador">
-                    <form action="{{path('frontend_buscador')}}" class="form-buscador">
-                        <input type="text" class="buscar">
-                        <a href="#"><span class="accion-buscar ico_buscar"></span></a>
-                        <a href="" class="link-archivo">archivos</a>
+                    <form id="formBuscar" action="{{path('frontend_buscador')}}" class="form-buscador">
+                        <input name="textoBuscar" id="textoBuscar" type="text" class="buscar">
+                        <a href="#" onclick="javascript:buscar();"><span class="accion-buscar ico_buscar"></span></a>
+                        <a href="{{path('frontend_archivos')}}" class="link-archivo">archivos</a>
                     </form>
                 </div>
                 <div class="fecha">{{"now"|date("l ,j F  Y","America/Mexico_City")}}</div>
@@ -265,9 +265,18 @@
           $(".ver-nota").on("click",function(){
              var slug = $(this).data('slug');
              var url = '{{path('frontend_publicaciones',{'slug': '***'})}}';
-	     location.href =  url.replace("***", slug);
+	     	location.href =  url.replace("***", slug);
           });  
 
         });
+		
+function buscar(){
+	var $texto = $("#textoBuscar");
+	if($texto.val().length>0){
+		var $formBuscar = $("#formBuscar");
+		$formBuscar.submit();
+	}
+	
+}
     </script>
 {% endblock %}

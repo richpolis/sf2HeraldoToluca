@@ -445,24 +445,40 @@ class DefaultController extends Controller {
      * @Method({"POST","GET"})
      * @Template()
      */
-    public function buscadorAction() {
+    public function buscadorAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $categoria = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')
-                ->findOneBy(array('slug' => $slug));
-        $query = $em->getRepository('PublicacionesBundle:Publicacion')
-                ->queryPorCategoria($slug);
-        $paginator = $this->get('knp_paginator');
+        $buscar = $request->get("textoBuscar","");
+		$query = $em->getRepository('PublicacionesBundle:Publicacion')
+                ->queryBuscarPublicacion($buscar);
+        if(strlen($buscar)>0){
+          $options = array('filterParam'=>'buscar','filterValue'=>$buscar);
+        }else{
+          $options = array();
+        }
+		$paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query, 
             $this->get('request')->query->get('page', 1),
-            10,
-            array()
+            8,
+            $options
         );
+		
         return array(
-            'categoria' => $categoria,
             'pagination' => $pagination,
         );
         
+    }
+	
+	/**
+     * @Route("/archivos", name="frontend_archivos")
+     * @Template()
+     */
+    public function archivosAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        
+		return array(
+            'categorias' => $this->getCategoriasEnSession($em),
+        );
     }
     
 }
