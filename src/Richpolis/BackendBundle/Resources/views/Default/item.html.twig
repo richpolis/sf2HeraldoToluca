@@ -10,6 +10,8 @@
     <td class="titulo">
         {{ entity.titulo }}
         <br/>
+        {{ entity.createdAt | date("d/m/Y") }}
+        <br/>
         <p class="visitas-comentarios">
         <span class="pull-left visitas">Vistas <span class="badge">{{entity.contVisitas}}</span></span>
         <span class="pull-right comentarios">Comentarios <span class="badge">{{entity.contComentarios}}</span></span>
