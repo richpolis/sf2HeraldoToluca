@@ -65,7 +65,7 @@
                             <a href="{{path('frontend_publicaciones',{'slug':item.slug})}}">
                             {% if item.imagen | length > 0 %}
                                 <img src="{{item.webPath | imagine_filter('imagen_90_60') }}" alt="{{item.titulo}}"/>
-                            {% else %}
+                            {% elseif item.galerias | length > 0 %}
                                 <img src="{{item.galerias[0].webPath | imagine_filter('imagen_90_60') }}" alt="{{item.galerias[0].titulo}}"/>
                             {% endif %}
                             </a>    

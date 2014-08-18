@@ -86,13 +86,14 @@ class PublicacionRepository extends EntityRepository
     public function queryPublicacionesActivas($publicacion_id = 0, $publicacion_slug = "",$activas=false,$conObjs = true){
         $query= $this->getEntityManager()->createQueryBuilder();
         if($conObjs){
-            $query->select('p,c,u,g')
+            /*$query->select('p,c,u,g')*/
+          $query->select('p,c,u')
                 ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
-                ->leftJoin('p.galerias', 'g')
+                /*->leftJoin('p.galerias', 'g')*/
                 ->leftJoin('p.usuario', 'u')
                 ->leftJoin('p.categoria', 'c')    
-                ->orderBy('p.createdAt', 'DESC')
-                ->addOrderBy('g.position', 'ASC'); 
+                ->orderBy('p.createdAt', 'DESC')/*
+                ->addOrderBy('g.position', 'ASC')*/; 
         }else{
             $query->select('p')
                 ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
@@ -130,13 +131,14 @@ class PublicacionRepository extends EntityRepository
     public function queryPublicaciones($todas=false,$conObjs = true,$categoria = null,$campo_order="createdAt",$order="DESC"){
         $query= $this->getEntityManager()->createQueryBuilder();
         if($conObjs){
-            $query->select('p,c,u,g')
+        /*$query->select('p,c,u,g')*/
+          $query->select('p,c,u')
                 ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
-                ->leftJoin('p.galerias', 'g')
+                /*->leftJoin('p.galerias', 'g')*/
                 ->leftJoin('p.usuario', 'u')
                 ->leftJoin('p.categoria', 'c')    
-                ->orderBy('p.'.$campo_order, $order)
-                ->addOrderBy('g.position', 'ASC'); 
+                ->orderBy('p.'.$campo_order, $order)/*
+                ->addOrderBy('g.position', 'ASC')*/; 
         }else{
             $query->select('p')
                 ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
@@ -185,15 +187,16 @@ class PublicacionRepository extends EntityRepository
     
     public function queryCarrusel($status = Publicacion::STATUS_PUBLICADO,$todos = false){
         $query=$this->getEntityManager()->createQueryBuilder();
-        $query->select('p,c,u,g')
+        /*$query->select('p,c,u,g')*/
+          $query->select('p,c,u')
                 ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
-                ->leftJoin('p.galerias', 'g')
+                /*->leftJoin('p.galerias', 'g')*/
                 ->leftJoin('p.usuario', 'u')
                 ->leftJoin('p.categoria', 'c')
                 ->where('p.isCarrusel=:isCarrusel')
                 ->setParameter('isCarrusel', true)
-                ->orderBy('p.createdAt', 'DESC')
-                ->addOrderBy('g.position', 'ASC');
+                ->orderBy('p.createdAt', 'DESC')/*
+                ->addOrderBy('g.position', 'ASC')*/;
         if($todos){
             $query->andWhere('p.status <=:status')
                   ->setParameter('status', $status);
@@ -211,15 +214,16 @@ class PublicacionRepository extends EntityRepository
     
     public function queryPortada($status = Publicacion::STATUS_PUBLICADO,$todas = false){
         $query=$this->getEntityManager()->createQueryBuilder();
-        $query->select('p,c,u,g')
+        /*$query->select('p,c,u,g')*/
+          $query->select('p,c,u')
                 ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
-                ->leftJoin('p.galerias', 'g')
+                /*->leftJoin('p.galerias', 'g')*/
                 ->leftJoin('p.usuario', 'u')
                 ->leftJoin('p.categoria', 'c')
                 ->where('p.isPrincipal=:isPrincipal')
                 ->setParameter('isPrincipal', true)
-                ->orderBy('p.createdAt', 'DESC')
-                ->addOrderBy('g.position', 'ASC');
+                ->orderBy('p.createdAt', 'DESC')/*
+                ->addOrderBy('g.position', 'ASC')*/;
         if($todas){
             $query->andWhere('p.status <=:status')
                 ->setParameter('status', $status);
@@ -237,15 +241,16 @@ class PublicacionRepository extends EntityRepository
     
     public function queryPorCategoria($categoria, $status = Publicacion::STATUS_PUBLICADO){
         $query=$this->getEntityManager()->createQueryBuilder();
-        $query->select('p,c,u,g')
+        /*$query->select('p,c,u,g')*/
+        $query->select('p,c,u')
                 ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
-                ->leftJoin('p.galerias', 'g')
+                /*->leftJoin('p.galerias', 'g')*/
                 ->leftJoin('p.usuario', 'u')
                 ->leftJoin('p.categoria', 'c')
                 ->where('p.status = :status')
                 ->setParameter('status', $status)
-                ->orderBy('p.createdAt', 'DESC')
-                ->addOrderBy('g.position', 'ASC');
+                ->orderBy('p.createdAt', 'DESC')/*
+                ->addOrderBy('g.position', 'ASC')*/;
         if(is_numeric($categoria)){
             $query->andWhere('c.id = :categoria')
                   ->setParameter('categoria', $categoria);
@@ -259,15 +264,16 @@ class PublicacionRepository extends EntityRepository
     
 	public function queryBuscarPublicacion($buscar, $status = Publicacion::STATUS_PUBLICADO){
         $query=$this->getEntityManager()->createQueryBuilder();
-        $query->select('p,c,u,g')
+        /*$query->select('p,c,u,g')*/
+        $query->select('p,c,u')
                 ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
-                ->leftJoin('p.galerias', 'g')
+                /*->leftJoin('p.galerias', 'g')*/
                 ->leftJoin('p.usuario', 'u')
                 ->leftJoin('p.categoria', 'c')
                 ->where('p.status = :status')
                 ->setParameter('status', $status)
-                ->orderBy('p.createdAt', 'DESC')
-                ->addOrderBy('g.position', 'ASC');
+                ->orderBy('p.createdAt', 'DESC')/*
+                ->addOrderBy('g.position', 'ASC')*/;
         
 		$query->andWhere('p.titulo LIKE :buscar')
               ->setParameter('buscar', "%".$buscar."%");
@@ -287,13 +293,14 @@ class PublicacionRepository extends EntityRepository
 
         $query= $this->getEntityManager()->createQueryBuilder();
         if($conObjs == true){
-            $query->select('p,c,u,g')
+            /*$query->select('p,c,u,g')*/
+              $query->select('p,c,u')   
                     ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
-                    ->leftJoin('p.galerias', 'g')
+                    /*->leftJoin('p.galerias', 'g')*/
                     ->leftJoin('p.usuario', 'u')
                     ->leftJoin('p.categoria', 'c')    
-                    ->orderBy('p.'.$campo_orden, $orden)
-                    ->addOrderBy('g.position', 'ASC');
+                    ->orderBy('p.'.$campo_orden, $orden)/*
+                    ->addOrderBy('g.position', 'ASC')*/;
                     
             if($tipoCategoria){
                 $query->andWhere('c.tipoCategoria=:tipo')
@@ -332,13 +339,14 @@ class PublicacionRepository extends EntityRepository
 
     public function queryLosmasVistosOrComentados($campo = '',$categoria = 0, $tipoCategoria = 0){
         $query=$this->getEntityManager()->createQueryBuilder();
-        $query->select('p,c,u,g')
+        /*$query->select('p,c,u,g')*/
+        $query->select('p,c,u')
                 ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
-                ->leftJoin('p.galerias', 'g')
+                /*->leftJoin('p.galerias', 'g')*/
                 ->leftJoin('p.usuario', 'u')
                 ->leftJoin('p.categoria', 'c')
-                ->orderBy('p.'.$campo, 'DESC')
-                ->addOrderBy('g.position', 'ASC');
+                ->orderBy('p.'.$campo, 'DESC')/*
+                ->addOrderBy('g.position', 'ASC')*/;
         if($categoria){
             $query->andWhere('c.id =:categoria')
                 ->setParameter('categoria', $categoria);

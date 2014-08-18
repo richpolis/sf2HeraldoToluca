@@ -4,7 +4,7 @@
             <figure class="thumbnail-mediana">
                 <img src="{{ noticia.webPath | imagine_filter('imagen_302_126') }}" alt="{{noticia.titulo}}"/>
             </figure>
-        {% else %}
+        {% elseif noticia.galerias | length > 0 %}
             <figure class="thumbnail-mediana">
                 <img src="{{ noticia.galerias[0].webPath | imagine_filter('imagen_302_126') }}" alt="{{noticia.galerias[0].titulo}}"/>
             </figure>

@@ -1036,12 +1036,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/helios-ag/FMElfinderBundle.git",
-                "reference": "4d381b1ce82284bd3e393fbdda82a8c1d9f706af"
+                "reference": "868ea6c53d65225fa778924ddd70cb4775314700"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helios-ag/FMElfinderBundle/zipball/4d381b1ce82284bd3e393fbdda82a8c1d9f706af",
-                "reference": "4d381b1ce82284bd3e393fbdda82a8c1d9f706af",
+                "url": "https://api.github.com/repos/helios-ag/FMElfinderBundle/zipball/868ea6c53d65225fa778924ddd70cb4775314700",
+                "reference": "868ea6c53d65225fa778924ddd70cb4775314700",
                 "shasum": ""
             },
             "require": {
@@ -1085,7 +1085,7 @@
                 "elfinder",
                 "file manager"
             ],
-            "time": "2014-08-09 06:54:47"
+            "time": "2014-08-15 05:00:52"
         },
         {
             "name": "helios-ag/fm-elfinder-php-connector",

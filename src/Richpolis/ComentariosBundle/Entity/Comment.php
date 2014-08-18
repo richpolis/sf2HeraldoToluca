@@ -27,6 +27,14 @@ class Comment extends BaseComment
      * @ORM\ManyToOne(targetEntity="Richpolis\ComentariosBundle\Entity\Thread")
      */
     protected $thread;
+    
+    /**
+     * Author of the comment
+     *
+     * @ORM\ManyToOne(targetEntity="Richpolis\BackendBundle\Entity\Usuario")
+     * @var Usuario
+     */
+    protected $author;
 
     /**
      * Get id

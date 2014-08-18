@@ -8,11 +8,11 @@ app/logs/*
 data/*
 nbproject/*
 vendor/*
-web/bundles/*
-web/css/*
-web/js/*
-web/uploads/*
-web/media/*
+html/bundles/*
+html/css/*
+html/js/*
+html/uploads/*
+html/media/*
 
 # -- Composer -----------------------------------------
 composer.phar
