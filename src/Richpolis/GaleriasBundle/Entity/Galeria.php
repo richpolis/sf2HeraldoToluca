@@ -551,7 +551,7 @@ class Galeria
         if($this->getTipoArchivo()==RpsStms::TIPO_ARCHIVO_IMAGEN){
             if(!file_exists($this->getAbosluteLargePath())){
                 if(file_exists($this->getAbsolutePath())){
-                    $this->crearThumbnail(638,369,$this->getAbosluteLargePath());
+                    $this->crearThumbnail(616,411,$this->getAbosluteLargePath());
                 }
             }
             return null === $this->thumbnail ? null : $this->getUploadDir().'/thumbnails/large/'.$this->thumbnail;
@@ -594,13 +594,13 @@ class Galeria
      * @Serializer\SerializedName("archivoView")
      * 
      */
-    public function getArchivoView(){
+    public function getArchivoView($width = 616, $height = 411){
         $opciones=array(
             'tipo_archivo'  => RpsStms::getTipoArchivo($this->getArchivo()),
             'path'      =>  $this->getLargeWebPath(),
             'carpeta'   =>  'galerias',
-            'width'     =>  638,
-            'height'    =>  369,
+            'width'     =>  $width,
+            'height'    =>  $height,
         );
         
         return RpsStms::getArchivoView($opciones);

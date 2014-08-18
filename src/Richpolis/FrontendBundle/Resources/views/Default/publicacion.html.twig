@@ -22,7 +22,7 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@heraldodetoluca">
     <meta name="twitter:title" content="Heraldo de Toluca">
-    <meta name="twitter:description" content="{{publicacion.descripcion}}">
+    <meta name="twitter:description" content="{{publicacion.descripcion | striptags | truncate(250,true,'...')}}">
     <meta name="twitter:creator" content="@richpolis">
     <meta name="twitter:image:src" content="{{urlAbsolutaFoto}}">
     <meta name="twitter:domain" content="{{url('homepage')}}">
@@ -59,17 +59,21 @@
             </header>
             <div class="contenido">
                 <div class="contenedor-galeria">
+                    {% if publicacion.imagen | length > 0 %}
+                        <img src="{{publicacion.webPath | imagine_filter('imagen_grande') }}" alt="{{publicacion.titulo}}" class="imagen"/>           
+                    {% elseif publicacion.galerias | length > 0 %}
                     <ul class="galeria">
                         {% for galeria in publicacion.galerias %}
                             <li class="item">
+                                {% if galeria.isImagen %}
                                 <img src="{{galeria.webPath | imagine_filter('imagen_grande') }}" alt="{{galeria.titulo}}" class="imagen"/>
-                            </li>
-                        {% else %}
-                            <li class="item">
-                                <img src="{{publicacion.webPath | imagine_filter('imagen_grande') }}" alt="{{publicacion.titulo}}" class="imagen"/>
+                                {% else %}
+                                {{ galeria.archivoView | raw }}
+                                {% endif %}
                             </li>
                         {% endfor %}
                     </ul>
+                    {% endif %}
                 </div>
                 <!-- Go to www.addthis.com/dashboard to customize your tools -->
                 <div class="addthis_sharing_toolbox"></div>

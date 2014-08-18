@@ -3,13 +3,19 @@
 {% block contenido %}
   
   <section class="padding columna-2">
-        <article class="list-noticias categoria">
+        <article class="estatica" data-class="list-noticias categoria">
             <header>
-                <h2 class="titulo azul">
-                    <span>{{ categoria }}</span>
+                <h2 class="titulo">
+                    <span class="azul">{{ categoria }}</span>
                 </h2>
             </header>
             <section class="noticias">
+                {% if categoria.nivel > 0 %}
+                    <span class="nivel"> {{categoria.parent}}/{{categoria}}</span>
+                {% else %}
+                    <span class="nivel"> {{categoria}} </span>
+                {% endif %}
+
                 {% for noticia in pagination %}
                     {% include 'FrontendBundle:Default:item_largo.html.twig' with {'noticia': noticia} %}
                 {% endfor %}

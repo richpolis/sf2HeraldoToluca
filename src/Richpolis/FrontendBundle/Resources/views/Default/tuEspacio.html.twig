@@ -27,7 +27,7 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@heraldodetoluca">
     <meta name="twitter:title" content="Heraldo de Toluca">
-    <meta name="twitter:description" content="{{publicacion.descripcion | raw }}">
+    <meta name="twitter:description" content="{{publicacion.descripcion | striptags | truncate(250,true,'...')}}">
     <meta name="twitter:creator" content="@richpolis">
     <meta name="twitter:image:src" content="{{urlAbsolutaFoto}}">
     <meta name="twitter:domain" content="{{url('homepage')}}">

@@ -56,19 +56,19 @@
                 <h2 class="titulo rojo">
                     heraldo tv
                 </h2>
-                <select name="cbCategoriasVideos" id="cbCategoriasVideos" class="categorias-videos" onchange="javascript:categoriasVideos()">
+                <!--select name="cbCategoriasVideos" id="cbCategoriasVideos" class="categorias-videos" onchange="javascript:categoriasVideos()">
                     {% for categoria in categorias if categoria.tipoCategoria is constant('Richpolis\\PublicacionesBundle\\Entity\\CategoriaPublicacion::TIPO_CATEGORIA_HERALDO_TV') %}
                         <option value="" disabled selected style="display:none;">Selecciona opcion</option>
 						{% for publicacion in categoria.publicaciones %}
                             <option value="{{publicacion.slug}}">{{publicacion.titulo}}</option>
                         {% endfor %}
                     {% endfor %}
-                </select>
+                </select-->
             </header>
-            <div class="controles-videos">
+            <!--div class="controles-videos">
                 <span class="control-video anterior">anterior</span>
                 <span class="control-video siguiente">siguiente</span>	
-            </div>
+            </div-->
             <section class="videos">
 
                 {% for categoria in categorias if categoria.tipoCategoria is constant('Richpolis\\PublicacionesBundle\\Entity\\CategoriaPublicacion::TIPO_CATEGORIA_HERALDO_TV') %}

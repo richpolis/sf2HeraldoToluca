@@ -156,9 +156,12 @@
 <script src="{{asset('js/bootbox.min.js')}}"></script> <!-- Filter for support page -->
 <script src="{{asset('js/custom.js')}}"></script> <!-- Custom codes -->
 <script src="{{asset('js/charts.js')}}"></script> <!-- Charts & Graphs -->
-
-
 <script>
+$(document).ready(function(){
+  $('#datatable').dataTable({
+      "sPaginationType": "full_numbers"
+  });
+});
 var editarRegistro = function(url){
         location.href=url;
 };

@@ -173,8 +173,8 @@ class Publicacion
         self::STATUS_BORRADO=>'Borrado',
         self::STATUS_INCOMPLETO=>'En edición',
         self::STATUS_REVISAR=>'A revisión',
-        self::STATUS_APROBADO=>'Aprobado',
-        self::STATUS_PUBLICADO=>'Publicado',
+        self::STATUS_APROBADO=>'Validar',
+        self::STATUS_PUBLICADO=>'Aprobado',
         self::STATUS_CADUCADO=>'Archivado',
     );
     

@@ -25,12 +25,12 @@
             </p>
         </header>
         <div class="contenido lomas lomas-visto">
-            <select name="cbLoMasVisto" id="cbLoMasVisto" class="control-lomas">
+            <!--select name="cbLoMasVisto" id="cbLoMasVisto" class="control-lomas">
                 <option value="categoria1">lo mas visto</option>
                 {% for categoria in categorias %}
                     <option value="{{categoria.id}}">{{categoria.categoria}}</option>
                 {% endfor %}    
-            </select>
+            </select-->
             <ul>
                 {% for item in lomasvistos %}
                 <li class="item-lomas-visto">
@@ -50,12 +50,12 @@
             </ul>
         </div>
         <div class="contenido lomas lomas-comentado">
-            <select name="cbLoMasComentado" id="cbLoMasComentado"  class="control-lomas">
+            <!--select name="cbLoMasComentado" id="cbLoMasComentado"  class="control-lomas">
                 <option value="categoria1">Lo mas comentado</option>
                 {% for categoria in categorias %}
                     <option value="{{categoria.id}}">{{categoria.categoria}}</option>
                 {% endfor %}
-            </select>
+            </select-->
             <ul>
                 {% for item in lomascomentados %}
                 <li class="item-lomas-comentado">
@@ -99,7 +99,7 @@
                  </ul>
              </div-->
     </article>
-    <article id="minuto-a-minuto">
+    <!--article id="minuto-a-minuto">
         <header>
             <h2 class="titulo">minuto a minuto</h2>
         </header>
@@ -113,7 +113,7 @@
                 {% endfor %}
             </ul>
         </div>
-    </article>
+    </article-->
     <div class="publicidad aside-abajo sin-padding">
         <ul class="galeria-publicidad">
         {% for publicidad in publicidadArray[aside_abajo] %}

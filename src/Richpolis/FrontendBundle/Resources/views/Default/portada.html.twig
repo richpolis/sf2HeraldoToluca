@@ -13,17 +13,21 @@
                     </header>
                     <div class="contenido">
                         <div class="contenedor-galeria">
+                            {% if publicacion.imagen | length > 0 %}
+                                <img src="{{publicacion.webPath | imagine_filter('imagen_grande') }}" alt="{{publicacion.titulo}}" class="imagen"/>           
+                            {% elseif publicacion.galerias | length > 0 %}
                             <ul class="galeria">
                                 {% for galeria in publicacion.galerias %}
-                                <li class="item">
-                                    <img src="{{ galeria.webPath | imagine_filter('imagen_grande') }}" alt="{{galeria.titulo}}" class="imagen"/>
-                                </li>
-                                {% else %}
-                                <li class="item">
-                                    <img src="{{ publicacion.webPath | imagine_filter('imagen_grande') }}" alt="{{publicacion.titulo}}" class="imagen"/>
-                                </li>    
+                                    <li class="item">
+                                        {% if galeria.isImagen %}
+                                        <img src="{{galeria.webPath | imagine_filter('imagen_grande') }}" alt="{{galeria.titulo}}" class="imagen"/>
+                                        {% else %}
+                                        {{ galeria.archivoView | raw }}
+                                        {% endif %}
+                                    </li>
                                 {% endfor %}
                             </ul>
+                            {% endif %}
                         </div>
                         <p class="sin-margen-top margen-bottom">
                         {{ publicacion.descripcion | striptags | truncate(250,true,'...') }}
