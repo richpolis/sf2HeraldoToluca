@@ -421,7 +421,7 @@ class Publicacion
         return null === $this->imagen ? null : $this->getUploadRootDir().'/thumbnails/'.$this->imagen;
     }
 
-    public function getDescripcionCorta(){
+    public function getDescripcionCorta($max = 250){
         return RpsStms::cut_string2(RpsStms::strip_html_tags($this->getDescripcion()),250);
     }
     

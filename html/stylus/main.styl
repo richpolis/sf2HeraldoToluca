@@ -115,6 +115,7 @@ nav
 		border-bottom 1px dotted gray
 		font-size 14px
 		height 60px
+		line-height 15px
 		list-style none
 		overflow hidden
 		padding 10px 0px
@@ -131,7 +132,7 @@ nav
 			position relative
 			text-align center
 			&:after
-				content ""
+				content "" 
 				display block
 				border-left 12px solid #d1d1d1
 				border-top 11px solid transparent
@@ -142,6 +143,9 @@ nav
 		& .contenido 
 			width 225px
 			margin-left 20px
+	& .contenedor-lista
+		height 405px
+		overflow hidden
 			
 .border-gris-lr
 	border-left 1px solid silver
@@ -381,7 +385,6 @@ nav
 
 .item-noticia
 	display inline-block
-	margin-left 16px
 	vertical-align top
 	width 222px
 	margin-bottom 16px
@@ -408,8 +411,9 @@ nav
 
 .item-noticia-lg
 	width 302px	
+	margin-right 16px
 	&:first-child
-		margin-left 16px
+		margin-left 0px
 	& h3.titulo
 		font-size 16.67px
 	& p
@@ -417,6 +421,7 @@ nav
 		
 .item-video
 	width 191px
+	margin-right 16px
 	&:first-child
 		margin-left 16px
 
@@ -465,7 +470,6 @@ nav
 	border-bottom 1px solid silver
 	margin-top 0px
 	padding-bottom 16px
-	margin-right 16px
 	& h2.titulo
 		background black
 		border-bottom 10px solid gray
@@ -486,6 +490,7 @@ nav
 			border-bottom 10px solid color_azul
 		&.rojo
 			border-bottom 10px solid red
+
 
 .lomas
 	width 300px
@@ -929,6 +934,9 @@ nav
 
 .padding-tl
 	padding 10px 0px 0px 16px
+
+.padding-left
+	padding 0px 0px 0px 16px
 
 .sin-margen-top
 	margin-top 0px

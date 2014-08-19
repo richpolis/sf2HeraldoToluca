@@ -79,10 +79,10 @@
                     </figure>
                 </a>
                 <div class="redes-sociales">
-                    <a href="#" target="_blank"><span class="twitter ico_twitter"></span></a>
-                    <a href="#" target="_blank"><span class="facebook ico_facebook"></span></a>
-                    <a href="#" target="_blank"><span class="youtube ico_youtube"></span></a>
-                    <a href="#" target="_blank"><span class="flickr ico_flickr"></span></a>
+                    <a href="https://twitter.com/HeraldoEdomex/" target="_blank"><span class="twitter ico_twitter"></span></a>
+                    <a href="https://www.facebook.com/HeraldoEdomex" target="_blank"><span class="facebook ico_facebook"></span></a>
+                    <a href="http://www.youtube.com/heraldodetoluca" target="_blank"><span class="youtube ico_youtube"></span></a>
+                    <a href="https://www.flickr.com/photos/77889457@N06/" target="_blank"><span class="flickr ico_flickr"></span></a>
                 </div>
                 <div class="buscador">
                     <form id="formBuscar" action="{{path('frontend_buscador')}}" class="form-buscador">
@@ -188,10 +188,10 @@
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, labore aut ratione deleniti, consequatur corporis animi impedit soluta sapiente sint ducimus quos fugiat laborum? Iste facilis, doloremque vel nemo nam.
                 </div>
                 <div class="redes-sociales">
-                    <span class="twitter ico_twitter"></span>
-                    <span class="facebook ico_facebook"></span>
-                    <span class="youtube ico_youtube"></span>
-                    <span class="flickr ico_flickr"></span>
+                    <a href="https://twitter.com/HeraldoEdomex/" target="_blank"><span class="twitter ico_twitter"></span></a>
+                    <a href="https://www.facebook.com/HeraldoEdomex" target="_blank"><span class="facebook ico_facebook"></span></a>
+                    <a href="http://www.youtube.com/heraldodetoluca" target="_blank"><span class="youtube ico_youtube"></span></a>
+                    <a href="https://www.flickr.com/photos/77889457@N06/" target="_blank"><span class="flickr ico_flickr"></span></a>
                 </div>
             </div>
         </div>    
@@ -199,18 +199,13 @@
 {% endblock %}
  
 {% block javascripts %}
-    <script src="{{asset('js/jquery.js')}}"></script>
-    <!--script src="{{asset('js/underscore-min.js')}}"></script-->
-    <!--script src="{{asset('js/backbone-min.js')}}"></script-->
-    <!--script src="{{asset('js/swig.js')}}"></script-->
-    <script type="text/javascript" src="{{asset('js/jquery.bxslider.min.js')}}"></script>
-    <script>
-        $(document).ready(function(){
-          $('.galeria').bxSlider({
-		  	  mode: 'fade',
-              autoHover:true,
-			  auto: true,
-          });
+<script src="{{asset('js/jquery.js')}}"></script>
+<!--script src="{{asset('js/underscore-min.js')}}"></script-->
+<!--script src="{{asset('js/backbone-min.js')}}"></script-->
+<!--script src="{{asset('js/swig.js')}}"></script-->
+<script type="text/javascript" src="{{asset('js/jquery.bxslider.min.js')}}"></script>
+<script>
+$(document).ready(function(){
           
           $('.galeria-publicidad').bxSlider({
                 pager: false,
@@ -252,9 +247,14 @@
              var slug = $(this).data('slug');
              var url = '{{path('frontend_publicaciones',{'slug': '***'})}}';
 	     	location.href =  url.replace("***", slug);
-          });  
+          });
 
-        });
+        
+        setTimeout(function(){
+            iniciarCircle();
+        },8000);
+
+});
 		
 function buscar(){
 	var $texto = $("#textoBuscar");
@@ -264,5 +264,13 @@ function buscar(){
 	}
 	
 }
-    </script>
+function iniciarCircle(){
+    $('#minuto-a-minuto ul.lista li:first-child').slideUp("slow",function(){
+        $('#minuto-a-minuto ul.lista').append($(this).slideDown("fast"));
+    });
+    setTimeout(function(){
+        iniciarCircle();
+    },4000);
+}
+</script>
 {% endblock %}

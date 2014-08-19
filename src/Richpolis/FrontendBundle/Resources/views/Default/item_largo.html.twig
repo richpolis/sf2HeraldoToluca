@@ -13,5 +13,5 @@
             {{noticia.titulo}}
         </h3>
     </a>
-    {{noticia.descripcion | striptags | truncate(100,true,'...') }}
+    {{noticia.descripcion | striptags | truncate(100,true,'...') | raw }}
 </article>

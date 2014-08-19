@@ -30,7 +30,7 @@
                             {% endif %}
                         </div>
                         <p class="sin-margen-top margen-bottom">
-                        {{ publicacion.descripcion | striptags | truncate(250,true,'...') }}
+                        {{ publicacion.descripcionCorta | striptags | truncate(250,true,'...') | raw  }}
                         </p>
                         <p class="cargador">
                             <a href="{{path('frontend_publicaciones',{'slug': publicacion.slug })}}" class="btn ver-nota">Ver nota</a>
@@ -46,7 +46,7 @@
                     Llamados
                 </h2>
             </header>
-            <section class="noticias">
+            <section class="noticias padding-left">
                 {% for noticia in llamados %}
                     {% include 'FrontendBundle:Default:item_largo.html.twig' with {'noticia': noticia} %}
                 {% endfor %}
@@ -57,3 +57,18 @@
         </article>
     </section>	
 {% endblock %}
+{% block javascripts %}
+{{parent()}}
+<script type="text/javascript">
+    var $boton;
+    $(document).ready(function(){
+        $('.galeria').bxSlider({
+              mode: 'fade',
+              autoHover:true,
+              auto: true,
+          });   
+        $(".bx-prev").addClass('ico_carrusel_inicio_izq');
+        $(".bx-next").addClass('ico_carrusel_inicio_der');
+    });
+</script>
+{% endblock %}    

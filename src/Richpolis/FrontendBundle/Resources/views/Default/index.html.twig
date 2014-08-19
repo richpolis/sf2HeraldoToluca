@@ -27,7 +27,7 @@
                                     <img src="{{ publicacion.galerias[0].webPath | imagine_filter('imagen_grande') }}" alt="{{publicacion.galerias[0].titulo}}"/>
                                 </figure>
                             {% endif %}
-                            {{ publicacion.descripcion | striptags | truncate(250,true,'...')  }}
+                            {{ publicacion.descripcion | striptags | truncate(250,true,'...') | raw   }}
                             <p class="cargador">
                                 <button data-slug="{{publicacion.slug}}" class="ver-nota">Ver nota</button>
                             </p>
@@ -42,7 +42,7 @@
                     ultimas noticias
                 </h2>
             </header>
-            <section class="noticias">
+            <section class="noticias padding-left">
                 {% for publicacion in ultimasPublicaciones %}
                     {% include 'FrontendBundle:Default:item_largo.html.twig' with {'noticia': publicacion } %}
                 {% endfor %}
@@ -65,11 +65,11 @@
                     {% endfor %}
                 </select-->
             </header>
-            <!--div class="controles-videos">
+            <div class="controles-videos">
                 <span class="control-video anterior">anterior</span>
                 <span class="control-video siguiente">siguiente</span>	
-            </div-->
-            <section class="videos">
+            </div>
+            <section class="videos padding-left">
 
                 {% for categoria in categorias if categoria.tipoCategoria is constant('Richpolis\\PublicacionesBundle\\Entity\\CategoriaPublicacion::TIPO_CATEGORIA_HERALDO_TV') %}
                     {% if loop.first %}
@@ -81,7 +81,7 @@
 											<img src="{{ galeria.thumbnailWebPath }}" width="191" height="121" alt="">
 										</a>
                                     </figure>
-                                    {{ galeria.descripcion | striptags | truncate(100,true,'...')  }}
+                                    {{ galeria.descripcion | striptags | truncate(100,true,'...') | raw  }}
                                     <div class="redes-sociales">
                                         <span class="share"></span>
                                         <span class="twitter"></span>
@@ -191,7 +191,14 @@
 <script src="{{asset('js/fancybox/jquery.fancybox-media.js')}}"></script>
 <script>
     $(document).ready(function() {
-		
+         $('.galeria').bxSlider({
+              mode: 'fade',
+              autoHover:true,
+              auto: true,
+          });   
+        $(".bx-prev").addClass('ico_carrusel_inicio_izq');
+        $(".bx-next").addClass('ico_carrusel_inicio_der');
+
           $(".control.izquierdo").on("click",function(){
             if(publicacionesPdf>1){
                 publicacionesPdf--;

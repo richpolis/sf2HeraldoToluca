@@ -86,6 +86,12 @@ class DefaultController extends Controller {
         }
     }
 
+    protected function getUltimasPublicaciones(&$em) {
+        $publicaciones = $em->getRepository('PublicacionesBundle:Publicacion')
+                ->getUltimasPublicaciones(10);
+        return $publicaciones;
+    }
+
     /**
      * @Route("/", name="portada")
      * @Template()
@@ -437,6 +443,7 @@ class DefaultController extends Controller {
             'lomasvistos' => $this->getLosmasVistosEnSession($em),
             'lomascomentados' => $this->getLosmasComentadosEnSession($em),
             'categorias' => $this->getCategoriasEnSession($em),
+            'ultimasPublicaciones' => $this->getUltimasPublicaciones($em),
         );
     }
     

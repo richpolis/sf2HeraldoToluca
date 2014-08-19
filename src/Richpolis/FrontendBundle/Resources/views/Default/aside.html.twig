@@ -35,16 +35,16 @@
                 {% for item in lomasvistos %}
                 <li class="item-lomas-visto">
                         <div class="numero">{{loop.index}}</div>
-                        <div class="contenido">{{item.titulo}}</div>
-                        <figure class="thumbnail-mini">
-                            <a href="{{path('frontend_publicaciones',{'slug':item.slug})}}">
-                            {% if item.imagen | length > 0 %}
-                                <img src="{{item.webPath | imagine_filter('imagen_90_60') }}" alt="{{item.titulo}}"/>
-                            {% else %}
-                                <img src="{{item.galerias[0].webPath | imagine_filter('imagen_90_60') }}" alt="{{item.galerias[0].titulo}}"/>
-                            {% endif %}
-                            </a>
-                        </figure>
+                        <a href="{{path('frontend_publicaciones',{'slug':item.slug})}}">
+                            <div class="contenido">{{item.titulo}}</div>
+                            <figure class="thumbnail-mini">
+                                {% if item.imagen | length > 0 %}
+                                    <img src="{{item.webPath | imagine_filter('imagen_90_60') }}" alt="{{item.titulo}}"/>
+                                {% else %}
+                                    <img src="{{item.galerias[0].webPath | imagine_filter('imagen_90_60') }}" alt="{{item.galerias[0].titulo}}"/>
+                                {% endif %}
+                            </figure>
+                        </a>
                 </li>
                 {% endfor %}
             </ul>
@@ -60,16 +60,16 @@
                 {% for item in lomascomentados %}
                 <li class="item-lomas-comentado">
                     <div class="numero">{{loop.index}}</div>
-                        <div class="contenido">{{item.titulo}}</div>
-                        <figure class="thumbnail-mini">
-                            <a href="{{path('frontend_publicaciones',{'slug':item.slug})}}">
-                            {% if item.imagen | length > 0 %}
-                                <img src="{{item.webPath | imagine_filter('imagen_90_60') }}" alt="{{item.titulo}}"/>
-                            {% elseif item.galerias | length > 0 %}
-                                <img src="{{item.galerias[0].webPath | imagine_filter('imagen_90_60') }}" alt="{{item.galerias[0].titulo}}"/>
-                            {% endif %}
-                            </a>    
-                        </figure>
+                        <a href="{{path('frontend_publicaciones',{'slug':item.slug})}}">
+                            <div class="contenido">{{item.titulo}}</div>
+                            <figure class="thumbnail-mini">
+                                {% if item.imagen | length > 0 %}
+                                    <img src="{{item.webPath | imagine_filter('imagen_90_60') }}" alt="{{item.titulo}}"/>
+                                {% elseif item.galerias | length > 0 %}
+                                    <img src="{{item.galerias[0].webPath | imagine_filter('imagen_90_60') }}" alt="{{item.galerias[0].titulo}}"/>
+                                {% endif %}
+                            </figure>
+                        </a>    
                 </li>
                 {% endfor%}
             </ul>
@@ -99,21 +99,23 @@
                  </ul>
              </div-->
     </article>
-    <!--article id="minuto-a-minuto">
+    <article id="minuto-a-minuto">
         <header>
             <h2 class="titulo">minuto a minuto</h2>
         </header>
-        <div class="contenido">
+        <div class="contenido contenedor-lista">
             <ul class="lista">
-                {% for item in range(1,5) %}
+                {% for item in ultimasPublicaciones %}
                 <li class="item minuto">
-                    <span class="tiempo">{{"now" |date("G:i")}}</span>
-                    <div class="contenido">Titulo de una publicacion {{item}}</div>
+                    <span class="tiempo">{{ item.createdAt|date("G:i") }}</span>
+                    <a href="{{path('frontend_publicaciones',{'slug':item.slug})}}">
+                        <div class="contenido">{{ item.titulo }}</div>
+                    </a>
                 </li>
                 {% endfor %}
             </ul>
         </div>
-    </article-->
+    </article>
     <div class="publicidad aside-abajo sin-padding">
         <ul class="galeria-publicidad">
         {% for publicidad in publicidadArray[aside_abajo] %}
