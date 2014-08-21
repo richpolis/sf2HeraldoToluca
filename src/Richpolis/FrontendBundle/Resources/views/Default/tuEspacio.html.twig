@@ -7,7 +7,7 @@
 
 {% if publicacion.imagen | length > 0 %}
    {% set portada = 'publicaciones/' ~ publicacion.imagen %}
-{% else %}
+{% elseif publicacion.galerias | length > 0 %}
    {% set portada = 'galerias/' ~ publicacion.galerias[0].archivo %} 
 {% endif %}    
 
@@ -19,14 +19,19 @@
 
     <meta property="og:url" content="{{url('frontend_tu_espacio',{'slug': publicacion.slug})}}" />
     <meta property="og:title" content="{{ publicacion.titulo }}" />
-    <meta property="og:image" content="{{ urlAbsolutaFoto }}" />
+    <meta property="og:description" content="{{ publicacion.descripcion | striptags | truncate(250,true,'...') | raw  }}" />
+    {% if publicacion.imagen | length > 0 %}
+    <meta property="og:image" content="{{ 'http://' ~ app.request.server.get('SERVER_NAME') ~ publicacion.webPath | imagine_filter('imagen_120_90') }}" />
+    {% elseif publicacion.galerias | length > 0 %}
+    <meta property="og:image" content="{{ 'http://' ~ app.request.server.get('SERVER_NAME') ~ publicacion.galerias[0].webPath | imagine_filter('imagen_120_90') }}" />    
+    {% endif %}    
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="heraldodetoluca.com.mx" />
     <!--meta property="fb:admins" content="USER_ID1,USER_ID2"/-->
     
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@heraldodetoluca">
-    <meta name="twitter:title" content="Heraldo de Toluca">
+    <meta name="twitter:title" content="{{ publicacion.titulo }}">
     <meta name="twitter:description" content="{{publicacion.descripcion | striptags | truncate(250,true,'...')}}">
     <meta name="twitter:creator" content="@richpolis">
     <meta name="twitter:image:src" content="{{urlAbsolutaFoto}}">
@@ -40,7 +45,6 @@
     <meta name="twitter:app:id:iphone" content="">
     <meta name="twitter:app:id:ipad" content="">
     <meta name="twitter:app:id:googleplay" content="">
-    
 
 {% endblock %}
 

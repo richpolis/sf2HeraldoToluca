@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}HERALDO DE TOLUCA{% endblock %}
+{% block title %}H GRUPO EDITORIAL{% endblock %}
 
 {% set urlAbsolutaFoto = 'http://'
                              ~ app.request.server.get('SERVER_NAME')
@@ -59,7 +59,7 @@
 {% block body %}
 <div class="container border-gris-lr">
         <header class="header">
-            <div class="publicidad">
+            <div class="publicidad publicidad-principal">
                 {{ render(controller('FrontendBundle:Default:publicidadHead')) }}
             </div>
             <div class="navegador secundario">
@@ -96,9 +96,9 @@
         </header>
         <nav class="navegador principal">
             <ul class="menu">
-                <li>
+                <!--li>
                     <a href="{{path('portada')}}">portada</a>
-                </li>
+                </li-->
                 <li>
                     <a href="{{path('homepage')}}">inicio</a>
                 </li>
@@ -164,7 +164,7 @@
                 </div>
                 <div class="navegador principal principal-footer">
                     <ul>
-                        <li><a href="{{path('portada')}}">portada</a></li>
+                        <!--li><a href="{{path('portada')}}">portada</a></li-->
                         <li><a href="{{path('homepage')}}">inicio</a></li>
                         <li><a href="{{path('frontend_categoria',{slug: 'general'})}}">general</a></li>
                         <li><a href="{{path('frontend_categoria',{slug: 'nacional'})}}">nacional</a></li>
@@ -211,7 +211,7 @@ $(document).ready(function(){
                 pager: false,
                 controls: false,
                 auto: true,
-                pause: 5000,
+                pause: 8000,
                 autoHover: true,
           });
           
@@ -219,7 +219,7 @@ $(document).ready(function(){
                 pager: false,
                 controls: false,
                 auto: true,
-                pause: 5000,
+                pause: 8000,
                 slideWidth: 728,
                 autoHover: true,
           });
@@ -228,7 +228,7 @@ $(document).ready(function(){
                 pager: false,
                 controls: false,
                 auto: true,
-                pause: 5000,
+                pause: 8000,
                 slideWidth: 230,
                 autoHover: true
           });

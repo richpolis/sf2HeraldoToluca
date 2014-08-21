@@ -86,8 +86,8 @@ nav{height:30px}
 #minuto-a-minuto ul{margin:0;padding:0}
 #minuto-a-minuto li{border-bottom:1px dotted #808080;font-size:14px;height:60px;line-height:15px;list-style:none;overflow:hidden;padding:10px 0;}
 #minuto-a-minuto li .tiempo,#minuto-a-minuto li .contenido{display:inline-block;vertical-align:middle}
-#minuto-a-minuto li .tiempo{margin-top:20px;width:45px;background:#d1d1d1;color:#2369ab;padding:3px;position:relative;text-align:center;}
-#minuto-a-minuto li .tiempo:after{content:"";display:block;border-left:12px solid #d1d1d1;border-top:11px solid transparent;border-bottom:11px solid transparent;position:absolute;right:-12px;top:0}
+#minuto-a-minuto li .tiempo{margin-top:20px;width:45px;background:#f1f1f1;color:#2369ab;padding:3px;position:relative;text-align:center;}
+#minuto-a-minuto li .tiempo:after{content:"";display:block;border-left:12px solid #f1f1f1;border-top:11px solid transparent;border-bottom:11px solid transparent;position:absolute;right:-12px;top:0}
 #minuto-a-minuto li .contenido{width:225px;margin-left:20px}
 #minuto-a-minuto .contenedor-lista{height:405px;overflow:hidden}
 .border-gris-lr{border-left:1px solid #c0c0c0;border-right:1px solid #c0c0c0}
@@ -194,6 +194,7 @@ nav{height:30px}
 .titulo-tabs .tab.active{border-bottom:3px solid #2369ab}
 .control-lomas{float:right;background:transparent;font-size:14px;padding:3px 5px;color:#808080;border:1px solid #808080;-webkit-border-radius:5px;border-radius:5px;min-width:200px}
 .publicidad{padding-bottom:1em;}
+.publicidad.publicidad-principal{overflow:hidden;height:90px}
 .publicidad .item-publicidad{display:inline-block;vertical-align:top;}
 .publicidad .item-publicidad:last-child{margin-left:1em}
 .publicacion-tu-espacio{margin-top:0;padding-bottom:16px;}

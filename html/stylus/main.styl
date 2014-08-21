@@ -126,7 +126,7 @@ nav
 		& .tiempo
 			margin-top 20px
 			width 45px
-			background #d1d1d1
+			background #F1F1F1
 			color color_azul
 			padding 3px
 			position relative
@@ -134,7 +134,7 @@ nav
 			&:after
 				content "" 
 				display block
-				border-left 12px solid #d1d1d1
+				border-left 12px solid #F1F1F1
 				border-top 11px solid transparent
 				border-bottom 11px solid transparent
 				position absolute 
@@ -677,7 +677,10 @@ nav
 			
 .publicidad
 	padding-bottom 1em
-	.item-publicidad
+	&.publicidad-principal
+		overflow hidden
+		height 90px
+	& .item-publicidad
 		display inline-block	 
 		vertical-align top
 		&:last-child

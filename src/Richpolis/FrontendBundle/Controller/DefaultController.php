@@ -56,7 +56,7 @@ class DefaultController extends Controller {
             return $losmasvistos;
         } else {
             $losmasvistos = $em->getRepository('PublicacionesBundle:Publicacion')
-                          ->findLosMasVistos();
+                          ->findLosMasVistos(0,  CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION);
             $this->setVAloresSession('losmasvistos', $losmasvistos);
             return $losmasvistos;
         }
@@ -68,7 +68,7 @@ class DefaultController extends Controller {
             return $losmascomentados;
         } else {
             $losmascomentados = $em->getRepository('PublicacionesBundle:Publicacion')
-                          ->findLosMasComentados();
+                          ->findLosMasComentados(0,  CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION);
             $this->setVAloresSession('losmascomentados', $losmascomentados);
             return $losmascomentados;
         }
