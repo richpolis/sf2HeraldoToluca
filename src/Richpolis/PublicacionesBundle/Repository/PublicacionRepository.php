@@ -195,8 +195,8 @@ class PublicacionRepository extends EntityRepository
                 ->leftJoin('p.categoria', 'c')
                 ->where('p.isCarrusel=:isCarrusel')
                 ->setParameter('isCarrusel', true)
-                ->orderBy('p.createdAt', 'DESC')/*
-                ->addOrderBy('g.position', 'ASC')*/;
+                ->orderBy('p.isPrincipal', 'DESC')
+                ->addOrderBy('p.createdAt', 'DESC');
         if($todos){
             $query->andWhere('p.status <=:status')
                   ->setParameter('status', $status);
@@ -334,6 +334,16 @@ class PublicacionRepository extends EntityRepository
             'createdAt',
             'DESC'
         );
+        return $query->setMaxResults($registros)->getResult();
+    }
+	
+	public function getPublicacionesRelacionadas(CategoriaPublicacion $categoria, $registros = 9){
+
+        $query=$this->queryPorCategoria(
+			$categoria->getId(),
+            Publicacion::STATUS_PUBLICADO
+        );
+		
         return $query->setMaxResults($registros)->getResult();
     }
 

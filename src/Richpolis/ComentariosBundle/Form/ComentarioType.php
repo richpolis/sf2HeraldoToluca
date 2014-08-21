@@ -22,7 +22,7 @@ class ComentarioType extends AbstractType
 		
         $builder
             ->add('username','text',array('label'=>'Nombre (obligatorio)','attr'=>array(
-                'class'=>'validate[required] form-control placeholder',
+                'class'=>'form-control placeholder',
                 'placeholder'=>'Nombre',
                 'data-bind'=>'value: nombre'
              )))
@@ -32,7 +32,7 @@ class ComentarioType extends AbstractType
                 'data-bind'=>'value: email'
              )))    
             ->add('message',null,array(
-                'label'=>'Comentario',
+                'label'=>'validate[required] Comentario',
                 'required'=>true,
                 'attr'=>array(
                     'class'=>'form-control placeholder',

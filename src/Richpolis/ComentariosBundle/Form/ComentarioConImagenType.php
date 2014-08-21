@@ -22,7 +22,7 @@ class ComentarioConImagenType extends AbstractType
 		
         $builder
             ->add('username','text',array('label'=>'Nombre (obligatorio)','attr'=>array(
-                'class'=>'validate[required] form-control placeholder',
+                'class'=>'form-control placeholder',
                 'placeholder'=>'Nombre',
                 'data-bind'=>'value: nombre'
              )))
@@ -35,10 +35,12 @@ class ComentarioConImagenType extends AbstractType
                 'label'=>'Comentario',
                 'required'=>true,
                 'attr'=>array(
-                    'class'=>'form-control placeholder',
+                    'class'=>'validate[required] form-control placeholder',
                     )
                 ))
-            ->add('file','file',array('label'=>'Archivo'))    
+            ->add('file','file',array('label'=>'Archivo''attr'=>array(
+                    'class'=>'validate[required] form-control placeholder',
+                    )))    
             ->add('status','hidden')
             ->add('archivo','hidden')
             ->add('tipoArchivo','hidden')

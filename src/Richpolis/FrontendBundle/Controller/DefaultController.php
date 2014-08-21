@@ -219,9 +219,15 @@ class DefaultController extends Controller {
         }
         $comentarios = $em->getRepository('ComentariosBundle:Comentario')
                 ->findBy(array('publicacion' => $publicacion), array('createdAt' => 'ASC'));
-
+		
+		$categoria = $publicacion->getCategoria();
+		
+		$relacionados = $em->getRepository('PublicacionesBundle:Publicacion')
+                			->getPublicacionesRelacionadas($categoria);
+		
         return array(
-            'categoria' => $publicacion->getCategoria(),
+            'categoria' => $categoria,
+			'relacionados' => $relacionados,
             'publicacion' => $publicacion,
             'comentarios' => $comentarios,
             'form' => $form->createView(),

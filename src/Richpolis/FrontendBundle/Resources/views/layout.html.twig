@@ -7,34 +7,31 @@
                              ~ asset('images/heraldologo.png') %}
 {% block stylesheets %}
     
-    {% block redes_sociales %}
+	{% block redes_sociales %}
+		<meta property="og:url" content="{{url('homepage')}}" />
+		<meta property="og:title" content="Heraldo de Toluca" />
+		<meta property="og:image" content="{{urlAbsolutaFoto}}" />
+		<meta property="og:type" content="article" />
+		<meta property="og:site_name" content="heraldodetoluca.com.mx" />
+		<!--meta property="fb:admins" content="USER_ID1,USER_ID2"/-->
 
-    <meta property="og:url" content="{{url('homepage')}}" />
-    <meta property="og:title" content="Heraldo de Toluca" />
-    <meta property="og:image" content="{{urlAbsolutaFoto}}" />
-    <meta property="og:type" content="article" />
-    <meta property="og:site_name" content="heraldodetoluca.com.mx" />
-    <!--meta property="fb:admins" content="USER_ID1,USER_ID2"/-->
-    
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@heraldodetoluca">
-    <meta name="twitter:title" content="Heraldo de Toluca">
-    <meta name="twitter:description" content="Descripcion de la publicacion">
-    <meta name="twitter:creator" content="@richpolis">
-    <meta name="twitter:image:src" content="{{urlAbsolutaFoto}}">
-    <meta name="twitter:domain" content="{{url('homepage')}}">
-    <meta name="twitter:app:name:iphone" content="">
-    <meta name="twitter:app:name:ipad" content="">
-    <meta name="twitter:app:name:googleplay" content="">
-    <meta name="twitter:app:url:iphone" content="">
-    <meta name="twitter:app:url:ipad" content="">
-    <meta name="twitter:app:url:googleplay" content="">
-    <meta name="twitter:app:id:iphone" content="">
-    <meta name="twitter:app:id:ipad" content="">
-    <meta name="twitter:app:id:googleplay" content="">
-    
-
-    {% endblock %}
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:site" content="@heraldodetoluca">
+		<meta name="twitter:title" content="Heraldo de Toluca">
+		<meta name="twitter:description" content="Descripcion de la publicacion">
+		<meta name="twitter:creator" content="@richpolis">
+		<meta name="twitter:image:src" content="{{urlAbsolutaFoto}}">
+		<meta name="twitter:domain" content="{{url('homepage')}}">
+		<meta name="twitter:app:name:iphone" content="">
+		<meta name="twitter:app:name:ipad" content="">
+		<meta name="twitter:app:name:googleplay" content="">
+		<meta name="twitter:app:url:iphone" content="">
+		<meta name="twitter:app:url:ipad" content="">
+		<meta name="twitter:app:url:googleplay" content="">
+		<meta name="twitter:app:id:iphone" content="">
+		<meta name="twitter:app:id:ipad" content="">
+		<meta name="twitter:app:id:googleplay" content="">
+	{% endblock %}
 
 <link rel="stylesheet" href="{{asset('css/main.css')}}"/>
 <link rel="stylesheet" href="{{asset('css/jquery.bxslider.css')}}"/>
@@ -81,7 +78,7 @@
                 <div class="redes-sociales">
                     <a href="https://twitter.com/HeraldoEdomex/" target="_blank"><span class="twitter ico_twitter"></span></a>
                     <a href="https://www.facebook.com/HeraldoEdomex" target="_blank"><span class="facebook ico_facebook"></span></a>
-                    <a href="http://www.youtube.com/heraldodetoluca" target="_blank"><span class="youtube ico_youtube"></span></a>
+                    <a href="https://www.youtube.com/user/HGrupoEditorial" target="_blank"><span class="youtube ico_youtube"></span></a>
                     <a href="https://www.flickr.com/photos/77889457@N06/" target="_blank"><span class="flickr ico_flickr"></span></a>
                 </div>
                 <div class="buscador">
@@ -91,7 +88,7 @@
                         <a href="{{path('frontend_archivos')}}" class="link-archivo">archivos</a>
                     </form>
                 </div>
-                <div class="fecha">{{"now"|date("l ,j F  Y","America/Mexico_City")}}</div>
+                <div class="fecha">{{"now"|localizeddate('full','none',app.request.locale,'America/Mexico_City')}}</div>
             </div>
         </header>
         <nav class="navegador principal">
@@ -190,7 +187,7 @@
                 <div class="redes-sociales">
                     <a href="https://twitter.com/HeraldoEdomex/" target="_blank"><span class="twitter ico_twitter"></span></a>
                     <a href="https://www.facebook.com/HeraldoEdomex" target="_blank"><span class="facebook ico_facebook"></span></a>
-                    <a href="http://www.youtube.com/heraldodetoluca" target="_blank"><span class="youtube ico_youtube"></span></a>
+                    <a href="https://www.youtube.com/user/HGrupoEditorial" target="_blank"><span class="youtube ico_youtube"></span></a>
                     <a href="https://www.flickr.com/photos/77889457@N06/" target="_blank"><span class="flickr ico_flickr"></span></a>
                 </div>
             </div>
@@ -244,12 +241,11 @@ $(document).ready(function(){
           $(".tab-visto").click();
           
           $(".ver-nota").on("click",function(){
-             var slug = $(this).data('slug');
-             var url = '{{path('frontend_publicaciones',{'slug': '***'})}}';
-	     	location.href =  url.replace("***", slug);
+            	var slug = $(this).data('slug');
+            	var url = '{{path('frontend_publicaciones',{'slug': '***'})}}';
+				location.href =  url.replace("***", slug);
           });
 
-        
         setTimeout(function(){
             iniciarCircle();
         },8000);

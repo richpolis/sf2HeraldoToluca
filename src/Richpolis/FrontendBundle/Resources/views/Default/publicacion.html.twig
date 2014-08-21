@@ -52,17 +52,17 @@
     <section class="padding columna-3">
         <article class="relacionados">
             <section class="noticias padding-left carrusel" style="padding-left: 20px;">
-                {% for noticia in categoria.publicaciones if noticia.id!=publicacion.id %}
+                {% for noticia in relacionados if noticia.id != publicacion.id %}
                     {% include 'FrontendBundle:Default:item_relacionado.html.twig' with {'noticia': noticia } %}
                 {% endfor %}
             </section>
-        </article>
+		</article>
     </section>
     <section class="padding columna-2">
         <article class="publicacion-completa">
             <header>
                 <h2 class="titulo">
-                    {{publicacion.titulo}}
+                    {{ publicacion.titulo }}
                 </h2>
                 <span class="datetime">{{ publicacion.createdAt|date("m/d/Y g:ia","America/Mexico_City")}}</span>
             </header>
@@ -134,7 +134,15 @@
 <script type="text/javascript">
     var $boton;
     $(document).ready(function(){
-        $('.galeria').bxSlider({
+        $('.carrusel').bxSlider({
+              auto: false,
+			  minSlides: 3,
+			  maxSlides: 3,
+			  slideWidth: 246,
+			  slideMargin: 40,
+			  pager: false,
+          }); 
+		$('.galeria').bxSlider({
               mode: 'fade',
               autoHover:true,
               auto: true,
@@ -142,6 +150,9 @@
         $(".bx-prev").addClass('ico_carrusel_inicio_izq');
         $(".bx-next").addClass('ico_carrusel_inicio_der');
         
+		$("article.relacionados .bx-prev").css({'left': '-30px'});
+		$("article.relacionados .bx-next").css({'right': '-30px'});
+		
         $(".boton-responder").on("click",function(){
             $boton = $(this);
             var $controles = $boton.parent();

@@ -21,7 +21,7 @@
         <td class="is-principal" data-url="{{ path('backend_publicacion_is_principal',{'id': entity.id }) }}">
             {% if is_granted('ROLE_ADMIN') %}
                 {% if entity.isPrincipal %}
-                    <button class="backend btn btn-success activo" onclick="javascript:backend({{entity.id}}, '.is-principal')"><i class="fa fa-check-square-o"></i></button>
+                    {{ entity.isPrincipal | isActive | raw }}
                 {% else %}
                     <button class="backend btn btn-info inactivo" onclick="javascript:backend({{entity.id}}, '.is-principal')"><i class="fa fa-square-o"></i></button>
                 {% endif %}    
@@ -31,7 +31,9 @@
         </td>
         <td class="in-carrusel" data-url="{{ path('backend_publicacion_in_carrusel',{'id': entity.id }) }}">
             {% if entity.status <= constant('Richpolis\\PublicacionesBundle\\Entity\\Publicacion::STATUS_PUBLICADO') %}
-                {% if entity.isCarrusel %}
+                {% if entity.isPrincipal %}
+                    {{ entity.isCarrusel | isActive | raw }}
+                {% elseif entity.isCarrusel %}
                     <button class="backend btn btn-success activo" onclick="javascript:backend({{entity.id}}, '.in-carrusel')"><i class="fa fa-check-square-o"></i></button>
                 {% else %}
                     <button class="backend btn btn-info inactivo" onclick="javascript:backend({{entity.id}}, '.in-carrusel')"><i class="fa fa-square-o"></i></button>

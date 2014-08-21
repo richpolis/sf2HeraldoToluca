@@ -7,7 +7,7 @@
     </figure>
     {% endif %}
     <div class="contenido {% if comentario.archivo | length > 0 %} con-imagen {% endif %}">
-        <p class="fecha">{{comentario.createdAt|date("l,j F  Y  g:ia","America/Mexico_City")}}</p>
+        <p class="fecha">{{comentario.createdAt|localizeddate('full','medium',app.request.locale,"America/Mexico_City")}}</p>
         <p class="publicado-por">Publicado por: <span class="username">{{comentario.username}}</span></p>
         <p class="contenido">
             {{comentario.message}}
