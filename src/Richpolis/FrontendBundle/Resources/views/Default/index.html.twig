@@ -43,13 +43,20 @@
                 </h2>
             </header>
             <section class="noticias padding-left">
-                {% for publicacion in ultimasPublicaciones %}
+                {% for publicacion in ultimasPublicaciones| slice(0, 4) %}
                     {% include 'FrontendBundle:Default:item_largo.html.twig' with {'noticia': publicacion } %}
                 {% endfor %}
             </section>
+            <section class="noticias padding-left ultimas-noticias hidden">
+                {% for publicacion in ultimasPublicaciones| slice(4, 6) %}
+                    {% include 'FrontendBundle:Default:item_largo.html.twig' with {'noticia': publicacion } %}
+                {% endfor %}
+            </section>
+            {% if ultimasPublicaciones | length > 4 %}
             <p class="cargador azul">
-                cargar mas notas <span class="cargar-mas-notas azul">+</span>
+                <a href="#" class="lanzador-cargar-notas" data-clase="ultimas-noticias">cargar mas notas <span class="cargar-mas-notas azul">+</span></a>
             </p>
+            {% endif %}
         </article>
         <article class="list-noticias list-videos">
             <header class="relative">
@@ -95,88 +102,195 @@
         </article>
         <article class="list-noticias">
             <header>
-                <h2 class="titulo nacional">
+                <h2 class="titulo nacional azul">
+                    llamados
+                </h2>
+            </header>
+            <section class="noticias">
+                {% set llamados = 0 %}
+                {% for categoria in categorias if categoria.slug == 'llamados'  %}
+                    {% for publicacion in categoria.publicaciones|slice(0, 3) %}
+                        {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
+                        {% set llamados = llamados + 1 %}
+                    {% endfor %}
+                {% endfor %}
+            </section>
+            <section class="noticias noticias-llamados hidden">
+                {% for categoria in categorias if categoria.slug == 'llamados'  %}
+                    {% for publicacion in categoria.publicaciones|slice(3, 3) %}
+                        {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
+                        {% set llamados = llamados + 1 %}
+                    {% endfor %}
+                {% endfor %}
+                <p class="cargador azul">
+                    <a href="{{path('frontend_categoria',{'slug':'llamados'})}}">cargar mas notas <span class="cargar-mas-notas azul">+</span></a>
+                </p>
+            </section>
+            {% if llamados > 3 %}    
+            <p class="cargador azul">
+                <a href="#" class="lanzador-cargar-notas" data-clase="noticias-llamados">cargar mas notas <span class="cargar-mas-notas azul">+</span></a>
+            </p>
+            {% endif %}
+        </article>    
+        <article class="list-noticias">
+            <header>
+                <h2 class="titulo nacional azul">
                     nacional
                 </h2>
             </header>
             <section class="noticias">
+                {% set nacional = 0 %}
                 {% for categoria in categorias if categoria.slug == 'nacional'  %}
                     {% for publicacion in categoria.publicaciones|slice(0, 3) %}
                         {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
+                        {% set nacional = nacional + 1 %}
                     {% endfor %}
                 {% endfor %}
             </section>
+            <section class="noticias noticias-nacional hidden">
+                {% for categoria in categorias if categoria.slug == 'nacional'  %}
+                    {% for publicacion in categoria.publicaciones|slice(3, 3) %}
+                        {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
+                        {% set nacional = nacional + 1 %}
+                    {% endfor %}
+                {% endfor %}
+                <p class="cargador azul">
+                    <a href="{{path('frontend_categoria',{'slug':'nacional'})}}">cargar mas notas <span class="cargar-mas-notas azul">+</span></a>
+                </p>
+            </section>
+            {% if nacional > 3 %}    
             <p class="cargador azul">
-                cargar mas notas <span class="cargar-mas-notas azul">+</span>
+                <a href="#" class="lanzador-cargar-notas" data-clase="noticias-nacional">cargar mas notas <span class="cargar-mas-notas azul">+</span></a>
             </p>
+            {% endif %}
         </article>
         <article class="list-noticias">
             <header>
-                <h2 class="titulo mundo">
+                <h2 class="titulo mundo rojo">
                     mundo
                 </h2>
             </header>
             <section class="noticias">
+                {% set mundo = 0 %}
                 {% for categoria in categorias if categoria.slug == 'mundo'  %}
                     {% for publicacion in categoria.publicaciones|slice(0, 3) %}
                         {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
+                        {% set mundo = mundo + 1 %}
                     {% endfor %}
                 {% endfor %}
             </section>
+            <section class="noticias noticias-mundo hidden">
+                {% for categoria in categorias if categoria.slug == 'mundo'  %}
+                    {% for publicacion in categoria.publicaciones|slice(3, 3) %}
+                        {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
+                        {% set mundo = mundo + 1  %}
+                    {% endfor %}
+                {% endfor %}
+                <p class="cargador rojo">
+                    <a href="{{path('frontend_categoria',{'slug':'mundo'})}}">cargar mas notas <span class="cargar-mas-notas rojo">+</span></a>
+                </p>
+            </section>
+            {% if mundo > 3 %}    
             <p class="cargador rojo">
-                cargar mas notas <span class="cargar-mas-notas rojo">+</span>
+                <a href="#"  class="lanzador-cargar-notas" data-clase="noticias-mundo">cargar mas notas <span class="cargar-mas-notas rojo">+</span></a>
             </p>
+            {% endif %}
         </article>
         <article class="list-noticias">
             <header>
-                <h2 class="titulo trofeo">
+                <h2 class="titulo trofeo gris">
                     trofeo
                 </h2>
             </header>
             <section class="noticias">
+                {% set trofeo = 0 %}
                 {% for categoria in categorias if categoria.slug == 'trofeo'  %}
                     {% for publicacion in categoria.publicaciones|slice(0, 3) %}
                         {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
+                        {% set trofeo = trofeo + 1 %}
                     {% endfor %}
                 {% endfor %}
             </section>
+            <section class="noticias noticias-trofeo hidden">
+                {% for categoria in categorias if categoria.slug == 'trofeo'  %}
+                    {% for publicacion in categoria.publicaciones|slice(3, 3) %}
+                        {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
+                        {% set trofeo = trofeo + 1 %}
+                    {% endfor %}
+                {% endfor %}
+                <p class="cargador gris">
+                    <a href="{{path('frontend_categoria',{'slug':'trofeo'})}}">cargar mas notas <span class="cargar-mas-notas gris">+</span></a>
+                </p>
+            </section>
+            {% if trofeo > 3 %}    
             <p class="cargador gris">
-                cargar mas notas <span class="cargar-mas-notas gris">+</span>
+                <a href="#"  class="lanzador-cargar-notas" data-clase="noticias-trofeo">cargar mas notas <span class="cargar-mas-notas gris">+</span></a>
             </p>
+            {% endif %}
         </article>
         <article class="list-noticias">
             <header>
-                <h2 class="titulo arte-gente">
+                <h2 class="titulo arte-gente azul">
                     arte y gente
                 </h2>
             </header>
             <section class="noticias">
+                {% set arteygente = 0 %}
                 {% for categoria in categorias if categoria.slug == 'arte-y-gente'  %}
                     {% for publicacion in categoria.publicaciones|slice(0, 3) %}
                         {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
+                        {% set arteygente = arteygente + 1 %}
                     {% endfor %}
                 {% endfor %}
             </section>
+            <section class="noticias noticias-arte-y-gente hidden">
+                {% for categoria in categorias if categoria.slug == 'arte-y-gente'  %}
+                    {% for publicacion in categoria.publicaciones|slice(3, 3) %}
+                        {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
+                        {% set arteygente = arteygente + 1 %}
+                    {% endfor %}
+                {% endfor %}
+                <p class="cargador azul">
+                    <a href="{{path('frontend_categoria',{'slug':'arte-y-gente'})}}">cargar mas notas <span class="cargar-mas-notas azul">+</span></a>
+                </p>
+            </section>
+            {% if arteygente > 3 %}    
             <p class="cargador azul">
-                cargar mas notas <span class="cargar-mas-notas azul">+</span>
+                <a href="#" class="lanzador-cargar-notas"  data-clase="noticias-arte-y-gente">cargar mas notas <span class="cargar-mas-notas azul">+</span></a>
             </p>
+            {% endif %}
         </article>
         <article class="list-noticias">
             <header>
-                <h2 class="titulo minucipios">
+                <h2 class="titulo minucipios rojo">
                     municipios
                 </h2>
             </header>
             <section class="noticias">
+                {% set municipios = 0 %}
                 {% for categoria in categorias if categoria.slug == 'municipios'  %}
                     {% for publicacion in categoria.publicaciones|slice(0, 3) %}
                         {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
+                        {% set municipios = municipios + 1 %}
                     {% endfor %}
                 {% endfor %}
             </section>
+            <section class="noticias noticias-municipios hidden">
+                {% for categoria in categorias if categoria.slug == 'municipios'  %}
+                    {% for publicacion in categoria.publicaciones|slice(3, 3) %}
+                        {% include 'FrontendBundle:Default:item_chico.html.twig' with {'noticia': publicacion } %}
+                        {% set municipios = municipios + 1 %}
+                    {% endfor %}
+                {% endfor %}
+                <p class="cargador rojo">
+                    <a href="{{path('frontend_categoria',{'slug':'municipios'})}}">cargar mas notas <span class="cargar-mas-notas rojo">+</span></a>
+                </p>
+            </section>
+            {% if municipios > 3 %}
             <p class="cargador rojo">
-                cargar mas notas <span class="cargar-mas-notas rojo">+</span>
+                <a href="#" class="lanzador-cargar-notas"  data-clase="noticias-municipios">cargar mas notas <span class="cargar-mas-notas rojo">+</span></a>
             </p>
+            {% endif %}
         </article>
     </section>
     {# include 'FrontendBundle:Default:aside.html.twig' #}        
@@ -237,6 +351,16 @@ var sliderVideos;
             youtube : {
                autoplay: 0
             }
+        });
+        
+        $("a.lanzador-cargar-notas").on("click",function(e){
+           e.preventDefault();
+           e.stopPropagation();
+           debugger;
+           var clase = $(this).data('clase');
+           $(this).parent().remove();
+           //$("."+clase).removeClass('hidden');
+           $("."+clase).fadeIn('fast');
         });
     });
 

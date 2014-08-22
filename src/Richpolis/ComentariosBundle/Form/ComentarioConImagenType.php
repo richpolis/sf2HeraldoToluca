@@ -21,7 +21,7 @@ class ComentarioConImagenType extends AbstractType
 		$publicacionTransformer = new PublicacionToNumberTransformer($em);
 		
         $builder
-            ->add('username','text',array('label'=>'Nombre (obligatorio)','attr'=>array(
+            ->add('username','text',array('label'=>'Nombre (opcional)','attr'=>array(
                 'class'=>'form-control placeholder',
                 'placeholder'=>'Nombre',
                 'data-bind'=>'value: nombre'
@@ -38,9 +38,11 @@ class ComentarioConImagenType extends AbstractType
                     'class'=>'validate[required] form-control placeholder',
                     )
                 ))
-            ->add('file','file',array('label'=>'Archivo''attr'=>array(
+            ->add('file','file',array('label'=>'Archivo',
+                'attr'=>array(
                     'class'=>'validate[required] form-control placeholder',
-                    )))    
+                    )
+                ))    
             ->add('status','hidden')
             ->add('archivo','hidden')
             ->add('tipoArchivo','hidden')

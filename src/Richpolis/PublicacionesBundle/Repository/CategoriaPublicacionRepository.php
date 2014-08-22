@@ -174,21 +174,13 @@ class CategoriaPublicacionRepository extends EntityRepository
 	
 	 public function getCategoriasConPublicaciones($maxPublicaciones = 4){
         $em=$this->getEntityManager();
-        /*$query=$em->createQuery('
-               SELECT c,p,g 
-               FROM PublicacionesBundle:CategoriaPublicacion c 
-               JOIN c.publicaciones p 
-               JOIN p.galerias g 
-               WHERE SIZE(c.publicaciones) <= :maximo 
-               ORDER BY p.position ASC, g.position ASC
-        ')->setParameters(array('maximo'=>$maxPublicaciones));*/
         $query=$em->createQuery('
                SELECT c,p 
                FROM PublicacionesBundle:CategoriaPublicacion c 
                JOIN c.publicaciones p 
-               WHERE SIZE(c.publicaciones) <= :maximo 
+               WHERE p.position BETWEEN :inicial AND :final 
                ORDER BY p.position ASC
-        ')->setParameters(array('maximo'=>$maxPublicaciones));
+        ')->setParameters(array('inicial'=>1,'final'=>$maxPublicaciones));
         
         return $query->getResult();
     }
