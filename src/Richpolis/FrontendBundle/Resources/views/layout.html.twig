@@ -88,7 +88,7 @@
                         <a href="{{path('frontend_archivos')}}" class="link-archivo">archivos</a>
                     </form>
                 </div>
-                <div class="fecha">{{"now"|localizeddate('full','none',app.request.locale,'America/Mexico_City')}}</div>
+                <div class="fecha">{{"now"|date("l,j F Y", "America/Mexico_City")}}</div>
             </div>
         </header>
         <nav class="navegador principal">

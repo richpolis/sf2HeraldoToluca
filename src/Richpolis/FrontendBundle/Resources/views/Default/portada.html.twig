@@ -1,74 +1,87 @@
-{% extends 'FrontendBundle::layout.html.twig' %}
+{% extends '::base.html.twig' %}
 
-{% block contenido %}
-    <section class="padding columna-3">
-        {% for publicacion in publicaciones %}
-            {% if loop.first == true %}
-            <article class="publicacion-principal">
-                <div class="contenedor-centrado">
-                    <header>
-                        <h2 class="titulo">
-                            {{publicacion.titulo}}
-                        </h2>
-                    </header>
-                    <div class="contenido">
-                        <div class="contenedor-galeria">
-                            {% if publicacion.imagen | length > 0 %}
-                                <img src="{{publicacion.webPath | imagine_filter('imagen_grande') }}" alt="{{publicacion.titulo}}" class="imagen"/>           
-                            {% elseif publicacion.galerias | length > 0 %}
-                            <ul class="galeria">
-                                {% for galeria in publicacion.galerias %}
-                                    <li class="item">
-                                        {% if galeria.isImagen %}
-                                        <img src="{{galeria.webPath | imagine_filter('imagen_grande') }}" alt="{{galeria.titulo}}" class="imagen"/>
-                                        {% else %}
-                                        {{ galeria.archivoView | raw }}
-                                        {% endif %}
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-                        </div>
-                        <p class="sin-margen-top margen-bottom">
-                        {{ publicacion.descripcionCorta | striptags | truncate(250,true,'...') | raw  }}
-                        </p>
-                        <p class="cargador">
-                            <a href="{{path('frontend_publicaciones',{'slug': publicacion.slug })}}" class="btn ver-nota">Ver nota</a>
-                        </p>
-                    </div>
-                </div>
-            </article>
-            {% endif %}
-        {% endfor %}
-        <article class="list-noticias">
-            <header>
-                <h2 class="titulo azul">
-                    Llamados
-                </h2>
-            </header>
-            <section class="noticias padding-left">
-                {% for noticia in llamados %}
-                    {% include 'FrontendBundle:Default:item_largo.html.twig' with {'noticia': noticia} %}
-                {% endfor %}
-            </section>
-            <p class="cargador azul">
-                cargar mas notas <span class="cargar-mas-notas azul">+</span>
-            </p>
-        </article>
-    </section>	
+{% block title %}H GRUPO EDITORIAL{% endblock %}
+
+{% set urlAbsolutaFoto = 'http://'
+                             ~ app.request.server.get('SERVER_NAME')
+                             ~ asset('images/heraldologo.png') %}
+{% block stylesheets %}
+    
+	{% block redes_sociales %}
+		<meta property="og:url" content="{{url('homepage')}}" />
+		<meta property="og:title" content="H Grupo Editorial" />
+		<meta property="og:image" content="{{urlAbsolutaFoto}}" />
+		<meta property="og:type" content="article" />
+		<meta property="og:site_name" content="hgrupoeditorial.com" />
+		<!--meta property="fb:admins" content="USER_ID1,USER_ID2"/-->
+
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:site" content="@heraldodetoluca">
+		<meta name="twitter:title" content="H Grupo Editorial">
+		<meta name="twitter:description" content="H Grupo Editorial, Estado de Toluca, Toluca, Valle de México, Morelos, Querétaro">
+		<meta name="twitter:creator" content="@richpolis">
+		<meta name="twitter:image:src" content="{{urlAbsolutaFoto}}">
+		<meta name="twitter:domain" content="{{url('homepage')}}">
+		<meta name="twitter:app:name:iphone" content="">
+		<meta name="twitter:app:name:ipad" content="">
+		<meta name="twitter:app:name:googleplay" content="">
+		<meta name="twitter:app:url:iphone" content="">
+		<meta name="twitter:app:url:ipad" content="">
+		<meta name="twitter:app:url:googleplay" content="">
+		<meta name="twitter:app:id:iphone" content="">
+		<meta name="twitter:app:id:ipad" content="">
+		<meta name="twitter:app:id:googleplay" content="">
+	{% endblock %}
+
+<link rel="stylesheet" href="{{asset('css/portada.css')}}"/>
 {% endblock %}
-{% block javascripts %}
-{{parent()}}
-<script type="text/javascript">
-    var $boton;
-    $(document).ready(function(){
-        $('.galeria').bxSlider({
-              mode: 'fade',
-              autoHover:true,
-              auto: true,
-          });   
-        $(".bx-prev").addClass('ico_carrusel_inicio_izq');
-        $(".bx-next").addClass('ico_carrusel_inicio_der');
-    });
-</script>
-{% endblock %}    
+
+{% block body %}
+<div class="container fondo-azul" style="width: 100%;background: #0b59a2;">
+        <header class="header">
+                <figure id="logo">
+                    <img src="{{ asset('images/logofooter.png') }}" alt="H GRUPO EDITORIAL"/>
+                </figure>
+        </header>
+        <section class="principal">
+            <p>Seleccione el portal que desea visitar</p>
+            <nav class="navegador">
+                <ul class="menu">
+                    <li>
+                        <a href="#">Estado de México</a>
+                    </li>
+                    <li>
+                        <a href="{{path('homepage')}}">Toluca</a>
+                    </li>
+                    <li>
+                        <a href="#">Valle de México</a>
+                    </li>
+                    <li>
+                        <a href="#">Morelos</a>
+                    </li>
+                    <li>
+                        <a href="#">Querétaro</a>
+                    </li>
+                </ul>
+            </nav>
+       </section>        
+</div>
+<footer>
+        <div class="container">
+            <div class="contenidos">
+                <figure class="logo">
+                    <img src="{{asset('images/logofooter.png')}}" alt="" class="imagen-logo">
+                </figure>
+                <div class="contenido">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, labore aut ratione deleniti, consequatur corporis animi impedit soluta sapiente sint ducimus quos fugiat laborum? Iste facilis, doloremque vel nemo nam.
+                </div>
+                <div class="redes-sociales">
+                    <a href="https://twitter.com/HeraldoEdomex/" target="_blank"><span class="twitter ico_twitter"></span></a>
+                    <a href="https://www.facebook.com/HeraldoEdomex" target="_blank"><span class="facebook ico_facebook"></span></a>
+                    <a href="https://www.youtube.com/user/HGrupoEditorial" target="_blank"><span class="youtube ico_youtube"></span></a>
+                    <a href="https://www.flickr.com/photos/77889457@N06/" target="_blank"><span class="flickr ico_flickr"></span></a>
+                </div>
+            </div>
+        </div>    
+</footer>    
+{% endblock %}

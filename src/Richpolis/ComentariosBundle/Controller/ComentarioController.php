@@ -120,6 +120,9 @@ class ComentarioController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Comentario entity.');
         }
+        
+        $entity->setStatus(Comentario::STATUS_APROBADO);
+        $em->flush();
 
         $deleteForm = $this->createDeleteForm($id);
 
@@ -228,9 +231,35 @@ class ComentarioController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Comentario entity.');
             }
-
+            
+            $publicacion = $entity->getPublicacion();
+            $eliminar = array();
+            foreach($entity->getChildren() as $child){
+                array_unshift($eliminar, $child);
+                foreach($child->getChildren() as $child2){
+                    array_unshift($eliminar, $child2);
+                    foreach($child2->getChildren() as $child3){
+                        array_unshift($eliminar, $child3);
+                        foreach($child4->getChildren() as $child4){
+                            array_unshift($eliminar, $child4);
+                        }
+                    }
+                }
+            }
+            
+            foreach($eliminar as $comentario){
+                $em->remove($comentario);
+            }
+            
             $em->remove($entity);
             $em->flush();
+            
+            $comentarios = $em->getRepository('ComentariosBundle:Comentario')
+                              ->findBy(array('publicacion'=>$publicacion));
+            
+            $publicacion->setContComentarios(count($comentarios));
+            $em->flush();
+            
         }
 
         return $this->redirect($this->generateUrl('comentarios'));

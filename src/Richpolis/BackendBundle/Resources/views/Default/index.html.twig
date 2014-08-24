@@ -140,7 +140,8 @@
  <script>
     $(document).ready(function() {
         $('.tipo-categoria-{{categoriaPublicacion}}').dataTable({
-            "sPaginationType": "full_numbers"
+            "sPaginationType": "full_numbers",
+            "displayLength": 20,
         });
         $('.tipo-categoria-{{categoriaLlamados}}').dataTable({
             "sPaginationType": "full_numbers"

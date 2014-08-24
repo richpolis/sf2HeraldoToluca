@@ -111,6 +111,12 @@ class DefaultController extends Controller
     private function getPublicaciones($em,$status,$tipoCategoria){
         $query = $em->getRepository('PublicacionesBundle:Publicacion')
                   ->queryPublicacionesPorTipoCategoria($status,$tipoCategoria);
+        $user = $this->get('security.context')->getToken()->getUser();
+        
+        if(!$this->get('security.context')->isGranted('ROLE_ADMIN')){
+            $query->andWhere('u.id=:usuario')->setParameter('usuario',$user->getId());
+        }
+        
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query,
@@ -222,22 +228,22 @@ class DefaultController extends Controller
         if (!$publicacion) {
             throw $this->createNotFoundException('Unable to find publicacion entity.');
         }
-		$eraPrincipal = $publicacion->getIsPrincipal();
-		if(!$eraPrincipal){
-			$publicacionActualPrincipal = $em->getRepository('PublicacionesBundle:Publicacion')
-											->findOneBy(array('isPrincipal'=>true));
-			if ($publicacionActualPrincipal) {
-				$publicacionActualPrincipal->setIsPrincipal(false);
-				$publicacionActualPrincipal->setIsCarrusel(false);
-			}
-			$publicacion->setIsPrincipal(true);
-			$publicacion->setIsCarrusel(true);
-		}
-        
+        $eraPrincipal = $publicacion->getIsPrincipal();
+        if (!$eraPrincipal) {
+            $publicacionesActuales = $em->getRepository('PublicacionesBundle:Publicacion')
+                    ->findBy(array('isPrincipal' => true));
+            foreach($publicacionesActuales as $publicacionActualPrincipal){
+                $publicacionActualPrincipal->setIsPrincipal(false);
+                $publicacionActualPrincipal->setIsCarrusel(false);
+            }
+            $publicacion->setIsPrincipal(true);
+            $publicacion->setIsCarrusel(true);
+        }
+
         $em->flush();
 
         return $this->render("BackendBundle:Default:item.html.twig", array(
-                    'entity' => $publicacion
+                   'entity' => $publicacion
         ));
     }
 

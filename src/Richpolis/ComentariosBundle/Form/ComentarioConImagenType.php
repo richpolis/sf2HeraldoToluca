@@ -21,16 +21,24 @@ class ComentarioConImagenType extends AbstractType
 		$publicacionTransformer = new PublicacionToNumberTransformer($em);
 		
         $builder
-            ->add('username','text',array('label'=>'Nombre (opcional)','attr'=>array(
-                'class'=>'form-control placeholder',
-                'placeholder'=>'Nombre',
-                'data-bind'=>'value: nombre'
-             )))
-            ->add('email','email',array('label'=>'Email (obligatorio, no sera publicado)','attr'=>array(
-                'class'=>'validate[required] form-control placeholder',
-                'placeholder'=>'Email',
-                'data-bind'=>'value: email'
-             )))    
+            ->add('username','text',array(
+                'label'=>'Nombre (opcional)',
+                'attr'=>array(
+                    'class'=>'form-control placeholder',
+                    'placeholder'=>'Nombre',
+                    'data-bind'=>'value: nombre'
+                 ),
+                 'required'=>false,   
+                ))
+            ->add('email','email',array(
+                'label'=>'Email (obligatorio, no sera publicado)',
+                'attr'=>array(
+                    'class'=>'validate[required] form-control placeholder',
+                    'placeholder'=>'Email',
+                    'data-bind'=>'value: email'
+                 ),
+                 'required'=>true,
+                ))    
             ->add('message',null,array(
                 'label'=>'Comentario',
                 'required'=>true,

@@ -114,8 +114,6 @@
 {{ parent() }}
 <script src="{{asset('js/main.js')}}"></script>
 <script>
-$(document).on('ready',iniciarlizarFormContacto); 
-
     function iniciarlizarFormContacto(){
         $("input.form-submit").click( function() {
             $('img.ajax-loader').css({visibility: 'visible'});
@@ -136,5 +134,8 @@ $(document).on('ready',iniciarlizarFormContacto);
       $("#formulario_contacto").parent().html(data);
       iniciarlizarFormContacto();
     }
+$(document).on('ready',iniciarlizarFormContacto); 
+
+
 </script>
 {% endblock %}

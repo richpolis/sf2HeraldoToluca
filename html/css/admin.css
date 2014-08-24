@@ -145,3 +145,13 @@ td.titulo .visitas-comentarios .comentarios
 {
     margin-right: 20px;
 }
+
+.comentario-publicacion{width:100%;}
+.comentario-publicacion > .contenido{padding-left:16px;}
+.comentario-publicacion > .contenido p{margin-bottom:5px;margin-top:5px}
+.comentario-publicacion > .contenido .fecha{color:#808080;font-size:12px;font-style:italic}
+.comentario-publicacion > .contenido .publicado-por{display:block;font-size:14px;color:#000;}
+.comentario-publicacion > .contenido .publicado-por .username{font-style:normal;font-weight:bold;text-transform:capitalize}
+.comentario-publicacion > .contenido .contenido{font-size:14px;font-style:italic;padding-left:0}
+.comentario-publicacion figure,.comentario-publicacion .contenido.con-imagen{display:inline-block;vertical-align:top}
+.comentario-publicacion figure{margin:0}

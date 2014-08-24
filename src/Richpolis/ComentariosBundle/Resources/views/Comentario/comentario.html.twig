@@ -1,7 +1,8 @@
 {% set nivel = comentario.nivel %}
-{% set paddingLeft = nivel * 5 %}
+{% set nivelHistoria = nivel - historia %}
+{% set paddingLeft = nivelHistoria * 5 %}
 {% set width = 100 - paddingLeft %}
-<article class="comentario-publicacion nivel-{{comentario.nivel}}" style="padding-left: {{paddingLeft}}%; width: {{width}}%;">
+<article class="comentario-publicacion nivel-{{comentario.nivel}}" style="padding-left: {{paddingLeft}}%; width: {{width}}%;{% if comentario.id == buscado.id %} border: 1px solid black; {% endif %}">
     {% if comentario.archivo | length > 0 %}
     <figure>
         <a href="{{comentario.webPath}}" class="fancybox">
@@ -16,14 +17,7 @@
             {{comentario.message}}
         </p>
     </div>
-    {% if comentario.nivel < 4 %}
-        {% if comentario.publicacion.categoria.tipoCategoria != constant('Richpolis\\PublicacionesBundle\\Entity\\CategoriaPublicacion::TIPO_CATEGORIA_TU_ESPACIO') %}
-        <p class="controles">
-            <button class="boton boton-responder" data-comentario="{{comentario.id}}">responder</button>
-        </p>
-        {% endif %}
-    {% endif %}
 </article>
 {% for child in comentario.children %}
-    {% include 'FrontendBundle:Default:comentario.html.twig' with {'comentario': child } %}
+    {% include 'ComentariosBundle:Comentario:comentario.html.twig' with {'comentario': child,'buscado': buscado ,'historia': historia } %}
 {% endfor %}      

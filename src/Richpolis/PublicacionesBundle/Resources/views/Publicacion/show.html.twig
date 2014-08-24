@@ -171,10 +171,10 @@
                                             <input name="_method" value="DELETE" type="hidden"/>
                                             {{ form_widget(delete_form) }}
                                         </form>
-					                          <button class="btn btn-danger " onclick="eliminarRegistro();">Eliminar</button>
+					<button class="btn btn-danger " onclick="eliminarRegistro();">Eliminar</button>
                                     </div>
                                     {% if entity.status >= incompleto and entity.status <= revisar %}
-                                    <button id="botonAprobar" class="btn btn-primary" data-url="{{path('publicaciones_aprobar',{id: entity.id})}}">Validar</button>
+                                    <button id="botonAprobar" class="btn btn-primary" data-url="{{path('publicaciones_aprobar',{id: entity.id})}}">Enviar a validar</button>
                                     {% endif %}
                                 </div>
                             </div>  

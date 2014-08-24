@@ -30,7 +30,9 @@
     <!-- Widgets stylesheet -->
     <link rel="stylesheet" href="{{asset('css/widgets.css')}}">   
     <!-- Gritter Notifications stylesheet -->
-    <link rel="stylesheet" href="{{asset('css/jquery.gritter.css')}}"> 
+    <link rel="stylesheet" href="{{asset('css/jquery.gritter.css')}}">
+    <!-- Admin stylesheet -->
+    <link rel="stylesheet" href="{{asset('css/admin.css')}}">
 
 {% endblock %}
 
@@ -48,7 +50,7 @@
                     <Divider>
                         <span class="divider">/</span> 
                         <a href="{{path('comentarios')}}" class="bread-current">Comentarios</a>
-                        <a href="{{path('comentarios_new')}}" class="btn btn-info pull-right" style="color: white; margin-left: 5px;">Crear categoria</a>
+                        <!--a href="{{path('comentarios_new')}}" class="btn btn-info pull-right" style="color: white; margin-left: 5px;">Crear comentario</a-->
                         </div>
 
                         <div class="clearfix"></div>
@@ -65,43 +67,14 @@
                                         <div class="col-md-12">
                                             <div class="widget">
                                                 <div class="widget-head">
-                                                    <div class="pull-left">{{entity.categoria}}</div>
+                                                    <div class="pull-left">Comentario de publicacion "{{entity.publicacion.titulo}}"</div>
                                                     <div class="clearfix"></div>
                                                 </div>
 
                                                 <div class="widget-content">
+                                                    {% set parent = (entity.nivel == 0?entity:entity.parent) %}    
                                                     <div class="padd">
-                                                        <table>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>Id:</td>
-                                                                    <td>{{entity.id}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Categoria:</td>
-                                                                    <td>{{entity.categoria}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Categoria:</td>
-                                                                    <td>{{entity.categoria}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Parent:</td>
-                                                                    <td>{{entity.parent}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Activo?:</td>
-                                                                    <td>
-                                                                        {% if entity.isActive %}
-                                                                            <i class="fa fa-check-circle"></i>
-                                                                        {% else %}
-                                                                            <i class="fa fa-circle"></i>
-                                                                        {% endif %}
-                                                                    </td>
-                                                                </tr>
-
-                                                            </tbody>
-                                                        </table>    
+                                                        {% include 'ComentariosBundle:Comentario:comentario.html.twig' with {'comentario': parent,'buscado': entity ,'historia': 0 } %}
                                                     </div>
                                                 </div>
                                                 <div class="widget-foot">
@@ -131,65 +104,43 @@
 
                     {% endblock %}
 
-                    {% block javascripts %}
-                        {{ parent() }}
+{% block javascripts %}
+    {{ parent() }}
 
-                        <script src="{{asset('js/jquery-ui-1.9.2.custom.min.js')}}"></script> <!-- jQuery UI -->
-                        <script src="{{asset('js/fullcalendar.min.js')}}"></script> <!-- Full Google Calendar - Calendar -->
-                        <script src="{{asset('js/jquery.rateit.min.js')}}"></script> <!-- RateIt - Star rating -->
-                        <script src="{{asset('js/jquery.prettyPhoto.js')}}"></script> <!-- prettyPhoto -->
+    <script src="{{asset('js/jquery-ui-1.9.2.custom.min.js')}}"></script> <!-- jQuery UI -->
+    
+    <!-- jQuery Notification - Noty -->
+    <script src="{{asset('js/jquery.noty.js')}}"></script> <!-- jQuery Notify -->
+    <script src="{{asset('js/themes/default.js')}}"></script> <!-- jQuery Notify -->
+    <script src="{{asset('js/layouts/bottom.js')}}"></script> <!-- jQuery Notify -->
+    <script src="{{asset('js/layouts/topRight.js')}}"></script> <!-- jQuery Notify -->
+    <script src="{{asset('js/layouts/top.js')}}"></script> <!-- jQuery Notify -->
+    <script src="{{asset('js/bootbox.min.js')}}"></script> <!-- Filter for support page -->
+    <script>
+    $(document).ready(function(){
+        $(".loader").fadeOut();
+    });    
 
-                        <!-- jQuery Flot -->
-                        <script src="{{asset('js/excanvas.min.js')}}"></script>
-                        <script src="{{asset('js/jquery.flot.js')}}"></script>
-                        <script src="{{asset('js/jquery.flot.resize.js')}}"></script>
-                        <script src="{{asset('js/jquery.flot.pie.js')}}"></script>
-                        <script src="{{asset('js/jquery.flot.stack.js')}}"></script>
+    var regresar = function(url){
+        location.href=url;
+    };
 
-                        <!-- jQuery Notification - Noty -->
-                        <script src="{{asset('js/jquery.noty.js')}}"></script> <!-- jQuery Notify -->
-                        <script src="{{asset('js/themes/default.js')}}"></script> <!-- jQuery Notify -->
-                        <script src="{{asset('js/layouts/bottom.js')}}"></script> <!-- jQuery Notify -->
-                        <script src="{{asset('js/layouts/topRight.js')}}"></script> <!-- jQuery Notify -->
-                        <script src="{{asset('js/layouts/top.js')}}"></script> <!-- jQuery Notify -->
-                        <!-- jQuery Notification ends -->
-
-                        <script src="{{asset('js/datatables/js/jquery.dataTables.js')}}"></script>
-
-                        <script src="{{asset('js/sparklines.js')}}"></script> <!-- Sparklines -->
-                        <script src="{{asset('js/jquery.cleditor.min.js')}}"></script> <!-- CLEditor -->
-                        <script src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script> <!-- Date picker -->
-                        <script src="{{asset('js/jquery.uniform.min.html')}}"></script> <!-- jQuery Uniform -->
-                        <script src="{{asset('js/jquery.slimscroll.min.js')}}"></script> <!-- jQuery SlimScroll -->
-                        <script src="{{asset('js/bootstrap-switch.min.js')}}"></script> <!-- Bootstrap Toggle -->
-                        <script src="{{asset('js/bootbox.min.js')}}"></script> <!-- Filter for support page -->
-                        <script src="{{asset('js/custom.js')}}"></script> <!-- Custom codes -->
-                        <script src="{{asset('js/charts.js')}}"></script> <!-- Charts & Graphs -->
-
-
-                        <script>
-                                                                                                                                            var regresar = function(url) {
-                                                                                                                                                location.href = url;
-                                                                                                                                            };
-
-                                                                                                                                            var editarRegistro = function(url) {
-                                                                                                                                                location.href = url;
-                                                                                                                                            };
-
-                                                                                                                                            var eliminarRegistro = function() {
-                            {% if is_granted('ROLE_ADMIN') %}
-                                  bootbox.confirm("Esta seguro de eliminar el registro?", function(result) {
-                                      if (result) {
-                                          $("#formEliminar").submit();
-                                      }
-                                  });
-                            {% else %}
-                                  noty({text: 'No tienes los permisos suficientes para realizar esta accion', layout: 'bottom', type: 'warning', timeout: 2000});
-                            {% endif %}      
-                              };
-
-                        </script>
-
-
-                    {% endblock %}
+    var editarRegistro = function(url){
+        location.href=url;
+    };
+        
+    var eliminarRegistro = function(){
+      {% if is_granted('ROLE_ADMIN') %}
+        bootbox.confirm("Esta seguro de eliminar el comentario?", function(result) {
+          if(result){
+             $("#formEliminar").submit();
+          }
+        });
+      {% else %}
+        noty({text: 'No tienes los permisos suficientes para realizar esta accion',layout:'bottom', type:'warning', timeout:2000 });
+      {% endif %}      
+    };
+    </script>
+    <script src="{{asset('js/custom.js')}}"></script> <!-- Custom codes -->
+{% endblock %}
 

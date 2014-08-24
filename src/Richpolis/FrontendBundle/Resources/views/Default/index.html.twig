@@ -58,9 +58,9 @@
             </p>
             {% endif %}
         </article>
-        <article class="list-noticias list-videos">
+        <article class="list-noticias heraldo-tv list-videos">
             <header class="relative">
-                <h2 class="titulo rojo">
+                <h2 class="titulo">
                     heraldo tv
                 </h2>
                 <!--select name="cbCategoriasVideos" id="cbCategoriasVideos" class="categorias-videos" onchange="javascript:categoriasVideos()">
@@ -102,7 +102,7 @@
         </article>
         <article class="list-noticias">
             <header>
-                <h2 class="titulo nacional azul">
+                <h2 class="titulo llamados azul">
                     llamados
                 </h2>
             </header>
@@ -164,9 +164,9 @@
             </p>
             {% endif %}
         </article>
-        <article class="list-noticias">
+        <article class="list-noticias mundo">
             <header>
-                <h2 class="titulo mundo rojo">
+                <h2 class="titulo">
                     mundo
                 </h2>
             </header>
@@ -186,19 +186,19 @@
                         {% set mundo = mundo + 1  %}
                     {% endfor %}
                 {% endfor %}
-                <p class="cargador rojo">
+                <p class="cargador">
                     <a href="{{path('frontend_categoria',{'slug':'mundo'})}}">cargar mas notas <span class="cargar-mas-notas rojo">+</span></a>
                 </p>
             </section>
             {% if mundo > 3 %}    
-            <p class="cargador rojo">
+            <p class="cargador">
                 <a href="#"  class="lanzador-cargar-notas" data-clase="noticias-mundo">cargar mas notas <span class="cargar-mas-notas rojo">+</span></a>
             </p>
             {% endif %}
         </article>
-        <article class="list-noticias">
+        <article class="list-noticias trofeo">
             <header>
-                <h2 class="titulo trofeo gris">
+                <h2 class="titulo">
                     trofeo
                 </h2>
             </header>
@@ -218,19 +218,19 @@
                         {% set trofeo = trofeo + 1 %}
                     {% endfor %}
                 {% endfor %}
-                <p class="cargador gris">
+                <p class="cargador">
                     <a href="{{path('frontend_categoria',{'slug':'trofeo'})}}">cargar mas notas <span class="cargar-mas-notas gris">+</span></a>
                 </p>
             </section>
             {% if trofeo > 3 %}    
-            <p class="cargador gris">
+            <p class="cargador">
                 <a href="#"  class="lanzador-cargar-notas" data-clase="noticias-trofeo">cargar mas notas <span class="cargar-mas-notas gris">+</span></a>
             </p>
             {% endif %}
         </article>
-        <article class="list-noticias">
+        <article class="list-noticias arte-y-gente">
             <header>
-                <h2 class="titulo arte-gente azul">
+                <h2 class="titulo">
                     arte y gente
                 </h2>
             </header>
@@ -250,19 +250,19 @@
                         {% set arteygente = arteygente + 1 %}
                     {% endfor %}
                 {% endfor %}
-                <p class="cargador azul">
+                <p class="cargador">
                     <a href="{{path('frontend_categoria',{'slug':'arte-y-gente'})}}">cargar mas notas <span class="cargar-mas-notas azul">+</span></a>
                 </p>
             </section>
             {% if arteygente > 3 %}    
-            <p class="cargador azul">
+            <p class="cargador">
                 <a href="#" class="lanzador-cargar-notas"  data-clase="noticias-arte-y-gente">cargar mas notas <span class="cargar-mas-notas azul">+</span></a>
             </p>
             {% endif %}
         </article>
-        <article class="list-noticias">
+        <article class="list-noticias minucipios">
             <header>
-                <h2 class="titulo minucipios rojo">
+                <h2 class="titulo">
                     municipios
                 </h2>
             </header>
@@ -282,12 +282,12 @@
                         {% set municipios = municipios + 1 %}
                     {% endfor %}
                 {% endfor %}
-                <p class="cargador rojo">
+                <p class="cargador">
                     <a href="{{path('frontend_categoria',{'slug':'municipios'})}}">cargar mas notas <span class="cargar-mas-notas rojo">+</span></a>
                 </p>
             </section>
             {% if municipios > 3 %}
-            <p class="cargador rojo">
+            <p class="cargador">
                 <a href="#" class="lanzador-cargar-notas"  data-clase="noticias-municipios">cargar mas notas <span class="cargar-mas-notas rojo">+</span></a>
             </p>
             {% endif %}
@@ -312,14 +312,14 @@ var sliderVideos;
               pause: 7000,
         });
 		
-		sliderVideos = $('.videos').bxSlider({
-              auto: false,
-			  minSlides: 3,
-			  maxSlides: 3,
-			  slideWidth: 191,
-			  slideMargin: 10,
-			  pager: false,
-			  controls: false,
+        sliderVideos = $('.videos').bxSlider({
+            auto: false,
+            minSlides: 3,
+            maxSlides: 3,
+            slideWidth: 191,
+            slideMargin: 10,
+            pager: false,
+            controls: false,
         });
 		
         $(".bx-prev").addClass('ico_carrusel_inicio_izq');
