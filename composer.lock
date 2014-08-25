@@ -305,12 +305,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/data-fixtures.git",
-                "reference": "e847b073c2b5350045edbb40443645ad09a59538"
+                "reference": "ac36ccc812454e057aec564e0725509e74ce6b35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/e847b073c2b5350045edbb40443645ad09a59538",
-                "reference": "e847b073c2b5350045edbb40443645ad09a59538",
+                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/ac36ccc812454e057aec564e0725509e74ce6b35",
+                "reference": "ac36ccc812454e057aec564e0725509e74ce6b35",
                 "shasum": ""
             },
             "require": {
@@ -343,9 +343,7 @@
             "authors": [
                 {
                     "name": "Jonathan Wage",
-                    "email": "jonwage@gmail.com",
-                    "homepage": "http://www.jwage.com/",
-                    "role": "Creator"
+                    "email": "jonwage@gmail.com"
                 }
             ],
             "description": "Data Fixtures for all Doctrine Object Managers",
@@ -353,7 +351,7 @@
             "keywords": [
                 "database"
             ],
-            "time": "2014-03-13 12:26:17"
+            "time": "2014-08-18 12:52:16"
         },
         {
             "name": "doctrine/dbal",
@@ -500,12 +498,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineFixturesBundle.git",
-                "reference": "ccd69d9ec90013955a412a21125672afc09738dc"
+                "reference": "3ffa2184c94d94477d5bb625b94597ed0d44ebe0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/ccd69d9ec90013955a412a21125672afc09738dc",
-                "reference": "ccd69d9ec90013955a412a21125672afc09738dc",
+                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/3ffa2184c94d94477d5bb625b94597ed0d44ebe0",
+                "reference": "3ffa2184c94d94477d5bb625b94597ed0d44ebe0",
                 "shasum": ""
             },
             "require": {
@@ -531,18 +529,16 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
                 },
                 {
                     "name": "Doctrine Project",
                     "homepage": "http://www.doctrine-project.org"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony DoctrineFixturesBundle",
@@ -551,7 +547,7 @@
                 "Fixture",
                 "persistence"
             ],
-            "time": "2014-03-05 01:11:31"
+            "time": "2014-08-20 20:34:54"
         },
         {
             "name": "doctrine/inflector",
@@ -885,17 +881,17 @@
         },
         {
             "name": "friendsofsymfony/rest-bundle",
-            "version": "1.4.1",
+            "version": "1.4.2",
             "target-dir": "FOS/RestBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSRestBundle.git",
-                "reference": "e3a28ebf74724a51a31d6142b002c0c9652f71a4"
+                "reference": "0649a4c1d8cecd27885b09c1cddddb497a0d3ca3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/e3a28ebf74724a51a31d6142b002c0c9652f71a4",
-                "reference": "e3a28ebf74724a51a31d6142b002c0c9652f71a4",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/0649a4c1d8cecd27885b09c1cddddb497a0d3ca3",
+                "reference": "0649a4c1d8cecd27885b09c1cddddb497a0d3ca3",
                 "shasum": ""
             },
             "require": {
@@ -911,7 +907,7 @@
                 "jms/serializer-bundle": "<0.11"
             },
             "require-dev": {
-                "jms/serializer-bundle": "0.12.*",
+                "jms/serializer-bundle": "~0.12",
                 "sensio/framework-extra-bundle": "~2.2",
                 "symfony/form": "~2.2",
                 "symfony/security": "~2.2",
@@ -920,7 +916,7 @@
                 "symfony/yaml": "~2.2"
             },
             "suggest": {
-                "jms/serializer-bundle": "Add support for advanced serialization capabilities, recommended, requires 0.12.*",
+                "jms/serializer-bundle": "Add support for advanced serialization capabilities, recommended, requires ~0.12",
                 "sensio/framework-extra-bundle": "Add support for route annotations and the view response listener",
                 "symfony/serializer": "Add support for basic serialization capabilities and xml decoding, requires ~2.2",
                 "symfony/validator": "Add support for validation capabilities in the ParamFetcher, requires ~2.2"
@@ -951,8 +947,7 @@
                 },
                 {
                     "name": "Konstantin Kudryashov",
-                    "email": "ever.zet@gmail.com",
-                    "homepage": "http://everzet.com"
+                    "email": "ever.zet@gmail.com"
                 }
             ],
             "description": "This Bundle provides various tools to rapidly develop RESTful API's with Symfony2",
@@ -960,7 +955,7 @@
             "keywords": [
                 "rest"
             ],
-            "time": "2014-07-11 21:09:03"
+            "time": "2014-08-15 12:18:54"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -969,12 +964,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "27a84cec3ea4daa32cd6fe308c0847ca9644f588"
+                "reference": "094bea6f318fbb067db3ddf6d26a62af0bf13442"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/27a84cec3ea4daa32cd6fe308c0847ca9644f588",
-                "reference": "27a84cec3ea4daa32cd6fe308c0847ca9644f588",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/094bea6f318fbb067db3ddf6d26a62af0bf13442",
+                "reference": "094bea6f318fbb067db3ddf6d26a62af0bf13442",
                 "shasum": ""
             },
             "require": {
@@ -1028,7 +1023,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2014-08-04 23:04:17"
+            "time": "2014-08-23 11:32:38"
         },
         {
             "name": "helios-ag/fm-elfinder-bundle",
@@ -1036,12 +1031,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/helios-ag/FMElfinderBundle.git",
-                "reference": "868ea6c53d65225fa778924ddd70cb4775314700"
+                "reference": "22ffad14aa96433d0fe33f3618216490556e25f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helios-ag/FMElfinderBundle/zipball/868ea6c53d65225fa778924ddd70cb4775314700",
-                "reference": "868ea6c53d65225fa778924ddd70cb4775314700",
+                "url": "https://api.github.com/repos/helios-ag/FMElfinderBundle/zipball/22ffad14aa96433d0fe33f3618216490556e25f8",
+                "reference": "22ffad14aa96433d0fe33f3618216490556e25f8",
                 "shasum": ""
             },
             "require": {
@@ -1085,7 +1080,7 @@
                 "elfinder",
                 "file manager"
             ],
-            "time": "2014-08-15 05:00:52"
+            "time": "2014-08-24 10:58:49"
         },
         {
             "name": "helios-ag/fm-elfinder-php-connector",
@@ -1589,12 +1584,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
-                "reference": "d35547a771a03923d19d55ea335cd2801ad72dc2"
+                "reference": "3a87e3265e9201c8397caa39e563a29eb2ad3b43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/d35547a771a03923d19d55ea335cd2801ad72dc2",
-                "reference": "d35547a771a03923d19d55ea335cd2801ad72dc2",
+                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/3a87e3265e9201c8397caa39e563a29eb2ad3b43",
+                "reference": "3a87e3265e9201c8397caa39e563a29eb2ad3b43",
                 "shasum": ""
             },
             "require": {
@@ -1639,7 +1634,7 @@
                 "pagination",
                 "paginator"
             ],
-            "time": "2014-07-18 12:20:39"
+            "time": "2014-08-19 13:38:58"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -1767,12 +1762,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/liip/LiipImagineBundle.git",
-                "reference": "a85ef19cdc8e079e1ab989544a8b580e28b26d82"
+                "reference": "043e6c27dbfce55b96b92645c8fa280c528526d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/a85ef19cdc8e079e1ab989544a8b580e28b26d82",
-                "reference": "a85ef19cdc8e079e1ab989544a8b580e28b26d82",
+                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/043e6c27dbfce55b96b92645c8fa280c528526d0",
+                "reference": "043e6c27dbfce55b96b92645c8fa280c528526d0",
                 "shasum": ""
             },
             "require": {
@@ -1832,7 +1827,7 @@
                 "image",
                 "imagine"
             ],
-            "time": "2014-07-30 14:40:52"
+            "time": "2014-08-20 12:58:12"
         },
         {
             "name": "monolog/monolog",

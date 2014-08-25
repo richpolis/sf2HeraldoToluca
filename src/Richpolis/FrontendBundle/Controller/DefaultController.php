@@ -482,7 +482,7 @@ class DefaultController extends Controller {
         
     }
 	
-	/**
+    /**
      * @Route("/archivos", name="frontend_archivos")
      * @Template()
      */
@@ -494,4 +494,18 @@ class DefaultController extends Controller {
         );
     }
     
+    /**
+     * @Route("/pie/pagina", name="frontend_pie_pagina")
+     * @Template()
+     */
+    public function piePaginaAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $configuracion = $em->getRepository('BackendBundle:Configuraciones')
+                        ->findOneBy(array('slug' => 'pie-pagina'));
+        
+	return array(
+            'configuracion' => $configuracion,
+        );
+    }
 }

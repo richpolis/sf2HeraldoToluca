@@ -1,6 +1,6 @@
 {% extends 'BackendBundle::layout.html.twig' %}
 
-{% block stylesheets%}
+{% block stylesheets %}
 <!-- Stylesheets -->
 <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
 <!-- Font awesome icon -->
@@ -31,7 +31,7 @@
 <link rel="stylesheet" href="{{asset('css/jquery.gritter.css')}}">
 <!-- jQuery Validation Engine stylesheet -->
 <link rel="stylesheet" href="{{asset('css/validationEngine.jquery.css')}}">
-
+<link rel="stylesheet" href="{{asset('bundles/fmelfinder/css/elfinder.min.css')}}">
 {% endblock %}
 
 {% block mainbar %}
@@ -164,6 +164,7 @@ $(document).ready(function(){
 });
 
 </script>
+{{ elfinder_tinymce_init4('default') }}
 {{ tinymce_init() }} 
 {% endblock %}
 
