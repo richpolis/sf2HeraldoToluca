@@ -413,11 +413,13 @@ class PublicacionController extends Controller {
             $em->remove($galeria);
         }
         
+        $categoria = $entity->getCategoria();
+        
         $em->remove($entity);
         $em->flush();
         //}
 
-        return $this->redirect($this->generateUrl('publicaciones'));
+        return $this->redirect($this->generateUrl('publicaciones_categoria',array('slug'=>$categoria->getSlug())));
     }
 
     /**
