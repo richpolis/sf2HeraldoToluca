@@ -399,6 +399,17 @@ class PublicacionController extends Controller {
             throw $this->createNotFoundException('Unable to find Publicacion entity.');
         }
 
+        $comentarios = $em->getRepository('ComentariosBundle:Comentario')
+                          ->findBy(array('publicacion'=>$entity),array('createdAt'=>'DESC'));
+        foreach($comentarios as $comentario){
+            $em->remove($comentario);
+        }
+        
+        $galerias = $entity->getGalerias();
+        foreach($galerias as $galeria){
+            $em->removeGaleria($galeria);
+        }
+        
         $em->remove($entity);
         $em->flush();
         //}

@@ -4,9 +4,12 @@
 
 {% block body %}
 <table>
+    <thead>
 	<tr colspan="2">
-		<th>Mensaje desde IncaMexico.com</th>
-	</tr>	
+		<th>Mensaje desde HGrupoEditorial.com</th>
+	</tr>
+    </thead>
+    <tbody>
 	<tr>
 		<td style="background-color: gray;color: white;">
 			Nombre:
@@ -46,6 +49,7 @@
 		<td>
 			{{datos.body | raw }}
 		<td>
-	</tr>		
+	</tr>
+    </tbody>
 </table>
 {% endblock %}

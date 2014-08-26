@@ -126,8 +126,9 @@
                 </form>
        </article>  
     </section>	
-    {# include 'FrontendBundle:Default:aside.html.twig' #}        
+    {% if contar == true %}        
     {{render(controller('FrontendBundle:Default:aside'))}}
+    {% endif %}
 {% endblock %}
 {% block javascripts %}
     {{parent()}}

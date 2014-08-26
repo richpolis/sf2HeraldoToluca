@@ -119,7 +119,7 @@ class DefaultController extends Controller
         
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $query,
+            $query->getQuery(),
             $this->get('request')->query->get('page', 1)/*page number*/,
             100/*limit per page*/
         );

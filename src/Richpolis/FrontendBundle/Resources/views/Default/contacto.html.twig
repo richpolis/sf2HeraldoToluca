@@ -3,7 +3,6 @@
 {% block stylesheets %}
     {{ parent() }}
     <style>
-        /* #### bootstrap Form #### */
         .bootstrap-frm {
             margin-left:auto;
             margin-right:auto;
@@ -22,6 +21,7 @@
         .bootstrap-frm .form-group {
             display: block;
             margin: 0px 0px 5px;
+            position: relative;
         }
         .bootstrap-frm .form-group>label {
             float: left;
@@ -84,6 +84,20 @@
             background-color: #EBEBEB;
             border-color: #ADADAD;
         }
+        .bootstrap-frm span.errores {
+            color: red;
+            position: relative;
+            top: -10px;
+            left: 112px;
+        }
+        .bootstrap-frm span.errores ul {
+            margin: 0;
+            padding: 0;
+        }
+        .bootstrap-frm span.errores ul li {
+            list-style: none;
+        }
+        
     </style>
 {% endblock %}
 
@@ -105,7 +119,7 @@
         </div>
     </article>
  </section>
-{# include 'FrontendBundle:Default:aside.html.twig' #}        
+    
     {{render(controller('FrontendBundle:Default:aside'))}}
 
 {% endblock %}
@@ -120,6 +134,7 @@
             $("img.ajax-loader").fadeIn("fast",function(){
                 $.post("{{path('frontend_contacto')}}",$("form.form-contacto").serialize(),
                 function(data){
+                    //alert(data);
                     actualizaFormularioContacto(data);
                     setTimeout(function(){
                         $("#formulario_contacto").find(".form-response-output").fadeOut("fast");
@@ -131,7 +146,7 @@
     }
 
     function actualizaFormularioContacto(data){
-      $("#formulario_contacto").parent().html(data);
+      $("#formulario_contacto").parent().html(data).fadeIn("fast");
       iniciarlizarFormContacto();
     }
 $(document).on('ready',iniciarlizarFormContacto); 

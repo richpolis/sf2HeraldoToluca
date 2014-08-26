@@ -315,14 +315,14 @@ class PublicacionRepository extends EntityRepository
             $query->andWhere('p.status=:status')
                   ->setParameter('status', $status);
         }
-        return $query->getQuery();
+        return $query;
     }
     
     public function getPublicacionesPorTipoCategoria($status = 0, $tipoCategoria = 0, 
         $conObjs = true, $campo_orden = "position" , $orden = "ASC"){
 
         $query=$this->queryPublicacionesPorTipoCategoria($status,$tipoCategoria,$conObjs,$campo_orden,$orden);
-        return $query->getResult();
+        return $query->getQuery()->getResult();
     }
     
     public function getUltimasPublicaciones($registros){
@@ -334,7 +334,7 @@ class PublicacionRepository extends EntityRepository
             'createdAt',
             'DESC'
         );
-        return $query->setMaxResults($registros)->getResult();
+        return $query->getQuery()->setMaxResults($registros)->getResult();
     }
 	
 	public function getPublicacionesRelacionadas(CategoriaPublicacion $categoria, $registros = 9){
