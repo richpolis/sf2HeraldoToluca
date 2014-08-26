@@ -8,7 +8,7 @@
             sin imagen 
         {% endif %}
     </td>
-    <td>{% if entity.vigencia %}{{ entity.vigencia|date('Y-m-d H:i:s') }}{% endif %}</td>
+    <td>{% if entity.vigencia %}{{ entity.vigencia|date('d-m-Y') }}{% endif %}</td>
     <td class="is-active" data-url="{{ path('publicidad_is_active',{'id': entity.id }) }}">
         {% if entity.isActive %}
             <button class="btn btn-success activo"><i class="fa fa-check-square-o"></i></button>
