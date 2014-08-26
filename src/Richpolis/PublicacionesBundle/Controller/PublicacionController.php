@@ -401,13 +401,16 @@ class PublicacionController extends Controller {
 
         $comentarios = $em->getRepository('ComentariosBundle:Comentario')
                           ->findBy(array('publicacion'=>$entity),array('createdAt'=>'DESC'));
+        
         foreach($comentarios as $comentario){
             $em->remove($comentario);
+//            $em->flush();
         }
         
         $galerias = $entity->getGalerias();
         foreach($galerias as $galeria){
-            $em->removeGaleria($galeria);
+            $entity->removeGaleria($galeria);
+            $em->remove($galeria);
         }
         
         $em->remove($entity);

@@ -270,7 +270,10 @@ class Comentario
         return null === $this->archivo ? null : $this->getUploadDir().'/'.$this->archivo;
     }
     
-    
+    public function getAbsolutePath()
+    {
+        return null === $this->archivo ? null : $this->getUploadRootDir().'/'.$this->archivo;
+    }
 
     /**
      * Get id
