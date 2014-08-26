@@ -323,6 +323,7 @@ class DefaultController extends Controller
         if (!$publicacion) {
             throw $this->createNotFoundException('Unable to find publicacion entity.');
         }
+		
         $publicacion->setStatus(Publicacion::STATUS_CADUCADO);
         $em->flush();
 

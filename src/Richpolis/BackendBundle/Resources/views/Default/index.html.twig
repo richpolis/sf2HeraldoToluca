@@ -173,7 +173,7 @@ function backend(id,clase){
         success: function(data){
             $registro.html($(data).html());
             notySuccess('Actualizacion realizada');
-            //iniciarlizarFunciones();
+            $.configPrettyPhoto();
             $(".loader").fadeOut();
         },
         error: function(data){
@@ -196,7 +196,7 @@ function controles(tipoCategoria, clase){
         dataType: 'html',
         success: function(data){
             $table.html($(data).find(tabla).html());
-           //iniciarlizarFunciones();
+            $.configPrettyPhoto();
             $(".loader").fadeOut();
         },
         error: function(data){

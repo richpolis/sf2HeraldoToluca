@@ -160,6 +160,29 @@ class DefaultController extends Controller {
     }
 
     /**
+     * @Route("/preview/publicacion/{slug}", name="frontend_preview_publicaciones")
+     * @Method({"GET"})
+     */
+    public function previewPublicacionAction(Request $request, $slug) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')
+                ->findOneBy(array('slug' => $slug));
+		
+        $contar = $request->query->get('contar', false);
+        
+		if($publicacion->getCategoria()->getTipoCategoria()==CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION){
+        	return $this->redirect($this->generateUrl('frontend_publicaciones', array('slug' => $slug, 'contar' => $contar)));
+		} elseif ($publicacion->getCategoria()->getTipoCategoria() == CategoriaPublicacion::TIPO_CATEGORIA_HERALDO_TV) {
+            return $this->redirect($this->generateUrl('frontend_heraldo_tv', array('slug' => $slug, 'contar' => $contar)));
+        } elseif ($publicacion->getCategoria()->getTipoCategoria() == CategoriaPublicacion::TIPO_CATEGORIA_TU_ESPACIO) {
+            return $this->redirect($this->generateUrl('frontend_tu_espacio', array('slug' => $slug, 'contar' => $contar)));
+        }
+		
+		return $this->redirect($this->generateUrl('frontend_publicaciones', array('slug' => $slug, 'contar' => $contar)));
+    }
+	
+	/**
      * @Route("/publicacion/{slug}", name="frontend_publicaciones")
      * @Template()
      * @Method({"GET","POST"})
@@ -169,12 +192,8 @@ class DefaultController extends Controller {
         
         $publicacion = $em->getRepository('PublicacionesBundle:Publicacion')
                 ->findOneBy(array('slug' => $slug));
-
-        if($request->query->has('contar')){
-            $contar = $request->query->get('contar', true);
-        }else{
-            $contar = true;
-        }
+		
+        $contar = $request->query->get('contar', true);
         
         if ($publicacion->getCategoria()->getTipoCategoria() == CategoriaPublicacion::TIPO_CATEGORIA_HERALDO_TV) {
             return $this->redirect($this->generateUrl('frontend_heraldo_tv', array('slug' => $slug, 'contar' => $contar)));
@@ -220,10 +239,10 @@ class DefaultController extends Controller {
         $comentarios = $em->getRepository('ComentariosBundle:Comentario')
                 ->findBy(array('publicacion' => $publicacion), array('createdAt' => 'ASC'));
 		
-	$categoria = $publicacion->getCategoria();
-		
-	$relacionados = $em->getRepository('PublicacionesBundle:Publicacion')
-                           ->getPublicacionesRelacionadas($categoria);
+		$categoria = $publicacion->getCategoria();
+
+		$relacionados = $em->getRepository('PublicacionesBundle:Publicacion')
+							   ->getPublicacionesRelacionadas($categoria);
 		
         return array(
             'categoria' => $categoria,
@@ -252,6 +271,7 @@ class DefaultController extends Controller {
                     array('categoria' => $categoria, 'status' => Publicacion::STATUS_PUBLICADO), array('createdAt' => 'DESC')
             );
         }
+		
         $contar = $request->query->get('contar', true);
 
         if ($contar) {
@@ -291,6 +311,7 @@ class DefaultController extends Controller {
         }
 
         $contar = $request->query->get('contar', true);
+		
         $comentario = new Comentario();
         $comentario->setPublicacion($publicacion);
         $form = $this->createForm(new ComentarioConImagenType(), $comentario, array('em' => $em));

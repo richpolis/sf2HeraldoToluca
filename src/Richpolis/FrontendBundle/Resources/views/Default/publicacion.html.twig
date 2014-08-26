@@ -142,12 +142,20 @@
 			  slideWidth: 246,
 			  slideMargin: 40,
 			  pager: false,
-          }); 
+          });
+		{% if publicacion.galerias | length > 1 %}  
 		$('.galeria').bxSlider({
               mode: 'fade',
               autoHover:true,
               auto: true,
-          });   
+          });
+		{% else %}
+		$('.galeria').bxSlider({
+              auto: false,
+			  pager: true,
+          });
+		{% endif %} 
+		  
         $(".bx-prev").addClass('ico_carrusel_inicio_izq');
         $(".bx-next").addClass('ico_carrusel_inicio_der');
         
