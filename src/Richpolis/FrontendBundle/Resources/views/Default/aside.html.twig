@@ -40,8 +40,10 @@
                             <figure class="thumbnail-mini">
                                 {% if item.imagen | length > 0 %}
                                     <img src="{{item.webPath | imagine_filter('imagen_90_60') }}" alt="{{item.titulo}}"/>
-                                {% else %}
+                                {% elseif item.galerias | length > 0 %}
                                     <img src="{{item.galerias[0].webPath | imagine_filter('imagen_90_60') }}" alt="{{item.galerias[0].titulo}}"/>
+                                {% else %}
+                                    <img src="http://placehold.it/90x60/ffffff/ffffff" alt=""/>
                                 {% endif %}
                             </figure>
                         </a>
@@ -67,6 +69,8 @@
                                     <img src="{{item.webPath | imagine_filter('imagen_90_60') }}" alt="{{item.titulo}}"/>
                                 {% elseif item.galerias | length > 0 %}
                                     <img src="{{item.galerias[0].webPath | imagine_filter('imagen_90_60') }}" alt="{{item.galerias[0].titulo}}"/>
+                                {% else %}
+                                    <img src="http://placehold.it/90x60/ffffff/ffffff" alt=""/>
                                 {% endif %}
                             </figure>
                         </a>    
