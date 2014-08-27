@@ -88,33 +88,6 @@ knp_paginator:
         pagination: FrontendBundle:Default:pagination.html.twig
         sortable:   KnpPaginatorBundle:Pagination:sortable_link.html.twig
 
-#avalanche_imagine:
-#    filters:
-#        imagen_grande:
-#            type:    thumbnail
-#            options: { size: [616, 411], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
-#        imagen_302_126:
-#            type:    thumbnail
-#            options: { size: [302, 126], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
-#        imagen_222_94:
-#            type:    thumbnail
-#            options: { size: [222, 94], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
-#        imagen_246_76:
-#            type:    thumbnail
-#            options: { size: [246, 76], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
-#        servicios_carrusel:
-#            type:    thumbnail
-#            options: { size: [987, 371], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
-#        proyectos_carrusel:
-#            type:    thumbnail
-#            options: { size: [430, 340], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
-#        proyectos_thumbnail:
-#            type:    thumbnail
-#            options: { size: [320, 191], mode: outbound, cache_type: public, cache_expires: '2 weeks' }
-#        galerias_productos:
-#            type:    thumbnail
-#            options: { size: [510, 330], mode: inset, cache_type: public, cache_expires: '2 weeks' }
-
 liip_imagine:
     resolvers:
         default:
@@ -154,13 +127,6 @@ liip_imagine:
             filters:
                 thumbnail: { size: [90, 60], mode: outbound }
 
-
-fos_comment:
-    db_driver: orm
-    class:
-        model:
-            comment: Richpolis\ComentariosBundle\Entity\Comment
-            thread: Richpolis\ComentariosBundle\Entity\Thread
 
 fm_elfinder:
     instances:

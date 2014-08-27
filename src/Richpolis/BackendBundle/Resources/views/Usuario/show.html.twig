@@ -204,7 +204,7 @@ var regresar = function(url){
 var editarRegistro = function(url){
     location.href=url;
 };
-    
+
 var eliminarRegistro = function(){
   {% if is_granted('ROLE_ADMIN') %}
     bootbox.confirm("Esta seguro de eliminar el registro?", function(result) {

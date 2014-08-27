@@ -28,15 +28,14 @@ class Comentario
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="username", type="string", length=255, nullable=true)
      */
     private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
      * @Assert\Email()
      */
     private $email;
@@ -166,6 +165,16 @@ class Comentario
         {
           $this->username = "Anonimo";
         }
+
+        if(!$this->getEmail())
+        {
+          $this->email = "anonimo@sinemail.com";
+        }
+
+        if(!$this->getArchivo())
+        {
+          $this->archivo = null;
+        }        
     }
     
     /*** uploads ***/

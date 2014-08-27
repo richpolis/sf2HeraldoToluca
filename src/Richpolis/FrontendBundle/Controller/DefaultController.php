@@ -17,6 +17,9 @@ use Richpolis\ComentariosBundle\Form\ComentarioConImagenType;
 use Richpolis\ComentariosBundle\Form\ComentarioType;
 use Richpolis\PublicidadBundle\Entity\Publicidad;
 
+use Richpolis\BackendBundle\Utils\Richsys as RpsStms;
+use Richpolis\BackendBundle\Utils\Youtube;
+
 class DefaultController extends Controller {
     
     protected function getValoresSession($key,$value = array()) {
@@ -28,10 +31,10 @@ class DefaultController extends Controller {
     }
     
     protected function getPublicidadEnSession(&$em) {
-        $publicidad = $this->getValoresSession('publicidad');
+        /*$publicidad = $this->getValoresSession('publicidad');
         if (isset($publicidad[Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_IZQUIERDO])) {
             return $publicidad;
-        } else {
+        } else {*/
             $publicidadArray = array();
             
             $publicidads = $em->getRepository('PublicidadBundle:Publicidad')
@@ -47,31 +50,31 @@ class DefaultController extends Controller {
             }
             $this->setVAloresSession('publicidad', $publicidadArray);
             return $publicidadArray;
-        }
+       /* }*/
     }
     
     protected function getLosmasVistosEnSession(&$em) {
-        $losmasvistos = $this->getValoresSession('losmasvistos');
+        /*$losmasvistos = $this->getValoresSession('losmasvistos');
         if (count($losmasvistos)) {
             return $losmasvistos;
-        } else {
+        } else {*/
             $losmasvistos = $em->getRepository('PublicacionesBundle:Publicacion')
                           ->findLosMasVistos(0,  CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION);
             $this->setVAloresSession('losmasvistos', $losmasvistos);
             return $losmasvistos;
-        }
+        //}
     }
     
     protected function getLosmasComentadosEnSession(&$em) {
-        $losmascomentados = $this->getValoresSession('losmascomentados');
+        /*$losmascomentados = $this->getValoresSession('losmascomentados');
         if (count($losmascomentados)) {
             return $losmascomentados;
-        } else {
+        } else {*/
             $losmascomentados = $em->getRepository('PublicacionesBundle:Publicacion')
                           ->findLosMasComentados(0,  CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION);
             $this->setVAloresSession('losmascomentados', $losmascomentados);
             return $losmascomentados;
-        }
+        //}
     }
     
     protected function getCategoriasEnSession(&$em) {
@@ -529,5 +532,19 @@ class DefaultController extends Controller {
 	return array(
             'configuracion' => $configuracion,
         );
+    }
+    
+    /**
+     * @Route("/prueba/video", name="frontend_prueba_video")
+     * @Template()
+     */
+    public function pruebaAction() 
+    {
+        $link=RpsStms::getLinkLargeYoutube('http://youtu.be/eieuKNEw2Mw');
+        $videoId = RpsStms::getVideoIdYoutube($link);
+        $video = new Youtube($videoId);
+        $response = new JsonResponse();
+        $response->setData(array('titulo'=>$video->getTitle()));
+        return $response;
     }
 }

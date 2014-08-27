@@ -303,14 +303,15 @@ EOF;
         return $resp;
     }
     
-    static public function getTitleAndImageVideoYoutube($link){
+    /*static public function getTitleAndImageVideoYoutube($link){
 
         $link=self::getLinkLargeYoutube($link);
         $videoId=self::getVideoIdYoutube($link);
 
 
         if(!$videoId==null){
-            $url = sprintf('http://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=%s&format=json', $videoId);
+            //$url = sprintf('http://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=%s&format=json', $videoId);
+            $url = "http://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=$videoId&format=json";
             $browser = new Browser();
             try {
                 $response = $browser->get($url);
@@ -338,7 +339,38 @@ EOF;
             return self::getInfoFindVideoInWeb($link);
         }
 
+    }*/
+    
+    static public function getTitleAndImageVideoYoutube($link){
+
+        $link=self::getLinkLargeYoutube($link);
+        $videoId=self::getVideoIdYoutube($link);
+
+
+        if(!$videoId==null){
+            
+            $video = new Youtube($videoId);
+            
+            if (!$video) {
+                throw new \RuntimeException('Unable to decode the video information for :' . $url);
+            }
+
+            
+            $arreglo['thumbnail']=$video->getUrlImage('default');
+            $arreglo['title']=$video->getTitle();
+            $arreglo['videoId']=$videoId;
+            $arreglo['description']=$video->getDescription();
+            $arreglo['urlVideo']=$video->getUrl();
+
+            return $arreglo;
+            
+        }else{
+            
+            return self::getInfoFindVideoInWeb($link);
+        }
+
     }
+    
     static public function getLinkLargeYoutube($link){
         $arreglo=explode("/", $link);
         if($arreglo['2']=="youtu.be"){

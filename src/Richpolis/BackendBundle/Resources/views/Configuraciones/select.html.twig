@@ -146,7 +146,7 @@ var editarRegistro = function(url){
 };
     
 var eliminarRegistro = function(){
-  {% if is_granted('ROLE_SUPER_ADMIN') %}
+  {% if is_granted('ROLE_ADMIN') %}
     bootbox.confirm("Esta seguro de eliminar el registro?", function(result) {
       if(result){
          $("#formEliminar").submit();

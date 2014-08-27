@@ -31,13 +31,13 @@ class ComentarioConImagenType extends AbstractType
                  'required'=>false,   
                 ))
             ->add('email','email',array(
-                'label'=>'Email (obligatorio, no sera publicado)',
+                'label'=>'Email (no sera publicádo)',
                 'attr'=>array(
-                    'class'=>'validate[required] form-control placeholder',
+                    'class'=>'form-control placeholder',
                     'placeholder'=>'Email',
                     'data-bind'=>'value: email'
                  ),
-                 'required'=>true,
+                 'required'=>false,
                 ))    
             ->add('message',null,array(
                 'label'=>'Comentario',
@@ -46,9 +46,11 @@ class ComentarioConImagenType extends AbstractType
                     'class'=>'validate[required] form-control placeholder',
                     )
                 ))
-            ->add('file','file',array('label'=>'Archivo',
+            ->add('file','file',array(
+                'label'=>'Archivo (no obligatorio)',
+                'required'=>false,
                 'attr'=>array(
-                    'class'=>'validate[required] form-control placeholder',
+                    'class'=>'form-control placeholder',
                     )
                 ))    
             ->add('status','hidden')

@@ -4,7 +4,7 @@ namespace Richpolis\PublicacionesBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Richpolis\PublicacionesBundle\Entity\CategoriaPublicacion;
-
+use Richpolis\PublicacionesBundle\Entity\Publicacion;
 
 
 /**
@@ -178,9 +178,10 @@ class CategoriaPublicacionRepository extends EntityRepository
                SELECT c,p 
                FROM PublicacionesBundle:CategoriaPublicacion c 
                JOIN c.publicaciones p 
-               WHERE p.position BETWEEN :inicial AND :final 
+               WHERE p.position BETWEEN :inicial AND :final AND p.status=:status 
+               
                ORDER BY p.position ASC
-        ')->setParameters(array('inicial'=>1,'final'=>$maxPublicaciones));
+        ')->setParameters(array('inicial'=>1,'final'=>$maxPublicaciones,'status'=>Publicacion::STATUS_PUBLICADO));
         
         return $query->getResult();
     }

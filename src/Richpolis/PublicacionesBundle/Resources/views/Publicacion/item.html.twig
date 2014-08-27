@@ -34,7 +34,7 @@
         {{ entity.status | status_publicacion | raw }}
     </td>
     <td>
-        {% if entity.usuario.id == app.user.id || is_granted('ROLE_ADMIN') %}
+        {% if entity.usuario.id == app.user.id or is_granted('ROLE_ADMIN') %}
             {% if entity.status < constant('Richpolis\\PublicacionesBundle\\Entity\\Publicacion::STATUS_APROBADO') %}
             <button onclick="javascript:editarRegistro('{{ path('publicaciones_edit', { 'id': entity.id }) }}')" class="btn btn-xs btn-warning"><i class="fa fa-pencil"></i> </button>
             {% endif %}

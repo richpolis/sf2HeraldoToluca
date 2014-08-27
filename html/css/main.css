@@ -81,11 +81,11 @@ nav{height:30px}
 #logo-redes-sociales > .redes-sociales{position:absolute;top:20px;right:0;z-index:1000}
 #logo-redes-sociales > .buscador{position:absolute;top:50px;right:0;z-index:1000}
 #logo-redes-sociales > .fecha{bottom:0;color:#1e1e1e;font-family:'Conv_Amplitude-Regular';font-size:14px;position:absolute;right:0;z-index:1000}
-#lomasvisto-comentado{border-left:1px solid #73a0ca;border-right:1px solid #73a0ca;border-bottom:1px solid #73a0ca;margin-top:10px}
-#minuto-a-minuto{border-left:1px solid #73a0ca;border-right:1px solid #73a0ca;border-bottom:1px solid #73a0ca;margin-bottom:0;margin-top:10px;overflow:hidden;}
+#lomasvisto-comentado{margin-top:10px}
+#minuto-a-minuto{margin-bottom:0;margin-top:10px;overflow:hidden;}
 #minuto-a-minuto h2.titulo{background:#2369ab;color:#fff;font-family:'Conv_FRAMDCN';font-size:20px;font-weight:normal;height:34px;line-height:34px;overflow:hidden;padding-left:20px;text-transform:uppercase;margin:0 0 8px}
 #minuto-a-minuto ul{margin:0;padding:0}
-#minuto-a-minuto li{border-bottom:1px dotted #73a0ca;font-size:14px;height:40px;line-height:15px;list-style:none;overflow:hidden;padding:10px 4px;}
+#minuto-a-minuto li{border-bottom:1px dotted #73a0ca;font-size:14px;height:40px;line-height:15px;list-style:none;overflow:hidden;padding:10px 0;}
 #minuto-a-minuto li .tiempo,#minuto-a-minuto li .contenido{display:inline-block;vertical-align:middle}
 #minuto-a-minuto li .tiempo{margin-top:10px;width:45px;background:#f1f1f1;color:#2369ab;padding:3px;position:relative;text-align:center;}
 #minuto-a-minuto li .tiempo:after{content:"";display:block;border-left:12px solid #f1f1f1;border-top:11px solid transparent;border-bottom:11px solid transparent;position:absolute;right:-12px;top:0}
@@ -175,7 +175,7 @@ nav{height:30px}
 .list-noticias.heraldo-tv .cargador{color:#e14b4e}
 .lomas{width:300px;display:none;overflow:hidden;}
 .lomas ul{padding:0;margin:0}
-.lomas li{list-style:none;border-bottom:1px dotted #73a0ca;padding:4px;font-size:12px;float:left}
+.lomas li{list-style:none;border-bottom:1px dotted #73a0ca;padding:4px 0;font-size:12px;float:left}
 .lomas .numero,.lomas .contenido,.lomas figure{display:inline-block;vertical-align:middle}
 .lomas .numero{width:15px;vertical-align:middle;color:#2369ab;font-weight:bold}
 .lomas .contenido{width:179px}

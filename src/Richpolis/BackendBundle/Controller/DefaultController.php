@@ -228,18 +228,10 @@ class DefaultController extends Controller
         if (!$publicacion) {
             throw $this->createNotFoundException('Unable to find publicacion entity.');
         }
-        $eraPrincipal = $publicacion->getIsPrincipal();
-        if (!$eraPrincipal) {
-            $publicacionesActuales = $em->getRepository('PublicacionesBundle:Publicacion')
-                    ->findBy(array('isPrincipal' => true));
-            foreach($publicacionesActuales as $publicacionActualPrincipal){
-                $publicacionActualPrincipal->setIsPrincipal(false);
-                $publicacionActualPrincipal->setIsCarrusel(false);
-            }
-            $publicacion->setIsPrincipal(true);
-            $publicacion->setIsCarrusel(true);
-        }
-
+        $valor = !$publicacion->getIsPrincipal();
+        $publicacion->setIsPrincipal($valor);
+        $publicacion->setIsCarrusel($valor);
+        
         $em->flush();
 
         return $this->render("BackendBundle:Default:item.html.twig", array(

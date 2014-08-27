@@ -94,7 +94,7 @@
                         </div>
                         <div class="widget-foot">
                             <button id="botonRegresar" class="btn btn-default">Regresar</button>
-                            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                            {% if is_granted('ROLE_ADMIN') %}
                             <button id="botonGuardar" class="btn btn-primary">Guardar cambios</button>
                             <div style="float: left; margin-right: 3px;">
                             {{form_widget(delete_form)}}

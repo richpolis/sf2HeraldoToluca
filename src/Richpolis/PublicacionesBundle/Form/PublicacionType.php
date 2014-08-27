@@ -57,11 +57,11 @@ class PublicacionType extends AbstractType
                     'data-bind'=>'value: usuario',
                     )
                 ))
-            ->add('file','file',array('label'=>'Portada','attr'=>array(
+            /*->add('file','file',array('label'=>'Portada','attr'=>array(
                 'class'=>'form-control placeholder',
                 'placeholder'=>'Portada',
                 'data-bind'=>'value: portada'
-             )))
+             )))*/
             ->add('imagen','hidden')
             ->add('position','hidden')
             ->add('slug','hidden')

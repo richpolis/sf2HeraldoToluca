@@ -172,6 +172,10 @@ class Youtube
         return '<iframe class="youtube-player" type="text/html" width="'.$width.'" height="'.$height.'" src="http://www.youtube.com/embed/'.$this->id.'?autoplay='.$autoplay.'" frameborder="0">
         </iframe>';
     }
+    
+    public function getData(){
+        return $this->data;
+    }
  
  
 }
