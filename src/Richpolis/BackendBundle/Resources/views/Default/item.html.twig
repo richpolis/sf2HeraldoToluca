@@ -33,7 +33,7 @@
         </td>
         <td class="in-carrusel" data-url="{{ path('backend_publicacion_in_carrusel',{'id': entity.id }) }}">
             {% if entity.status <= constant('Richpolis\\PublicacionesBundle\\Entity\\Publicacion::STATUS_PUBLICADO') %}
-                {% if not is_granted('ROLE_ADMIN') or entity.usuario.id != app.user.id %}
+                {% if is_granted('ROLE_ADMIN') == false and entity.usuario.id != app.user.id %}
                     {{ entity.isCarrusel | isActive | raw }}
                 {% elseif entity.isCarrusel %}
                     <button class="backend btn btn-success activo" onclick="javascript:backend({{entity.id}}, '.in-carrusel')"><i class="fa fa-check-square-o"></i></button>

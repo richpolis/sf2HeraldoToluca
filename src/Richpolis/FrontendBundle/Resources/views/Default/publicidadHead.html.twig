@@ -2,7 +2,7 @@
 {% set head_right = constant('Richpolis\\PublicidadBundle\\Entity\\Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_DERECHO') %}
 <div class="item-publicidad encabezado-izquierda">
     <ul class="galeria-publicidad-head-left">
-        {% for publicidad in publicidadArray[head_left] %}
+        {% for publicidad in publicidadArray[head_left] if publicidad.isActive == true  %}
             {% if publicidad.isImagen %}
             <li>
                 <a href="{{publicidad.link}}" target="_blank">
@@ -19,7 +19,7 @@
 </div>
 <div class="item-publicidad encabezado-derecha">
     <ul class="galeria-publicidad-head-right">
-        {% for publicidad in publicidadArray[head_right] %}
+        {% for publicidad in publicidadArray[head_right] if publicidad.isActive == true  %}
             {% if publicidad.isImagen %}
             <li>
                 <a href="{{publicidad.link}}" target="_blank">

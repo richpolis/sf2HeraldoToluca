@@ -3,7 +3,7 @@
 <aside class="padding-trb columna-1">
     <div class="publicidad aside-arriba sin-padding">
         <ul class="galeria-publicidad">
-        {% for publicidad in publicidadArray[aside_arriba] %}
+        {% for publicidad in publicidadArray[aside_arriba] if publicidad.isActive == true %}
             {% if publicidad.isImagen %}
             <li>
                 <a href="{{publicidad.link}}" target="_blank">
@@ -118,7 +118,7 @@
     </article>
     <div class="publicidad aside-abajo sin-padding">
         <ul class="galeria-publicidad">
-        {% for publicidad in publicidadArray[aside_abajo] %}
+        {% for publicidad in publicidadArray[aside_abajo] if publicidad.isActive == true %}
             {% if publicidad.isImagen %}
             <li>
                 <a href="{{publicidad.link}}" target="_blank">
