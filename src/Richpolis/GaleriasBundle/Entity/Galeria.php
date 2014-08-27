@@ -596,8 +596,9 @@ class Galeria
      */
     public function getArchivoView($width = 616, $height = 411){
         $opciones=array(
+            'archivo' => $this->getWebPath(),
             'tipo_archivo'  => RpsStms::getTipoArchivo($this->getArchivo()),
-            'path'      =>  $this->getLargeWebPath(),
+            'path'      =>  $this->getWebPath(),
             'carpeta'   =>  'galerias',
             'width'     =>  $width,
             'height'    =>  $height,

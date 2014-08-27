@@ -4,11 +4,11 @@
             <figure class="thumbnail-mediana">
                 <img src="{{ noticia.webPath | imagine_filter('imagen_246_76') }}" alt="{{noticia.titulo}}"/>
             </figure>
-        {% else %}
+        {% elseif noticia.galerias | length > 0 %}
             <figure class="thumbnail-mediana">
                 <img src="{{ noticia.galerias[0].webPath | imagine_filter('imagen_246_76') }}" alt="{{noticia.galerias[0].titulo}}"/>
             </figure>
-         {% else %}
+        {% else %}
             <figure class="thumbnail-mediana">
                 <img src="http://placehold.it/246x76/ffffff/ffffff" alt=""/>
             </figure>    
