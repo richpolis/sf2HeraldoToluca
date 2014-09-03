@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a0e5e57b2b6079b8ad6151c2bf7f5dbc",
+    "hash": "5f99fe5a591186f6e23555a787e72a16",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -802,54 +802,42 @@
             "time": "2012-09-10 06:07:54"
         },
         {
-            "name": "friendsofsymfony/comment-bundle",
-            "version": "dev-master",
-            "target-dir": "FOS/CommentBundle",
+            "name": "egeloen/ckeditor-bundle",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FriendsOfSymfony/FOSCommentBundle.git",
-                "reference": "2363b47b6a6fe967a89f323253be9bd3a7508653"
+                "url": "https://github.com/egeloen/IvoryCKEditorBundle.git",
+                "reference": "de3d2e0170ed4c73035887ef4f1fcea4884aa36b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSCommentBundle/zipball/2363b47b6a6fe967a89f323253be9bd3a7508653",
-                "reference": "2363b47b6a6fe967a89f323253be9bd3a7508653",
+                "url": "https://api.github.com/repos/egeloen/IvoryCKEditorBundle/zipball/de3d2e0170ed4c73035887ef4f1fcea4884aa36b",
+                "reference": "de3d2e0170ed4c73035887ef4f1fcea4884aa36b",
                 "shasum": ""
             },
             "require": {
-                "friendsofsymfony/rest-bundle": "~1.0",
-                "jms/serializer-bundle": "~0.11",
-                "php": ">=5.3.2",
+                "egeloen/json-builder": "~1.0",
+                "php": ">=5.3.3",
                 "symfony/form": "~2.1",
-                "symfony/framework-bundle": "~2.1",
-                "symfony/security-bundle": "~2.1",
-                "symfony/twig-bundle": "~2.1",
-                "symfony/validator": "~2.1",
-                "symfony/yaml": "~2.1"
+                "symfony/framework-bundle": "~2.1"
             },
             "require-dev": {
-                "doctrine/doctrine-bundle": "~1.1",
-                "doctrine/orm": "~2.3",
-                "friendsofsymfony/user-bundle": "~1.1",
-                "ornicar/akismet-bundle": "dev-master",
-                "symfony/assetic-bundle": "~2.1",
-                "symfony/browser-kit": "~2.1",
-                "symfony/css-selector": "~2.1",
-                "symfony/expression-language": "~2.4"
+                "phpunit/phpunit": "~4.0",
+                "satooshi/php-coveralls": "~0.6",
+                "twig/twig": "~1.12"
             },
             "suggest": {
-                "friendsofsymfony/user-bundle": "Allows for user integration.",
-                "ornicar/akismet-bundle": "Integrate Akismet for spamdetection."
+                "twig/twig": "Allows to use twig templates"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "2.4-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "FOS\\CommentBundle": ""
+                "psr-4": {
+                    "Ivory\\CKEditorBundle\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -858,26 +846,67 @@
             ],
             "authors": [
                 {
-                    "name": "Tim Nagel",
-                    "email": "tim@nagel.com.au"
-                },
-                {
-                    "name": "FriendsOfSymfony Community",
-                    "homepage": "https://github.com/friendsofsymfony/FOSCommentBundle/contributors"
-                },
-                {
-                    "name": "Alexander Mols",
-                    "email": "iam.asm89@gmail.com"
+                    "name": "Eric GELOEN",
+                    "email": "geloen.eric@gmail.com"
                 }
             ],
-            "description": "This Bundle provides threaded comment functionality for Symfony2 applications",
-            "homepage": "http://friendsofsymfony.github.com",
+            "description": "Provides a CKEditor integration for your Symfony2 Project.",
             "keywords": [
-                "comment",
-                "forum",
-                "threads"
+                "CKEditor"
             ],
-            "time": "2014-07-31 22:54:27"
+            "time": "2014-07-15 15:45:25"
+        },
+        {
+            "name": "egeloen/json-builder",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/egeloen/ivory-json-builder.git",
+                "reference": "0395f06db7bbb3c240667ab5f3152151051fb567"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/egeloen/ivory-json-builder/zipball/0395f06db7bbb3c240667ab5f3152151051fb567",
+                "reference": "0395f06db7bbb3c240667ab5f3152151051fb567",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.3.0",
+                "symfony/property-access": "~2.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "satooshi/php-coveralls": "~0.6"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ivory\\JsonBuilder\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eric GELOEN",
+                    "email": "geloen.eric@gmail.com"
+                }
+            ],
+            "description": "JSON builder with escaping control for PHP 5.3+",
+            "keywords": [
+                "Escape",
+                "builder",
+                "json"
+            ],
+            "time": "2014-08-12 00:30:56"
         },
         {
             "name": "friendsofsymfony/rest-bundle",
@@ -956,74 +985,6 @@
                 "rest"
             ],
             "time": "2014-08-15 12:18:54"
-        },
-        {
-            "name": "friendsofsymfony/user-bundle",
-            "version": "dev-master",
-            "target-dir": "FOS/UserBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "094bea6f318fbb067db3ddf6d26a62af0bf13442"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/094bea6f318fbb067db3ddf6d26a62af0bf13442",
-                "reference": "094bea6f318fbb067db3ddf6d26a62af0bf13442",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2",
-                "symfony/form": "~2.1",
-                "symfony/framework-bundle": "~2.1",
-                "symfony/security-bundle": "~2.1"
-            },
-            "require-dev": {
-                "doctrine/doctrine-bundle": "*",
-                "swiftmailer/swiftmailer": ">=4.3, <6.0",
-                "symfony/validator": "~2.1",
-                "symfony/yaml": "~2.1",
-                "twig/twig": "~1.5",
-                "willdurand/propel-typehintable-behavior": "dev-master"
-            },
-            "suggest": {
-                "willdurand/propel-typehintable-behavior": "Needed when using the propel implementation"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "FOS\\UserBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christophe Coevoet",
-                    "email": "stof@notk.org"
-                },
-                {
-                    "name": "FriendsOfSymfony Community",
-                    "homepage": "https://github.com/friendsofsymfony/FOSUserBundle/contributors"
-                },
-                {
-                    "name": "Thibault Duplessis",
-                    "email": "thibault.duplessis@gmail.com"
-                }
-            ],
-            "description": "Symfony FOSUserBundle",
-            "homepage": "http://friendsofsymfony.github.com",
-            "keywords": [
-                "User management"
-            ],
-            "time": "2014-08-23 11:32:38"
         },
         {
             "name": "helios-ag/fm-elfinder-bundle",
@@ -1584,12 +1545,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
-                "reference": "3a87e3265e9201c8397caa39e563a29eb2ad3b43"
+                "reference": "27c2a202192a2d96fd25aaed3ec95120c1e30af5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/3a87e3265e9201c8397caa39e563a29eb2ad3b43",
-                "reference": "3a87e3265e9201c8397caa39e563a29eb2ad3b43",
+                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/27c2a202192a2d96fd25aaed3ec95120c1e30af5",
+                "reference": "27c2a202192a2d96fd25aaed3ec95120c1e30af5",
                 "shasum": ""
             },
             "require": {
@@ -1634,7 +1595,7 @@
                 "pagination",
                 "paginator"
             ],
-            "time": "2014-08-19 13:38:58"
+            "time": "2014-08-25 23:31:20"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -2844,8 +2805,6 @@
         "doctrine/data-fixtures": 20,
         "knplabs/knp-paginator-bundle": 20,
         "stfalcon/tinymce-bundle": 20,
-        "friendsofsymfony/user-bundle": 20,
-        "friendsofsymfony/comment-bundle": 20,
         "helios-ag/fm-elfinder-bundle": 20,
         "liip/imagine-bundle": 20
     },

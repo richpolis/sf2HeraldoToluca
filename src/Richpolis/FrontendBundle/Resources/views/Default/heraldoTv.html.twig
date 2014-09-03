@@ -14,29 +14,18 @@
                 </h2>
                 <select name="cbCategoriasVideos" id="cbCategoriasVideos" class="categorias-videos">
                     {% for publicacion in categoria.publicaciones %}
-                        <option value="{{publicacion.slug}}">{{publicacion.titulo}}</option>
+                        <option value="{{ publicacion.id }}" id="galeria-{{publicacion.id}}" data-url="{{ path('frontend_heraldo_tv',{ 'slug': publicacion.slug }) }}">
+                            {{publicacion.titulo}}
+                        </option>
                     {% endfor %}
                 </select>
             </header>
-            <section class="videos padding-left">
-                {% for publicacion in categoria.publicaciones %}
-                    {% for galeria in publicacion.galerias %}
-                        <article class="item-noticia item-video">
-                            <figure class="thumbnail-mediana">
-                                <a href="{{galeria.archivo}}" class="fancybox-media iframe">
-                                    <img src="{{ galeria.thumbnailWebPath }}" width="191" height="121" alt="">
-                                </a>
-                            </figure>
-                            {{ galeria.descripcion | striptags | truncate(100,true,'...')  }}
-                            <div class="redes-sociales">
-                                <span class="share"></span>
-                                <span class="twitter"></span>
-                                <span class="facebook"></span>
-                            </div>
-                        </article>
-                    {% endfor %}
-                {% endfor %}
-            </section>
+            <img id="loader" src="{{asset('images/bx_loader.gif')}}" style="display: none;" />
+            {% for publicacion in categoria.publicaciones %}
+                {%  if loop.first == true %}            
+                    {% include 'FrontendBundle:Default:galeriaHeraldoTv.html.twig' with { 'publicacion': publicacion } %}
+                {% endif %}
+            {% endfor %}
         </article>
     </section>	
     {# include 'FrontendBundle:Default:aside.html.twig' #}        
@@ -48,6 +37,25 @@
 <script src="{{asset('js/fancybox/jquery.fancybox-media.js')}}"></script>
 <script>
     $(document).ready(function() {
+        $("#cbCategoriasVideos").on("change",function(){
+           //alert("Entro a cambio de videos");
+           var valor = $(this).val();
+           var url = $("#galeria-"+valor).data("url");
+           $("#loader").fadeIn();
+           $.ajax({
+               url: url,
+               type:'GET',
+               success: function(data){
+                   $("section.videos").html($(data).html());
+                   fancyboxActions();
+                   $("#loader").fadeOut();
+               },
+               
+           });
+        });
+        fancyboxActions();
+    });
+    function fancyboxActions(){
         $("a.fancybox").fancybox();
           
         $("a.fancybox-media").fancybox({
@@ -58,6 +66,6 @@
                autoplay: 0
             }
         });
-    });
+    }
 </script>
 {% endblock %}

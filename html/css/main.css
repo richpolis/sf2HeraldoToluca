@@ -85,9 +85,9 @@ nav{height:30px}
 #minuto-a-minuto{margin-bottom:0;margin-top:10px;overflow:hidden;}
 #minuto-a-minuto h2.titulo{background:#2369ab;color:#fff;font-family:'Conv_FRAMDCN';font-size:20px;font-weight:normal;height:34px;line-height:34px;overflow:hidden;padding-left:20px;text-transform:uppercase;margin:0 0 8px}
 #minuto-a-minuto ul{margin:0;padding:0}
-#minuto-a-minuto li{border-bottom:1px dotted #73a0ca;font-size:14px;height:40px;line-height:15px;list-style:none;overflow:hidden;padding:10px 0;}
+#minuto-a-minuto li{border-bottom:1px dotted #73a0ca;font-size:14px;line-height:15px;list-style:none;overflow:hidden;padding:10px 0;}
 #minuto-a-minuto li .tiempo,#minuto-a-minuto li .contenido{display:inline-block;vertical-align:middle}
-#minuto-a-minuto li .tiempo{margin-top:10px;width:45px;background:#f1f1f1;color:#2369ab;padding:3px;position:relative;text-align:center;}
+#minuto-a-minuto li .tiempo{width:45px;background:#f1f1f1;color:#2369ab;padding:3px;position:relative;text-align:center;}
 #minuto-a-minuto li .tiempo:after{content:"";display:block;border-left:12px solid #f1f1f1;border-top:11px solid transparent;border-bottom:11px solid transparent;position:absolute;right:-12px;top:0}
 #minuto-a-minuto li .contenido{width:215px;margin-left:20px}
 #minuto-a-minuto .contenedor-lista{height:405px;overflow:hidden}
@@ -149,8 +149,7 @@ nav{height:30px}
 .item-noticia-lg:first-child{margin-left:0}
 .item-noticia-lg h3.titulo{font-size:16.67px}
 .item-noticia-lg p{font-size:14px}
-.item-video{width:191px;margin-right:16px;}
-.item-video:first-child{margin-left:16px}
+.item-video{width:191px;margin-right:16px}
 .estatica{border-bottom:1px solid #c0c0c0;margin-top:0;padding-bottom:16px;}
 .estatica div.contenido{margin-top:20px;text-align:justificy}
 .estatica section.noticias{margin-top:20px;position:relative;}

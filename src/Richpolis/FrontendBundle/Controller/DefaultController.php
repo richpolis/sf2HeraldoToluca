@@ -286,7 +286,13 @@ class DefaultController extends Controller {
                 $this->setVAloresSession('publicaciones', $publicacionesSession);
             }
         }
-
+        
+        if ($request->isXmlHttpRequest()) {
+            return $this->render('FrontendBundle:Default:galeriaHeraldoTv.html.twig', array(
+                'publicacion' => $publicacion
+            ));
+        }
+        
         return array(
             'categoria' => $publicacion->getCategoria(),
             'publicacion' => $publicacion
