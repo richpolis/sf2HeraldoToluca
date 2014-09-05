@@ -130,12 +130,34 @@ class DefaultController extends Controller {
 
         $publicaciones = $em->getRepository('PublicacionesBundle:Publicacion')
                 ->getUltimasPublicaciones(4);
-
+		
+		$arregloCategorias = $this->parsearCategorias($categorias);
+		
+		
         return array(
             'carrusel' => $carrusel,
-            'categorias' => $categorias,
+            'categorias' => $arregloCategorias,
             'ultimasPublicaciones' => $publicaciones
         );
+    }
+	
+	public function parsearCategorias(&$categorias) {
+		$arregloCategorias = array();
+        foreach($categorias as $key => $categoria ){
+			$slug = $categoria->getSlug();
+			if(count($categoria->getChildren())>0){
+				foreach($categoria->getChildren() as $child){
+					foreach($child->getPublicaciones() as $publicacion){
+						$arregloCategorias[$slug][] = $publicacion;
+					}
+				}
+			}else{
+				foreach($categoria->getPublicaciones() as $publicacion){
+					$arregloCategorias[$slug][] = $publicacion;
+				}
+			}
+		}
+		return $arregloCategorias;
     }
 
     /**
