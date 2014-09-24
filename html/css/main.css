@@ -105,7 +105,7 @@ nav{height:30px}
 .controles-videos{height:30px;margin:8px 0 12px;position:relative;}
 .controles-videos .siguiente,.controles-videos .anterior{background-image:url("../images/anteriorsiguiente-heraldotv.png");background-repeat:no-repeat;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;color:#fff;cursor:pointer;display:inline-block;line-height:25px;font-size:16.65px;padding:0 10px;height:30px;width:107px;}
 .controles-videos .siguiente:first-letter,.controles-videos .anterior:first-letter{text-transform:uppercase}
-.categorias-videos{background:transparent;border:1px solid #808080;-webkit-border-radius:5px;border-radius:5px;color:#808080;float:right;font-size:16px;margin-right:20px;margin-top:10px;min-width:300px;padding:3px 5px;position:absolute;top:-3px;right:20px;z-index:1000}
+.categorias-videos{background:#fff;border:1px solid #808080;-webkit-border-radius:5px;border-radius:5px;color:#808080;float:right;font-size:16px;margin-right:20px;margin-top:10px;min-width:300px;padding:3px 5px;position:absolute;top:-3px;right:20px;z-index:1000}
 .comentarios-formulario{border-bottom:1px solid #c0c0c0;margin-top:0;padding-bottom:16px;}
 .comentarios-formulario h2.titulo{background:#e6e6e6;border-bottom:3px solid #2369ab;color:#000;font-family:'Conv_FRAMDCN';font-size:20.83px;height:35px;line-height:35px;margin:5px 0;padding:0 10px;text-transform:uppercase;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-weight:normal;margin-bottom:10px}
 .comentarios-formulario label{margin-right:.5em;display:block}
@@ -134,6 +134,7 @@ nav{height:30px}
 .control-video{position:absolute;}
 .control-video.siguiente{right:0;background-position:-3px -30px;text-align:left}
 .control-video.anterior{left:0;background-position:0 0;text-align:right}
+.fondo-blanco{background-color:#fff}
 .form-buscador{position:relative;}
 .form-buscador .buscar{border:1px solid #c0c0c0;color:#8d8d8d;font-family:'Conv_Amplitude-Regular';font-size:14px;padding:5px 30px 5px 5px;position:absolute;right:0;top:0;z-index:1001;height:19px}
 .form-buscador .accion-buscar{border:none;position:absolute;right:1px;top:0;z-index:1002}
@@ -258,6 +259,13 @@ nav{height:30px}
 .relacionados .controles #slider-prev{left:0}
 .relacionados .controles #slider-next{right:0}
 .redes-sociales span{display:inline-block;vertical-align:top;margin-left:.2em}
+.tuespacio{background-color:#116fb1;width:100%;position:relative;padding:10px;margin-top:5px;margin-bottom:5px;}
+.tuespacio .contenedor-tuespacio{height:120px;border-top:1px solid #5096dc;border-bottom:1px solid #5096dc;margin:10px}
+.tuespacio span.titulo{position:absolute;top:50%;left:20px;font-size:32px;margin-top:-15px;color:#fff}
+.tuespacio span.icono{position:absolute;top:50%;right:40%;margin-top:-25px}
+.tuespacio.mini .contenedor-tuespacio{height:60px}
+.tuespacio.mini span.titulo{margin-top:-15px;font-size:24px}
+.tuespacio.mini span.icono{right:20px;margin-top:-20px}
 .ver-archivos{background:#2369ab;border:none;color:#fff;font-family:'Conv_Georgia_0';font-size:13px;height:40px;padding:10px 16px;text-transform:uppercase;width:110px}
 .relative{position:relative}
 .padding{padding:16px}

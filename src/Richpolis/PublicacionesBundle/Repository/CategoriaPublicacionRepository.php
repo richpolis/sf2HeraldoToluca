@@ -172,16 +172,22 @@ class CategoriaPublicacionRepository extends EntityRepository
         return $query->getResult();
     }
 	
-	 public function getCategoriasConPublicaciones($maxPublicaciones = 4){
+    public function getCategoriasConPublicaciones($maxPublicaciones = 4){
         $em=$this->getEntityManager();
+        $fecha = new \DateTime();
         $query=$em->createQuery('
                SELECT c,p 
                FROM PublicacionesBundle:CategoriaPublicacion c 
                JOIN c.publicaciones p 
                WHERE p.position BETWEEN :inicial AND :final AND p.status=:status 
-               
+               AND p.fechaPublicacion <=:actual 
                ORDER BY p.position ASC
-        ')->setParameters(array('inicial'=>1,'final'=>$maxPublicaciones,'status'=>Publicacion::STATUS_PUBLICADO));
+        ')->setParameters(array(
+            'inicial'=>1,
+            'final'=>$maxPublicaciones,
+            'status'=>Publicacion::STATUS_PUBLICADO,
+            'actual'=>$fecha->format('Y-m-d'),
+            ));
         
         return $query->getResult();
     }

@@ -147,6 +147,13 @@ class Publicacion
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $galerias;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_publicacion", type="date", nullable=true)
+     */
+    private $fechaPublicacion;
     
     /**
      * @var \DateTime
@@ -191,6 +198,7 @@ class Publicacion
         $this->status = self::STATUS_INCOMPLETO;
         $this->contVisitas = 0;
         $this->contComentarios = 0;
+        $this->fechaPublicacion = new \DateTime("tomorrow");
     }
     
     public function __toString(){
@@ -802,5 +810,28 @@ class Publicacion
     public function getContComentarios()
     {
         return $this->contComentarios;
+    }
+
+    /**
+     * Set fechaPublicacion
+     *
+     * @param \DateTime $fechaPublicacion
+     * @return Publicacion
+     */
+    public function setFechaPublicacion($fechaPublicacion)
+    {
+        $this->fechaPublicacion = $fechaPublicacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaPublicacion
+     *
+     * @return \DateTime 
+     */
+    public function getFechaPublicacion()
+    {
+        return $this->fechaPublicacion;
     }
 }

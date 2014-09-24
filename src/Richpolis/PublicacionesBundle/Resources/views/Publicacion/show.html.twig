@@ -50,7 +50,7 @@
                 <a href="{{path('backend_homepage')}}"><i class="fa fa-home"></i>Dashboard</a--> 
                 <Divider>
                 <span class="divider">/</span> 
-                <a href="{{path('categorias_publicaciones')}}" class="bread-current">{{entity.categoria}}</a>
+                <a href="{{path('categorias_publicaciones')}}" class="bread-current">{{entity.categoria.nivelCategoria}}</a>
                 <Divider>
                 <span class="divider">/</span>
                 <a href="{{path('publicaciones')}}" class="bread-current">Publicaciones</a>
@@ -100,7 +100,11 @@
                                                                     <td>{{ entity.descripcion | raw }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Categoria:</td>
+                                                                    <td>Fecha publicacion:</td>
+                                                                    <td>{{entity.fechaPublicacion | date('d-M-Y') }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Nivel:</td>
                                                                     <td>{{entity.categoria.nivelCategoria}}</td>
                                                                 </tr>
                                                                 <tr>

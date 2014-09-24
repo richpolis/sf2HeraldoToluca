@@ -53,8 +53,13 @@
 
 {% endblock %}
 
+{% block background_body %}
+{{ render(controller('FrontendBundle:Default:fondo')) }}
+{% endblock %}
+
+
 {% block body %}
-<div class="container border-gris-lr">
+<div class="container border-gris-lr fondo-blanco">
         <header class="header">
             <div class="publicidad publicidad-principal">
                 {{ render(controller('FrontendBundle:Default:publicidadHead')) }}
@@ -64,7 +69,7 @@
                     <li><a href="{{path('frontend_nosotros')}}">nosotros</a></li>
                     <li><a href="{{path('frontend_historia')}}">historia</a></li>
                     <li><a href="{{path('frontend_edicion_pdf')}}">edicion pdf</a></li>
-                    <li><a href="{{path('frontend_heraldo_tv',{'slug':'ultimo'})}}">heraldo tv</a></li>
+                    <li><a href="{{path('frontend_heraldo_tv',{'slug':'ultimo'})}}">videos</a></li>
                     <li><a href="{{path('frontend_tu_espacio',{'slug':'ultimo'})}}">tu espacio</a></li>
                     <li><a href="{{path('frontend_contacto')}}">contacto</a></li>
                 </ul>
@@ -88,7 +93,8 @@
                         <a href="{{path('frontend_archivos')}}" class="link-archivo">archivos</a>
                     </form>
                 </div>
-                <div class="fecha">{{"now"|date("l,j F Y", "America/Mexico_City")}}</div>
+                <!--div class="fecha">{{"now"|date("l,j F Y", "America/Mexico_City")}}</div-->
+                <div class="fecha">{{"now"|date("Y-m-d H:i:s", "America/Mexico_City")|translate_date }}</div>
             </div>
         </header>
         <nav class="navegador principal">
@@ -100,7 +106,7 @@
                     <a href="{{path('homepage')}}">inicio</a>
                 </li>
                 <li>
-                    <a href="#">general</a>
+                    <a href="{{path('frontend_categoria',{slug: 'general'})}}">general</a>
                     <ul class="submenu">
                         <li><a href="{{path('frontend_categoria',{slug: 'entorno'})}}">entorno</a></li>
                         <li><a href="{{path('frontend_categoria',{slug: 'poder'})}}">poder</a></li>
@@ -110,7 +116,7 @@
                 <li><a href="{{path('frontend_categoria',{slug: 'mundo'})}}">mundo</a></li>
                 <li><a href="{{path('frontend_categoria',{slug: 'negocios'})}}">negocios</a></li>
                 <li>
-                    <a href="#">municipios</a>
+                    <a href="{{path('frontend_categoria',{slug: 'municipios'})}}">municipios</a>
                     <ul class="submenu">
                         <li><a href="{{path('frontend_categoria',{slug: 'oriente'})}}">oriente</a></li>
                         <li><a href="{{path('frontend_categoria',{slug: 'valle-de-mexico'})}}">valle de mexico</a></li>
@@ -118,7 +124,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">trofeo</a>
+                    <a href="{{path('frontend_categoria',{slug: 'trofeo'})}}">trofeo</a>
                     <ul class="submenu">
                         <li><a href="{{path('frontend_categoria',{slug: 'local'})}}">local</a></li>
                         <li><a href="{{path('frontend_categoria',{slug: 'nacional'})}}">nacional</a></li>
@@ -126,7 +132,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">arte y gente</a>
+                    <a href="{{path('frontend_categoria',{slug: 'arte-y-gente'})}}">arte y gente</a>
                     <ul class="submenu">
                         <li><a href="{{path('frontend_categoria',{slug: 'espectaculos'})}}">espectaculos</a></li>
                         <li><a href="{{path('frontend_categoria',{slug: 'cultura'})}}">cultura</a></li>
@@ -134,8 +140,9 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">ideas y voces</a>
+                    <a href="{{path('frontend_categoria',{slug: 'ideas-y-voces'})}}">editorial</a>
                     <ul class="submenu">
+                        <li><a href="{{path('frontend_categoria',{slug: 'columnas'})}}">columnas</a></li>
                         <li><a href="{{path('frontend_categoria',{slug: 'caricaturas'})}}">caricaturas</a></li>
                     </ul>
                 </li>
@@ -154,7 +161,7 @@
                         <li><a href="{{path('frontend_nosotros')}}">nosotros</a></li>
                         <li><a href="{{path('frontend_historia')}}">historia</a></li>
                         <li><a href="{{path('frontend_edicion_pdf')}}">edicion pdf</a></li>
-                        <li><a href="{{path('frontend_heraldo_tv',{'slug':'ultimo'})}}">heraldo tv</a></li>
+                        <li><a href="{{path('frontend_heraldo_tv',{'slug':'ultimo'})}}">videos</a></li>
                         <li><a href="{{path('frontend_tu_espacio',{'slug':'ultimo'})}}">tu espacio</a></li>
                         <li><a href="{{path('frontend_contacto')}}">contacto</a></li>
                     </ul>
@@ -163,14 +170,14 @@
                     <ul>
                         <!--li><a href="{{path('portada')}}">portada</a></li-->
                         <li><a href="{{path('homepage')}}">inicio</a></li>
-                        <li><a href="{{path('frontend_categoria',{slug: 'entorno'})}}">general</a></li>
+                        <li><a href="{{path('frontend_categoria',{slug: 'general'})}}">general</a></li>
                         <li><a href="{{path('frontend_categoria',{slug: 'nacional'})}}">nacional</a></li>
                         <li><a href="{{path('frontend_categoria',{slug: 'mundo'})}}">mundo</a></li>
                         <li><a href="{{path('frontend_categoria',{slug: 'negocios'})}}">negocios</a></li>
-                        <li><a href="{{path('frontend_categoria',{slug: 'oriente'})}}">municipios</a></li>
-                        <li><a href="{{path('frontend_categoria',{slug: 'local'})}}">trofeo</a></li>
-                        <li><a href="{{path('frontend_categoria',{slug: 'espectaculos'})}}">arte y gente</a></li>
-                        <li><a href="{{path('frontend_categoria',{slug: 'caricaturas'})}}">ideas y voces</a></li>
+                        <li><a href="{{path('frontend_categoria',{slug: 'municipios'})}}">municipios</a></li>
+                        <li><a href="{{path('frontend_categoria',{slug: 'trofeo'})}}">trofeo</a></li>
+                        <li><a href="{{path('frontend_categoria',{slug: 'arte-y-gente'})}}">arte y gente</a></li>
+                        <li><a href="{{path('frontend_categoria',{slug: 'ideas-y-voces'})}}">editorial</a></li>
                         <li><a href="{{path('frontend_categoria',{slug: 'entrevista'})}}">entrevista</a></li>
                     </ul>
                 </div>

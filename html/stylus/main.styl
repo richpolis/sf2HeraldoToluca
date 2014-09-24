@@ -25,7 +25,8 @@ a
 body
 	color #282828
 	font-family 'Conv_FRABK'
-	font-size 16px 
+	font-size 16px
+
 
 footer
 	background #181818
@@ -223,7 +224,7 @@ nav
 			text-transform uppercase
 
 .categorias-videos
-	background transparent
+	background white
 	border 1px solid gray
 	border-radius 5px
 	color gray
@@ -360,6 +361,9 @@ nav
 		left 0px
 		background-position 0px 0px
 		text-align right
+
+.fondo-blanco
+	background-color #FFFFFF
 
 .form-buscador
 	position relative
@@ -959,6 +963,40 @@ nav
 	display inline-block
 	vertical-align top
 	margin-left .2em
+
+.tuespacio
+	background-color #116FB1
+	width 100%
+	position relative
+	padding 10px
+	margin-top 5px
+	margin-bottom 5px
+	& .contenedor-tuespacio
+		height 120px
+		border-top 1px solid #5096dc
+		border-bottom 1px solid #5096dc
+		margin 10px
+	& span.titulo
+		position absolute
+		top 50%
+		left 20px
+		font-size 32px
+		margin-top -15px
+		color white
+	& span.icono
+		position absolute
+		top 50%
+		right 40%
+		margin-top -25px
+	&.mini
+		& .contenedor-tuespacio
+			height 60px
+		& span.titulo
+			margin-top -15px
+			font-size 24px
+		& span.icono 
+			right 20px
+			margin-top -20px
 
 
 .ver-archivos

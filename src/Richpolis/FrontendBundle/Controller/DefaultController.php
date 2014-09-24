@@ -105,7 +105,7 @@ class DefaultController extends Controller {
         $portadas = $em->getRepository('PublicacionesBundle:Publicacion')
                 ->findPortada();
         $llamados = $em->getRepository('PublicacionesBundle:Publicacion')
-                ->getPublicacionesPorTipoCategoria(
+                ->getPublicacionesPorTipoCategoriaAll(
                 Publicacion::STATUS_PUBLICADO, CategoriaPublicacion::TIPO_CATEGORIA_LLAMADOS
         );
 
@@ -130,34 +130,12 @@ class DefaultController extends Controller {
 
         $publicaciones = $em->getRepository('PublicacionesBundle:Publicacion')
                 ->getUltimasPublicaciones(4);
-		
-		$arregloCategorias = $this->parsearCategorias($categorias);
-		
-		
+
         return array(
             'carrusel' => $carrusel,
-            'categorias' => $arregloCategorias,
+            'categorias' => $categorias,
             'ultimasPublicaciones' => $publicaciones
         );
-    }
-	
-	public function parsearCategorias(&$categorias) {
-		$arregloCategorias = array();
-        foreach($categorias as $key => $categoria ){
-			$slug = $categoria->getSlug();
-			if(count($categoria->getChildren())>0){
-				foreach($categoria->getChildren() as $child){
-					foreach($child->getPublicaciones() as $publicacion){
-						$arregloCategorias[$slug][] = $publicacion;
-					}
-				}
-			}else{
-				foreach($categoria->getPublicaciones() as $publicacion){
-					$arregloCategorias[$slug][] = $publicacion;
-				}
-			}
-		}
-		return $arregloCategorias;
     }
 
     /**
@@ -169,7 +147,7 @@ class DefaultController extends Controller {
         $categoria = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')
                 ->findOneBy(array('slug' => $slug));
         $query = $em->getRepository('PublicacionesBundle:Publicacion')
-                ->queryPorCategoria($slug);
+                ->queryPorCategoria($slug,Publicacion::STATUS_PUBLICADO, true);
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query, 
@@ -487,6 +465,21 @@ class DefaultController extends Controller {
         
         return array(
             'publicidadArray' => $this->getPublicidadEnSession($em),
+        );
+    }
+
+    /**
+     * @Route("/fondo/pagina", name="frontend_fondo_pagina")
+     * @Template("FrontendBundle:Default:fondo.html.twig")
+     */
+    public function fondoAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $configuracion = $em->getRepository('BackendBundle:Configuraciones')
+                        ->findOneBy(array('slug' => 'fondo-pagina'));
+
+        return array(
+            'fondo' => $configuracion->getWebPath(),
         );
     }
     

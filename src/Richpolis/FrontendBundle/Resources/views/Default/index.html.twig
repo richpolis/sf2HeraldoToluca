@@ -58,16 +58,28 @@
             </p>
             {% endif %}
         </article>
+        <div class="tuespacio">
+            <div class="contenedor-tuespacio">
+                <a href="{{path('frontend_tu_espacio',{'slug':'ultimo'})}}">
+                <span class="titulo">TU ESPACIO</span>
+                <span class="icono">
+                    <img src="{{asset('images/communities.png')}}" />
+                </span>
+                </a>
+            </div>
+        </div>   
         <article class="list-noticias heraldo-tv list-videos">
             <header class="relative">
                 <h2 class="titulo">
-                    heraldo tv
+                    videos
                 </h2>
                 <!--select name="cbCategoriasVideos" id="cbCategoriasVideos" class="categorias-videos" onchange="javascript:categoriasVideos()">
-                <option value="" disabled selected style="display:none;">Selecciona opcion</option>
-				{% for publicacion in categorias['heraldo-tv'] %}
-                   <option value="{{publicacion.slug}}">{{publicacion.titulo}}</option>
-                {% endfor %}
+                    {% for categoria in categorias if categoria.tipoCategoria is constant('Richpolis\\PublicacionesBundle\\Entity\\CategoriaPublicacion::TIPO_CATEGORIA_HERALDO_TV') %}
+                        <option value="" disabled selected style="display:none;">Selecciona opcion</option>
+						{% for publicacion in categoria.publicaciones %}
+                            <option value="{{publicacion.slug}}">{{publicacion.titulo}}</option>
+                        {% endfor %}
+                    {% endfor %}
                 </select-->
             </header>
             <div class="controles-videos">
@@ -75,7 +87,7 @@
                 <span class="control-video siguiente" onclick="javascript:videosNext();">siguiente</span>	
             </div>
             <section class="videos padding-left">
-                {% for categoria in categorias['heraldo-tv'] %}
+                {% for categoria in categorias if categoria.tipoCategoria is constant('Richpolis\\PublicacionesBundle\\Entity\\CategoriaPublicacion::TIPO_CATEGORIA_HERALDO_TV') %}
                     {% if loop.first %}
                         {% for publicacion in categoria.publicaciones %}
                             {% for galeria in publicacion.galerias %}
@@ -101,7 +113,7 @@
         <article class="list-noticias">
             <header>
                 <h2 class="titulo llamados azul">
-                    llamados
+                    portada
                 </h2>
             </header>
             <section class="noticias">

@@ -120,6 +120,16 @@
             </ul>
         </div>
     </article>
+   <div class="tuespacio mini">
+        <div class="contenedor-tuespacio">
+            <a href="{{path('frontend_tu_espacio',{'slug':'ultimo'})}}">
+            <span class="titulo">TU ESPACIO</span>
+            <span class="icono">
+                <img src="{{asset('images/communities2.png')}}" />
+            </span>
+            </a>
+        </div>
+    </div>        
     <div class="publicidad aside-abajo sin-padding">
         <ul class="galeria-publicidad">
         {% for publicidad in publicidadArray[aside_abajo] if publicidad.isActive == true %}

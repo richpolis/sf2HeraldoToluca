@@ -8,7 +8,7 @@
         <link rel="icon" href="/favicon.ico" type="image/x-icon">
         {% block stylesheets %}{% endblock %}
     </head>
-    <body>
+    <body {% block background_body %}{% endblock %}>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

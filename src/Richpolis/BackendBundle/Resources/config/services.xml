@@ -11,6 +11,7 @@
         <parameter key="richpolis.twitterTime.extension.class">Richpolis\BackendBundle\Twig\TwitterTimeExtension</parameter>
         <parameter key="richpolis.status_publicacion.extension.class">Richpolis\BackendBundle\Twig\StatusPublicacionExtension</parameter>
         <parameter key="richpolis.status_comentario.extension.class">Richpolis\BackendBundle\Twig\StatusComentarioExtension</parameter>
+        <parameter key="richpolis.translate_date.extension.class">Richpolis\BackendBundle\Twig\TranslateDateExtension</parameter>
     </parameters>
 
     <services>
@@ -38,6 +39,11 @@
         
         <!-- "statusComentario" twig.extension -->
         <service id="richpolis.twig.status_comentario_extension" class="%richpolis.status_comentario.extension.class%">
+            <tag name="twig.extension" />
+        </service>
+        
+        <!-- "translateDate" twig.extension -->
+        <service id="richpolis.twig.translate_date_extension" class="%richpolis.translate_date.extension.class%">
             <tag name="twig.extension" />
         </service>
         
