@@ -213,7 +213,7 @@ EOF;
             'id' =>'archivo_flash', 
         );
                
-        $texto= '<object id="{id}" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="{width}" height="{hegith}"><param name="wmode" value="true" /><param name="allowfullscreen" value="false" /><param name="allowscriptaccess" value="always" /><param name="movie" value="{path}/{carpeta}/{archivo}" /><embed src="{path}/{carpeta}/{archivo}" type="application/x-shockwave-flash" allowfullscreen="false" allowscriptaccess="always" width="{width}" height="{height}" wmode="true"></embed></object>';
+        $texto= '<object id="{id}" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="{width}" height="{height}"><param name="wmode" value="true" /><param name="allowfullscreen" value="false" /><param name="allowscriptaccess" value="always" /><param name="movie" value="{path}" /><embed src="{path}" type="application/x-shockwave-flash" allowfullscreen="false" allowscriptaccess="always" width="{width}" height="{height}" wmode="true"></embed></object>';
         return Richsys::strReplaceOpciones($texto, $opciones, $opciones2);
          
      }

@@ -1,6 +1,7 @@
 {% set head_left = constant('Richpolis\\PublicidadBundle\\Entity\\Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_IZQUIERDO') %}
 {% set head_right = constant('Richpolis\\PublicidadBundle\\Entity\\Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_DERECHO') %}
 <div class="item-publicidad encabezado-izquierda">
+    {% if publicidadArray[head_left] | length > 1 %}
     <ul class="galeria-publicidad-head-left">
         {% for publicidad in publicidadArray[head_left] if publicidad.isActive == true  %}
             {% if publicidad.isImagen %}
@@ -16,8 +17,18 @@
             <li><img src="http://placehold.it/728x90/ffffff/ffffff" alt=""></li>
         {% endfor %}
     </ul>
+    {% else %}
+        {% if publicidadArray[head_left][0].isImagen %}
+            <a href="{{publicidadArray[head_left][0].link}}" target="_blank">
+                {{ publicidadArray[head_left][0].archivoView | raw }}
+            </a>
+        {% else %}    
+            {{ publicidadArray[head_left][0].archivoView | raw }}
+        {% endif %}
+    {% endif %}
 </div>
 <div class="item-publicidad encabezado-derecha">
+    {% if publicidadArray[head_right] | length > 1 %}
     <ul class="galeria-publicidad-head-right">
         {% for publicidad in publicidadArray[head_right] if publicidad.isActive == true  %}
             {% if publicidad.isImagen %}
@@ -33,4 +44,13 @@
             <li><img src="http://placehold.it/230x90/ffffff/ffffff" alt=""></li>
         {% endfor %}
     </ul>
+     {% else %}
+        {% if publicidadArray[head_right][0].isImagen %}
+            <a href="{{publicidadArray[head_right][0].link}}" target="_blank">
+                {{ publicidadArray[head_right][0].archivoView | raw }}
+            </a>
+        {% else %}    
+            {{ publicidadArray[head_right][0].archivoView | raw }}
+        {% endif %}
+    {% endif %}
 </div>

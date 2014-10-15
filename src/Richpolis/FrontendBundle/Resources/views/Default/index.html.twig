@@ -1,6 +1,5 @@
 {% extends 'FrontendBundle::layout.html.twig' %}
 
-
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{asset('css/fancybox/jquery.fancybox.css')}}"/>
@@ -206,7 +205,7 @@
             </p>
             {% endif %}
         </article>
-        <article class="list-noticias trofeo">
+        <!--article class="list-noticias trofeo">
             <header>
                 <h2 class="titulo">
                     trofeo
@@ -237,8 +236,8 @@
                 <a href="#"  class="lanzador-cargar-notas" data-clase="noticias-trofeo">cargar mas notas <span class="cargar-mas-notas gris">+</span></a>
             </p>
             {% endif %}
-        </article>
-        <article class="list-noticias arte-y-gente">
+        </article-->
+        <!--article class="list-noticias arte-y-gente">
             <header>
                 <h2 class="titulo">
                     arte y gente
@@ -269,8 +268,8 @@
                 <a href="#" class="lanzador-cargar-notas"  data-clase="noticias-arte-y-gente">cargar mas notas <span class="cargar-mas-notas azul">+</span></a>
             </p>
             {% endif %}
-        </article>
-        <article class="list-noticias minucipios">
+        </article-->
+        <!--article class="list-noticias minucipios">
             <header>
                 <h2 class="titulo">
                     municipios
@@ -301,7 +300,7 @@
                 <a href="#" class="lanzador-cargar-notas"  data-clase="noticias-municipios">cargar mas notas <span class="cargar-mas-notas rojo">+</span></a>
             </p>
             {% endif %}
-        </article>
+        </article-->
     </section>
     {# include 'FrontendBundle:Default:aside.html.twig' #}        
     {{render(controller('FrontendBundle:Default:aside'))}}

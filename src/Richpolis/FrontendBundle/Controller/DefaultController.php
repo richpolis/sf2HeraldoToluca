@@ -100,10 +100,11 @@ class DefaultController extends Controller {
      * @Template()
      */
     public function portadaAction() {
-
         $em = $this->getDoctrine()->getManager();
+        
         $portadas = $em->getRepository('PublicacionesBundle:Publicacion')
                 ->findPortada();
+        
         $llamados = $em->getRepository('PublicacionesBundle:Publicacion')
                 ->getPublicacionesPorTipoCategoriaAll(
                 Publicacion::STATUS_PUBLICADO, CategoriaPublicacion::TIPO_CATEGORIA_LLAMADOS
@@ -126,7 +127,7 @@ class DefaultController extends Controller {
                 ->findCarrusel();
 
         $categorias = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')
-                ->getCategoriasConPublicaciones(6);
+                ->getCategoriasConPublicaciones(20);
 
         $publicaciones = $em->getRepository('PublicacionesBundle:Publicacion')
                 ->getUltimasPublicaciones(4);
@@ -242,12 +243,23 @@ class DefaultController extends Controller {
         $comentarios = $em->getRepository('ComentariosBundle:Comentario')
                 ->findBy(array('publicacion' => $publicacion), array('createdAt' => 'ASC'));
 		
-		$categoria = $publicacion->getCategoria();
+	$categoria = $publicacion->getCategoria();
 
-		$relacionados = $em->getRepository('PublicacionesBundle:Publicacion')
-							   ->getPublicacionesRelacionadas($categoria);
-		
+	$relacionados = $em->getRepository('PublicacionesBundle:Publicacion')
+			   ->getPublicacionesRelacionadas($categoria);
+        
+        $antecesor = $categoria;        
+        $arregloCategorias = array();
+        $arregloCategorias[$categoria->getNivel()]['slug']=$categoria->getSlug();
+        $arregloCategorias[$categoria->getNivel()]['categoria']=$categoria->getCategoria();
+        while($antecesor->getNivel()>0){
+            $antecesor = $antecesor->getParent();
+            $arregloCategorias[$antecesor->getNivel()]['slug']=$antecesor->getSlug();
+            $arregloCategorias[$antecesor->getNivel()]['categoria']=$antecesor->getCategoria();
+        }        
+                
         return array(
+            'categorias' => $arregloCategorias,
             'categoria' => $categoria,
 	    'relacionados' => $relacionados,
             'publicacion' => $publicacion,

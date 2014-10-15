@@ -69,6 +69,18 @@
                     {{ publicacion.titulo }}
                 </h2>
                 <span class="datetime">{{ publicacion.createdAt|date("m/d/Y g:ia","America/Mexico_City")}}</span>
+                <span class="ruta">
+                    <a href="{{path('homepage')}}">Inicio</a>
+                    /
+                    {% set cont = 0 %}
+                    {% for itemCat in categorias | reverse %}
+                        {% set cont = cont + 1 %}
+                        <a href="{{path('frontend_categoria',{'slug':itemCat.slug})}}">{{itemCat.categoria}}</a>
+                        {% if cont < categorias | length %}
+                            /
+                        {% endif %}    
+                    {% endfor %}    
+                </span>
             </header>
             <div class="contenido">
                 <div class="contenedor-galeria">

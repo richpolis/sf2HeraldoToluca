@@ -102,8 +102,8 @@ class Publicidad
     const TIPO_PUBLICIDAD_ASIDE_ABAJO=4;
         
     static public $sTipoPublicidad=array(
-        self::TIPO_PUBLICIDAD_ENCABEZADO_IZQUIERDO=>'Supper Banner 728 X 90',
-        self::TIPO_PUBLICIDAD_ENCABEZADO_DERECHO=>'Micro Banner 230 X 90',
+        self::TIPO_PUBLICIDAD_ENCABEZADO_IZQUIERDO=>'Supper Banner 728 X 100',
+        self::TIPO_PUBLICIDAD_ENCABEZADO_DERECHO=>'Micro Banner 230 X 100',
         self::TIPO_PUBLICIDAD_ASIDE_ARRIBA=>'Box Banner 1 300 X 250',
         self::TIPO_PUBLICIDAD_ASIDE_ABAJO=>'Box Banner 2 300 X 250',
     );
@@ -481,9 +481,9 @@ class Publicidad
             $this->temp = null;
         }
         
-        if($this->getIsImagen()){
+        /*if($this->getIsImagen()){
             $this->crearThumbnail($this->getWidth(),$this->getHeight());
-        }
+        }*/
         
         $this->file = null;
     }
@@ -562,7 +562,7 @@ class Publicidad
         switch($this->getTipoPublicidad()){
             case Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_IZQUIERDO:
             case Publicidad::TIPO_PUBLICIDAD_ENCABEZADO_DERECHO:
-                return 90;
+                return 100;
             case Publicidad::TIPO_PUBLICIDAD_ASIDE_ARRIBA:
             case Publicidad::TIPO_PUBLICIDAD_ASIDE_ABAJO:
                 return 250;

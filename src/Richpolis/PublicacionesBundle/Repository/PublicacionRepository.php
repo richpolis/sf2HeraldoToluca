@@ -388,7 +388,7 @@ class PublicacionRepository extends EntityRepository
     
     public function getUltimasPublicaciones($registros){
 
-        $query=$this->queryPublicacionesPorTipoCategoria(
+        $query=$this->queryPublicacionesPorTipoCategoriaAll(
             Publicacion::STATUS_PUBLICADO,
             CategoriaPublicacion::TIPO_CATEGORIA_PUBLICACION,
             true,
@@ -402,7 +402,8 @@ class PublicacionRepository extends EntityRepository
 
         $query=$this->queryPorCategoria(
 			$categoria->getId(),
-            Publicacion::STATUS_PUBLICADO
+            Publicacion::STATUS_PUBLICADO,
+            true
         );
 		
         return $query->setMaxResults($registros)->getResult();
@@ -410,6 +411,7 @@ class PublicacionRepository extends EntityRepository
 
     public function queryLosmasVistosOrComentados($campo = '',$categoria = 0, $tipoCategoria = 0){
         $query=$this->getEntityManager()->createQueryBuilder();
+        $fecha = new \DateTime();
         /*$query->select('p,c,u,g')*/
         $query->select('p,c,u')
                 ->from('Richpolis\PublicacionesBundle\Entity\Publicacion', 'p')
@@ -418,6 +420,9 @@ class PublicacionRepository extends EntityRepository
                 ->leftJoin('p.categoria', 'c')
                 ->orderBy('p.'.$campo, 'DESC')/*
                 ->addOrderBy('g.position', 'ASC')*/;
+         $query->andWhere('p.fechaPublicacion <= :actual')
+                  ->setParameter('actual', $fecha->format('Y-m-d'));       
+
         if($categoria){
             $query->andWhere('c.id =:categoria')
                 ->setParameter('categoria', $categoria);

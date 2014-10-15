@@ -33,8 +33,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
-            new FM\ElfinderBundle\FMElfinderBundle(),
-            new Ivory\CKEditorBundle\IvoryCKEditorBundle()
+            new FM\ElfinderBundle\FMElfinderBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -48,7 +47,7 @@ class AppKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        date_default_timezone_set( 'America/Mexico_City' );
+		date_default_timezone_set( 'America/Mexico_City' );
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
 }
