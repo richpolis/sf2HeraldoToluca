@@ -105,14 +105,12 @@ class DefaultController extends Controller {
         $portadas = $em->getRepository('PublicacionesBundle:Publicacion')
                 ->findPortada();
         
-        $llamados = $em->getRepository('PublicacionesBundle:Publicacion')
-                ->getPublicacionesPorTipoCategoriaAll(
-                Publicacion::STATUS_PUBLICADO, CategoriaPublicacion::TIPO_CATEGORIA_LLAMADOS
-        );
+        $pagina = $em->getRepository('PaginasBundle:Pagina')
+                ->findOneBy(array('pagina' => 'portada'));
 
         return array(
             'publicaciones' => $portadas,
-            'llamados' => $llamados
+            'pagina' => $pagina
         );
     }
 
@@ -127,7 +125,7 @@ class DefaultController extends Controller {
                 ->findCarrusel();
 
         $categorias = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')
-                ->getCategoriasConPublicaciones(20);
+                ->getCategoriasConPublicaciones(6);
 
         $publicaciones = $em->getRepository('PublicacionesBundle:Publicacion')
                 ->getUltimasPublicaciones(4);
@@ -430,7 +428,7 @@ class DefaultController extends Controller {
                         ->setBody($this->renderView('FrontendBundle:Default:contactoEmail.html.twig', array('datos' => $datos)), 'text/html');
                 $this->get('mailer')->send($message);
                 // Redirige - Esto es importante para prevenir que el usuario
-                // reenvíe el formulario si actualiza la página
+                // reenvÃ­e el formulario si actualiza la pÃ¡gina
                 $ok = true;
                 $error = false;
                 $mensaje = "Se ha enviado el mensaje";

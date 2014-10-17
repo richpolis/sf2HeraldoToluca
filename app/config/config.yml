@@ -137,10 +137,10 @@ liip_imagine:
                 thumbnail: { size: [616, 411], mode: outbound }
         imagen_302_126:
             filters:
-                thumbnail: { size: [302, 126], mode: outbound }
+                thumbnail: { size: [302, 150], mode: outbound }
         imagen_222_94:
             filters:
-                thumbnail: { size: [222, 94], mode: outbound }
+                thumbnail: { size: [222, 150], mode: outbound }
         imagen_246_76:
             filters:
                 thumbnail: { size: [246, 76], mode: outbound }

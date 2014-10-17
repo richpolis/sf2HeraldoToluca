@@ -2160,7 +2160,7 @@ footer .copy{
 }
 .pie-login{
 	background: #f8f8f8;
-	height: 120px;
+	max-height: 120px;
 	position: absolute;
 	bottom: 0px;
 	left: 0px;
