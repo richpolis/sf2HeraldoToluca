@@ -4,21 +4,21 @@
 
 {% set urlAbsolutaFoto = 'http://'
                              ~ app.request.server.get('SERVER_NAME')
-                             ~ asset('images/heraldologo.png') %}
+                             ~ asset('images/heraldo_logo_redes.png') %}
 {% block stylesheets %}
     
 	{% block redes_sociales %}
 		<meta property="og:url" content="{{url('homepage')}}" />
-		<meta property="og:title" content="Heraldo de Toluca" />
+		<meta property="og:title" content="H Grupo Editorial" />
 		<meta property="og:image" content="{{urlAbsolutaFoto}}" />
 		<meta property="og:type" content="article" />
 		<meta property="og:site_name" content="hgrupoeditorial.com" />
 		<!--meta property="fb:admins" content="USER_ID1,USER_ID2"/-->
 
 		<meta name="twitter:card" content="summary">
-		<meta name="twitter:site" content="@heraldodetoluca">
-		<meta name="twitter:title" content="Heraldo de Toluca">
-		<meta name="twitter:description" content="Descripcion de la publicacion">
+		<meta name="twitter:site" content="@HGrupoEditorial">
+		<meta name="twitter:title" content="H Grupo Editorial">
+		<meta name="twitter:description" content="H Grupo Editorial, Estado de Toluca, Toluca, Valle de México, Morelos, Querétaro">
 		<meta name="twitter:creator" content="@richpolis">
 		<meta name="twitter:image:src" content="{{urlAbsolutaFoto}}">
 		<meta name="twitter:domain" content="{{url('homepage')}}">
@@ -50,7 +50,7 @@
 </style>
 
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53d71da3524ae18f"></script>
-
+{% if app.environment == 'prod' %}
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -61,7 +61,7 @@
   ga('send', 'pageview');
 
 </script>
-
+{% endif %}
 {% endblock %}
 
 {% block background_body %}

@@ -5,19 +5,9 @@
     <link rel="stylesheet" href="{{asset('css/fancybox/jquery.fancybox.css')}}"/>
 {% endblock %}    
 
-{% if publicacion.imagen | length > 0 %}
-   {% set portada = 'publicaciones/' ~ publicacion.imagen %}
-{% elseif publicacion.galerias | length > 0 %}
-   {% set portada = 'galerias/' ~ publicacion.galerias[0].archivo %} 
-{% else %}   
-   {% set portada = 'images/heraldologo.png' %}
-{% endif %}    
-
-
-
 {% set urlAbsolutaFoto = 'http://'
                              ~ app.request.server.get('SERVER_NAME')
-                             ~ 'uploads/' ~ portada %}
+                             ~ asset('images/heraldo_logo_redes.png') %}
 
 {% block redes_sociales %}
 
@@ -25,20 +15,29 @@
     <meta property="og:title" content="{{ publicacion.titulo }}" />
     <meta property="og:description" content="{{ publicacion.descripcion | striptags | truncate(250,true,'...') | raw  }}" />
     {% if publicacion.imagen | length > 0 %}
-    <meta property="og:image" content="{{ publicacion.webPath | imagine_filter('imagen_120_90') }}" />
+        <meta property="og:image" content="{{ publicacion.webPath | imagine_filter('imagen_200_200') }}" />
     {% elseif publicacion.galerias | length > 0 %}
-    <meta property="og:image" content="{{ publicacion.galerias[0].webPath | imagine_filter('imagen_120_90') }}" />    
-    {% endif %}    
+        <meta property="og:image" content="{{ publicacion.galerias[0].webPath | imagine_filter('imagen_200_200') }}" /> 
+    {% else %}   
+        <meta property="og:image" content="{{ urlAbsolutaFoto }}" />
+    {% endif %}
+    
     <meta property="og:type" content="article" />
-    <meta property="og:site_name" content="heraldodetoluca.com.mx" />
+    <meta property="og:site_name" content="hgrupoeditorial.com" />
     <!--meta property="fb:admins" content="USER_ID1,USER_ID2"/-->
     
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@heraldodetoluca">
+    <meta name="twitter:site" content="@HGrupoEditorial">
     <meta name="twitter:title" content="{{ publicacion.titulo }}">
     <meta name="twitter:description" content="{{publicacion.descripcion | striptags | truncate(250,true,'...')}}">
     <meta name="twitter:creator" content="@richpolis">
-    <meta name="twitter:image:src" content="{{urlAbsolutaFoto}}">
+    {% if publicacion.imagen | length > 0 %}
+        <meta name="twitter:image:src" content="{{ publicacion.webPath | imagine_filter('imagen_200_200') }}" />
+    {% elseif publicacion.galerias | length > 0 %}
+        <meta name="twitter:image:src" content="{{ publicacion.galerias[0].webPath | imagine_filter('imagen_200_200') }}" /> 
+    {% else %}   
+        <meta name="twitter:image:src" content="{{ urlAbsolutaFoto }}" />
+    {% endif %}
     <meta name="twitter:domain" content="{{url('homepage')}}">
     <meta name="twitter:app:name:iphone" content="">
     <meta name="twitter:app:name:ipad" content="">

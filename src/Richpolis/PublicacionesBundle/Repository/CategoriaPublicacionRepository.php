@@ -176,12 +176,13 @@ class CategoriaPublicacionRepository extends EntityRepository
         $em=$this->getEntityManager();
         $fecha = new \DateTime();
         $query=$em->createQuery('
-               SELECT c,p 
+               SELECT c,p,g
                FROM PublicacionesBundle:CategoriaPublicacion c 
                JOIN c.publicaciones p 
+               JOIN p.galerias g 
                WHERE p.position BETWEEN :inicial AND :final AND p.status=:status 
                AND p.fechaPublicacion <=:actual 
-               ORDER BY p.position ASC
+               ORDER BY p.position ASC, g.position ASC
         ')->setParameters(array(
             'inicial'=>1,
             'final'=>$maxPublicaciones,

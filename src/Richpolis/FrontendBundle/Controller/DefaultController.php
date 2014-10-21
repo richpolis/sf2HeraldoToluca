@@ -428,7 +428,7 @@ class DefaultController extends Controller {
                         ->setBody($this->renderView('FrontendBundle:Default:contactoEmail.html.twig', array('datos' => $datos)), 'text/html');
                 $this->get('mailer')->send($message);
                 // Redirige - Esto es importante para prevenir que el usuario
-                // reenvÃ­e el formulario si actualiza la pÃ¡gina
+                // reenvÃƒÂ­e el formulario si actualiza la pÃƒÂ¡gina
                 $ok = true;
                 $error = false;
                 $mensaje = "Se ha enviado el mensaje";
