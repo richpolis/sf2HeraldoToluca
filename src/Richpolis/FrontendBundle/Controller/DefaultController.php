@@ -125,7 +125,7 @@ class DefaultController extends Controller {
                 ->findCarrusel();
 
         $categorias = $em->getRepository('PublicacionesBundle:CategoriaPublicacion')
-                ->getCategoriasConPublicaciones(6);
+                ->getCategoriasConPublicaciones(20);
 
         $publicaciones = $em->getRepository('PublicacionesBundle:Publicacion')
                 ->getUltimasPublicaciones(4);
